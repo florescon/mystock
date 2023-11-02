@@ -25,20 +25,6 @@ class LanguagesSeeder extends Seeder
                 'is_default' => false,
             ],
             [
-                'id'         => 2,
-                'name'       => 'Arabic',
-                'code'       => 'ar',
-                'status'     => 1,
-                'is_default' => false,
-            ],
-            [
-                'id'         => 3,
-                'name'       => 'French',
-                'code'       => 'fr',
-                'status'     => 1,
-                'is_default' => false,
-            ],
-            [
                 'id'         => 4,
                 'name'       => 'Spanish',
                 'code'       => 'es',

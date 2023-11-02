@@ -25,9 +25,13 @@ class CategoriesImport implements ToModel, WithHeadingRow, SkipsEmptyRows
      */
     public function model(array $row)
     {
-        return new Category([
-            'code' => $row['code'] ?? Str::random(5),
-            'name' => $row['name'],
-        ]);
+        $cat = new Category();
+
+        if(isset($row['name'])){
+            return $cat->firstOrCreate([
+                'code' => $row['code'] ?? Str::random(5)],
+                ['name' => $row['name'],
+            ]);
+        }
     }
 }

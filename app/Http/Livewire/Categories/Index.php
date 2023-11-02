@@ -15,6 +15,7 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use Storage;
+use Illuminate\Validation\Rules\File;
 
 class Index extends Component
 {
@@ -150,12 +151,16 @@ class Index extends Component
         abort_if(Gate::denies('category_access'), 403);
 
         $this->validate([
-            'file' => 'required|mimes:xlsx,xls,csv,txt',
+            'file' => [
+                'required',
+                File::types(['xlsx', 'xls'])
+                    ->max(1024),
+            ],
         ]);
 
-        $file = $this->file('file');
+        // $file = $this->file('file');
 
-        Excel::import(new CategoriesImport(), $file);
+        Excel::import(new CategoriesImport(), $this->file);
 
         $this->alert('success', __('Categories imported successfully.'));
 

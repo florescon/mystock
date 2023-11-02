@@ -1,0 +1,910 @@
+138.128.160.26
+=xxA#U1S)4R~
+7rgiqkmzwwwkizpzfx
+q8ND7M##?00t
+$2y$10$YOD2m.Yz794YSlu7LsbLTOMeot8dOsnmYjj4h2Tfa3WvWH47Dv1WK
+
+Domain: cctec.mx
+| Liga de acceso: 66.206.17.210:2082
+| UserName: cctec
+| PassWord: pohux1gOklFlcroVaCIH
+
+
+90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad
+
+zurymx858987
+,!.a2.9CXYeXG*2#-D
+!FxqsK0}Uu6@
+
+ssh $N&eytPuAhA*
+
+debsublime.com
+
+keyconstructor.com
+
+//mail
+marketcontact
+K][(Tvpfb.U^
+
+emailrecepit
+ZM6Z@Dr%.{wi
+
+97c8cfd6d5795862ec2f9db5e167c5a1c6671896
+jazte23@hotmail.com
+
+
+000webhost.com
+Opensourceone001
+iD*SHotJ#UQNGZiOgygR
+
+https://www.fastcomet.com/#hostingPlansPos
+HOSTADVICEHOT15 code
+
+Para laravel
+CRM
+HRMS
+
+c2eb4ef9e9d0b9e51d41ad40c1607f89def1dbb4fb9f5153
+
+GRANT ALL ON db_xyz.* TO 'root'@'165.227.110.195' IDENTIFIED BY 'berdeup01';
+GRANT ALL ON db_xyz.* TO 'root'@'165.227gh.110.195' IDENTIFIED BY 'berdeup01';
+
+157.245.112.40
+
+scp your_username@remotehost.edu:foobar.txt /local/dir //download from vps
+
+cp -avr ./ ../../
+
+nano /etc/apache2/sites-available/
+
+sudo chown -R www-data:www-data /var/www/laravel/public/aquaticazul.com
+sudo chmod -R 775 /var/www/public
+sudo service apache2 restart
+
+mysql -u root -p
+mysqldump -uroot -p DATABASE > backup.sql //export
+mysql -u root -p DATABASE < backup.sql //import
+
+clave admin
+$2y$10$GVdDMcysKNNIp2/whpEAIuabj5z0fG.BvgpWEueh21eRpvKmWXkd.
+
+//eliminar sql
+DELETE FROM `payments` WHERE box IS NULL;
+
+MAIL_DRIVER=smtp
+SENDGRID_API_KEY=SG.N8bFwNhGQliHbU1Pw81wrw.rLxFnQdMwCzmzXVm3pcyXTRi1FI865$
+MAIL_HOST=smtp.sendgrid.net
+MAIL_PORT=587
+MAIL_USERNAME=florescontrer
+MAIL_PASSWORD=@@@BerdeBerdeup01
+MAIL_ENCRYPTION=null
+MAIL_FROM_NAME="Aquática Azul"
+MAIL_FROM_ADDRESS="acuaticaazul@gmail.com"
+
+ferraracode.com
+
+rm -rf .git
+git init
+git add .
+git commit -m "first commit"
+
+composer install
+npm install
+npm run dev
+
+zip -r directorio-comprimido.zip /home/usuario
+unzip archivo.zip
+
+MAIL_DRIVER=smtp
+SENDGRID_API_KEY=SG.N8bFwNhGQliHbU1Pw81wrw.rLxFnQdMwCzmzXVm3pcyXTRi1FI865$
+MAIL_HOST=smtp.sendgrid.net
+MAIL_PORT=587
+MAIL_USERNAME=florescontrer
+MAIL_PASSWORD=@@@BerdeBerdeup01
+MAIL_ENCRYPTION=null
+MAIL_FROM_NAME="Aquática Azul"
+MAIL_FROM_ADDRESS="acuaticaazul@gmail.com"
+
+sudo chown -R www-data: storage 
+sudo chmod -R 755 storage 
+sudo chmod -R 755 bootstrap/cache
+sudo chmod -R 755 bootstrap/cache
+
+#watch npm
+npm run watch-poll
+
+-Mi amor, !mi amor!
+-Siento que me voy apagando, !que bueno eres!, A pesar de todo, has venido a verme.
+-Como te iba a fallar? Me acorde que hoy es el dia de muertos y vine
+por si acaso
+-Tu me recordaste que hoy... es día de los difuntos?
+-Es una broma mi vida, mi cuchi cuchi, fue una broma... fue nadamas para
+levantarte el animo para que no te me caigas.
+
+Icaro documental
+
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/snjose/public
+        ServerName sanjoseuniformes.com
+        ServerAlias www.sanjoseuniformes.com
+
+        <Directory /var/www/snjose/public/>
+            Options Indexes FollowSymLinks
+            AllowOverride All
+            Require all granted
+            RewriteEngine On
+            RewriteBase /var/www/snjose/public
+        </Directory>
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        <IfModule mod_dir.c>
+            DirectoryIndex index.php index.pl index.cgi index.html index.$
+        </IfModule>
+
+RewriteCond %{SERVER_NAME} =www.sanjoseuniformes.com [OR]
+RewriteCond %{SERVER_NAME} =sanjoseuniformes.com
+RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+</VirtualHost>
+
+DELETE FROM `documents` WHERE id BETWEEN 1 AND 10;
+
+UPDATE colors SET color = CONCAT('#', color ) WHERE id  BETWEEN 111 AND 1000;
+
+UPDATE materials SET stock = '0' WHERE id  BETWEEN 1 AND 400;
+
+UPDATE materials SET stock = '0' WHERE id = 1;
+
+
+UPDATE users SET name = "Luis Antonio G. M." where id = 1;
+
+UPDATE users SET email_verified_at = '2021-12-11 09:11:02' where id = 212;
+
+UPDATE products SET stock_store = '0' WHERE id BETWEEN 1 AND 9000;
+UPDATE products SET stock = '0' WHERE id BETWEEN 5717 AND 5727;
+
+UPDATE products SET price = '40' WHERE id = 4386;
+
+UPDATE product_order SET price = '23.2' WHERE id = 4386;
+UPDATE product_order SET price_without_tax = '20.0' WHERE id = 4386;
+
+????
+	UPDATE products SET deleted_at = NULL WHERE id = 4013;
+	paja0108748 
+????
+
+UPDATE products SET type = '0' WHERE id = 65;
+
+
+UPDATE product_order SET type = '6' WHERE order_id = '844';
+UPDATE orders SET type = '6' WHERE id = '844';
+
+UPDATE statuses SET name = 'P. Proveedor' WHERE id = 3;
+UPDATE statuses SET description = 'Pedido Proveedor' WHERE id = 3;
+
+
+Laravel Snappy
+https://laravelcode.com/post/html-to-pdf-in-laravel-using-barryvdh-laravel-snappy
+https://github.com/barryvdh/laravel-snappy
+sudo apt-get install -y libssl1.0-dev
+
+869426040627504
+
+FOCR940603HJCLNL01
+FOCR940613HJCLNL01
+
+export PATH="~/.config/composer/vendor/bin:$PATH"
+
+Ctrl + Shif + p   y escribo INDEN //Ordenar codigo
+
+Repos:
+
+https://github.com/monicahq/monica
+https://github.com/laravelio/laravel.io
+
+64.225.123.195
+157.245.112.40
+
+find . -name '*.png' -exec cp -prv '{}' '/media/debian/9008f08b-cd19-4739-8226-c0f3e1390d03/copypng/' ';'
+
+http://dealer.elantsys.com/
+
+bindigital.casa
+
+732
+
+danrodkarl@gmail.com
+5579070051693672
+10/20
+
+wish 
+aliexpress
+paypal
+neteller
+Firefox Focus
+https://dmarelectronics.com/
+dportennis
+privalia
+
+autosanantonio.site
+
+sin cvv
+https://www.fishpond.com/
+https://www.zappos.com/
+
+
+//Publicar en mercadolibre soft restaurante relacionado con mi software
+//hacer video en de digitalocean subiendo proyecto laravel
+
+API
+H6JujW9FZR1O2HzI5wm3DeVQZrYIUlWkRa97COkn
+
+https://www.dell.com/support/home/en-us/drivers/osiso/download?OSISOToken=UDRWMWxranNHdFY0YlZDZXluWEFSc3krOFB2aEgvemxiMHA3enYzM1NheGNMTVFvdDRJUjU2ZiszVml0YllCWjBHOElmWnRKZ1RiNWhkY00zYmZvUTJ3ZUJlS1cwc2RoOWtONnNabExkRVZaTG14SXBXRTFVTVVDTFc4dDB4TEU1&DriverId=G13K9_OS_NOTFOUND_WFES7,W764,7W0M0_WT64A,9N7FH_WT64A,9R3N1_WT64A,VJMDP_WT64A,W05X5_WT64A&OSCode=win
+
+composer update failed: "/usr/local/bin/composer" could not be written.
+
+	sudo rm /usr/local/bin/composer
+
+	cd ~/.cache/composer
+	chmod 755 composer-temp.phar
+	sudo mv composer-temp.phar /usr/local/bin/composer
+
+
+sudo ./woeusb --target-filesystem NTFS --device ~/Downloads/Windows8.1.iso /dev/sdb
+
+https://www.dell.com/support/home/es-mx/drivers/osiso/
+
+ rm -rf .git
+ git init
+ git add .
+ git commit -m"first message"
+ git remote add origin "LINK"
+ git push -u origin master
+
+
+GROUP BY clause and contains nonaggregated column 'support_desk.mod_users_groups.group_id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+
+SOLUTION:
+
+	I had to change config/database.php from true to false:
+	'strict' => false,
+
+@Berdeup01B
+BerdeBerdeup01901 B.A.
+BerdeBerdeup0190
+
+143.110.152.149 SJU
+64.225.123.195 San Jose U
+
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sanjose
+DB_USERNAME=root
+DB_PASSWORD=@Berdeup01B
+
+
+—– BEGIN LICENSE —–
+Die Socialisten GmbH
+10 User License
+EA7E-800613
+51311422 E45F49ED 3F0ADE0C E5B8A508
+2F4D9B65 64E1E244 EDA11F0E F9D06110
+B7B2E826 E6FDAA72 2C653693 5D80582F
+09DCFFB5 113A940C 5045C0CD 5F8332F8
+34356CC6 D96F6FDB 4DEC20EA 0A24D83A
+2C82C329 E3290B29 A16109A7 EC198EB9
+F28EBB17 9C07403F D44BA75A C23C6874
+EBF11238 5546C3DD 737DC616 445C2941
+—— END LICENSE ——
+
+l@]kG-giyR5k ssh
+
+Huawei
+SR420211204150950QTK
+
+	pago					Delivery
+	advanced(adelanto)		delivered(entregado)
+	paid(pagado)			ready_for_delivery(listo para entrega)
+	pending(pendiente)		pending(pendiente)
+
+MS9520 ESCANER
+
+Misael Gonzalez
+
+{!! number_format((float)($item->amount), 5) !!}
+
+@Berdeup01B
+
+UserEventListener
+
+
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get update
+sudo apt install php8.0
+sudo apt autoclean
+sudo apt install php8.0-mysql
+sudo apt install php8.0-common php8.0-cli php8.0-cgi
+sudo apt install php8.0-mbstring php8.0-intl php8.0-pspell
+sudo apt install php8.0-curl
+sudo apt install php8.0-zip
+
+sudo update-alternatives --set php /usr/bin/php8.0
+sudo systemctl restart apache2
+
+apt install php8.0 libapache2-mod-php8.0 
+systemctl restart apache2
+apt install php8.0-fpm libapache2-mod-fcgid
+$ sudo a2enmod proxy_fcgi setenvif
+$ sudo a2enconf php8.0-fpm
+sudo systemctl restart apache2
+
+https://devanswers.co/manually-upgrade-phpmyadmin/
+
+composer depends --tree doctrine/data-fixtures
+
+//- dompdf/dompdf[v1.0.0, ..., v1.1.1] require ext-dom * -> it is missing from your system. Install or enable PHP's dom extension.
+sudo apt-get update
+sudo apt install php-xml
+sudo apt-get install php-mbstring
+
+nftsdoit.com
+nftshappy.com
+nftstry.com
+nftsmx.com
+
+DELETE FROM `loggeds` WHERE id=29;
+
+DELETE FROM `assignment_histories` WHERE ticket_id=430;
+UPDATE assignments SET output = '0' WHERE ticket_id = 430;
+
+
+DELETE FROM `orders` WHERE from_store=1;
+DELETE FROM `finances`;
+DELETE FROM `cashes`;
+
+Great men are like eagles
+
+https://www.freecodecamp.org/
+https://roadmap.sh/
+https://www.edx.org/cs50
+
+
+Musica gratis
+https://home.trebel.io/es/inicio
+
+top companies
+https://lapieza.io/
+
+c	p -r storage/images /storage
+
+--redondear
+$x = round($x / 5) * 5;
+
+cancelar si ya se recibieron los tickets de ordenes de servicio
+ver materia prima asociada a colores
+	apartado de tickets
+apartado de tickets pendientes
+	precio actualizado, no actualiza en material/records_history
+	separar ordenes/ventas de la tienda con respecto a los de produccion
+	actualizar carrito y carrito de tienda
+eliminar tickets cuando se elimina tambien la orden
+crear modal de alerta
+no elimina el ingreso de los ordenes eliminadas
+	redireccionar link de la orden asociada en finances
+	exportar tambien cantidades negativas http://127.0.0.1:8033/admin/product/list?perPage=15
+Cantidad total y pago realizado en los pedidos de la tienda
+Agregar stock al momento de crear materia prima
+	Agregar codigo del color en los select2
+
+ver registros de cambio de stock
+ver registros de agregar o eliminar servicio a orden despues de creada
+ver registros de confeccion recibidos
+ver adelanto al ticket de venta/orden
+
+crear relacion de cuanto se esta recibiendo de confeccion
+
+al finalizar orden, preguntar si se envia a producto terminado o se entrega al cliente
+mandar los productos de las ordenes
+
+Asociar usuario al ingreso o egreso
+
+Crear apartado donde se vea el historial completo consumido por materia prima
+Ajustar decimales en records_history del stock total
+
+Ingresar campo de fecha al momento de ingresar stock a materia prima
+
+Crear apartado donde están las prendas pendientes de los pedidos/órdenes/ventas
+Agregar especificaciones a documentos
+
+cdnjs.clouds
+gravatar
+
+su licencia no es original
+https://www.youtube.com/watch?v=LBFcKu1_oR8&ab_channel=SERVITECURIBE
+cd "\Program Files\Common Files\microsoft shared\ClickToRun"
+OfficeC2rclient.exe /update user updatetoversion=16.0.13801.20266
+
+UPDATE assignments SET output = '0' WHERE id = 121;
+UPDATE orders SET from_store = '1' WHERE audi_id = 3;
+
+UPDATE sessions SET from audi_id = 202 where id = 3;
+
+UPDATE sessions SET audi_id = 202 WHERE id  BETWEEN 1 AND 1000;
+
+UPDATE sessions SET type = 'stock' WHERE id  BETWEEN 1 AND 1000;
+
+
+UPDATE sessions SET audi_id = 3 WHERE id BETWEEN 1 AND 1000;
+
+
+UPDATE sessions SET inventory_id = null WHERE id  BETWEEN 1 AND 400;
+
+UPDATE assignments SET quantity = 16 WHERE id = 274;
+
+UPDATE assignments SET output = 0 WHERE id = 576;
+
+
+UPDATE product_inventories SET inventoriable_type = 'App\Models\Product' where id BETWEEN 1 AND 500;
+
+UPDATE product_order SET product_id = 4346 WHERE id = 736;
+
+UPDATE product_order SET product_id = 4818 WHERE id = 794;
+
+UPDATE product_order SET product_id = 4818 WHERE id = 1122;
+
+UPDATE orders SET departament_id = 38 WHERE id = 298;
+
+
+UPDATE assignments SET output = '0' WHERE ticket_id = 943;
+UPDATE assignments SET received = '0' WHERE ticket_id = 943;
+DELETE FROM `assignment_histories` WHERE ticket_id=943;
+
+
+
+UPDATE orders SET type = 3 WHERE id = 75;
+UPDATE product_order SET type = 1 WHERE id = 261;
+UPDATE product_order SET type = 1 WHERE id = 262;
+
+DELETE FROM sessions;
+
+3342553149
+
+eliminar archivos en backup
+//					en recover
+
+buscar revertir en winwdows
+
+bicromato
+etiqueta
+x6 para serigrafia
+
+Elastico - pantalon
+Tapa costura - sudadera
+Etiqueta control de calidad - Sudadera
+
+Graphics Conversion ( DIS TO UMA )
+
+Agregar anticipo al ticket
+
+Livewire Spotlight Demo: Search with Keyboard Shortcut
+https://www.youtube.com/watch?v=ELvpenyp-ak
+
+
+Eloquent tips
+https://faun.pub/laravel-eloquent-tips-and-tricks-make-you-more-productivity-2-636dc708e10f
+
+Sweet alert
+https://www.codecheef.org/article/laravel-6-ajax-crud-example-with-sweet-alert
+
+
+Datos De Tu Cuenta
+
+Ingresar a Tu Cuenta CPANEL
+http://www.aldeahost.mx/go/knowledgebase.php?action=displayarticle&id=79
+
+Control Panel URL: http://174.138.183.11:2083/
+Cuando Tu Dominio Esta Listo 24 a 72 Horas Despues De Adquirido http://www.cctecsoft.mx:2083/
+
+Username: cctecsoft
+Password: aC3F@{[Rc.p1
+
+subir tu pagina Desde CPANEL
+http://www.aldeahost.mx/go/knowledgebase.php?action=displayarticle&id=80
+
+ 
+
+Information FTP
+
+IP: 174.138.183.11
+
+Username: cctecsoft
+Password: aC3F@{[Rc.p1
+
+Plan Contratado
+
+Hosting Pack: Plan INICIO 15 Gb + Dominio .COM O .NET Primer año
+Dominio: cctecsoft.mx
+
+sudo modprobe -r psmouse && sudo modprobe psmouse proto=imps
+
+Jula2811
+
+
+oklinea.com
+
+https://laptops.mercadolibre.com.mx/laptops-accesorios/laptop_PriceRange_300-3000_PublishedToday_YES_NoIndex_True#applied_filter_id%3Dcategory%26applied_filter_name%3DCategor%C3%ADas%26applied_filter_order%3D3%26applied_value_id%3DMLM1652%26applied_value_name%3DLaptops%26applied_value_order%3D2%26applied_value_results%3D20%26is_custom%3Dfalse
+https://listado.mercadolibre.com.mx/alienware_PriceRange_300-3000_PublishedToday_YES_NoIndex_True
+https://listado.mercadolibre.com.mx/thinkpad_PublishedToday_YES_NoIndex_True
+
+@BerdeBerdeup0190 M
+
+
+UPDATE product_histories SET stock = ABS(stock) WHERE stock < 0;
+
+"Salida de suborden"
+
+	--Folios exclusivos para ventas, órdenes (descartado)
+--Formato de órdenes de servicio
+--Agregar formato de pedidos
+	--Suma total precio en el carrito
+--Opción para especificar o seleccionar bordado
+--Tener opción de marcar productos entregados
+	--Tener precio neto y total en venta
+--Tener opción en caso de descuentos por cantidades o especificarlos
+	--Ingresos y egresos se suman por página
+--Al eliminar venta u orden no se resta el ingreso
+
+	--Quitar redondeo de precios
+--Ajustar precios netos al momento de hacer venta
+	--Agregar fecha en suborden y al editarla
+	--Agregar totales por color en edicion del producto
+
+
+zury.mx:2082
+usuario: zurymx858987
+contraseña: !FxqsK0}Uu6@
+
+SET FOREIGN_KEY_CHECKS=0; -- to disable them
+DELETE FROM `sell` WHERE operation_type_id=2;
+
+DELETE FROM `sell` WHERE operation_type_id=2 and p_id=1 and d_id=1 and is_draft=0;
+UPDATE operation SET sell_id = null WHERE operation_type_id=2 and is_draft=0;
+
+SET FOREIGN_KEY_CHECKS=1; -- to re-enable them
+
+
+UPDATE sell SET operation_type_id = null WHERE operation_type_id = 2;
+
+
+https://drive.google.com/drive/folders/1ls3g4Hv--_ebjU0tIbArG_raUOGROJRw
+
+
+34 y 40 Liverpool (Lavado de Jaulas)
+
+
+Nombre cliente 
+Empresa
+Telefono
+RFC
+
+Colocar comment and shipment abajo
+En hoja carta pagos parciles y pago restante
+
+Formato de servicio imagenes
+
+
+agregar numero de semana a prod., ordenes, kardex
+Concepto de entradas y salidas
+Agregar stock minimo y maximo
+
+
+Agregar costos de productos
+
+Agregar listado de proveedores
+Asociar a la materia prima
+Hacer distinción de entrada y salida materia prima
+
+
+UPDATE statuses SET description = 'Entregado a Cliente' WHERE id = 2;
+
+UPDATE statuses SET name = 'Revisión final' WHERE id = 9;
+
+Final de Orden -> Producto Terminado
+"Entregado a Cliente"
+"Captura de orden"
+
+Agregar proveedor a materia prima
+Incrementar -> Entrada
+Sustraer -> Salida
+
+Filtro disponible en tickets
+Filtro de usuarios en tickets
+
+UPDATE orders SET to_customer = '1' WHERE (type = 1) AND (id BETWEEN 1 AND 500);
+
+Almacen y materia prima
+agregar status nuevamente
+
+
+--agregar codigos automaticos a todos los productos con un boton
+--agregar etiquetas a la materia prima
+--apartado de cotizaciones
+--descuentos por porcentaje y cantidad
+--cuentas por cobrar y pagar
+--importar productos
+
+
+Ver en el programa
+---Las compras a proveedores
+---Cuentas por cobrar y pagar
+---Movimientos al almacen
+---Categorias de materia prima
+---Habilidar a orden en columnas en ordenes y tickets
+---Numero de parte a codigo en materia prima
+---Tickets de avios
+---Cambio de nombre a cliente a la tabla de ordenes
+---Agreagar numero de prendas a la tabla de ordenes
+---Quitar hace dias a produccion en la tabla de ordenes
+---Cambiar proveedor en editar materia prima
+---Agregar conceptos en entradas y salidas en materia prima
+---Cambiar termino de pendiente en tickets-
+---Inhabilitar tickets cuando esta en producto terminado
+---Salto de linea en estado de producción
+---Agregar nombre corto a proveedor
+---Agregar materia prima inactiva
+---Agregar nueva etiqueta
+---Agregar departamento o cliente a las ordenes
+---Font size del numero de orden en la asignacion de tickets
+
+
+Nombre comercial a proveedor
+Ticket viajero a la primera asignacion de personal o sea corte
+
+c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show c-sidebar-minimized
+
+
+
+           foreach($this->inputformat as $color => $productos){
+
+                dd($productos);
+
+                $size = key($productos);
+                $quantity = $productos[$size];
+
+                $product = Product::where('parent_id', $this->product_id)->where('size_id', $size)->where('color_id', $color)->first()->withoutRelations();
+
+                $this->addToCart($product->id, 'products', $quantity);
+
+
+                // foreach($productos as $size => $quantity){
+
+                //     if($quantity != null)
+                //     {
+                //         $product = Product::where('parent_id', $this->product_id)->where('size_id', $size)->where('color_id', $color)->first()->withoutRelations();
+
+
+                //         // $this->addToCart($product->id, 'products', $quantity);
+                //     }
+                // }
+            }
+ 
+
+
+
+        $colors = array_keys($this->inputformat);
+
+          for($i = 0; $i < count($this->inputformat); $i++){
+                foreach($this->inputformat[$colors[$i]] as $size => $quantity){
+
+                    $product = Product::where('parent_id', $this->product_id)->where('size_id', $size)->where('color_id', $colors[$i])->first()->withoutRelations();
+
+                    $this->addToCart($product->id, 'products', $quantity);
+
+                }
+          }
+
+
+DIEKROLO_YT_WAKANDA_FOREVER
+
+git push -f origin main
+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
+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
+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
+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
+
+echo "<pre>";
+print_r($orderGroup);
+echo "</pre>";
+
+php artisan db:seed --class=PermissionRoleSeederfeb26
+
+LY4PCML45N0C22624
+
+1.48 version bios t420
+v1.33
+ultrabay battery lenovo
+V8.0 EXP GDC
+
+http://www.cctecsoft.mx:2083/
+1597x1135
+
+
+1024*1.25=1280
+768*1.25=960
+
+Ordenar el ticket de usuarios por colores y tallas
+
+
+cctec.mx:2082
+Usuario: cctecmx
+Pass: a!kBQCw!6kzmm
+
+886-1
+C.P. 47470
+
+71974ec97327af313f750e8f5e300d8b
+71974ec97327af313f750e8f5e300d8bb
+
+
+zury.mx:2082
+usuario: zurymx858987
+contraseña: !FxqsK0}Uu6@
+
+
+Agregar usuario a estatus del listado de órdenes
+
+
+206 218 extras
+
+Producción y Sublimación -- Quitar
+Clonar productos
+
+break-before: page;
+
+UPDATE statuses SET deleted_at = '2023-03-29 14:27:26' WHERE id = 5;
+
+unpkg
+
+
+Imprimir para factura
+
+Agregar comentario info del cliente
+
+	Crear campo si se factura o no en crear pago
+
+	Agregar factura
+	Agregar fecha de entrega
+
+
+DELETE FROM `service_orders` WHERE id=5;
+DELETE FROM `service_orders` WHERE id=6;
+
+DELETE FROM `service_orders` WHERE id=18;
+
+
+DELETE FROM `product_order` WHERE id=4828;
+
+
+maslsd.com
+acidos.online
+
+UPDATE orders SET from_store = null WHERE id = 701;
+UPDATE orders SET type = '1' WHERE id = 701;
+UPDATE orders SET branch_id = '0' WHERE id = 701;
+UPDATE orders SET cash_id = null WHERE id = 701;
+
+UPDATE product_order SET type = '1' WHERE order_id = '701';
+
+
+Los pedidos se entregan a partir un promedio 30 días.
+En servicios de bordado, vinil textil y sublimación promedio 15 días. 
+
+Pedidos requieren un anticipo del 50% <-Esto en cotizaciones
+
+column line break column html
+&&
+https://stackoverflow.com/questions/72371363/automatic-page-break-using-laravel-mpdf
+
+https://tendental.com/case-studies/implants-patricia-haji-savva/
+
+INSERT INTO `statuses` (`id`, `name`, `description`, `level`, `percentage`, `to_add_users`, `deleted_at`, `created_at`, `updated_at`, `color`, `batch`, `automatic`, `not_restricted`, `process`) VALUES
+(10, 'Inspeccion de calidad', 'Inspeccion de calidad', 9, 88, 1, NULL, '2023-05-25 22:43:30', '2023-05-25 22:43:30', NULL, 0, 0, 0, 0),
+(11, 'Conformado de pedidos', 'Conformado de pedidos', 4, 85, 0, NULL, '2023-05-25 22:43:30', '2023-05-25 22:43:30', NULL, 0, 0, 0, 1),
+(12, 'Embarque', 'Embarque', 21, 99, 0, NULL, '2023-05-24 20:16:28', '2023-05-24 19:16:17', NULL, 0, 0, 0, 1);
+
+
+foreach($model->batches as $batch){
+	dd($batch->toJson(JSON_PRETTY_PRINT));
+}
+
+sanjoseuni.com
+snjose.com
+sjoseu.com
+unijose.com
+sanjo.casa
+uniformesj.com
+uniformesjose.com
+
+sjupro.com
+
+ALTER TABLE batches AUTO_INCREMENT=10;
+
+User::query()
+    ->addSelect([
+        'to_pay' => App\Payment::selectRaw('users.amount_to_be_paid - SUM(amount)')
+            ->whereColumn('user_id', 'users.id')
+        ])
+    ->get();
+
+En una misma consulta pueda verificar qué está en pedido a proveedor, proceso de mi lote, conformado de pedidos,
+personalización, embarque y entregado.
+
+Ticket materia prima, en explosion de materiales
+Vales de salida para materia prima
+Agregar etiquetas a los pedidos
+Agregar observaciones al pedido, aparte del comentario ya existente.
+Mostrar tipo tabla vivo cuanto traigo en proceso al seleccionar el producto general
+
+
+Hasmany
+https://8bityard.com/hasmany-relation-with-where-condition-in-laravel/
+
+BelongsToMany
+https://www.laravelia.com/post/laravel-9-many-to-many-belongstomany-eloquent-relationship-tutorial
+
+-El corte da inicio a mi Lote limitado como máximo las cantidades de mi pedido. Necesario la asignación del personal.
+-Confección es la segunda estación que es dependiente del inicio del Lote en cuanto a que necesito las cantidades de la anterior 
+estación para seguir mi proceso actual. Cuando reciba cantidades de la anterior estación, es necesario que las cantidades se pasen 
+en automático a la siguiente estación primera del apartado Proceso. Necesaria la asignacion del personal.
+
+-Pedido a proveedor es mi estación en la cual relaciono cantidades externas para posteriormente agregarlas a mi conformado de pedidos.
+Estas cantidades no se lotean.
+
+-Conformado de pedidos inicia mi apartado de Proceso. El cual si proviene del Lote se agregan cantidades automáticamente. 
+Se pueden relacionar cantidades provenientes de mi producto terminado.
+-Personalización es mi segunda estación de Proceso, el cual puedo definir n cantidades para cada cantidad asociada a la cantidad 
+del producto inicial del pedido y que asocio personal.
+-Embarque es mi última estación de Proceso en la cual se da como última verificación que marque lo asignado sin entregar y lo entregado.
+
+
+https://apexcharts.com/javascript-chart-demos/bubble-charts/3d-bubble/
+
+
+https://github.com/dcblogdev/laravel-admintw :
+sudo apt install php8.1-sqlite3
+
+
+delete all batches
+delete observation
+delete fileds of migration table
+
+
+LaTeX Templates
+http://www.latextemplates.com/cat/curricula-vitae
+
+
+Incorrect password
+@@@BerdeBerdeup01
+@@@BerdeBerdeup
+@@@berdeup01
+
+
+97c8cfd6d5795862ec2f9db5e167c5a1c6671896
+
+90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad ---admin----
+
+
+97c8cfd6d5795862ec2f9db5e167c5a1c6671896
+
+UPDATE orders SET
+    folio=quotation
+WHERE type = 6;
+
+
+https://baudeo.com/
+
+https://listado.mercadolibre.com.mx/laptop_OrderId_PRICE_PublishedToday_YES_NoIndex_True
+
+%temp%
