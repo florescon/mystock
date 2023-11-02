@@ -87,7 +87,7 @@
                         <x-button type="button" warning x-on:click="$wire.category_id = {{ $product->category->id }}">
                             {{ $product->category->name }}
                             <small>
-                                ({{ $product->ProductsByCategory($product->category->id) }})
+                                {{-- ({{ $product->ProductsByCategory($product->category->id) }}) --}}
                             </small>
                         </x-button>
                     </x-table.td>

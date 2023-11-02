@@ -110,7 +110,7 @@
 
 <body>
     <div>
-        <htmlpageheader name="page-header">
+        <div name="page-header" style="margin-bottom: 10px;">
             <div class="centered">
                 <h2 style="margin-bottom: 5px;font-size: 16px;">{{ settings()->company_name }}</h2>
                 <p>
@@ -121,7 +121,7 @@
                     {{ __('Name') }}: {{ $sale->customer->name }}
                 </p>
             </div>
-        </htmlpageheader>
+        </div>
         <div id="table">
             <table>
                 <thead>

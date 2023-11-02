@@ -224,8 +224,8 @@
                             <tr class="antialiased">
                                 <td class="py-1 px-2">{{ $product->name }}</td>
                                 <td class="py-1 px-2">{{ $product->code }}</td>
-                                <td class="py-1 px-2">{{ $product->qtyItem }}</td>
-                                <td class="py-1 px-2">{{ format_currency($product->totalSalesAmount) }}</td>
+                                <td class="py-1 px-2">{{ $product->qtyItem ?? null }}-</td>
+                                <td class="py-1 px-2">{{ format_currency($product->totalSalesAmount ?? 0) }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -254,19 +254,19 @@
                 let tes = data;
                 let options = {
                     series: [{
-                            name: "Sales Total Amount",
+                            name: "No. de ventas",
                             data: tes.total.sales
                         },
                         {
-                            name: "Sales Due Amount",
+                            name: "Total de ventas",
                             data: tes.due_amount.sales
                         },
                         {
-                            name: "Purchase Total Amount",
+                            name: "No. de compras",
                             data: tes.total.purchase
                         },
                         {
-                            name: "Purchase Due Amount",
+                            name: "Total de compras",
                             data: tes.due_amount.purchase
                         }
                     ],

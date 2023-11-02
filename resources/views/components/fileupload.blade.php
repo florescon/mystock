@@ -116,7 +116,7 @@ x-cloak>
                     @endif
 
                     @if ($mode === 'attachment')
-                        <span class="ml-2 text-gray-600">{{ is_array($file) ? 'Browse files' : 'Browse file' }} | <span class="text-sm">PNG or JPEG</span></span>
+                        <span class="ml-2 text-gray-600">{{ is_array($file) ? __('Browse files') : __('Browse file') }} | <span class="text-sm">PNG o JPEG</span></span>
                     @endif
                 @else
                     {{ $slot }}

@@ -219,11 +219,18 @@ class ProductCart extends Component
     {
         if ($this->cart_instance === 'sale' || $this->cart_instance === 'purchase_return') {
             if ($this->check_quantity[$product_id] < $this->quantity[$product_id]) {
-                $this->alert('error', 'Quantity is greater than in stock!');
+                $this->alert('error', __('Quantity is greater than in stock!'));
 
                 return;
             }
         }
+
+        if ($this->quantity[$product_id] < 1) {
+            $this->alert('error', __('Quantity must not be zero!'));
+
+            return;
+        }
+
 
         Cart::instance($this->cart_instance)->update($row_id, $this->quantity[$product_id]);
 

@@ -78,7 +78,6 @@
             <x-table.th>
                 {{ __('Actions') }}
             </x-table.th>
-            <x-table.th />
         </x-slot>
 
         <x-table.tbody>

@@ -22,14 +22,14 @@
                     @if (!empty($products))
                         @forelse ($products as $index => $product)
                             <x-table.tr wire:key="{{ $product['id'] }}">
-                                <x-table.td>{{ $product['name'] }}</x-table.td>
+                                <x-table.td>{{ $index +1 .'.- '.$product['name'] }}</x-table.td>
                                 <x-table.td>{{ $product['price'] }}</x-table.td>
                                 <x-table.td style="width: 200px;">
                                     <x-input wire:model="products.{{ $index }}.quantity" type="text"
                                         min="0" max="100" required />
                                 </x-table.td>
                                 <x-table.td>
-                                    <select name="barcodeSize" id="barcodeSize"
+                                    <select name="barcodeSize" id="barcodeSize.{{ $index }}"
                                         wire:model="products.{{ $index }}.barcodeSize">
                                         <option value="1">{{ __('Small') }}</option>
                                         <option value="2">{{ __('Medium') }}</option>

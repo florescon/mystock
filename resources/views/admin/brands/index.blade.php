@@ -67,10 +67,6 @@
                     </x-slot>
                 </x-dropdown>
 
-                <x-button primary type="button" onclick="Livewire.emit('createBrand')">
-                    {{ __('Create Brand') }}
-                </x-button>
-
                 @can('brand_create')
                     <x-button primary type="button" onclick="Livewire.emit('createModal')">
                         {{ __('Create Brand') }}

@@ -78,13 +78,13 @@
                         $badgeType = $sale->status->getBadgeType();
                     @endphp
 
-                    <x-badge :type="$badgeType">{{ $sale->status->getName() }}</x-badge>
+                    {{ $sale->status->getName() }}
                     <br>
                     {{ __('Payment Status') }}:
                     @php
                         $type = $sale->payment_status->getBadgeType();
                     @endphp
-                    <x-badge :type="$type">{{ $sale->payment_status->getName() }}</x-badge>
+                    {{ $sale->payment_status->getName() }}
                 </td>
             @elseif(isset($purchase))
                 <td style="padding:8px; border:1px solid #ddd; width:50%">

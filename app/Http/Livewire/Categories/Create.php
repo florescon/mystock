@@ -25,7 +25,7 @@ class Create extends Component
 
     /** @var array */
     protected $rules = [
-        'category.name' => 'required|min:3|max:255',
+        'category.name' => 'required|min:3|max:100',
     ];
 
     protected $messages = [
