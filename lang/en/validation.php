@@ -171,29 +171,6 @@ return [
     |
     */
 
-    'attributes' => [
-        'name' => 'nombre',
-        'phone' => 'teléfono',
-        'address' => 'dirección',
-        'city' => 'ciudad',
-        'description' => 'descripción',
-        'image' => 'imagen',
-        'reference' => 'referencia',
-        'note' => 'nota',
-        'status' => 'estado',
-        'code' => 'código',
-        'country' => 'país',
-        'tax_number' => 'número de impuesto',
-        'percentage' => 'porcentaje',
-        'date' => 'fecha',
-        'amount' => 'monto',
-        'document' => 'documento',
-        'type' => 'tipo',
-        'quantity' => 'cantidad',
-        'cost' => 'costo',
-        'price' => 'precio',
-        'unit' => 'unidad',
-        'qty' => 'cantidad'
-    ],
+    'attributes' => [],
 
 ];
