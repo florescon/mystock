@@ -145,11 +145,11 @@ class Index extends Component
         $this->resetSelected();
     }
 
-    public function delete(): void
+    public function delete(Brand $brand): void
     {
         abort_if(Gate::denies('brand_delete'), 403);
 
-        Brand::findOrFail($this->brand)->delete();
+        $brand->delete();
 
         $this->alert('success', __('Brand deleted successfully.'));
     }

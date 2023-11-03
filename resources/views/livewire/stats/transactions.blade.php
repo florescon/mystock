@@ -4,7 +4,7 @@
         <div class="mb-6 flex justify-center gap-4 items-center w-full">
             <label class="font-semibold">{{ __('Filtre by date') }}:</label>
             <input type="date" wire:model="startDate" class="border rounded px-2 py-1">
-            <span class="mx-2">to</span>
+            <span class="mx-2">@lang('to')</span>
             <input type="date" wire:model="endDate" class="border rounded px-2 py-1">
         </div>
 

@@ -8,15 +8,18 @@ use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ExpenseCategory extends Model
 {
     use HasAdvancedFilter;
     use HasFactory;
+    use SoftDeletes;
 
     public const ATTRIBUTES = [
         'id',
         'name',
+        'description',
         'updated_at',
         'created_at',
     ];

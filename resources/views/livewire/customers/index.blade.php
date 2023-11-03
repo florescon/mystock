@@ -109,7 +109,7 @@
     <div class="p-4">
         <div class="pt-3">
             @if ($this->selectedCount)
-                <p class="text-sm leading-5">
+                <p class="text-sm leading-5 ml-3">
                     <span class="font-medium">
                         {{ $this->selectedCount }}
                     </span>

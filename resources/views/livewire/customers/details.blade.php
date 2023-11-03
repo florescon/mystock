@@ -76,7 +76,7 @@
                             </x-button>
                         @endif
                         @if ($this->selectedCount)
-                            <p class="text-sm leading-5">
+                            <p class="text-sm leading-5 ml-3">
                                 <span class="font-medium">
                                     {{ $this->selectedCount }}
                                 </span>

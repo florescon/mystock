@@ -115,12 +115,13 @@ class Index extends Component
         abort_if(Gate::denies('sale_access'), 403);
 
         $query = Sale::with(['customer', 'user', 'saleDetails', 'salepayments', 'saleDetails.product'])
-            ->whereBetween('date', [$this->startDate, $this->endDate])
             ->advancedFilter([
                 's'               => $this->search ?: null,
                 'order_column'    => $this->sortBy,
                 'order_direction' => $this->sortDirection,
-            ]);
+            ])
+            ->whereBetween('created_at', [$this->startDate, $this->endDate.' 23:59:59'])
+            ;
 
         $sales = $query->paginate($this->perPage);
 

@@ -13,7 +13,7 @@
                 </x-button>
             @endif
             @if ($this->selectedCount)
-                <p class="text-sm leading-5">
+                <p class="text-sm leading-5 ml-3">
                     <span class="font-medium">
                         {{ $this->selectedCount }}
                     </span>
@@ -91,7 +91,7 @@
     <div class="p-4">
         <div class="pt-3">
             @if ($this->selectedCount)
-                <p class="text-sm leading-5">
+                <p class="text-sm leading-5 ml-3">
                     <span class="font-medium">
                         {{ $this->selectedCount }}
                     </span>
@@ -125,6 +125,26 @@
 
     <livewire:expense-categories.create />
     
-    
+    @push('scripts')
+        <script>
+            document.addEventListener('livewire:load', function() {
+                window.livewire.on('deleteModal', expenseCategoryId => {
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: "¡No podrás revertir esto!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: '¡Si, eliminar!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.livewire.emit('delete', expenseCategoryId)
+                        }
+                    })
+                })
+            })
+        </script>
+    @endpush
     
 </div>

@@ -105,12 +105,13 @@ class Index extends Component
     public function render()
     {
         $query = Purchase::with(['supplier', 'user', 'purchaseDetails', 'purchasePayments', 'purchaseDetails.product'])
-            ->whereBetween('date', [$this->startDate, $this->endDate])
             ->advancedFilter([
                 's'               => $this->search ?: null,
                 'order_column'    => $this->sortBy,
                 'order_direction' => $this->sortDirection,
-            ]);
+            ])
+            ->whereBetween('created_at', [$this->startDate, $this->endDate.' 23:59:59'])
+            ;
 
         $purchases = $query->paginate($this->perPage);
 

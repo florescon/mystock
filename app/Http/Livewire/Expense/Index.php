@@ -103,7 +103,9 @@ class Index extends Component
                 's'               => $this->search ?: null,
                 'order_column'    => $this->sortBy,
                 'order_direction' => $this->sortDirection,
-            ]);
+            ])
+            ->whereBetween('created_at', [$this->startDate, $this->endDate.' 23:59:59'])
+            ;
 
         $expenses = $query->paginate($this->perPage);
 

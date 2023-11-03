@@ -13,7 +13,7 @@
                     {{ $this->selectedCount ? '' : 'disabled' }}>
                     <i class="fas fa-trash"></i>
                 </button>
-                <p class="text-sm leading-5">
+                <p class="text-sm leading-5 ml-3">
                     <span class="font-medium">
                         {{ $this->selectedCount }}
                     </span>

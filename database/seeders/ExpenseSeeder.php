@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use App\Models\Expense;
 
 class ExpenseSeeder extends Seeder
 {
@@ -16,7 +17,9 @@ class ExpenseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        // Expense::factory()->count(100)->create();
+
+        // Model::unguard();
 
         // $this->call("OthersTableSeeder");
     }

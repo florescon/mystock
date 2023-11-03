@@ -122,14 +122,14 @@ class Index extends Component
         $this->resetSelected();
     }
 
-    public function delete(): void
+    public function delete(Category $category): void
     {
         abort_if(Gate::denies('category_delete'), 403);
 
         if ($category->products->count() > 0) {
             $this->alert('error', __('Category has products.'));
         } else {
-            Category::findOrFail($this->category)->delete();
+            $category->delete();
             $this->alert('success', __('Category deleted successfully.'));
         }
     }

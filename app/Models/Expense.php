@@ -6,22 +6,23 @@ namespace App\Models;
 
 use App\Support\HasAdvancedFilter;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Expense extends Model
 {
     use HasAdvancedFilter;
+    use HasFactory;
+    use SoftDeletes;
 
     public const ATTRIBUTES = [
         'id',
-        'category_id',
         'date',
         'reference',
         'amount',
-        'created_at',
-        'updated_at',
     ];
 
     public $orderable = self::ATTRIBUTES;
