@@ -8,9 +8,9 @@
             {{ $placeholder }}
         </option>
         
-        @if (isset($attributes['multiple']))
+        {{-- @if (isset($attributes['multiple']))
             <option></option>
-        @endif
+        @endif --}}
 
         @foreach ($options as $key => $value)
             <option value="{{ $key }}">{{ $value }}</option>

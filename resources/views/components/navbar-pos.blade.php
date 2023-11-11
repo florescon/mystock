@@ -22,7 +22,7 @@
             <x-dropdown align="right" width="56">
                 <x-slot name="trigger">
                     <x-button type="button" secondary>
-                        <x-icons.menu class="w-5 h-5" />
+                        <x-icons.menu class="w-4 h-4" />
                     </x-button>
                 </x-slot>
 

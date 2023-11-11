@@ -11,6 +11,7 @@ use App\Models\Warehouse;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Throwable;
+use Illuminate\Support\Facades\Hash;
 
 class Create extends Component
 {
@@ -43,8 +44,6 @@ class Create extends Component
         'email'        => 'required|email|unique:users,email',
         'password'     => 'required|string|min:8',
         'phone'        => 'required|numeric',
-        'role'         => 'required',
-        'warehouse_id' => 'required|array',
     ];
 
     public function updated($propertyName): void
@@ -68,17 +67,27 @@ class Create extends Component
 
     public function create(): void
     {
+        $validatedWarehouse = $this->validate([
+            'role'         => 'required',
+            'warehouse_id' => 'required|array',
+        ]);
+
         try {
             $validatedData = $this->validate();
 
             $user = User::create($validatedData);
 
+            $user->update([
+                'password' => Hash::make($this->password),
+            ]);
+
+
             $user->assignRole($this->role);
 
-            foreach ($this->warehosues_id as $warehouseId) {
+            foreach (Warehouse::all() as $warehouseId) {
                 UserWarehouse::create([
                     'user_id'      => $user->id,
-                    'warehouse_id' => $warehouseId,
+                    'warehouse_id' => $warehouseId->id,
                 ]);
             }
 

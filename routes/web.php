@@ -34,6 +34,7 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SalesReturnController;
 use App\Http\Controllers\SendQuotationEmailController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WarehouseController;
@@ -223,4 +224,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Integrations
     Route::get('/integrations', IntegrationController::class)->name('integrations.index');
+
+    //Services
+    Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+    Route::get('/monthly', [ServiceController::class, 'monthly'])->name('services-monthly.index');
+    Route::get('/free', [ServiceController::class, 'free'])->name('services-free.index');
+
 });

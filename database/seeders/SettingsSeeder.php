@@ -19,7 +19,7 @@ class SettingsSeeder extends Seeder
         $settings = [
             [
                 'id'                        => 1,
-                'company_name'              => 'Mystock',
+                'company_name'              => 'Acuática Azul',
                 'company_email'             => 'contact@hotech.ma',
                 'company_phone'             => '212 5 22 22 22 22',
                 'company_logo'              => 'logo.png',

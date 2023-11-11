@@ -11,6 +11,8 @@ class UserWarehouse extends Model
 {
     protected $table = 'user_warehouse';
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *

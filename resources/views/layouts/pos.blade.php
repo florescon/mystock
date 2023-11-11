@@ -39,11 +39,17 @@
                 @endisset
             </main>
 
+            @can('sale_access')
             <livewire:sales.recent />
+            @endcan
 
+            @can('product_create')
             <livewire:products.create />
+            @endcan
 
+            @can('customer_create')
             <livewire:customers.create />
+            @endcan
 
             <x-settings-bar />
 

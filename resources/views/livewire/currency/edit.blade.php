@@ -31,7 +31,7 @@
                     </div>
                 </div>
 
-                <div class="w-full px-3">
+                <div class="w-full my-5 px-3">
                     <x-button primary type="submit" class="w-full text-center" wire:click="update"
                         wire:loading.attr="disabled">
                         {{ __('Update') }}

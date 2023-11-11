@@ -36,7 +36,7 @@
                         <x-input-error :messages="$errors->get('currency.exchange_rate')" for="name" class="mt-2" />
                     </div>
                 </div>
-                <div class="w-full px-3">
+                <div class="w-full my-5 px-3">
                     <x-button primary type="submit" class="w-full text-center" wire:loading.attr="disabled">
                         {{ __('Create') }}
                     </x-button>

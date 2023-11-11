@@ -121,23 +121,19 @@
             <div class="flex flex-col">
                 <div class="flex flex-col">
                     <x-label for="currency.name" :value="__('Name')" />
-                    <x-input id="name" class="block mt-1 w-full" required type="text" disabled
-                        wire:model.defer="currency.name" />
+                    {{ $currency?->name }}
                 </div>
                 <div class="flex flex-col">
                     <x-label for="currency.code" :value="__('Code')" />
-                    <x-input id="code" class="block mt-1 w-full" type="text" disabled
-                        wire:model.defer="currency.code" />
+                    {{ $currency?->code }}
                 </div>
                 <div class="flex flex-col">
                     <x-label for="currency.symbol" :value="__('Symbol')" />
-                    <x-input id="symbol" class="block mt-1 w-full" type="text" disabled
-                        wire:model.defer="currency.symbol" />
+                    {{ $currency?->symbol }}
                 </div>
                 <div class="flex flex-col">
                     <x-label for="currency.rate" :value="__('Rate')" />
-                    <x-input id="rate" class="block mt-1 w-full" type="text" disabled
-                        wire:model.defer="currency.rate" />
+                    {{ $currency?->exchange_rate }}
                 </div>
             </div>
         </x-slot>

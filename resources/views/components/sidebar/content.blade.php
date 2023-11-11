@@ -7,8 +7,24 @@
             </span>
         </x-slot>
     </x-sidebar.link>
-    @can('product_access')
 
+    <x-sidebar.dropdown title="{{ __('Services') }}" :active="request()->routeIs('services.index') || request()->routeIs('services-monthly.index') || request()->routeIs('services-free.index')">
+
+        <x-slot name="icon">
+            <span class="inline-block mx-4">
+                <i class="fas fa-solid fa-tarp-droplet w-5 h-5"></i>
+            </span>
+        </x-slot>
+        <x-sidebar.sublink title="{{ __('Services') }}" href="{{ route('services.index') }}"
+            :active="request()->routeIs('services.index')" />
+        <x-sidebar.sublink title="{{ __('Monthly payments') }}" href="{{ route('services-monthly.index') }}"
+            :active="request()->routeIs('services-monthly.index')" />
+        <x-sidebar.sublink title="{{ __('Free passes') }}" href="{{ route('services-free.index') }}"
+            :active="request()->routeIs('services-free.index')" />
+    </x-sidebar.dropdown>
+
+    @canany(['product_access', 'brand_access'])
+    
     <x-sidebar.dropdown title="{{ __('Products') }}" :active="request()->routeIs([
         'products',
         'product-categories.index',
@@ -44,7 +60,7 @@
         @endcan
 
     </x-sidebar.dropdown>
-    @endcan
+    @endcanany
 
     @can('quotation_access')
         <x-sidebar.dropdown title="{{ __('Quotations') }}" :active="request()->routeIs('quotations.index')">

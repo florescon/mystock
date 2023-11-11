@@ -1,4 +1,4 @@
-<div x-data="{ showSettings: false }" class="fixed bg-white pointer top-36 right-0 z-50 transition duration-150 ease-in-out bg-opacity-75" >
+<div x-data="{ showSettings: false }" class="fixed bg-white pointer top-32 right-0 z-50 transition duration-150 ease-in-out bg-opacity-75" >
     <button type="button" x-on:click="showSettings = true"
         class="shadow-md py-3 px-5">
         <i class="fas fa-cog w-5 h-5 text-indigo-500"></i>
