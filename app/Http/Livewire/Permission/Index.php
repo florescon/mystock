@@ -46,14 +46,14 @@ class Index extends Component
             'except' => 'id',
         ],
         'sortDirection' => [
-            'except' => 'desc',
+            'except' => 'asc',
         ],
     ];
 
     public function mount(): void
     {
         $this->sortBy = 'id';
-        $this->sortDirection = 'desc';
+        $this->sortDirection = 'asc';
         $this->perPage = 25;
         $this->paginationOptions = config('project.pagination.options');
         $this->orderable = (new Permission())->orderable;

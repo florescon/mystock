@@ -59,14 +59,15 @@ class Edit extends Component
 
         try {
             if ($this->image) {
-                $imageName = Str::slug($this->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
-                $this->image->storeAs('brands', $imageName);
-                $this->image = $imageName;
+                $date = date("Y-m-d");
+                $imageName = $this->image->store("brands/".$date,'public');
+                $this->brand->update(['image' => $imageName]);
             }
 
             $this->brand->save($validatedData);
 
             $this->emit('refreshIndex');
+            $this->image = null;
 
             $this->alert('success', __('Brand updated successfully.'));
 

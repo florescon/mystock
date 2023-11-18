@@ -68,7 +68,7 @@
                         <x-input-error :messages="$errors->get('expense.details')" class="mt-2" />
                     </div>
                 </div>
-                <div class="w-full pb-2 px-3">
+                <div class="w-full py-3 px-3">
                     <x-button primary type="submit" class="w-full text-center" wire:loading.attr="disabled">
                         {{ __('Create') }}
                     </x-button>

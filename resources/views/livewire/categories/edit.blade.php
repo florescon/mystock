@@ -22,7 +22,7 @@
                             wire:model.lazy="category.name" />
                         <x-input-error :messages="$errors->get('category.name')" for="name" class="mt-2" />
                     </div>
-                    <div class="w-full">
+                    <div class="w-full mt-5">
                         <x-button primary type="submit" class="w-full text-center" wire:loading.attr="disabled">
                             {{ __('Update') }}
                         </x-button>

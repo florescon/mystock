@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@section('title', __('Sale Details'))
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ __('Quotation Details') }}</title>
-    <link rel="stylesheet" href="{{ public_path('print/bootstrap.min.css') }}">
-    
-</head>
+@extends('layouts.print')
 
-<body>
-    <div style="min-width: 600px">
+@section('content')
+    <div class="container">
         <div class="row">
             <div class="col-xs-12">
                 <div class="text-center">
-                    <img width="180" src="{{ public_path('images/logo-dark.png') }}" alt="Logo">
+                    <img width="100" src="{{ public_path('images/logo.png') }}" alt="Logo">
                     <h4>
                         <span>{{ __('Reference') }}:</span> <strong>{{ $quotation->reference }}</strong>
                     </h4>
@@ -169,7 +161,4 @@
             </div>
         </div>
     </div>
-
-</body>
-
-</html>
+@endsection

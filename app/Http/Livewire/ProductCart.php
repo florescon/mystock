@@ -35,7 +35,7 @@ class ProductCart extends Component
 
     public $check_quantity = [];
 
-    public $warehouse_id;
+    public ?int $warehouse_id = 1;
 
     public $discount_type;
 
@@ -104,6 +104,13 @@ class ProductCart extends Component
             ->where('warehouse_id', $this->warehouse_id)
             ->first();
 
+        if($this->warehouse_id){
+            if($productWarehouse->qty < 1){
+                $this->alert('error', __('There are no stock'));
+                return;
+            }
+        }
+        
         $cartItem = $this->createCartItem($product, $productWarehouse);
 
         $cart->add($cartItem);
@@ -143,7 +150,7 @@ class ProductCart extends Component
     private function updateQuantityAndCheckQuantity($productId, $quantity)
     {
         $this->check_quantity[$productId] = $quantity;
-        $this->quantity[$productId] = 1;
+        $this->quantity[$productId] =  ($this->check_quantity[$productId] < 1) ? 0 : 1;
     }
 
     private function createCartItem($product, $productWarehouse)
@@ -168,6 +175,10 @@ class ProductCart extends Component
 
     public function updatePrice($row_id, $product_id)
     {
+        $validatedData = $this->validate(
+            ['price' => 'integer|not_in:0'],
+        );
+
         Cart::instance($this->cart_instance)->update($row_id, [
             'price' => $this->price[$product_id],
         ]);
@@ -219,14 +230,18 @@ class ProductCart extends Component
     {
         if ($this->cart_instance === 'sale' || $this->cart_instance === 'purchase_return') {
             if ($this->check_quantity[$product_id] < $this->quantity[$product_id]) {
-                $this->alert('error', __('Quantity is greater than in stock!'));
-
-                return;
+                $this->alert('error', __('Quantity is greater than in stock!').' '.__('Assigned').': '.$this->check_quantity[$product_id]);
+        
+                $this->quantity[$product_id] = $this->check_quantity[$product_id];
+                // return;
             }
         }
 
         if ($this->quantity[$product_id] < 1) {
-            $this->alert('error', __('Quantity must not be zero!'));
+
+            $this->quantity[$product_id] = $this->check_quantity[$product_id];
+
+            $this->alert('error', __('Quantity must be greater than zero!'));
 
             return;
         }
@@ -304,7 +319,7 @@ class ProductCart extends Component
         ]);
     }
 
-    public function updatedWarehouseId($value)
+    public function updatedWarehouseId(?int $value = 1)
     {
         $this->warehouse_id = $value;
     }

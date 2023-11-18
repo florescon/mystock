@@ -58,6 +58,9 @@
             <x-table.th sortable wire:click="sortBy('category_id')" :direction="$sorts['category_id'] ?? null">
                 {{ __('Category') }}
             </x-table.th>
+            <x-table.th sortable wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">
+                {{ __('Status') }}
+            </x-table.th>
             <x-table.th>
                 {{ __('Warehouse') }}
             </x-table.th>
@@ -90,6 +93,9 @@
                                 {{-- ({{ $product->ProductsByCategory($product->category->id) }}) --}}
                             </small>
                         </x-button>
+                    </x-table.td>
+                    <x-table.td>
+                        <livewire:toggle-button :model="$product" field="status" key="{{ $product->id }}" />
                     </x-table.td>
                     <x-table.td>
                         <div class="flex flex-wrap">
@@ -143,7 +149,7 @@
                 </x-table.tr>
             @empty
                 <x-table.tr>
-                    <x-table.td colspan="8" class="text-center">
+                    <x-table.td colspan="9" class="text-center">
                         {{ __('No products found') }}
                     </x-table.td>
                 </x-table.tr>

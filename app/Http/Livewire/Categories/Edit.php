@@ -29,10 +29,6 @@ class Edit extends Component
         'category.code' => 'required|max:255',
     ];
 
-    protected $messages = [
-        'category.name.required' => 'The name field cannot be empty.',
-    ];
-
     public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);

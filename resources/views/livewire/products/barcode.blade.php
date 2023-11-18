@@ -63,7 +63,7 @@
     <div class="w-full px-2 py-6">
 
         <div wire:loading wire:target="generateBarcodes" class="w-full">
-            <div class="flex justify-center">">
+            <div class="flex justify-center">
                 <x-loading />
             </div>
         </div>

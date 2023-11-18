@@ -23,7 +23,7 @@ class Create extends Component
     public $reference;
     public $quantities;
     public $types;
-    public $warehouse_id;
+    public ?int $warehouse_id = 1;
 
     public $products;
 

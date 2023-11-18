@@ -23,6 +23,7 @@ class Expense extends Model
         'date',
         'reference',
         'amount',
+        'category_id',
     ];
 
     public $orderable = self::ATTRIBUTES;

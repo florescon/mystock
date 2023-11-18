@@ -35,6 +35,8 @@
             <x-table.th>
                 <input wire:model="selectPage" type="checkbox" />
             </x-table.th>
+            <x-table.th>
+            </x-table.th>
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
             </x-table.th>
@@ -51,6 +53,11 @@
                 <x-table.tr>
                     <x-table.td>
                         <input type="checkbox" value="{{ $brand->id }}" wire:model="selected">
+                    </x-table.td>
+                    <x-table.td>
+                        @if($brand->image)
+                            <img class="card-img-top" src="{{ asset('/storage/' . $brand->image) }}" width="100px">
+                        @endif
                     </x-table.td>
                     <x-table.td>
                         {{ $brand->name }}

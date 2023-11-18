@@ -18,7 +18,7 @@
     </style>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('images/favicon.png') }}">
+    <link rel="icon" href="{{ asset('images/logo.png') }}">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

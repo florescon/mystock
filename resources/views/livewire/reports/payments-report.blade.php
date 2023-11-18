@@ -96,7 +96,7 @@
                                         @endif
                                     </x-table.td>
                                     <x-table.td>{{ format_currency($data->amount) }}</x-table.td>
-                                    <x-table.td>{{ $data->payment_method }}</x-table.td>
+                                    <x-table.td>{{ __($data->payment_method) }}</x-table.td>
                                 </x-table.tr>
                             @empty
                                 <x-table.tr>

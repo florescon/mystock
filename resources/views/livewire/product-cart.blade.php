@@ -8,6 +8,8 @@
             </div>
         </div>
         <x-table>
+            @json($check_quantity)<br>
+            Warehouse @json($warehouse_id)
             <x-slot name="thead">
                 <x-table.th>{{ __('Product') }}</x-table.th>
                 <x-table.th>{{ __('Net Unit Price') }}</x-table.th>

@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
 
-        <x-printHeader :customer="$customer" :sale="$purchase" :logo="$logo" style="centered" />
+        <x-printHeader :supplier="$supplier" :sale="$purchase" :logo="$logo" style="centered" />
 
         <br>
 

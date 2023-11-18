@@ -92,9 +92,11 @@
                         </button>
                     </x-table.td>
                     <x-table.td>
-                        <x-badge type="info">
-                            <small>{{ $expense->category->name ?? '' }}</small>
-                        </x-badge>
+                        @if($expense->category_id)
+                            <x-badge type="info">
+                                <small>{{ $expense?->category?->name ?? '' }}</small>
+                            </x-badge>
+                        @endif
                     </x-table.td>
                     <x-table.td>
                         {{ $expense->date }}
@@ -156,15 +158,15 @@
         </x-slot>
 
         <x-slot name="content">
-            <div class="w-full">
+            <div class="w-full pb-5">
                 <div class="flex flex-wrap">
                     <div class="lg:w-1/2 sm:w-full px-2">
                         <x-label for="category_id" :value="__('Expense Category')" />
-                        {{ $this->expense?->category->name }}
+                        {{ $this->expense?->category?->name }}
                     </div>
                     <div class="lg:w-1/2 sm:w-full px-2">
                         <x-label for="category_id" :value="__('Warehouse')" />
-                        {{ $this->expense?->warehouse->name }}
+                        {{ $this->expense?->warehouse?->name }}
                     </div>
                     <div class="lg:w-1/2 sm:w-full px-2">
                         <x-label for="date" :value="__('Entry Date')" />

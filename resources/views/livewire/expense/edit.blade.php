@@ -33,7 +33,7 @@
                         <x-input-error :messages="$errors->get('expense.category_id')" class="mt-2" />
                     </div>
                     <div class="xl:w-1/3 lg:w-1/2 sm:w-full px-3">
-                        <x-label for="expense.warehouse_id" :value="__('Expense Category')" />
+                        <x-label for="expense.warehouse_id" :value="__('Warehouse')" />
                         <select
                             class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
                             id="warehouse_expense" name="warehouse_expense" wire:model="expense.warehouse_id">
@@ -59,7 +59,7 @@
                         <x-input-error :messages="$errors->get('expense.details')" class="mt-2" />
                     </div>
                 </div>
-                <div class="w-full px-3">
+                <div class="w-full px-3 py-3">
                     <x-button primary type="submit" class="w-full text-center" wire:loading.attr="disabled">
                         {{ __('Update') }}
                     </x-button>

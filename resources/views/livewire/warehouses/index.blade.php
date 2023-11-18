@@ -31,7 +31,6 @@
     <x-table>
         <x-slot name="thead">
             <x-table.th>
-                <input type="checkbox" wire:model="selectPage" />
             </x-table.th>
             <x-table.th>
                 {{ __('Name') }}
@@ -52,7 +51,9 @@
             @forelse($warehouses as $warehouse)
                 <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $warehouse->id }}">
                     <x-table.td>
-                        <input type="checkbox" value="{{ $warehouse->id }}" wire:model="selected">
+                        @if($warehouse->id != 1)
+                            <input type="checkbox" value="{{ $warehouse->id }}" wire:model="selected">
+                        @endif
                     </x-table.td>
                     <x-table.td>
                         {{ $warehouse->name }} - {{ $warehouse->phone }}
@@ -69,10 +70,12 @@
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
-                            <x-button danger type="button" wire:click="$emit('deleteModal', {{ $warehouse->id }})"
-                                wire:loading.attr="disabled">
-                                <i class="fas fa-trash"></i>
-                            </x-button>
+                            @if($warehouse->id != 1)
+                                <x-button danger type="button" wire:click="$emit('deleteModal', {{ $warehouse->id }})"
+                                    wire:loading.attr="disabled">
+                                    <i class="fas fa-trash"></i>
+                                </x-button>
+                            @endif
                         </div>
                     </x-table.td>
                 </x-table.tr>

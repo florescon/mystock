@@ -180,6 +180,32 @@ class Index extends Component
 
     }
 
+    public function sendWhatsapp($sale)
+    {
+
+        $this->product = Product::find($sale);
+
+        $name = $this->product->name;
+
+        // Add the country code to the beginning of the phone number.
+        $phone = '+524427393061';
+
+        $greeting = __('Hello');
+
+        $message = __('The product');
+
+        // Construct the message text.
+        $message = "{$greeting} {$message} {$name}.";
+
+        // Encode the message text for use in the URL.
+        $message = urlencode($message);
+
+        // Construct the WhatsApp API endpoint URL.
+        $url = "https://api.whatsapp.com/send?phone={$phone}&text={$message}";
+
+        return redirect()->away($url);
+    }
+
     public function sendTelegram($product): void
     {
         $this->product = Product::find($product);

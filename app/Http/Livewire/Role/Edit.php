@@ -75,7 +75,7 @@ class Edit extends Component
 
     public function getPermissionsProperty()
     {
-        return Permission::select('name', 'id')->get();
+        return Permission::select('name', 'id')->orderBy('id')->get();
     }
 
     public function render()

@@ -129,7 +129,7 @@
                                                 <input type="text"
                                                     class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
                                                     name="payment_method" required
-                                                    value="{{ $sale_return->payment_method }}" readonly>
+                                                    value="{{ __($sale_return->payment_method) }}" readonly>
                                             </div>
                                         </div>
                                     </div>

@@ -33,6 +33,9 @@
             <x-table.th>
                 <input wire:model="selectPage" type="checkbox" />
             </x-table.th>
+            <x-table.th sortable wire:click="sortBy('code')" :direction="$sorts['code'] ?? null">
+                {{ __('Code') }}
+            </x-table.th>
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
             </x-table.th>
@@ -49,6 +52,11 @@
                 <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $category->id }}">
                     <x-table.td>
                         <input type="checkbox" value="{{ $category->id }}" wire:model="selected">
+                    </x-table.td>
+                    <x-table.td>
+                        <button type="button" wire:click="showModal({{ $category->id }})">
+                            {{ $category->code }}
+                        </button>
                     </x-table.td>
                     <x-table.td>
                         <button type="button" wire:click="showModal({{ $category->id }})">

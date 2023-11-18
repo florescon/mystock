@@ -36,7 +36,7 @@ class Index extends Component
 
     public $discountModal;
 
-    public $warehouse_id;
+    public ?int $warehouse_id = 1;
 
     public $global_discount;
 
@@ -113,7 +113,7 @@ class Index extends Component
         $this->quantity = [];
         $this->discount_type = [];
         $this->item_discount = [];
-        $this->payment_method = 'cash';
+        $this->payment_method = 'Cash';
 
         $this->tax_percentage = 0;
         $this->discount_percentage = 0;
@@ -127,7 +127,7 @@ class Index extends Component
 
     public function hydrate(): void
     {
-        if ($this->payment_method === 'cash') {
+        if ($this->payment_method === 'Cash') {
             $this->paid_amount = $this->total_amount;
         }
         $this->total_amount = $this->calculateTotal();
@@ -149,6 +149,8 @@ class Index extends Component
 
             return;
         }
+
+        // dd($this->discount_percentage);
 
         DB::transaction(function () {
             $this->validate();

@@ -33,7 +33,7 @@
                             <x-table.td>
                                 {{ format_currency($purchasepayment->purchase->due_amount) }}
                             </x-table.td>
-                            <x-table.td>{{ $purchasepayment->payment_method }}</x-table.td>
+                            <x-table.td>{{ __($purchasepayment->payment_method) }}</x-table.td>
                             <x-table.td>
                                 {{-- @can('access_purchase_payments')
                                     <x-button wire:click="$emit('paymentModal', {{ $purchasepayment->id }} )" type="button"

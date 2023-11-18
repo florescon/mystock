@@ -143,7 +143,7 @@
                         <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
                     </div>
 
-                    <div class="w-full my-3">
+                    <div class="w-full my-3 py-2">
                         <x-button primary type="submit" wire:loading.attr="disabled" class="w-full">
                             {{ __('Create') }}
                         </x-button>

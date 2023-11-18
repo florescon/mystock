@@ -112,11 +112,12 @@
     <div>
         <div name="page-header" style="margin-bottom: 10px;">
             <div class="centered">
+                <img src="{{ public_path('images/logo.png') }}" alt="" width="80"/>
                 <h2 style="margin-bottom: 5px;font-size: 16px;">{{ settings()->company_name }}</h2>
                 <p>
                     {{ settings()->company_phone }} <br>
                     {{ settings()->company_address }} <br>
-                    {{ __('Date') }}: {{ format_date($sale->date) }}<br>
+                    {{ __('Date') }}: {{ format_date($sale->date).' — '.now()->format('H:i') }}<br>
                     {{ __('Reference') }}: {{ $sale->reference }}<br>
                     {{ __('Name') }}: {{ $sale->customer->name }}
                 </p>
@@ -170,12 +171,12 @@
                 </tbody>
             </table>
 
-            <div class="centered" style="background-color:#ddd;padding: 5px;">
-                {{ __('Paid By') }}: {{ $sale->payment_method }} <br>
-
-                {{ __('Amount') }}: {{ format_currency($sale->paid_amount) }}
-            </div>
-
+            @foreach($sale->salepayments as $salepayments)
+                <div class="centered" style="background-color:#ddd;padding: 5px; margin-bottom: 5px;">
+                        {{ __('Paid By') }}: {{ __($salepayments->payment_method) }} <br>
+                        {{ __('Amount') }}: {{ format_currency($salepayments->amount) }}
+                </div>
+            @endforeach
         </div>
     </div>
 </body>

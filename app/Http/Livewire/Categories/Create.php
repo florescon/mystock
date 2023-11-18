@@ -28,10 +28,6 @@ class Create extends Component
         'category.name' => 'required|min:3|max:100',
     ];
 
-    protected $messages = [
-        'category.name.required' => 'The name field cannot be empty.',
-    ];
-
     public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);

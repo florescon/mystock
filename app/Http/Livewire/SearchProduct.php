@@ -21,7 +21,7 @@ class SearchProduct extends Component
 
     public $category_id;
 
-    public $warehouse_id;
+    public ?int $warehouse_id = 1;
 
     public $search_results;
 
@@ -52,7 +52,7 @@ class SearchProduct extends Component
         }
     }
 
-    public function updatedWarehouseId($value)
+    public function updatedWarehouseId(?int $value = 1)
     {
         $this->warehouse_id = $value;
         $this->resetPage();

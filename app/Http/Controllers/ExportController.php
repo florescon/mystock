@@ -32,7 +32,8 @@ class ExportController extends Controller
         ];
 
         $pdf = PDF::loadView('admin.sale.print-pos', $data, [], [
-            'format' => 'a5',
+            // 'format' => 'a5',
+            'format' => [80, 236]
         ]);
 
         return $pdf->stream(__('Sale').$sale->reference.'.pdf');
@@ -83,7 +84,9 @@ class ExportController extends Controller
             'customer'  => $customer,
         ];
 
-        $pdf = PDF::loadView('admin.quotation.print', $data);
+        $pdf = PDF::loadView('admin.quotation.print', $data, [], [
+            'format' => 'a4',
+        ]);
 
         return $pdf->stream(__('Quotation').$quotation->reference.'.pdf');
     }
@@ -96,6 +99,7 @@ class ExportController extends Controller
         $data = [
             'purchase' => $purchase,
             'supplier' => $supplier,
+            'logo'     => $this->getCompanyLogo(),
         ];
 
         $pdf = PDF::loadView('admin.purchases.print', $data, [], [
@@ -122,7 +126,8 @@ class ExportController extends Controller
 
     private function getCompanyLogo()
     {
-        return 'data:image/png;base64,'.base64_encode(file_get_contents(public_path('images/logo.png')));
+        return public_path('images/logo.png');
+        // return 'data:image/png;base64,'.base64_encode(file_get_contents(public_path('images/logo.png')));
     }
 
     private function setWaterMark($model)

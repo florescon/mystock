@@ -2,7 +2,7 @@
     <tr>
         @if ($style === 'centered')
             <td style="width:100%; text-align:center;">
-                {{-- <img src="{{ $logo }}" style="max-height:60px;" /> --}}
+                <img src="{{ $logo }}" style="max-height:60px;" />
                 <div style="font-size:10pt;">
                     {{ settings()->company_name }}<br />
                     {{ settings()->company_address }}<br />
@@ -11,7 +11,7 @@
             </td>
         @elseif($style === 'right')
             <td style="width:50%">
-                {{-- <img src="{{ $logo }}" style="max-height:60px;" /> --}}
+                <img src="{{ $logo }}" style="max-height:60px;" />
             </td>
             <td class="text-right" style="width:50%;">
                 <div style="font-size:10pt;">
@@ -29,7 +29,7 @@
                 </div>
             </td>
             <td style="width:50%; text-align:right;">
-                {{-- <img src="{{ $logo }}" style="max-height:60px;" /> --}}
+                <img src="{{ $logo }}" style="max-height:60px;" />
             </td>
         @endif
     </tr>

@@ -16,16 +16,12 @@
             <div class="lg:w-1/3 md:w-1/3 sm:w-1/2 px-2 flex items-center">
                 <div class="flex items-center space-x-2">
                     <span>{{ __('All') }}</span>
-                    <label for="toggle" class="flex items-center cursor-pointer">
-                        <div
-                            class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                            <input id="toggle" type="checkbox" class="sr-only" wire:model="featured" checked>
-                            <div class="toggle-label block w-10 h-6 rounded-full bg-gray-300 shadow-inner"></div>
-                            <div class="toggle-checkbox absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0">
-                            </div>
-                        </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" wire:model="featured"  class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                     </label>
-                    <span>{{ __('Featured') }}</span>
+
+                    <span>{{ __('Favorite') }}</span>
                 </div>
             </div>
             <div class="lg:w-1/3 md:w-1/3 sm:w-1/2 px-2">

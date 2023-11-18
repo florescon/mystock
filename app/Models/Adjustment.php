@@ -16,7 +16,7 @@ class Adjustment extends Model
 
     public const ATTRIBUTES = [
         'id',
-        'reference_no',
+        'reference',
         'warehouse_id',
         'date',
         'created_at',

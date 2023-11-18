@@ -99,6 +99,16 @@ class Barcode extends Component
         return $pdf->download('barcodes-'.date('Y-m-d').'.pdf');
     }
 
+    public function DownloadNotes(PDF $p) 
+    { 
+        $note = AcademyLessonNote::where('user_id',auth()->user()->id)->first(); 
+        if($note){ 
+            $pdf = $p->loadView('pdf.notesPdf',compact('note'))->output(); 
+
+            return response()->streamDownload(function () use ($pdf) { print($pdf); }, md5(time()).".pdf"); 
+        } 
+    }
+
     public function deleteProduct($productId)
     {
         $index = null;

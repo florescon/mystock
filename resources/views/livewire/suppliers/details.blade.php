@@ -180,7 +180,7 @@
                                 </x-table.tr>
                             @empty
                                 <x-table.tr>
-                                    <x-table.td>
+                                    <x-table.td colspan="8">
                                         <div class="flex justify-center items-center">
                                             <span
                                                 class="text-gray-400 dark:text-gray-300">{{ __('No results found') }}</span>
@@ -212,7 +212,7 @@
                         <x-table.th>{{ __('Actions') }}</x-table.th>
                     </x-slot>
                     <x-table.tbody>
-                        @foreach ($this->supplierPayments as $supplierPayment)
+                        @forelse ($this->supplierPayments as $supplierPayment)
                             @forelse ($supplierPayment->purchasepayments as $purchasepayment)
                                 <x-table.tr>
                                     <x-table.td>{{ $purchasepayment->created_at }}</x-table.td>
@@ -223,7 +223,7 @@
                                     <x-table.td>
                                         {{ format_currency($purchasepayment->purchase->due_amount) }}
                                     </x-table.td>
-                                    <x-table.td>{{ $purchasepayment->payment_method }}</x-table.td>
+                                    <x-table.td>{{ __($purchasepayment->payment_method) }}</x-table.td>
                                     <x-table.td>
                                         @can('access_purchase_payments')
                                             <x-button wire:click="$emit('paymentModal', {{ $purchasepayment->id }} )"
@@ -235,10 +235,19 @@
                                 </x-table.tr>
                             @empty
                                 <x-table.tr>
-                                    <x-table.td colspan="3">{{ __('No data found') }}</x-table.td>
+                                    <x-table.td colspan="6">{{ __('No data found') }}</x-table.td>
                                 </x-table.tr>
                             @endforelse
-                        @endforeach
+                        @empty
+                            <x-table.tr>
+                                <x-table.td colspan="6">
+                                    <div class="flex justify-center items-center">
+                                        <span
+                                            class="text-gray-400 dark:text-gray-300">{{ __('No results found') }}</span>
+                                    </div>
+                                </x-table.td>
+                            </x-table.tr>
+                        @endforelse
                     </x-table.tbody>
                 </x-table>
 

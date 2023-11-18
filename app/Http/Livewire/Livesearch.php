@@ -31,17 +31,17 @@ class Livesearch extends Component
 
     public function updatedSearchQuery(): void
     {
-        $this->product = Product::query()->where('name', 'LIKE', '%'.$this->searchQuery.'%')->orWhere('code', 'like', '%'.$this->searchQuery.'%')->get();
+        $this->product = Product::query()->where('name', 'LIKE', '%'.$this->searchQuery.'%')->orWhere('code', 'like', '%'.$this->searchQuery.'%')->limit(6)->get();
 
         $this->customer = Customer::query()->where('name', 'LIKE', '%'.$this->searchQuery.'%')
-            ->with('sales')->get();
+            ->with('sales')->limit(5)->get();
 
         $this->supplier = Supplier::query()->where('name', 'LIKE', '%'.$this->searchQuery.'%')
-            ->with('purchases')->get();
+            ->with('purchases')->limit(5)->get();
 
-        $this->sale = Sale::query()->where('reference', 'like', '%'.$this->searchQuery.'%')->get();
+        $this->sale = Sale::query()->where('reference', 'like', '%'.$this->searchQuery.'%')->with('customer')->limit(5)->get();
 
-        $this->purchase = Purchase::query()->where('reference', 'like', '%'.$this->searchQuery.'%')->get();
+        $this->purchase = Purchase::query()->where('reference', 'like', '%'.$this->searchQuery.'%')->with('customer')->limit(5)->get();
     }
 
     public function render()

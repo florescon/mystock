@@ -1,16 +1,16 @@
 <div>
     <div class="relative mb-4">
         <div class="w-full rounded-lg">
-            <x-input wire:model="searchQuery" autofocus
+            <x-input wire:model.debounce.500ms="searchQuery" autofocus
                 x-on:keydown.escape="searchQuery"
                 placeholder="{{ __('Search with names and codes, or reference') }}" />
         </div>
         @if (!empty($searchQuery))
             <div class="absolute top-0 left-0 w-full mt-12 bg-white rounded-md shadow-xl overflow-y-auto max-h-52 z-50">
                 <ul>
-                    @if ($this->product->count())
+                    @if (!is_null($this->product) && $this->product->count())
                         <li class="flex items-center text-left px-4 py-3 border-b border-gray-100">
-                            <x-chips label="{{ __('Products') }}" shade="dark" color="red" />
+                            <x-chips label="{{ __('Products') }}" class="mr-2" shade="dark" color="red" />
                             <div class="flex space-x-4">
                                 @foreach ($this->product as $item)
                                     <p class="font-semibold text-gray-700">
@@ -33,9 +33,9 @@
                             </div>
                         </li>
                     @endif
-                    @if ($this->customer->count())
+                    @if (!is_null($this->customer) && $this->customer->count())
                         <li class="flex items-center text-left px-4 py-3 border-b border-gray-100">
-                            <x-chips label="{{ __('Customers') }}" shade="dark" color="yellow" />
+                            <x-chips label="{{ __('Customers') }}" class="mr-2" shade="dark" color="yellow" />
                             <div class="mx-4 space-y-2">
                                 @foreach ($this->customer as $item)
                                     <p class="font-semibold text-gray-700">
@@ -58,9 +58,9 @@
                             </div>
                         </li>
                     @endif
-                    @if ($this->supplier->count())
+                    @if (!is_null($this->supplier) && $this->supplier->count())
                         <li class="flex items-center text-left px-4 py-3 border-b border-gray-100">
-                            <x-chips label="{{ __('Suppliers') }}" shade="dark" color="green" />
+                            <x-chips label="{{ __('Suppliers') }}" class="mr-2" shade="dark" color="green" />
                             <div class="mx-4 space-y-2">
                                 @foreach ($this->supplier as $item)
                                     <p class="font-semibold text-gray-700">
@@ -79,9 +79,9 @@
                             </div>
                         </li>
                     @endif
-                    @if ($this->sale->count())
+                    @if (!is_null($this->sale) && $this->sale->count())
                         <li class="flex items-center text-left px-4 py-3 border-b border-gray-100">
-                            <x-chips label="{{ __('Sales') }}" shade="dark" color="blue" />
+                            <x-chips label="{{ __('Sales') }}" class="mr-2" shade="dark" color="blue" />
                             <div class="mx-4">
                                 @foreach ($this->sale as $item)
                                     <p class="font-semibold text-gray-700">{{ __('Date') }} :{{ $item->date }}
@@ -99,9 +99,9 @@
                             </div>
                         </li>
                     @endif
-                    @if ($this->purchase->count())
+                    @if (!is_null($this->purchase) && $this->purchase->count())
                         <li class="flex items-center text-left px-4 py-3 border-b border-gray-100">
-                            <x-chips label="{{ __('Purchases') }}" shade="dark" color="cyan" />
+                            <x-chips label="{{ __('Purchases') }}" class="mr-2" shade="dark" color="cyan" />
                             <div class="mx-4">
                                 @foreach ($this->purchase as $item)
                                     <p class="font-semibold text-gray-700">{{ __('Date') }} <br>
@@ -127,7 +127,6 @@
                             </div>
                         </li>
                     @endif
-                    </li>
                 </ul>
             </div>
         @endif

@@ -26,10 +26,6 @@ class Create extends Component
         'expenseCategory.description' => 'nullable',
     ];
 
-    protected $messages = [
-        'expenseCategory.name.required' => 'The name field cannot be empty.',
-    ];
-
     public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);
@@ -59,7 +55,7 @@ class Create extends Component
 
         $this->expenseCategory->save($validatedData);
 
-        $this->alert('success', __('Expense created successfully.'));
+        $this->alert('success', __('Expense Category Created Successfully.'));
 
         $this->emit('refreshIndex');
 

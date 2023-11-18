@@ -33,10 +33,6 @@ class Create extends Component
         'brand.description' => 'nullable|min:3',
     ];
 
-    protected $messages = [
-        'brand.name.required' => 'The name field cannot be empty.',
-    ];
-
     public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);
@@ -61,9 +57,12 @@ class Create extends Component
             $validatedData = $this->validate();
 
             if ($this->image) {
-                $imageName = Str::slug($this->name).'-'.Str::random(5).'.'.$this->image->extension();
-                $this->image->storeAs('brands', $imageName);
-                $this->image = $imageName;
+                // $imageName = Str::slug($this->brand->name).'-'.Str::random(5).'.'.$this->image->extension();
+                // $this->image->storeAs('brands', $imageName);
+                // $this->image = $imageName;
+                $date = date("Y-m-d");
+                $imageName = $this->image->store("brands/".$date,'public');
+                $this->brand->image = $imageName;
             }
 
             $this->brand->save($validatedData);

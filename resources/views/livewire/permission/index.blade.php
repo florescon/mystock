@@ -26,7 +26,7 @@
     <x-table>
         <x-slot name="thead">
             <x-table.th>#</x-table.th>
-            <x-table.th sortable wire:click="sortBy('title')" :direction="$sorts['title'] ?? null">
+            <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Title') }}
             </x-table.th>
         </x-slot>
@@ -37,7 +37,7 @@
                         <input type="checkbox" value="{{ $permission->id }}" wire:model="selected">
                     </x-table.td>
                     <x-table.td>
-                        {{ $permission->name }}
+                        {{ $permission->description ?: $permission->name }}
                     </x-table.td>
                 </x-table.tr>
             @empty

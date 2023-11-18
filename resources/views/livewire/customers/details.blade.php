@@ -96,6 +96,9 @@
                             <x-table.th>
                                 <input type="checkbox" wire:model="selectPage" />
                             </x-table.th>
+                            <x-table.th sortable wire:click="sortBy('reference')" :direction="$sorts['reference'] ?? null">
+                                {{ __('Reference') }}
+                            </x-table.th>
                             <x-table.th sortable wire:click="sortBy('date')" :direction="$sorts['date'] ?? null">
                                 {{ __('Date') }}
                             </x-table.th>
@@ -121,6 +124,9 @@
                                 <x-table.tr wire:loading.class.delay="opacity-50">
                                     <x-table.td>
                                         <input type="checkbox" value="{{ $sale->id }}" wire:model="selected" />
+                                    </x-table.td>
+                                    <x-table.td>
+                                        {{ $sale->reference }}
                                     </x-table.td>
                                     <x-table.td>
                                         {{ $sale->date }}
@@ -153,7 +159,7 @@
                                 </x-table.tr>
                             @empty
                                 <x-table.tr>
-                                    <x-table.td colspan="7">
+                                    <x-table.td colspan="8">
                                         <div class="flex justify-center items-center">
                                             <span
                                                 class="text-gray-400 dark:text-gray-300">{{ __('No results found') }}</span>
@@ -191,11 +197,11 @@
                                     <x-table.td>
                                         {{ format_currency($salepayment->amount) }}
                                     </x-table.td>
-                                    <x-table.td>{{ $salepayment->payment_method }}</x-table.td>
+                                    <x-table.td>{{ __($salepayment->payment_method) }}</x-table.td>
                                 </x-table.tr>
                             @empty
                                 <x-table.tr>
-                                    <x-table.td colspan="3">{{ __('No data found') }}</x-table.td>
+                                    <x-table.td colspan="4">{{ __('No data found') }}</x-table.td>
                                 </x-table.tr>
                             @endforelse
                         @endforeach

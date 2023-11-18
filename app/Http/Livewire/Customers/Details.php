@@ -65,13 +65,13 @@ class Details extends Component
 
     public function getSalesProperty(): mixed
     {
-        $query = Sale::where('customer_id', $this->customer_id)
-            ->with('customer')
+        $query = Sale::
+            with('customer')
             ->advancedFilter([
                 's'               => $this->search ?: null,
                 'order_column'    => $this->sortBy,
                 'order_direction' => $this->sortDirection,
-            ]);
+            ])->where('customer_id', $this->customer_id);
 
         return $query->paginate($this->perPage);
     }

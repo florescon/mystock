@@ -19,9 +19,10 @@ class ExpenseFactory extends Factory
     public function definition()
     {
         return [
-            'category_id' => rand(1, 100),
+            'category_id' => rand(1, 1),
             'warehouse_id' => 1,
-            'details' => fake()->text(),
+            'date' => now(),
+            'details' => fake()->realText(rand(10, 20)),
             'amount' => rand(5, 100),
         ];
     }
