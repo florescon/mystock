@@ -16,6 +16,7 @@ use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use Storage;
 use Illuminate\Validation\Rules\File;
+use Response;
 
 class Index extends Component
 {
@@ -143,7 +144,10 @@ class Index extends Component
 
     public function downloadSample()
     {
-        return Storage::disk('local')->download('example.txt');
+        $download = public_path('files/text.txt');
+        return Response::download($download); 
+
+        // return Storage::disk('local')->download('text.txt');
     }
 
     public function import(): void

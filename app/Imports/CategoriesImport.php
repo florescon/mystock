@@ -27,11 +27,12 @@ class CategoriesImport implements ToModel, WithHeadingRow, SkipsEmptyRows
     {
         $cat = new Category();
 
-        if(isset($row['name'])){
+        if(isset($row['name']) && isset($row['code'])){
             return $cat->firstOrCreate([
                 'code' => $row['code'] ?? Str::random(5)],
                 ['name' => $row['name'],
             ]);
         }
+
     }
 }

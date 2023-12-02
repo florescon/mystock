@@ -25,7 +25,7 @@ class Create extends Component
 
     /** @var array */
     protected $rules = [
-        'category.name' => 'required|min:3|max:100',
+        'category.name' => 'required|min:3|max:50',
     ];
 
     public function updated($propertyName): void

@@ -24,7 +24,7 @@ class Create extends Component
 
     /** @var array */
     protected $rules = [
-        'currency.name'          => 'required|string|min:3|max:255',
+        'currency.name'          => 'required|string|min:3|max:50',
         'currency.code'          => 'required|string|max:255',
         'currency.symbol'        => 'required|string|max:255',
         'currency.exchange_rate' => 'required|numeric',

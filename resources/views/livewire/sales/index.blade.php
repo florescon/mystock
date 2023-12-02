@@ -247,8 +247,10 @@
         </x-slot>
     </x-modal>
 
-    @livewire('sales.payment.index', ['sale' => $sale])
-
+    @if($sale)
+        @livewire('sales.payment.index', ['sale' => $sale])
+    @endif 
+    
     @pushOnce('scripts')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
             integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
