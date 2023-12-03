@@ -48,6 +48,7 @@ class Supplier extends Model
         'city',
         'country',
         'address',
+        'tax_number',
     ];
 
     /** @return HasOne<Wallet> */

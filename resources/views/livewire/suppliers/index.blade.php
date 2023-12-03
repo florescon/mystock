@@ -176,10 +176,10 @@
             <form wire:submit.prevent="import">
                 <div class="mb-4">
                     <div class="w-full px-3 mt-4">
-                        <x-label for="import" :value="__('Import')" />
-                        <x-input id="import" class="block mt-1 w-full" type="file" name="import"
+                        <x-label for="import_file" :value="__('Import')" />
+                        <x-input id="import_file" class="block mt-1 w-full" type="file" name="import_file"
                             wire:model.defer="import_file" />
-                        <x-input-error :messages="$errors->get('import')" for="import" class="mt-2" />
+                        <x-input-error :messages="$errors->get('import_file')" for="import_file" class="mt-2" />
                     </div>
 
                     <div class="w-full flex justify-start mt-4">

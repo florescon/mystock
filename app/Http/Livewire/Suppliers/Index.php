@@ -16,6 +16,8 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Validation\Rules\File;
 use Response;
 
 class Index extends Component
@@ -28,6 +30,8 @@ class Index extends Component
 
     /** @var mixed */
     public $supplier;
+
+    public $import_file;
 
     /** @var array<string> */
     public $listeners = [
@@ -135,9 +139,11 @@ class Index extends Component
             ],
         ]);
 
-        Supplier::import(new SupplierImport(), $this->file('import_file'));
+        Excel::import(new SupplierImport(), $this->import_file);
 
         $this->alert('success', __('Supplier Imported Successfully'));
+
+        $this->import_file = false;
 
         $this->importModal = false;
     }
