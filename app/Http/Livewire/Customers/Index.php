@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Illuminate\Http\Response;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Validation\Rules\File;
 
 class Index extends Component
 {
@@ -35,6 +36,7 @@ class Index extends Component
     public $listeners = [
         'refreshIndex' => '$refresh',
         'showModal',
+        'import',
         'exportAll', 'downloadAll',
         'delete',
     ];
@@ -113,28 +115,28 @@ class Index extends Component
 
         $customers = Customer::whereIn('id', $this->selected)->get();
 
-        return (new CustomerExport($customers))->download('customers.xls', \Maatwebsite\Excel\Excel::XLS);
+        return (new CustomerExport($customers))->download('clientes.xls', \Maatwebsite\Excel\Excel::XLS);
     }
 
     public function downloadAll(Customer $customers): BinaryFileResponse|Response
     {
         abort_if(Gate::denies('customer_access'), 403);
 
-        return (new CustomerExport($customers))->download('customers.xls', \Maatwebsite\Excel\Excel::XLS);
+        return (new CustomerExport($customers))->download('clientes.xls', \Maatwebsite\Excel\Excel::XLS);
     }
 
     public function exportSelected(): BinaryFileResponse|Response
     {
         abort_if(Gate::denies('customer_access'), 403);
 
-        return $this->callExport()->forModels($this->selected)->download('customers.pdf', \Maatwebsite\Excel\Excel::MPDF);
+        return $this->callExport()->forModels($this->selected)->download('clientes.pdf', \Maatwebsite\Excel\Excel::MPDF);
     }
 
     public function exportAll(): BinaryFileResponse|Response
     {
         abort_if(Gate::denies('customer_access'), 403);
 
-        return $this->callExport()->download('customers.pdf', \Maatwebsite\Excel\Excel::MPDF);
+        return $this->callExport()->download('clientes.pdf', \Maatwebsite\Excel\Excel::MPDF);
     }
 
     public function import(): void
@@ -149,16 +151,22 @@ class Index extends Component
         abort_if(Gate::denies('customer_access'), 403);
 
         $this->validate([
-            'file' => 'required|mimes:xls,xlsx',
+            'file' => [
+                'required',
+                File::types(['xlsx', 'xls'])
+                    ->max(1024),
+            ],
         ]);
 
-        $file = $this->file('file');
+        // $file = $this->file('file');
 
-        Excel::import(new CustomerImport(), $file);
+        Excel::import(new CustomerImport(), $this->file);
 
         $this->import = false;
 
-        $this->alert('success', __('Customer imported successfully.'));
+        $this->file = null;
+
+        $this->alert('success', __('Customers imported successfully.'));
     }
 
     private function callExport(): CustomerExport

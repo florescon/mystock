@@ -39,6 +39,9 @@
             <x-table.th sortable multi-column wire:click="sortBy('phone')" :direction="$sorts['phone'] ?? null">
                 {{ __('Phone') }}
             </x-table.th>
+            <x-table.th sortable multi-column wire:click="sortBy('email')" :direction="$sorts['email'] ?? null">
+                {{ __('Email') }}
+            </x-table.th>
             <x-table.th>
                 {{ __('Actions') }}
             </x-table.th>
@@ -57,6 +60,9 @@
                     </x-table.td>
                     <x-table.td>
                         {{ $customer->phone }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $customer->email }}
                     </x-table.td>
                     <x-table.td>
                         <div class="flex justify-start space-x-2">
@@ -176,36 +182,42 @@
             <form wire:submit.prevent="importExcel">
                 <div class="space-y-4">
                     <div class="mt-4">
-                        <x-label for="import" :value="__('Import')" />
-                        <x-input id="import" class="block mt-1 w-full" type="file" name="import"
-                            wire:model.defer="import" />
-                        <x-input-error :messages="$errors->get('import')" for="import" class="mt-2" />
+                        <x-label for="file" :value="__('Import')" />
+                        <x-input id="file" class="block mt-1 w-full" type="file" name="file"
+                            wire:model.defer="file" />
+                        <x-input-error :messages="$errors->get('file')" for="file" class="mt-2" />
                     </div>
 
                     <x-table-responsive>
                         <x-table.tr>
                             <x-table.th>{{ __('Name') }}</x-table.th>
-                            <x-table.td>{{ __('Required') }}</x-table.td>
+                            <x-table.td><strong>name</strong></x-table.td>
+                            <x-table.td>{{ __('Required') }} | max:100</x-table.td>
                         </x-table.tr>
                         <x-table.tr>
                             <x-table.th>{{ __('Phone') }}</x-table.th>
-                            <x-table.td>{{ __('Required') }}</x-table.td>
+                            <x-table.td><strong>phone</strong></x-table.td>
+                            <x-table.td>{{ __('Required') }} | numérico</x-table.td>
                         </x-table.tr>
                         <x-table.tr>
                             <x-table.th>{{ __('Email') }}</x-table.th>
-                            <x-table.td>{{ __('Optional') }}</x-table.td>
+                            <x-table.td><strong>email</strong></x-table.td>
+                            <x-table.td>{{ __('Optional') }} | dirección de correo</x-table.td>
                         </x-table.tr>
                         <x-table.tr>
                             <x-table.th>{{ __('Address') }}</x-table.th>
-                            <x-table.td>{{ __('Optional') }}</x-table.td>
+                            <x-table.td><strong>address</strong></x-table.td>
+                            <x-table.td>{{ __('Optional') }} | max:100</x-table.td>
                         </x-table.tr>
                         <x-table.tr>
                             <x-table.th>{{ __('City') }}</x-table.th>
-                            <x-table.td>{{ __('Optional') }}</x-table.td>
+                            <x-table.td><strong>city</strong></x-table.td>
+                            <x-table.td>{{ __('Optional') }} | max:100</x-table.td>
                         </x-table.tr>
                         <x-table.tr>
                             <x-table.th>{{ __('Tax Number') }}</x-table.th>
-                            <x-table.td>{{ __('Optional') }}</x-table.td>
+                            <x-table.td><strong>tax_number</strong></x-table.td>
+                            <x-table.td>{{ __('Optional') }} | numérico | entre:1,100</x-table.td>
                         </x-table.tr>
                     </x-table-responsive>
 

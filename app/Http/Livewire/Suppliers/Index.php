@@ -16,6 +16,7 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Response;
 
 class Index extends Component
 {
@@ -119,7 +120,8 @@ class Index extends Component
 
     public function downloadSample()
     {
-        return Storage::disk('exports')->download('suppliers_import_sample.xls');
+        $download = public_path('files/proveedores-muestra.xlsx');
+        return Response::download($download); 
     }
 
     public function import()
@@ -146,14 +148,14 @@ class Index extends Component
 
         $suppliers = Supplier::whereIn('id', $this->selected)->get();
 
-        return (new SupplierExport($suppliers))->download('suppliers.xls', \Maatwebsite\Excel\Excel::XLS);
+        return (new SupplierExport($suppliers))->download('proveedores.xls', \Maatwebsite\Excel\Excel::XLS);
     }
 
     public function downloadAll(Supplier $suppliers)
     {
         abort_if(Gate::denies('supplier_access'), 403);
 
-        return (new SupplierExport($suppliers))->download('suppliers.xls', \Maatwebsite\Excel\Excel::XLS);
+        return (new SupplierExport($suppliers))->download('proveedores.xls', \Maatwebsite\Excel\Excel::XLS);
     }
 
     public function exportSelected(): BinaryFileResponse
@@ -162,14 +164,14 @@ class Index extends Component
 
         // $suppliers = Supplier::whereIn('id', $this->selected)->get();
 
-        return $this->callExport()->forModels($this->selected)->download('suppliers.pdf', \Maatwebsite\Excel\Excel::MPDF);
+        return $this->callExport()->forModels($this->selected)->download('proveedores.pdf', \Maatwebsite\Excel\Excel::MPDF);
     }
 
     public function exportAll(): BinaryFileResponse
     {
         abort_if(Gate::denies('supplier_access'), 403);
 
-        return $this->callExport()->download('suppliers.pdf', \Maatwebsite\Excel\Excel::MPDF);
+        return $this->callExport()->download('proveedores.pdf', \Maatwebsite\Excel\Excel::MPDF);
     }
 
     private function callExport(): SupplierExport

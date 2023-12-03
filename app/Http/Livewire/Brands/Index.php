@@ -185,6 +185,7 @@ class Index extends Component
 
         $this->alert('success', __('Brands imported successfully.'));
 
+        $this->import = false;
         $this->importModal = false;
     }
 }

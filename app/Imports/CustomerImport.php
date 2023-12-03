@@ -10,8 +10,9 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Validators\Failure;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class CustomerImport implements ToModel, WithHeadingRow, SkipsEmptyRows, SkipsOnFailure
+class CustomerImport implements ToModel, WithHeadingRow, SkipsEmptyRows, SkipsOnFailure, WithValidation
 {
     /**  */
     public function __construct()
@@ -26,10 +27,49 @@ class CustomerImport implements ToModel, WithHeadingRow, SkipsEmptyRows, SkipsOn
      */
     public function model(array $row)
     {
-        return new Customer([
-            'name'  => $row['name'],
-            'phone' => $row['phone'],
-        ]);
+        $customer = new Customer();
+
+        if(isset($row['name']) && isset($row['phone'])){
+            return $customer->firstOrCreate([
+                'name'  => $row['name'],
+                'phone' => $row['phone'],
+                'email' => $row['email'] ?? null,
+                'address' => $row['address'] ?? null,
+                'city' => $row['city'] ?? null,
+                'tax_number' => $row['tax_number'] ?? null,
+            ]);
+        }
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => [
+                'required',
+                'max:100',
+            ],
+            'phone' => [
+                'required',
+                'numeric',
+            ],
+            'email' => [
+                'email',
+                'nullable',
+            ],
+            'address' => [
+                'max:100',
+                'nullable',
+            ],
+            'city' => [
+                'max:100',
+                'nullable',
+            ],
+            'tax_number' => [
+                'numeric',
+                'digits_between:1,100',
+                'nullable',
+            ],
+        ];
     }
 
     /**

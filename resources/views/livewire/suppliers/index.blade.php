@@ -182,7 +182,7 @@
                         <x-input-error :messages="$errors->get('import')" for="import" class="mt-2" />
                     </div>
 
-                    <div class="w-full px-3">
+                    <div class="w-full flex justify-start mt-4">
                         <x-button primary type="submit" class="w-full text-center" wire:loading.attr="disabled">
                             {{ __('Import') }}
                         </x-button>

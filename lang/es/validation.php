@@ -209,7 +209,8 @@ return [
         'price' => 'precio',
         'unit' => 'unidad',
         'qty' => 'cantidad',
-        'warehouse' => 'almacén'
+        'warehouse' => 'almacén',
+        'file' => 'archivo',
     ],
 
 ];

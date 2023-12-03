@@ -168,6 +168,8 @@ class Index extends Component
 
         $this->alert('success', __('Categories imported successfully.'));
 
+        $this->import = false;
+
         $this->importModal = false;
     }
 }
