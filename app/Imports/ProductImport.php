@@ -13,8 +13,10 @@ use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Validators\Failure;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 
-class ProductImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
+class ProductImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, SkipsOnFailure
 {
     public function collection(Collection $rows)
     {
@@ -38,4 +40,13 @@ class ProductImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
             ]);
         }
     }
+
+    /**
+     * @param Failure[] $failures
+     */
+    public function onFailure(Failure ...$failures)
+    {
+        // Handle the failures how you'd like.
+    }
+
 }

@@ -6,8 +6,10 @@ namespace App\Imports;
 
 use App\Models\Purchase;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Validators\Failure;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 
-class PurchaseImport implements Tomodel
+class PurchaseImport implements Tomodel, SkipsOnFailure
 {
     /**  */
     public function __construct()
@@ -32,4 +34,13 @@ class PurchaseImport implements Tomodel
             'user_id'     => $row[6],
         ]);
     }
+
+    /**
+     * @param Failure[] $failures
+     */
+    public function onFailure(Failure ...$failures)
+    {
+        // Handle the failures how you'd like.
+    }
+
 }

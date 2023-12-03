@@ -8,8 +8,11 @@ use App\Models\Brand;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Validators\Failure;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class BrandsImport implements ToModel, WithHeadingRow, SkipsEmptyRows
+class BrandsImport implements ToModel, WithHeadingRow, SkipsEmptyRows, SkipsOnFailure, WithValidation
 {
     /**  */
     public function __construct()
@@ -24,10 +27,37 @@ class BrandsImport implements ToModel, WithHeadingRow, SkipsEmptyRows
      */
     public function model(array $row)
     {
-        return new Brand([
-            'name'        => $row['name'],
-            'image'       => $row['image'] ?? null, // or download with url
-            'description' => $row['description'] ?? null,
-        ]);
+        $brand = new Brand();
+
+        if(isset($row['name'])){
+            return $brand->firstOrCreate([
+                'name' => $row['name']],
+                ['description' => $row['description'] ?? null,
+            ]);
+
+        }
     }
+
+    public function rules(): array
+    {
+        return [
+            'name' => [
+                'required',
+                'string',
+                'max:100',
+            ],
+            'description' => [
+                'max:255',
+            ],
+        ];
+    }
+
+    /**
+     * @param Failure[] $failures
+     */
+    public function onFailure(Failure ...$failures)
+    {
+        // Handle the failures how you'd like.
+    }
+
 }

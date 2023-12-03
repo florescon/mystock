@@ -8,8 +8,10 @@ use App\Models\Customer;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Validators\Failure;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 
-class CustomerImport implements ToModel, WithHeadingRow, SkipsEmptyRows
+class CustomerImport implements ToModel, WithHeadingRow, SkipsEmptyRows, SkipsOnFailure
 {
     /**  */
     public function __construct()
@@ -29,4 +31,13 @@ class CustomerImport implements ToModel, WithHeadingRow, SkipsEmptyRows
             'phone' => $row['phone'],
         ]);
     }
+
+    /**
+     * @param Failure[] $failures
+     */
+    public function onFailure(Failure ...$failures)
+    {
+        // Handle the failures how you'd like.
+    }
+
 }

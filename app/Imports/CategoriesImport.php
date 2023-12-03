@@ -9,8 +9,11 @@ use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Validators\Failure;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class CategoriesImport implements ToModel, WithHeadingRow, SkipsEmptyRows
+class CategoriesImport implements ToModel, WithHeadingRow, SkipsEmptyRows, SkipsOnFailure, WithValidation
 {
     /**  */
     public function __construct()
@@ -35,4 +38,26 @@ class CategoriesImport implements ToModel, WithHeadingRow, SkipsEmptyRows
         }
 
     }
+
+    public function rules(): array
+    {
+        return [
+            'code' => [
+                'unique:categories',
+                'max:100',
+            ],
+            'name' => [
+                'max:100',
+            ],
+        ];
+    }
+
+    /**
+     * @param Failure[] $failures
+     */
+    public function onFailure(Failure ...$failures)
+    {
+        // Handle the failures how you'd like.
+    }
+
 }

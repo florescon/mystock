@@ -15,6 +15,8 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\File;
+use Response;
 
 class Index extends Component
 {
@@ -163,7 +165,8 @@ class Index extends Component
 
     public function downloadSample()
     {
-        return Storage::disk('exports')->download('brands_import_sample.xls');
+        $download = public_path('files/marcas-muestra.xlsx');
+        return Response::download($download); 
     }
 
     public function import(): void
@@ -171,11 +174,17 @@ class Index extends Component
         abort_if(Gate::denies('brand_import'), 403);
 
         $this->validate([
-            'file' => 'required|mimes:xlsx',
+            'file' => [
+                'required',
+                File::types(['xlsx', 'xls'])
+                    ->max(1024),
+            ],
         ]);
 
         Excel::import(new BrandsImport(), $this->file);
 
-        $this->alert('success', __('Brand imported successfully.'));
+        $this->alert('success', __('Brands imported successfully.'));
+
+        $this->importModal = false;
     }
 }

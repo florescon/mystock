@@ -144,7 +144,7 @@ class Index extends Component
 
     public function downloadSample()
     {
-        $download = public_path('files/text.txt');
+        $download = public_path('files/categorias-muestra.xlsx');
         return Response::download($download); 
 
         // return Storage::disk('local')->download('text.txt');
