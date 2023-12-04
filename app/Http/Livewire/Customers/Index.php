@@ -113,9 +113,7 @@ class Index extends Component
     {
         abort_if(Gate::denies('customer_access'), 403);
 
-        $customers = Customer::whereIn('id', $this->selected)->get();
-
-        return (new CustomerExport($customers))->download('clientes.xls', \Maatwebsite\Excel\Excel::XLS);
+        return $this->callExport()->forModels($this->selected)->download('clientes-seleccionados.xlsx');
     }
 
     public function downloadAll(Customer $customers): BinaryFileResponse|Response

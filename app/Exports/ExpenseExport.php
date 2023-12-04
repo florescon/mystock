@@ -19,11 +19,12 @@ class ExpenseExport implements FromView
 
     public function query()
     {
+
         if ($this->models) {
-            return Expense::query()->whereIn('id', $this->models);
+            return Expense::query()->whereIn('id', $this->models)->datesForPeriod('this year');
         }
 
-        return Expense::query();
+        return Expense::query()->datesForPeriod('this year');
     }
 
     public function view(): View
