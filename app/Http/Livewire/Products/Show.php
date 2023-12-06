@@ -20,7 +20,7 @@ class Show extends Component
 
     public function showModal($id)
     {
-        $this->product = Product::findOrFail($id);
+        $this->product = Product::with('category', 'warehouses', 'movements.user')->findOrFail($id);
 
         $this->showModal = true;
     }

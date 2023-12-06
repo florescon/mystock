@@ -93,9 +93,9 @@
                 <div>
                     <x-table>
                         <x-slot name="thead">
-                            <x-table.th>
+                            {{-- <x-table.th>
                                 <input type="checkbox" wire:model="selectPage" />
-                            </x-table.th>
+                            </x-table.th> --}}
                             <x-table.th sortable wire:click="sortBy('reference')" :direction="$sorts['reference'] ?? null">
                                 {{ __('Reference') }}
                             </x-table.th>
@@ -122,9 +122,9 @@
                         <x-table.tbody>
                             @forelse ($this->sales as $sale)
                                 <x-table.tr wire:loading.class.delay="opacity-50">
-                                    <x-table.td>
+                                    {{-- <x-table.td>
                                         <input type="checkbox" value="{{ $sale->id }}" wire:model="selected" />
-                                    </x-table.td>
+                                    </x-table.td> --}}
                                     <x-table.td>
                                         {{ $sale->reference }}
                                     </x-table.td>
@@ -138,7 +138,7 @@
                                         @php
                                             $type = $sale->payment_status->getBadgeType();
                                         @endphp
-                                        <x-badge :type="$type">{{ $sale->payment_status->getName() }}</x-badge>
+                                        <x-badge :type="$type">{{ __($sale->payment_status->getName()) }}</x-badge>
                                     </x-table.td>
                                     <x-table.td>
                                         {{ format_currency($sale->due_amount) }}
@@ -153,13 +153,13 @@
                                             $badgeType = $sale->status->getBadgeType();
                                         @endphp
 
-                                        <x-badge :type="$badgeType">{{ $sale->status->getName() }}</x-badge>
+                                        <x-badge :type="$badgeType">{{ __($sale->status->getName()) }}</x-badge>
                                     </x-table.td>
 
                                 </x-table.tr>
                             @empty
                                 <x-table.tr>
-                                    <x-table.td colspan="8">
+                                    <x-table.td colspan="7">
                                         <div class="flex justify-center items-center">
                                             <span
                                                 class="text-gray-400 dark:text-gray-300">{{ __('No results found') }}</span>

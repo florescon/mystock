@@ -72,13 +72,13 @@
                                         class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
                                         name="payment_method" id="payment_method" required>
                                         <option {{ $salePayment->payment_method == 'Cash' ? 'selected' : '' }}
-                                            value="Cash">Cash</option>
+                                            value="Cash">{{ __('Cash') }}</option>
                                         <option {{ $salePayment->payment_method == 'Bank Transfer' ? 'selected' : '' }}
-                                            value="Bank Transfer">Bank Transfer</option>
-                                        <option {{ $salePayment->payment_method == 'Cheque' ? 'selected' : '' }}
-                                            value="Cheque">Cheque</option>
+                                            value="Bank Transfer">{{ __('Bank Transfer') }}</option>
+                                        <option {{ $salePayment->payment_method == 'Card' ? 'selected' : '' }}
+                                            value="Card">{{ __('Card') }}</option>
                                         <option {{ $salePayment->payment_method == 'Other' ? 'selected' : '' }}
-                                            value="Other">Other</option>
+                                            value="Other">{{ __('Other') }}</option>
                                     </select>
                                 </div>
                             </div>

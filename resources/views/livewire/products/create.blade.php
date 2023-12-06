@@ -115,10 +115,10 @@
                                     name="barcode_symbology" id="barcode_symbology" required>
                                     <option value="C128" selected>Code 128</option>
                                     <option value="C39">Code 39</option>
-                                    <option value="UPCA">UPC-A</option>
-                                    <option value="UPCE">UPC-E</option>
-                                    <option value="EAN13">EAN-13</option>
-                                    <option value="EAN8">EAN-8</option>
+                                    {{-- <option value="UPCA">UPC-A</option> --}}
+                                    {{-- <option value="UPCE">UPC-E</option> --}}
+                                    {{-- <option value="EAN13">EAN-13</option> --}}
+                                    {{-- <option value="EAN8">EAN-8</option> --}}
                                 </select>
                                 <x-input-error :messages="$errors->get('barcode_symbology')" for="barcode_symbology" class="mt-2" />
                             </div>

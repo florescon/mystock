@@ -8,9 +8,9 @@
                 @endforeach
             </select>
             @if ($selected)
-                <x-button danger type="button" wire:click="deleteSelected" class="ml-3">
+                {{-- <x-button danger type="button" wire:click="deleteSelected" class="ml-3">
                     <i class="fas fa-trash"></i>
-                </x-button>
+                </x-button> --}}
                 <x-button success type="button" wire:click="downloadSelected" wire:loading.attr="disabled">
                     {{ __('EXCEL') }}
                 </x-button>

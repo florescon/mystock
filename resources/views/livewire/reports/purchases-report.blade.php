@@ -114,7 +114,7 @@
                                     $badgeType = $purchase->status->getBadgeType();
                                 @endphp
 
-                                <x-badge :type="$badgeType">{{ $purchase->status->getName() }}</x-badge>
+                                <x-badge :type="$badgeType">{{ __($purchase->status->getName()) }}</x-badge>
 
                             </x-table.td>
                             <x-table.td>{{ format_currency($purchase->total_amount) }}</x-table.td>
@@ -124,7 +124,7 @@
                                 @php
                                     $type = $purchase->payment_status->getBadgeType();
                                 @endphp
-                                <x-badge :type="$type">{{ $purchase->payment_status->getName() }}</x-badge>
+                                <x-badge :type="$type">{{ __($purchase->payment_status->getName()) }}</x-badge>
                             </x-table.td>
                         </x-table.tr>
                     @empty

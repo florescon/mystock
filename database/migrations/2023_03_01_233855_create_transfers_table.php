@@ -29,6 +29,7 @@ return new class () extends Migration {
             $table->string('document')->nullable();
             $table->integer('status');
             $table->text('note')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

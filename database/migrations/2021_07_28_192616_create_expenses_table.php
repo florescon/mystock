@@ -20,9 +20,9 @@ return new class () extends Migration {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignIdFor(ExpenseCategory::class, 'category_id')->constrained()->restrictOnDelete();
-            $table->foreignIdFor(User::class)->nullable()->constrained()->restrictOnDelete();
-            $table->foreignIdFor(Warehouse::class)->nullable()->constrained()->restrictOnDelete();
+            $table->foreignIdFor(ExpenseCategory::class, 'category_id')->restrictOnDelete();
+            $table->foreignIdFor(User::class)->nullable()->restrictOnDelete();
+            $table->foreignIdFor(Warehouse::class)->nullable()->restrictOnDelete();
 
             $table->date('date');
             $table->string('reference', 192);

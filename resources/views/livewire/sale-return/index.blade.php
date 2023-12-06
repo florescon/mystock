@@ -68,7 +68,7 @@
                             $badgeType = $salereturn->payment_status->getBadgeType();
                         @endphp
 
-                        <x-badge :type="$badgeType">{{ $salereturn->payment_status->getName() }}</x-badge>
+                        <x-badge :type="$badgeType">{{ __($salereturn->payment_status->getName()) }}</x-badge>
                     </x-table.td>
                     <x-table.td>
                         {{ format_currency($salereturn->due_amount) }}
@@ -82,7 +82,7 @@
                         @php
                             $type = $salereturn->status->getBadgeType();
                         @endphp
-                        <x-badge :type="$type">{{ $salereturn->status->getName() }}</x-badge>
+                        <x-badge :type="$type">{{ __($salereturn->status->getName()) }}</x-badge>
 
                     </x-table.td>
                     <x-table.td>
@@ -216,7 +216,7 @@
                                                     $badgeType = $salereturn?->status->getBadgeType();
                                                 @endphp
                                                 <x-badge
-                                                    :type="$badgeType">{{ $salereturn?->status->getName() }}</x-badge>
+                                                    :type="$badgeType">{{ __($salereturn?->status->getName()) }}</x-badge>
 
                                             </strong>
                                         </div>
@@ -372,7 +372,7 @@
                                     name="payment_method" id="payment_method" required>
                                     <option value="Cash">{{ __('Cash') }}</option>
                                     <option value="Bank Transfer">{{ __('Bank Transfer') }}</option>
-                                    <option value="Cheque">{{ __('Cheque') }}</option>
+                                    <option value="Card">{{ __('Card') }}</option>
                                     <option value="Other">{{ __('Other') }}</option>
                                 </select>
                                 <x-input-error :messages="$errors->first('payment_method')" />

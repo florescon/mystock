@@ -104,6 +104,7 @@
                             <th>{{ __('Name') }}</th>
                             <th>{{ __('Category') }}</th>
                             <th>{{ __('Quantity') }}</th>
+                            <th>{{ __('Cost') }}</th>
                             <th>{{ __('Price') }}</th>
                         </tr>
                     </thead>
@@ -113,9 +114,9 @@
                                 <td>{{ $row->code }}</td>
                                 <td>{{ $row->name }}</td>
                                 <td>{{ $row->category?->name }}</td>
-                                <td>{{ $row->quantity }}</td>
-                                <td>{{ $row->cost }}</td>
-                                <td>{{ $row->price }}</td>
+                                <td>{{ $row->total_quantity }}</td>
+                                <td>{{ $row->average_cost }}</td>
+                                <td>{{ $row->average_price }}</td>
                             </tr>
                         @endforeach
                     </tbody>

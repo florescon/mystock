@@ -23,6 +23,7 @@ return new class () extends Migration {
             $table->integer('cost');
             $table->date('effective_date')->nullable();
             $table->date('expiry_date')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

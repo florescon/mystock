@@ -31,9 +31,9 @@
 
     <x-table>
         <x-slot name="thead">
-            <x-table.th>
+            {{-- <x-table.th>
                 <input type="checkbox" wire:model="selectPage" />
-            </x-table.th>
+            </x-table.th> --}}
             <x-table.th sortable wire:click="sortBy('created_at')" :direction="$sorts['created_at'] ?? null">
                 {{ __('Date') }}
             </x-table.th>
@@ -59,9 +59,9 @@
         <x-table.tbody>
             @forelse($users as $user)
                 <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $user->id }}">
-                    <x-table.td>
+                    {{-- <x-table.td>
                         <input type="checkbox" value="{{ $user->id }}" wire:model="selected">
-                    </x-table.td>
+                    </x-table.td> --}}
                     <x-table.td>
                         {{ $user->created_at->format('d / m / Y') }}
                     </x-table.td>

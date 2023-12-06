@@ -52,7 +52,7 @@ class Edit extends Component
     /** @var array */
     protected $rules = [
         'product.name'              => 'required|string|min:3|max:255',
-        'product.code'              => 'required|string|max:255',
+        'product.code'              => 'required|string|min:3|max:15',
         'product.barcode_symbology' => 'required|string|max:255',
         'product.unit'              => 'required|string|max:255',
         'productWarehouse'          => 'required|array',
@@ -63,7 +63,7 @@ class Edit extends Component
         'product.order_tax'    => 'nullable|integer|min:0|max:100',
         'product.tax_type'     => 'nullable|integer|min:0|max:100',
         'product.note'         => 'nullable|string|max:1000',
-        'product.category_id'  => 'required|integer|min:0|max:100',
+        'product.category_id'  => 'required|integer|min:1|max:100',
         'product.brand_id'     => 'nullable|integer|min:0|max:100',
         'product.warehouse_id' => 'nullable|integer|min:0|max:100',
         'product.featured'     => 'nullable',

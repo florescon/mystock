@@ -116,7 +116,7 @@
                                         @php
                                             $type = $purchase_return->status->getBadgeType();
                                         @endphp
-                                        <x-badge :type="$type">{{ $purchase_return->status->getName() }}</x-badge>
+                                        <x-badge :type="$type">{{ __($purchase_return->status->getName()) }}</x-badge>
                                     </x-table.td>
                                     <x-table.td>{{ format_currency($purchase_return->total_amount) }}</x-table.td>
                                     <x-table.td>{{ format_currency($purchase_return->paid_amount) }}</x-table.td>
@@ -126,7 +126,7 @@
                                             $type = $purchase_return->payment_status->getBadgeType();
                                         @endphp
                                         <x-badge
-                                            :type="$type">{{ $purchase_return->payment_status->getName() }}</x-badge>
+                                            :type="$type">{{ __($purchase_return->payment_status->getName()) }}</x-badge>
                                     </x-table.td>
                                 </x-table.tr>
                             @empty

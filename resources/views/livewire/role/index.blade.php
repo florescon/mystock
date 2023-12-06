@@ -28,7 +28,6 @@
 
     <x-table>
         <x-slot name="thead">
-            <x-table.th>#</x-table.th>
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Title') }}
             </x-table.th>
@@ -42,9 +41,9 @@
         <x-table.tbody>
             @forelse($roles as $role)
                 <x-table.tr>
-                    <x-table.td>
+                    {{-- <x-table.td>
                         <input type="checkbox" value="{{ $role->id }}" wire:model="selected">
-                    </x-table.td>
+                    </x-table.td> --}}
                     <x-table.td>
                         {{ $role->name }}
                     </x-table.td>
@@ -67,7 +66,7 @@
                 </x-table.tr>
             @empty
                 <x-table.tr>
-                    <x-table.td colspan="10" class="text-center">
+                    <x-table.td colspan="3" class="text-center">
                         {{ __('No entries found.') }}
                     </x-table.td>
                 </x-table.tr>

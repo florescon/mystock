@@ -7,10 +7,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Support\HasAdvancedFilter;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Shipment extends Model
 {
     use HasAdvancedFilter;
+    use SoftDeletes;
+
     public const ATTRIBUTES = [
         'user_id', 'date', 'Ref', 'sale_id', 'delivered_to', 'status',
 

@@ -29,6 +29,7 @@ class CreateWalletsTable extends Migration
             $table->foreignIdFor(Customer::class)->nullable()->constrained()->restrictOnDelete();
             $table->foreignIdFor(Supplier::class)->nullable()->constrained()->restrictOnDelete();
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

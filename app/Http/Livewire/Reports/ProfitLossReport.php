@@ -47,6 +47,8 @@ class ProfitLossReport extends Component
 
     public $payments_net_amount;
 
+    public ?int $warehouse_id = 1;
+
     protected $rules = [
         'start_date' => 'required|date|before:end_date',
         'end_date'   => 'required|date|after:start_date',
@@ -54,8 +56,8 @@ class ProfitLossReport extends Component
 
     public function mount(): void
     {
-        $this->start_date = '';
-        $this->end_date = '';
+        $this->start_date = now()->subMonth()->format('Y-m-d');
+        $this->end_date = now()->endOfDay()->format('Y-m-d');
         $this->total_sales = 0;
         $this->sales_amount = 0;
         $this->total_sale_returns = 0;

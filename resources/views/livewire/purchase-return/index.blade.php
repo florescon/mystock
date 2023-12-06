@@ -61,7 +61,7 @@
                         @php
                             $type = $purchase_return->status->getBadgeType();
                         @endphp
-                        <x-badge :type="$type">{{ $purchase_return->status->getName() }}</x-badge>
+                        <x-badge :type="$type">{{ __($purchase_return->status->getName()) }}</x-badge>
                     </x-table.td>
                     <x-table.td>
                         {{ format_currency($salereturn->total_amount) }}
@@ -353,7 +353,7 @@
                                     name="payment_method" id="payment_method" required>
                                     <option value="Cash">{{ __('Cash') }}</option>
                                     <option value="Bank Transfer">{{ __('Bank Transfer') }}</option>
-                                    <option value="Cheque">{{ __('Cheque') }}</option>
+                                    <option value="Card">{{ __('Card') }}</option>
                                     <option value="Other">{{ __('Other') }}</option>
                                 </select>
                                 <x-input-error :messages="$errors->first('payment_method')" />

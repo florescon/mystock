@@ -22,9 +22,9 @@
 
     <x-table>
         <x-slot name="thead">
-            <x-table.th>
+            {{-- <x-table.th>
                 <input type="checkbox" wire:model="selectPage" />
-            </x-table.th>
+            </x-table.th> --}}
             <x-table.th sortable wire:click="sortBy('date')" :direction="$sorts['date'] ?? null">
                 {{ __('Date') }}
             </x-table.th>
@@ -43,9 +43,9 @@
         <x-table.tbody>
             @forelse ($quotations as $quotation)
                 <x-table.tr wire:loading.class.delay="opacity-50">
-                    <x-table.td class="pr-0">
+                    {{-- <x-table.td class="pr-0">
                         <input type="checkbox" value="{{ $quotation->id }}" wire:model="selected" />
-                    </x-table.td>
+                    </x-table.td> --}}
                     <x-table.td>
                         {{ $quotation->date }}
                     </x-table.td>
@@ -63,7 +63,7 @@
                             $badgeType = $quotation->status->getBadgeType();
                         @endphp
 
-                        <x-badge :type="$badgeType">{{ $quotation->status->getName() }}</x-badge>
+                        <x-badge :type="$badgeType">{{ __($quotation->status->getName()) }}</x-badge>
                     </x-table.td>
                     <x-table.td class="whitespace-no-wrap row-action--icon">
                         <x-dropdown align="right" width="56">

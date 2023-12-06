@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Printer extends Model
 {
     use HasAdvancedFilter;
+    
     public const ATTRIBUTES = [
         'id',
         'name',

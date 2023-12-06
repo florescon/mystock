@@ -24,6 +24,7 @@ return new class () extends Migration {
             $table->foreignIdFor(Warehouse::class)->nullable()->constrained()->restrictOnDelete();
 
             $table->boolean('status');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

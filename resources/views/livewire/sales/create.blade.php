@@ -52,7 +52,7 @@
                         <option value=""> {{ __('Select option') }}</option>
                         <option value="Cash">{{ __('Cash') }}</option>
                         <option value="Bank Transfer">{{ __('Bank Transfer') }}</option>
-                        <option value="Cheque">{{ __('Cheque') }}</option>
+                        <option value="Card">{{ __('Card') }}</option>
                         <option value="Other">{{ __('Other') }}</option>
                     </select>
                     <x-input-error :messages="$errors->get('payment_method')" class="mt-2" />

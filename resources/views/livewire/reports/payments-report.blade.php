@@ -47,7 +47,7 @@
                                         <option value="">{{__('Select Payment Method')}}</option>
                                         <option value="Cash">{{__('Cash')}}</option>
                                         <option value="Bank Transfer">{{__('Bank Transfer')}}</option>
-                                        <option value="Cheque">{{__('Cheque')}}</option>
+                                        <option value="Card">{{__('Card')}}</option>
                                         <option value="Other">{{__('Other')}}</option>
                                     </select>
                                 </div>

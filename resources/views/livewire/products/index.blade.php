@@ -40,9 +40,9 @@
 
     <x-table>
         <x-slot name="thead">
-            <x-table.th>
+            {{-- <x-table.th>
                 #
-            </x-table.th>
+            </x-table.th> --}}
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
             </x-table.th>
@@ -71,9 +71,9 @@
         <x-table.tbody>
             @forelse($products as $product)
                 <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $product->id }}">
-                    <x-table.td>
+                    {{-- <x-table.td>
                         <input type="checkbox" value="{{ $product->id }}" wire:model="selected">
-                    </x-table.td>
+                    </x-table.td> --}}
                     <x-table.td>
                         <button type="button" wire:click="$emit('showModal',{{ $product->id }})"
                             class="whitespace-nowrap hover:text-blue-400 active:text-blue-400">
@@ -129,8 +129,8 @@
                                 @endif
                                 <x-dropdown-link wire:click="sendWhatsapp({{ $product->id }})"
                                     wire:loading.attr="disabled">
-                                    <i class="fas fa-paper-plane"></i>
-                                    {{ __('Send to Whatsapp') }}
+                                    <i class="fa-brands fa-whatsapp fa-beat"></i>
+                                    {{  __('Send to Whatsapp') }}
                                 </x-dropdown-link>
                                 <x-dropdown-link wire:click="$emit('editModal', {{ $product->id }})"
                                     wire:loading.attr="disabled">

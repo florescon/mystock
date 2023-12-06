@@ -30,9 +30,9 @@
 
     <x-table>
         <x-slot name="thead">
-            <x-table.th>
+            {{-- <x-table.th>
                 <input wire:model="selectPage" type="checkbox" />
-            </x-table.th>
+            </x-table.th> --}}
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
             </x-table.th>
@@ -47,9 +47,9 @@
         <x-table.tbody>
             @forelse($customergroups as $customergroup)
                 <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $customergroup->id }}">
-                    <x-table.td>
+                    {{-- <x-table.td>
                         <input type="checkbox" value="{{ $customergroup->id }}" wire:model="selected">
-                    </x-table.td>
+                    </x-table.td> --}}
                     <x-table.td>
                         {{ $customergroup->name }}
                     </x-table.td>

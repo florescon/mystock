@@ -109,10 +109,10 @@
                                         required>
                                         <option selected value="C128">Code 128</option>
                                         <option value="C39">Code 39</option>
-                                        <option value="UPCA">UPC-A</option>
-                                        <option value="UPCE">UPC-E</option>
-                                        <option value="EAN13">EAN-13</option>
-                                        <option value="EAN8">EAN-8</option>
+                                        {{-- <option value="UPCA">UPC-A</option> --}}
+                                        {{-- <option value="UPCE">UPC-E</option> --}}
+                                        {{-- <option value="EAN13">EAN-13</option> --}}
+                                        {{-- <option value="EAN8">EAN-8</option> --}}
                                     </select>
                                 </div>
                                 <div class="md:w-1/2 sm:w-full px-4 gap-2">

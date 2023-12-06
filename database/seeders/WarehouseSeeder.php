@@ -18,9 +18,7 @@ class WarehouseSeeder extends Seeder
     public function run()
     {
         $warehouses = [
-            ['name' => 'default', 'city' => 'Lagos de Moreno', 'phone' => '061234567896', 'email' => 'default@casa.ma', 'country' => 'morocco'],
-            ['name' => 'secend', 'city' => 'Lagos de Moreno', 'phone' => '061234567898', 'email' => 'secend@casa.ma', 'country' => 'morocco'],
-
+            ['name' => 'Tienda', 'city' => 'Lagos de Moreno, Jal.', 'phone' => '061234567896', 'email' => 'default@store.mx', 'country' => 'mex'],
         ];
 
         collect($warehouses)->each(function ($warehouse) {

@@ -211,6 +211,17 @@ return [
         'qty' => 'cantidad',
         'warehouse' => 'almacén',
         'file' => 'archivo',
+        'productWarehouse' => 'almacén',
+        'category_id' => 'categoría',
+        'password' => 'contraseña',
+        'role' => 'rol',
+        'payments' => 'pagos',
+        'supplier_id' => 'proveedor',
+        'tax_percentage' => 'porcentaje de impuestos',
+        'discount_percentage' => 'procentaje de descuento',
+        'shipping_amount' => 'monto de envío',
+        'start_date' => 'fecha inicial',
+        'end_date' => 'fecha final',
     ],
 
 ];

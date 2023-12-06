@@ -36,11 +36,11 @@
                 </div>
             </div>
             <div class="float-right">
-                @can('warehouse_create')
+                {{-- @can('warehouse_create')
                     <x-button primary type="button" onclick="Livewire.emit('createModal')">
                         {{ __('Create Warehouse') }}
                     </x-button>
-                @endcan
+                @endcan --}}
             </div>
         </div>
     </section>

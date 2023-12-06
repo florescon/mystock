@@ -14,14 +14,14 @@
                     class="px-4 py-2 w-full text-left hover:bg-indigo-500 hover:text-white transition-colors">
                     {{ __('Invoice Configuration') }}
                 </button>
-                <button @click="tab = 'mail'" :class="{ 'bg-indigo-500 text-white': tab === 'mail' }"
+                {{-- <button @click="tab = 'mail'" :class="{ 'bg-indigo-500 text-white': tab === 'mail' }"
                     class="px-4 py-2 w-full text-left hover:bg-indigo-500 hover:text-white transition-colors">
                     {{ __('Mail Configuration') }}
                 </button>
                 <button @click="tab = 'mail'" :class="{ 'bg-indigo-500 text-white': tab === 'messaging' }"
                     class="px-4 py-2 w-full text-left hover:bg-indigo-500 hover:text-white transition-colors">
                     {{ __('Messaging') }}
-                </button>
+                </button> --}}
             </div>
         </div>
         <div class="w-3/4 px-4">

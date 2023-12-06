@@ -26,11 +26,6 @@ class Create extends Component
         'customergroup.percentage' => 'required',
     ];
 
-    protected $messages = [
-        'customergroup.name.required'       => 'The name field cannot be empty.',
-        'customergroup.percentage.required' => 'The percentage field cannot be empty.',
-    ];
-
     public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);

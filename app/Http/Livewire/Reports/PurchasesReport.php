@@ -43,6 +43,7 @@ class PurchasesReport extends Component
     public function render()
     {
         $purchases = Purchase::whereDate('date', '>=', $this->start_date)
+            ->with('supplier')
             ->whereDate('date', '<=', $this->end_date)
             ->when($this->supplier_id, function ($query) {
                 return $query->where('supplier_id', $this->supplier_id);

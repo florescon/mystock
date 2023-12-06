@@ -19,15 +19,15 @@
                                     </p>
                                     <p class="font-semibold text-gray-700">
                                         {{ __('Price') }} <br>
-                                        {{ format_currency($item->price) }}
+                                        {{ format_currency($item->average_price) }}
                                     </p>
                                     <p class="font-semibold text-gray-700">
                                         {{ __('Cost') }} <br>
-                                        {{ format_currency($item->cost) }}
+                                        {{ format_currency($item->average_cost) }}
                                     </p>
                                     <p class="font-semibold text-gray-700">
                                         {{ __('Quantity') }} <br>
-                                        {{ $item->quantity }}
+                                        {{ $item->total_quantity }}
                                     </p>
                                 @endforeach
                             </div>

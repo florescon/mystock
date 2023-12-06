@@ -35,13 +35,13 @@
                         <div class="text-center font-bold text-gray-500 uppercase mb-2 cursor-pointer"
                             @click="activeTabs = 'productDetails'">
                             <h4 class="inline-block" :class="activeTabs === 'productDetails' ? 'text-red-400' : ''">
-                                {{ __('Details') }}
+                                {{ __('Details') }} <i class="fa-solid fa-hand-point-left fa-beat"></i>
                             </h4>
                         </div>
                         <div class="text-center font-bold text-gray-500 uppercase mb-2 cursor-pointer"
                             @click="activeTabs = 'productMovements'">
                             <h4 class="inline-block" :class="activeTabs === 'productMovements' ? 'text-red-400' : ''">
-                                {{ __('Movements') }}
+                                {{ __('Movements') }} <i class="fa-solid fa-hand-point-left fa-beat"></i>
                             </h4>
                         </div>
                     </div>
@@ -125,17 +125,17 @@
                                             <div class="flex items-center">
                                                 <span class="font-semibold">{{ __('Type') }}:</span>
                                                 <span class="ml-2">
-                                                    {{ $movement->type->getName() }}
+                                                    {{ __($movement->type->getName()) }}
                                                 </span>
                                             </div>
                                             <div class="flex items-center">
                                                 <span class="font-semibold">{{ __('Quantity') }}:</span>
                                                 <span class="ml-2">{{ $movement->quantity }}</span>
                                             </div>
-                                            {{-- <div class="flex items-center">
+                                            <div class="flex items-center">
                                                 <span class="font-semibold">{{ __('User') }}:</span>
-                                                <span class="ml-2">{{ $movement->user->id }}</span>
-                                            </div> --}}
+                                                <span class="ml-2">{{ optional($movement->user)->name }}</span>
+                                            </div>
                                             <div class="flex items-center">
                                                 <span class="font-semibold">{{ __('Date') }}:</span>
                                                 <span class="ml-2">{{ $movement->created_at }}</span>

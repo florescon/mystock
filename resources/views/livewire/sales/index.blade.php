@@ -53,9 +53,9 @@
 
     <x-table>
         <x-slot name="thead">
-            <x-table.th>
+            {{-- <x-table.th>
                 <input type="checkbox" wire:model="selectPage" />
-            </x-table.th>
+            </x-table.th> --}}
             <x-table.th sortable wire:click="sortBy('reference')" :direction="$sorts['reference'] ?? null">
                 {{ __('Reference') }}
             </x-table.th>
@@ -85,9 +85,9 @@
         <x-table.tbody>
             @forelse ($sales as $sale)
                 <x-table.tr wire:loading.class.delay="opacity-50">
-                    <x-table.td class="pr-0">
+                    {{-- <x-table.td class="pr-0">
                         <input type="checkbox" value="{{ $sale->id }}" wire:model="selected" />
-                    </x-table.td>
+                    </x-table.td> --}}
                     <x-table.td>
                         {{ $sale->reference }}
                     </x-table.td>
@@ -109,7 +109,7 @@
                         @php
                             $type = $sale->payment_status->getBadgeType();
                         @endphp
-                        <x-badge :type="$type">{{ $sale->payment_status->getName() }}</x-badge>
+                        <x-badge :type="$type">{{ __($sale->payment_status->getName()) }}</x-badge>
                     </x-table.td>
                     <x-table.td>
                         {{ format_currency($sale->due_amount) }}
@@ -123,7 +123,7 @@
                             $badgeType = $sale->status->getBadgeType();
                         @endphp
 
-                        <x-badge :type="$badgeType">{{ $sale->status->getName() }}</x-badge>
+                        <x-badge :type="$badgeType">{{ __($sale->status->getName()) }}</x-badge>
                     </x-table.td>
                     <x-table.td>
                         <div class="flex justify-start space-x-2">
@@ -143,7 +143,7 @@
                                     @if ($sale->due_amount > 0)
                                         <x-dropdown-link wire:click="sendWhatsapp({{ $sale->id }})"
                                             wire:loading.attr="disabled">
-                                            <i class="fas fa-paper-plane"></i>
+                                            <i class="fa-brands fa-whatsapp fa-beat"></i>
                                             {{ __('Send to Whatsapp') }}
                                         </x-dropdown-link>
                                     @endif

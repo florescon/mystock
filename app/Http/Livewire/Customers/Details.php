@@ -22,6 +22,8 @@ class Details extends Component
 
     public $customer;
 
+    public ?int $warehouse_id = 1;
+
     /** @var array<array<string>> */
     protected $queryString = [
         'search' => [

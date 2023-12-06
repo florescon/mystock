@@ -10,6 +10,7 @@ use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Supplier extends Model
 {
@@ -17,6 +18,7 @@ class Supplier extends Model
     use GetModelByUuid;
     use UuidGenerator;
     use HasFactory;
+    use SoftDeletes;
 
     public const ATTRIBUTES = [
 

@@ -106,7 +106,7 @@
                             $badgeType = $purchase->status->getBadgeType();
                         @endphp
 
-                        <x-badge :type="$badgeType">{{ $purchase->payment_status->getName() }}</x-badge>
+                        <x-badge :type="$badgeType">{{ __($purchase->payment_status->getName()) }}</x-badge>
 
                     </x-table.td>
                     <x-table.td>
@@ -197,9 +197,9 @@
 
     @livewire('purchase.payment-form', ['purchase' => $purchase])
 
-    {{-- @if (empty($showPayments))
+    @if($purchase)
         <livewire:purchase.payment.index :purchase="$purchase" />
-    @endif --}}
+    @endif
 
 
     @push('scripts')

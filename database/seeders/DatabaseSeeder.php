@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             // CustomersSeeder::class,
             // SupplierSeeder::class,
             // ProductsSeeder::class,
-            // WarehouseSeeder::class,
+            WarehouseSeeder::class,
         ]);
     }
 }

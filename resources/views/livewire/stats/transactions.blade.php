@@ -122,7 +122,7 @@
                                 @php
                                     $type = $sale->status->getBadgeType();
                                 @endphp
-                                <x-badge :type="$type">{{ $sale->status->getName() }}</x-badge>
+                                <x-badge :type="$type">{{ __($sale->status->getName()) }}</x-badge>
                             </td>
                         </tr>
                     @endforeach
@@ -167,7 +167,7 @@
                                     $badgeType = $purchase->status->getBadgeType();
                                 @endphp
 
-                                <x-badge :type="$badgeType">{{ $purchase->status->getName() }}</x-badge>
+                                <x-badge :type="$badgeType">{{ __($purchase->status->getName()) }}</x-badge>
                             </td>
                         </tr>
                     @endforeach

@@ -22,9 +22,9 @@
 
     <x-table>
         <x-slot name="thead">
-            <x-table.th>
+            {{-- <x-table.th>
                 <input type="checkbox" wire:model="selectPage" />
-            </x-table.th>
+            </x-table.th> --}}
             <x-table.th sortable wire:click="sortBy('date')" :direction="$sorts['date'] ?? null">
                 {{ __('Date') }}
             </x-table.th>
@@ -36,9 +36,9 @@
         <x-table.tbody>
             @forelse ($adjustments as $adjustment)
                 <x-table.tr wire:key="row-{{ $adjustment->id }}">
-                    <x-table.td>
+                    {{-- <x-table.td>
                         <input wire:model="selected" type="checkbox" />
-                    </x-table.td>
+                    </x-table.td> --}}
                     <x-table.td>{{ $adjustment->date }}</x-table.td>
                     <x-table.td>{{ $adjustment->reference }}</x-table.td>
                     <x-table.td>

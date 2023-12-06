@@ -23,6 +23,7 @@ return new class () extends Migration {
             $table->unsignedBigInteger('movable_id');
             $table->string('movable_type');
             $table->unsignedBigInteger('user_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

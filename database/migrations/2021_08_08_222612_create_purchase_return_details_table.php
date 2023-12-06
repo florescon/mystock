@@ -33,6 +33,7 @@ class CreatePurchaseReturnDetailsTable extends Migration
             $table->string('discount_type')->default('fixed');
             $table->integer('tax_amount');
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

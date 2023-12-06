@@ -30,9 +30,9 @@
 
     <x-table>
         <x-slot name="thead">
-            <x-table.th>
+            {{-- <x-table.th>
                 <input wire:model="selectPage" type="checkbox" />
-            </x-table.th>
+            </x-table.th> --}}
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
             </x-table.th>
@@ -47,9 +47,9 @@
         <x-table.tbody>
             @forelse($expenseCategories as $expenseCategory)
                 <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $expenseCategory->id }}">
-                    <x-table.td>
+                    {{-- <x-table.td>
                         <input type="checkbox" value="{{ $expenseCategory->id }}" wire:model="selected">
-                    </x-table.td>
+                    </x-table.td> --}}
                     <x-table.td>
                         {{ $expenseCategory->name }}
                     </x-table.td>
@@ -78,7 +78,7 @@
                 </x-table.tr>
             @empty
                 <x-table.tr>
-                    <x-table.td colspan="4">
+                    <x-table.td colspan="3">
                         <div class="flex justify-center">
                             {{ __('No Expense Categories found.') }}
                         </div>

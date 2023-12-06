@@ -30,9 +30,9 @@
 
     <x-table>
         <x-slot name="thead">
-            <x-table.th>
+            {{-- <x-table.th>
                 <input type="checkbox" wire:model="selectPage" />
-            </x-table.th>
+            </x-table.th> --}}
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
             </x-table.th>
@@ -52,9 +52,9 @@
         <x-table.tbody>
             @forelse ($currencies as $currency)
                 <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $currency->id }}">
-                    <x-table.td class="pr-0">
+                    {{-- <x-table.td class="pr-0">
                         <input type="checkbox" value="{{ $currency->id }}" wire:model="selected" />
-                    </x-table.td>
+                    </x-table.td> --}}
                     <x-table.td>
                         {{ $currency->name }}
                     </x-table.td>
@@ -88,7 +88,7 @@
                 </x-table.tr>
             @empty
                 <x-table.tr>
-                    <x-table.td colspan="8">
+                    <x-table.td colspan="5">
                         <div class="flex items-center justify-center">
                             <span class="dark:text-gray-300">{{ __('No results found') }}</span>
                         </div>

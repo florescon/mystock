@@ -33,6 +33,7 @@ class CreateSaleReturnDetailsTable extends Migration
             $table->string('discount_type')->default('fixed');
             $table->integer('tax_amount');
             // $table->foreign('id')->references('id')->on('products')->cascadeOnDelete();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

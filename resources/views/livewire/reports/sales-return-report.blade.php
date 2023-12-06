@@ -108,7 +108,7 @@
                                         @php
                                             $badgeType = $salereturn?->status->getBadgeType();
                                         @endphp
-                                        <x-badge :type="$badgeType">{{ $salereturn?->status->getName() }}</x-badge>
+                                        <x-badge :type="$badgeType">{{ __($salereturn?->status->getName()) }}</x-badge>
 
                                     </x-table.td>
                                     <x-table.td>{{ format_currency($sale_return->total_amount) }}</x-table.td>
@@ -119,7 +119,7 @@
                                             $type = $sale_return->payment_status->getBadgeType();
                                         @endphp
                                         <x-badge
-                                            :type="$type">{{ $sale_return->payment_status->getName() }}</x-badge>
+                                            :type="$type">{{ __($sale_return->payment_status->getName()) }}</x-badge>
 
                                     </x-table.td>
                                 </x-table.tr>

@@ -73,24 +73,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 -   [Livewire](https://laravel-livewire.com/)
 -   [AlpineJs]()
 
-## Screenshots : 
-
-- Login
-![Login](screens/login.png)
-- Dashboard
-![Dashboard](screens/dashboard.png)
-- Pos
-![Pos](screens/pos.png)
-- Products
-![Products](screens/products.png)
-- Product Create
-![Product Create](screens/product-modal.png)
-- Purchase Create
-![Purchase Create](screens/purchase-create.png)
-- Sale Create
-![Sale Create](screens/sale-create.png)
-- Customer Create
-![Customer Create](screens/customer-modal.png)
 
 ## Contact
 

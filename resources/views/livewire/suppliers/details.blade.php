@@ -124,7 +124,7 @@
                                         @php
                                             $type = $purchase->payment_status->getBadgeType();
                                         @endphp
-                                        <x-badge :type="$type">{{ $purchase->payment_status->getName() }}</x-badge>
+                                        <x-badge :type="$type">{{ __($purchase->payment_status->getName()) }}</x-badge>
                                     </x-table.td>
                                     <x-table.td>
                                         {{ format_currency($purchase->due_amount) }}
@@ -139,7 +139,7 @@
                                             $badgeType = $purchase->status->getBadgeType();
                                         @endphp
 
-                                        <x-badge :type="$badgeType">{{ $purchase->status->getName() }}</x-badge>
+                                        <x-badge :type="$badgeType">{{ __($purchase->status->getName()) }}</x-badge>
                                     </x-table.td>
                                     <x-table.td>
                                         <div class="flex justify-start space-x-2">
@@ -152,7 +152,7 @@
                                                 </x-slot>
 
                                                 <x-slot name="content">
-                                                    <x-dropdown-link wire:click="showModal({{ $purchase->id }})"
+                                                    <x-dropdown-link wire:click="$emit('showModal', {{ $purchase->id }})"
                                                         wire:loading.attr="disabled">
                                                         <i class="fas fa-eye"></i>
                                                         {{ __('View') }}
@@ -257,4 +257,7 @@
             </div>
         </div>
     </div>
+
+    @livewire('purchase.show', ['purchase' => $purchase])
+
 </div>

@@ -61,7 +61,7 @@ class Index extends Component
     {
         abort_if(Gate::denies('quotation_access'), 403);
 
-        $query = Quotation::advancedFilter([
+        $query = Quotation::with('customer', 'quotationDetails')->advancedFilter([
             's'               => $this->search ?: null,
             'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,

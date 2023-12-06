@@ -6,8 +6,10 @@
             </h2>
             <div class="flex justify-end">
                 @if ($purchase?->due_amount > 0)
-                    <x-button wire:click="$emit('paymentModal', {{ $purchase_id }})"
-                        x-on:click="$wire.set('showPayments', false)" primary type="button">
+                    <x-button 
+                        x-on:click="$wire.set('showPayments', false)"
+                        wire:click="$emit('paymentModal', {{ $purchase->id }})"
+                        primary type="button">
                         {{ __('Add Payment') }}
                     </x-button>
                 @endif
@@ -20,7 +22,7 @@
                     <x-table.th>{{ __('Amount') }}</x-table.th>
                     <x-table.th>{{ __('Due Amount') }}</x-table.th>
                     <x-table.th>{{ __('Payment Method') }}</x-table.th>
-                    <x-table.th>{{ __('Actions') }}</x-table.th>
+                    {{-- <x-table.th>{{ __('Actions') }}</x-table.th> --}}
                 </x-slot>
                 <x-table.tbody>
 
@@ -34,8 +36,8 @@
                                 {{ format_currency($purchasepayment->purchase->due_amount) }}
                             </x-table.td>
                             <x-table.td>{{ __($purchasepayment->payment_method) }}</x-table.td>
-                            <x-table.td>
-                                {{-- @can('access_purchase_payments')
+                            {{-- <x-table.td>
+                                @can('access_purchase_payments')
                                     <x-button wire:click="$emit('paymentModal', {{ $purchasepayment->id }} )" type="button"
                                         primary>
                                         <i class="fa fa-pen"></i>
@@ -43,8 +45,8 @@
                                 @endcan
                                 <x-button wire:click="delete({{ $purchasepayment->id }})" danger type="button">
                                     <i class="fa fa-trash"></i>
-                                </x-button> --}}
-                            </x-table.td>
+                                </x-button>
+                            </x-table.td> --}}
                         </x-table.tr>
                     @empty
                         <x-table.tr>

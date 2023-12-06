@@ -7,10 +7,12 @@ namespace App\Models;
 use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Wallet extends Model
 {
     use HasAdvancedFilter;
+    use SoftDeletes;
 
     public const ATTRIBUTES = [
         'id',

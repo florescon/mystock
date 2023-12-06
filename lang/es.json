@@ -282,6 +282,7 @@
     "Go back": "Regresar",
     "Go back to Homepage": "Regresar al Inicio",
     "Go to page :page": "Ir a la página :page",
+    "(and :count more error)": "(y :count error(es) más)",
     "Google Drive Configuration": "Google Drive Configuration",
     "Grand Total": "Gran Total",
     "Hello": "Hola",
@@ -368,7 +369,7 @@
     "No record found": "Sin registros encontrados",
     "No results found": "Sin datos encontrados",
     "No Sale Return Data Available!": "¡Sin datos de Devolución de Ventas Disponibles !",
-    "No Sales Data Available!": "¡No Sales Data Available!",
+    "No Sales Data Available!": "¡Sin datos de Compras disponible!",
     "No suppliers found.": "No se encontraron proveedores.",
     "No warehouse assigned": "No hay almacén asignado",
     "Not Found": "No Encontrado",
@@ -683,6 +684,10 @@
     "Telegram Channel": "Canal Telegram",
     "Thank you for your business": "Gracias por hacer negocios",
     "Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.": "Gracias por registrarte! Antes de comenzar, ¿podría verificar su dirección de correo electrónico haciendo clic en el enlace que le acabamos de enviar por correo electrónico? Si no recibió el correo electrónico, con gusto le enviaremos otro.",
+    "The quantity field cannot be empty": "El campo cantidad no debe estar vacío",
+    "The cost field cannot be empty": "El campo costo no debe estar vacío",
+    "The price field cannot be empty": "El campo precio no debe estar vacío",
+    "The product": "El producto",
     "There are no stock": "No hay existencia",
     "These credentials do not match our records": "Estas credenciales no coinciden con nuestros registros.",
     "This is a secure area of the application. Please confirm your password before continuing.": "Esta es un área segura de la aplicación. Por favor confirme su contraseña antes de continuar.",
@@ -767,5 +772,30 @@
     "COMPLETED" : "COMPLETADO",
     "SHIPPED" : "ENVIADO",
     "RETURNED" : "DEVUELTO",
-    "CANCELED" : "CANCELADO"
+    "CANCELED" : "CANCELADO",
+
+    "INACTIVE": "INACTIVO",
+    "ACTIVE": "ACTIVO",
+
+    "DAILY": "DIARIAMENTE",
+    "WEEKLY": "SEMANALMENTE",
+    "MONTHLY": "MENSUALMENTE",
+
+    "SENT": "ENVIADO",
+    "ACCEPTED": "ACEPTADO",
+    "EXPIRED": "EXPIRADO",
+    "REJECTED": "RECHAZADO",
+
+    "PREPARING": "PREPARANDO",
+    "SUBMITTED": "ENVIADO",
+    "SHIPPING": "ENVIANDO",
+    "DELIVERED": "ENTREGADO",
+    "FAILED": "FALLIDO",
+
+    "SALE": "VENTA",
+    "PURCHASE": "COMPRA",
+    "SALERETURN": "DEVOLUCIÓN DE VENTA",
+    "PURCHASERETURN": "DEVOLUCIÓN DE COMPRA",
+    "SALETRANSFER": "TRANSFERENCIA DE VENTA",
+    "PURCHASETRANSFER": "TRANSFERENCIA DE COMPRA"
 }

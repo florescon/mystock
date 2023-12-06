@@ -23,7 +23,7 @@ class ProductExport implements FromView
             return Product::query()->whereIn('id', $this->models);
         }
 
-        return Product::query()->with('category');
+        return Product::query()->with('category', 'warehouses');
     }
 
     public function view(): View

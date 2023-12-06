@@ -74,7 +74,6 @@
                                     class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
                                     <option value="Cash">{{ __('Cash') }}</option>
                                     <option value="Bank Transfer">{{ __('Bank Transfer') }}</option>
-                                    <option value="Cheque">{{ __('Cheque') }}</option>
                                     <option value="Card">{{ __('Card') }}</option>
                                     <option value="Other">{{ __('Other') }}</option>
                                 </select>

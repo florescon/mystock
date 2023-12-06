@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PurchaseReturnPayment extends Model
 {
     use HasAdvancedFilter;
+    use SoftDeletes;
 
     public const ATTRIBUTES = [
         'id',

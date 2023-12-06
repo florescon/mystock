@@ -38,18 +38,18 @@
                 </div>
             </div>
             <div class="flex space-x-2">
-                <x-dropdown align="right" width="48" class="w-auto mr-2">
+                {{-- <x-dropdown align="right" width="48" class="w-auto mr-2">
                     <x-slot name="trigger" class="inline-flex">
                         <x-button secondary type="button" class="text-white flex items-center">
                             <i class="fas fa-angle-double-down w-4 h-4"></i>
                         </x-button>
                     </x-slot>
-                    <x-slot name="content">
-                        <x-dropdown-link onclick="Livewire.emit('importModal')" wire:loading.attr="disabled">
+                    <x-slot name="content"> --}}
+                        {{-- <x-dropdown-link onclick="Livewire.emit('importModal')" wire:loading.attr="disabled">
                             {{ __('Import') }}
-                        </x-dropdown-link>
+                        </x-dropdown-link> --}}
                         {{-- use livewire - coming soon --}}
-                        {{-- <x-dropdown-link onclick="Livewire.emit('exportAll')" 
+                    {{-- <x-dropdown-link onclick="Livewire.emit('exportAll')" 
                         wire:loading.attr="disabled">
                         {{ __('PDF') }}
                     </x-dropdown-link>
@@ -57,8 +57,8 @@
                         wire:loading.attr="disabled">
                         {{ __('Excel') }}
                     </x-dropdown-link> --}}
-                    </x-slot>
-                </x-dropdown>
+                    {{-- </x-slot>
+                </x-dropdown> --}}
                 @can('sale_create')
                     <x-button primary href="{{ route('sales.create') }}">{{ __('Create Invoice') }}</x-button>
                 @endcan

@@ -65,7 +65,7 @@ class Product extends Model
     {
         $this->setRawAttributes([
 
-            'code' => Carbon::now()->format('Y-m-d').mt_rand(10000000, 99999999),
+            'code' => Carbon::now()->format('Y-').mt_rand(10000000, 99999999),
 
         ], true);
         parent::__construct($attributes);

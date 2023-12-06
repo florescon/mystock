@@ -26,6 +26,7 @@ class Expense extends Model
         'reference',
         'amount',
         'category_id',
+        'details',
     ];
 
     public $orderable = self::ATTRIBUTES;
@@ -57,17 +58,17 @@ class Expense extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(ExpenseCategory::class, 'category_id');
+        return $this->belongsTo(ExpenseCategory::class, 'category_id')->withTrashed();
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
     public function warehouse(): BelongsTo
     {
-        return $this->belongsTo(Warehouse::class, 'warehouse_id');
+        return $this->belongsTo(Warehouse::class, 'warehouse_id')->withTrashed();
     }
 
     /**

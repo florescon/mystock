@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Support\HasAdvancedFilter;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transfer extends Model
 {
@@ -17,6 +18,7 @@ class Transfer extends Model
     use HasAdvancedFilter;
     use UuidGenerator;
     use GetModelByUuid;
+    use SoftDeletes;
 
     public const ATTRIBUTES = [
         'id',

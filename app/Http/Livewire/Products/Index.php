@@ -158,7 +158,7 @@ class Index extends Component
             ->with([
                 'category',
                 'brand',
-                'movements',
+                'movements.user',
                 'warehouses',
             ])
             ->when($this->category_id, function ($query) {
@@ -182,7 +182,6 @@ class Index extends Component
 
     public function sendWhatsapp($sale)
     {
-
         $this->product = Product::find($sale);
 
         $name = $this->product->name;
@@ -256,7 +255,7 @@ class Index extends Component
     {
         abort_if(Gate::denies('product_access'), 403);
 
-        return $this->callExport()->download('products.xlsx');
+        return $this->callExport()->download('productos '.now()->format('g:i a d-m-Y').'.xlsx');
     }
 
     public function exportSelected(): BinaryFileResponse
@@ -265,14 +264,14 @@ class Index extends Component
 
         // $customers = Product::whereIn('id', $this->selected)->get();
 
-        return $this->callExport()->forModels($this->selected)->download('products.pdf', \Maatwebsite\Excel\Excel::MPDF);
+        return $this->callExport()->forModels($this->selected)->download('productos '.now()->format('g:i a d-m-Y').'.pdf', \Maatwebsite\Excel\Excel::MPDF);
     }
 
     public function exportAll(): BinaryFileResponse
     {
         abort_if(Gate::denies('product_access'), 403);
 
-        return $this->callExport()->download('products.pdf', \Maatwebsite\Excel\Excel::MPDF);
+        return $this->callExport()->download('productos '.now()->format('g:i a d-m-Y').'.pdf', \Maatwebsite\Excel\Excel::MPDF);
     }
 
     private function callExport(): ProductExport

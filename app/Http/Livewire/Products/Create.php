@@ -37,21 +37,29 @@ class Create extends Component
     /** @var array */
     protected $rules = [
         'product.name'                => 'required|string|min:3|max:255',
-        'product.code'                => 'required|string|max:255',
+        'product.code'                => 'required|string|min:3|max:15',
         'product.barcode_symbology'   => 'required|string|max:255',
         'product.unit'                => 'required|string|max:255',
-        'productWarehouse.*.quantity' => 'integer|min:1',
-        'productWarehouse.*.price'    => 'numeric',
-        'productWarehouse.*.cost'     => 'numeric',
+        'productWarehouse'            => 'required',
+        'productWarehouse.*.quantity' => 'integer|min:1|required',
+        'productWarehouse.*.price'    => 'numeric|min:1|gt:0|required',
+        'productWarehouse.*.cost'     => 'numeric|min:1|gt:0|required',
         'product.stock_alert'         => 'required|integer|min:0|max:192',
         'product.order_tax'           => 'nullable|integer|min:0|max:1192',
         'product.tax_type'            => 'nullable|integer|min:0|max:100',
         'product.note'                => 'nullable|string|max:1000',
-        'product.category_id'         => 'required|integer|min:0|max:100',
+        'product.category_id'         => 'required|integer|min:1|max:100',
         'product.brand_id'            => 'nullable|integer|min:0|max:100',
         'product.featured'            => 'boolean',
 
     ];
+
+    protected $messages = [
+        'productWarehouse.*.quantity'          => 'Verifique la cantidad.',
+        'productWarehouse.*.price'          => 'Verifique el precio.',
+        'productWarehouse.*.cost'        => 'Verifique el costo.',
+    ];
+
 
     public function updated($propertyName): void
     {
