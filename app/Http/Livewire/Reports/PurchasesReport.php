@@ -48,10 +48,10 @@ class PurchasesReport extends Component
             ->when($this->supplier_id, function ($query) {
                 return $query->where('supplier_id', $this->supplier_id);
             })
-            ->when($this->purchase_status, function ($query) {
+            ->when($this->purchase_status >=0, function ($query) {
                 return $query->where('status', $this->purchase_status);
             })
-            ->when($this->payment_status, function ($query) {
+            ->when($this->payment_status >=0, function ($query) {
                 return $query->where('payment_status', $this->payment_status);
             })
             ->orderBy('date', 'desc')->paginate(10);

@@ -26,8 +26,13 @@
                             <div class="w-full md:w-1/3 px-2 mb-2">
                                 <div class="mb-4">
                                     <label>{{ __('Customer') }}</label>
-                                    <x-select-list :options="$customers" name="customer_id" id="customer_id"
-                                        wire:model="customer_id" />
+                                    <select id="customer_id" name="customer_id" wire:model="customer_id"
+                                        class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
+                                        <option value="">{{ __('Select Customer') }}</option>
+                                        @foreach ($this->customers as $customer)
+                                            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -38,6 +43,7 @@
                                     <select wire:model.defer="sale_return_status"
                                         class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
                                         name="sale_return_status">
+                                        <option value="">{{ __('Status') }}</option>
                                         @foreach (\App\Enums\SaleReturnStatus::cases() as $status)
                                             <option value="{{ $status->value }}">
                                                 {{ __($status->name) }}

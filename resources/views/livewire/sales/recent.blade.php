@@ -49,44 +49,44 @@
                     </x-slot>
 
                     <x-table.tbody>
-                        @forelse ($sales as $sale)
+                        @forelse ($sales as $saleRecent)
                             <x-table.tr wire:loading.class.delay="opacity-50">
                                 <x-table.td class="pr-0">
-                                    <input type="checkbox" value="{{ $sale->id }}" wire:model="selected" />
+                                    <input type="checkbox" value="{{ $saleRecent->id }}" wire:model="selected" />
                                 </x-table.td>
                                 <x-table.td>
-                                    {{ $sale->date }}
+                                    {{ $saleRecent->date }}
                                 </x-table.td>
                                 <x-table.td>
-                                    @if ($sale->customer)
-                                        <a href="{{ route('customer.details', $sale->customer->uuid) }}"
+                                    @if ($saleRecent->customer)
+                                        <a href="{{ route('customer.details', $saleRecent->customer->uuid) }}"
                                             class="text-indigo-500 hover:text-indigo-600">
-                                            {{ $sale->customer->name }}
+                                            {{ $saleRecent->customer->name }}
                                         </a>
                                     @else
-                                        {{ $sale->customer?->name }}
+                                        {{ $saleRecent->customer?->name }}
                                     @endif
                                 </x-table.td>
                                 <x-table.td>
                                     @php
-                                        $type = $sale->payment_status->getBadgeType();
+                                        $type = $saleRecent->payment_status->getBadgeType();
                                     @endphp
-                                    <x-badge :type="$type">{{ __($sale->payment_status->getName()) }}</x-badge>
+                                    <x-badge :type="$type">{{ __($saleRecent->payment_status->getName()) }}</x-badge>
                                 </x-table.td>
                                 <x-table.td>
-                                    {{ format_currency($sale->due_amount) }}
+                                    {{ format_currency($saleRecent->due_amount) }}
                                 </x-table.td>
 
                                 <x-table.td>
-                                    {{ format_currency($sale->total_amount) }}
+                                    {{ format_currency($saleRecent->total_amount) }}
                                 </x-table.td>
 
                                 <x-table.td>
                                     @php
-                                        $badgeType = $sale->status->getBadgeType();
+                                        $badgeType = $saleRecent->status->getBadgeType();
                                     @endphp
 
-                                    <x-badge :type="$badgeType">{{ __($sale->status->getName()) }}</x-badge>
+                                    <x-badge :type="$badgeType">{{ __($saleRecent->status->getName()) }}</x-badge>
                                 </x-table.td>
                                 <x-table.td>
                                     <div class="flex justify-start space-x-2">
@@ -98,14 +98,14 @@
                                             </x-slot>
 
                                             <x-slot name="content">
-                                                <x-dropdown-link wire:click="showModal({{ $sale->id }})"
+                                                <x-dropdown-link wire:click="showModal({{ $saleRecent->id }})"
                                                     wire:loading.attr="disabled">
                                                     <i class="fas fa-eye"></i>
                                                     {{ __('View') }}
                                                 </x-dropdown-link>
 
                                                 <x-dropdown-link target="_blank"
-                                                    href="{{ route('sales.pos.pdf', $sale->id) }}"
+                                                    href="{{ route('sales.pos.pdf', $saleRecent->id) }}"
                                                     wire:loading.attr="disabled">
                                                     <i class="fas fa-print"></i>
                                                     {{ __('Print') }}

@@ -45,8 +45,8 @@ class PurchasesReturnReport extends Component
         $purchase_returns = PurchaseReturn::whereDate('date', '>=', $this->start_date)
             ->whereDate('date', '<=', $this->end_date)
             ->when($this->supplier_id, fn ($q) => $q->where('supplier_id', $this->supplier_id))
-            ->when($this->purchase_return_status, fn ($q) => $q->where('purchase_return_status', $this->purchase_return_status))
-            ->when($this->payment_status, fn ($q) => $q->where('payment_status', $this->payment_status))
+            ->when($this->purchase_return_status >= 0, fn ($q) => $q->where('status', $this->purchase_return_status))
+            ->when($this->payment_status >= 0, fn ($q) => $q->where('payment_status', $this->payment_status))
             ->orderBy('date', 'desc')->paginate(10);
 
         return view('livewire.reports.purchases-return-report', [

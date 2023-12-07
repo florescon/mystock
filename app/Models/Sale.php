@@ -26,7 +26,6 @@ class Sale extends Model
 
     public const ATTRIBUTES = [
         'id',
-        'date',
         'reference',
         'customer_id',
         'warehouse_id',
@@ -44,8 +43,6 @@ class Sale extends Model
         'payment_method',
         'shipping_status',
         'created_at',
-        'updated_at',
-
     ];
 
     public $orderable = self::ATTRIBUTES;

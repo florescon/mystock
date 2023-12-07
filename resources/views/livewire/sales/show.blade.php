@@ -5,7 +5,12 @@
 
             @if ($sale != null)
                 <div class="float-right">
-                    <x-button secondary class="d-print-none" type="button" onclick="printContent()">
+                    {{-- <x-button secondary class="d-print-none" type="button" onclick="printContent()">
+                        <i class="fas fa-print"></i> {{ __('Print') }}
+                    </x-button> --}}
+                    <x-button secondary class="d-print-none" target="_blank"
+                        wire:loading.attr="disabled" href="{{ route('sales.pdf', $sale->id) }}"
+                        class="ml-auto">
                         <i class="fas fa-print"></i> {{ __('Print') }}
                     </x-button>
                 </div>

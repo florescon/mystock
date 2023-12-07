@@ -17,6 +17,8 @@ class ProductCart extends Component
     public $listeners = [
         'productSelected', 'discountModalRefresh',
         'warehouseSelected' => 'updatedWarehouseId',
+        'refreshComponent' => '$refresh',
+        'renderComponent' => 'render',
     ];
 
     public $cart_instance;
@@ -45,6 +47,21 @@ class ProductCart extends Component
 
     public $total_with_shipping;
 
+
+    public function rules(): array
+    {
+        return [
+            'global_discount'         => 'numeric|min:0|max:100',
+            'global_tax'              => 'numeric|min:0',
+            'shipping_amount'         => 'numeric|min:0',
+        ];
+    }
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     public function mount($cartInstance, $data = null)
     {
         $this->cart_instance = $cartInstance;
@@ -62,10 +79,6 @@ class ProductCart extends Component
             $this->shipping_amount = $data->shipping_amount;
             $this->warehouse_id = $data->warehouse_id;
 
-            $this->updatedGlobalTax();
-            $this->updatedGlobalDiscount();
-            $this->updatedTotalShipping();
-
             $cart_items = Cart::instance($this->cart_instance)->content();
 
             foreach ($cart_items as $index => $cart_item) {
@@ -76,10 +89,6 @@ class ProductCart extends Component
                     ? $cart_item->options->product_discount
                     : round(100 * $cart_item->options->product_discount / $cart_item->price);
             }
-        } else {
-            $this->updatedGlobalTax();
-            $this->updatedGlobalDiscount();
-            $this->updatedTotalShipping();
         }
     }
 
@@ -115,6 +124,8 @@ class ProductCart extends Component
 
         $cart->add($cartItem);
         $this->updateQuantityAndCheckQuantity($product['id'], $productWarehouse->qty);
+
+        $this->emit('renderIndex');
     }
 
     public function calculate($product): array
@@ -176,7 +187,7 @@ class ProductCart extends Component
     public function updatePrice($row_id, $product_id)
     {
         $validatedData = $this->validate(
-            ['price' => 'integer|not_in:0'],
+            ['price.*' => 'integer|not_in:0'],
         );
 
         Cart::instance($this->cart_instance)->update($row_id, [
@@ -268,6 +279,8 @@ class ProductCart extends Component
     public function removeItem($row_id)
     {
         Cart::instance($this->cart_instance)->remove($row_id);
+
+        $this->emit('renderIndex');
     }
 
     public function updatedDiscountType($value, $name)
@@ -326,6 +339,10 @@ class ProductCart extends Component
 
     public function render()
     {
+        $this->updatedGlobalTax();
+        $this->updatedGlobalDiscount();
+        $this->updatedTotalShipping();
+
         $cart_items = Cart::instance($this->cart_instance)->content();
 
         foreach ($cart_items as $index => $cart_item) {

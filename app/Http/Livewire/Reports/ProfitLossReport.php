@@ -181,7 +181,7 @@ class ProfitLossReport extends Component
         $sales = Sale::completed()
             ->when($this->start_date, fn ($query) => $query->whereDate('date', '>=', $this->start_date))
             ->when($this->end_date, fn ($query) => $query->whereDate('date', '<=', $this->end_date))
-            ->with('saleDetails')->get();
+            ->with('saleDetails.product.warehouses')->get();
 
         $productCosts = 0;
 

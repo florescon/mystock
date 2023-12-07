@@ -41,7 +41,7 @@
         </x-button>
         <button
             class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-green-300 disabled:opacity-25 transition ease-in-out duration-150 bg-green-500 hover:bg-green-700"
-            type="submit" wire:click="proceed" wire:loading.attr="disabled" {{ $total_amount == 0 ? 'disabled' : '' }}>
+            type="submit" wire:click="proceed" wire:loading.attr="disabled" {{ (($total_amount == 0) || !$customer_id) ? 'disabled' : '' }}>
             {{ __('Proceed') }}
         </button>
     </div>
@@ -67,6 +67,7 @@
                                 <input id="paid_amount" type="text" wire:model="paid_amount"
                                     class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
                                     name="paid_amount" required>
+                                <x-input-error :messages="$errors->get('paid_amount')" for="paid_amount" class="mt-2" />
                             </div>
                             <div class="w-full px-2">
                                 <x-label for="payment_method" :value="__('Payment Method')" required />
@@ -80,8 +81,9 @@
                             </div>
                             <div class="mb-4 w-full px-2">
                                 <x-label for="note" :value="__('Note')" />
-                                <textarea name="note" id="note" rows="5" wire:model="note"
+                                <textarea name="note" id="note" rows="5" wire:model.lazy="note"
                                     class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"></textarea>
+                                <x-input-error :messages="$errors->get('note')" for="note" class="mt-2" />
                             </div>
                         </div>
                     </div>

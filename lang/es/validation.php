@@ -77,13 +77,13 @@ return [
     'json' => 'El campo :attribute debe ser una cadena JSON válida.',
      'lowercase' => 'El :attribute debe ser minusculas.', 
     'lt' => [
-        'numeric' => 'El campo :attribute debe ser menor que :max.',
+        'numeric' => 'El campo :attribute debe ser menor que :value.',
         'file' => 'El campo :attribute debe ser menor que :max kilobytes.',
         'string' => 'El campo :attribute debe ser menor que :max caracteres.',
         'array' => 'El campo :attribute puede tener hasta :max elementos.',
     ],
     'lte' => [
-        'numeric' => 'El campo :attribute debe ser menor o igual que :max.',
+        'numeric' => 'El campo :attribute debe ser menor o igual que :value.',
         'file' => 'El campo :attribute debe ser menor o igual que :max kilobytes.',
         'string' => 'El campo :attribute debe ser menor o igual que :max caracteres.',
         'array' => 'El campo :attribute no puede tener más que :max elementos.',
@@ -207,6 +207,7 @@ return [
         'quantity' => 'cantidad',
         'cost' => 'costo',
         'price' => 'precio',
+        'price.*' => 'precio',
         'unit' => 'unidad',
         'qty' => 'cantidad',
         'warehouse' => 'almacén',
@@ -222,6 +223,10 @@ return [
         'shipping_amount' => 'monto de envío',
         'start_date' => 'fecha inicial',
         'end_date' => 'fecha final',
+        'paid_amount' => 'monto pagado',
+        'global_discount' => 'descuento global',
+        'global_tax' => 'impuesto global',
+        'shipping_amount' => 'monto de envío',
     ],
 
 ];

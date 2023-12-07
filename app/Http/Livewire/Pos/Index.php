@@ -29,6 +29,7 @@ class Index extends Component
     /** @var array<string> */
     public $listeners = [
         'refreshIndex' => '$refresh',
+        'renderIndex' => 'render',
         'refreshCustomers',
     ];
 
@@ -96,12 +97,17 @@ class Index extends Component
             'discount_percentage' => 'required|integer|min:0|max:100',
             'shipping_amount'     => 'nullable|numeric',
             'total_amount'        => 'required|numeric',
-            'paid_amount'         => 'nullable|numeric',
-            'note'                => 'nullable|string|max:1000',
+            'paid_amount'         => 'nullable|numeric|min:0|lte:total_amount',
+            'note'                => 'nullable|string|max:255',
             'price'               => 'nullable|numeric',
         ];
     }
 
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+    
     public function mount($cartInstance): void
     {
         $this->cart_instance = $cartInstance;
@@ -127,10 +133,13 @@ class Index extends Component
 
     public function hydrate(): void
     {
-        if ($this->payment_method === 'Cash') {
-            $this->paid_amount = $this->total_amount;
-        }
+        // if ($this->payment_method === 'Cash') {
+        //     $this->paid_amount = $this->total_amount;
+        // }
         $this->total_amount = $this->calculateTotal();
+
+        // $this->resetErrorBag();
+        // $this->resetValidation();
     }
 
     public function render()
@@ -149,8 +158,6 @@ class Index extends Component
 
             return;
         }
-
-        // dd($this->discount_percentage);
 
         DB::transaction(function () {
             $this->validate();

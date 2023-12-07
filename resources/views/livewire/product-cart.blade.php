@@ -8,8 +8,12 @@
             </div>
         </div>
         <x-table>
+            
             @json($check_quantity)<br>
             Warehouse @json($warehouse_id)
+            <br>
+            {{-- @json($cart_items) --}}
+
             <x-slot name="thead">
                 <x-table.th>{{ __('Product') }}</x-table.th>
                 <x-table.th>{{ __('Net Unit Price') }}</x-table.th>
@@ -27,7 +31,7 @@
                                 <span class="badge badge-success">
                                     {{ $cart_item->options->code }}
                                 </span>
-                                @include('livewire.includes.product-cart-modal')
+                                {{-- @include('livewire.includes.product-cart-modal') --}}
                             </x-table.td>
 
                             <x-table.td>
@@ -110,18 +114,21 @@
             <div class="mb-4">
                 <label for="tax_percentage">{{ __('Order Tax (%)') }}</label>
                 <x-input wire:model.lazy="global_tax" value="{{ $global_tax }}" />
+                <x-input-error :messages="$errors->get('global_tax')" for="global_tax" class="mt-2" />
             </div>
         </div>
         <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0">
             <div class="mb-4">
                 <label for="discount_percentage">{{ __('Discount (%)') }}</label>
                 <x-input wire:model.lazy="global_discount" value="{{ $global_discount }}" />
+                <x-input-error :messages="$errors->get('global_discount')" for="global_discount" class="mt-2" />
             </div>
         </div>
         <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0">
             <div class="mb-4">
                 <label for="shipping_amount">{{ __('Shipping') }}</label>
                 <x-input wire:model.lazy="shipping_amount" value="{{ $shipping_amount }}" />
+                <x-input-error :messages="$errors->get('shipping_amount')" for="shipping_amount" class="mt-2" />
             </div>
         </div>
     </div>

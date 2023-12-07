@@ -21,7 +21,7 @@
                 <div class="grid grid-cols-2 gap-4 my-4">
                     <div>
                         <label>{{ __('Discount Type') }}<span class="text-red-500">*</span></label>
-                        <select wire:model="discount_type.{{ $cart_item->id }}"
+                        <select wire:model.defer="discount_type.{{ $cart_item->id }}"
                             class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
                             required>
                             <option value="fixed">{{ __('Fixed') }}</option>
