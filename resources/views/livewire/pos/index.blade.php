@@ -2,8 +2,8 @@
     <div class="w-full px-2" dir="ltr">
         <x-validation-errors class="mb-4" :errors="$errors" />
 
-            Customer: @json($customer_id) -
-            Total: @json('$'.$total_amount)
+            {{-- Customer: @json($customer_id) - --}}
+            {{-- Total: @json('$'.$total_amount) --}}
         <div class="flex gap-4">
 
             <div class="w-full relative inline-flex">

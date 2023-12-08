@@ -39,6 +39,8 @@
                 @endisset
             </main>
 
+            <livewire:services.associate>
+
             @can('sale_access')
             <livewire:sales.recent />
             @endcan
@@ -51,7 +53,7 @@
             <livewire:customers.create />
             @endcan
 
-            <x-settings-bar />
+            {{-- <x-settings-bar /> --}}
 
         </div>
     </div>

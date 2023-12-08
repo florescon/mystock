@@ -84,7 +84,9 @@ trait HasAdvancedFilter
             return $data;
         }
 
-        $data['s'] = str_replace(' ', '+', $data['s']);
+        if(empty(trim($data['s']))){
+            $data['s'] = str_replace(' ', '+', $data['s']);
+        }
 
         $data['filter_match'] = 'or';
 

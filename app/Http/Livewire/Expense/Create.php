@@ -28,7 +28,7 @@ class Create extends Component
         'expense.reference'    => 'required|string|max:255',
         'expense.category_id'  => 'required|integer|exists:expense_categories,id',
         'expense.date'         => 'required|date',
-        'expense.amount'       => 'required|numeric',
+        'expense.amount'       => 'required|numeric|min:1',
         'expense.details'      => 'nullable|string|min:3',
         'expense.user_id'      => 'nullable',
         'expense.warehouse_id' => 'nullable',

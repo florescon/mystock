@@ -143,6 +143,17 @@
                             </td>
                         </tr>
                     @endforeach
+                    @foreach ($sale->saleDetailsService as $saleDetail)
+                        <tr>
+                            <td colspan="2" style="text-align: left;">
+                                {{ $saleDetail->name }} <br>
+                                <small><strong>{{ format_currency($saleDetail->price) }}</strong></small>
+                            </td>
+                            <td colspan="2" style="text-align: right;">
+                                {{ $saleDetail->quantity }}
+                            </td>
+                        </tr>
+                    @endforeach
 
                     @if (settings()->show_order_tax == true)
                         <tr>

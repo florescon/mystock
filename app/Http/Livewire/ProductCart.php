@@ -7,6 +7,7 @@ namespace App\Http\Livewire;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\ProductWarehouse;
+use App\Models\Service;
 use Livewire\Component;
 
 class ProductCart extends Component
@@ -16,6 +17,7 @@ class ProductCart extends Component
     /** @var array<string> */
     public $listeners = [
         'productSelected', 'discountModalRefresh',
+        'serviceSelected',
         'warehouseSelected' => 'updatedWarehouseId',
         'refreshComponent' => '$refresh',
         'renderComponent' => 'render',
@@ -128,6 +130,30 @@ class ProductCart extends Component
         $this->emit('renderIndex');
     }
 
+    public function serviceSelected($service): void
+    {
+        if (empty($service)) {
+            $this->alert('error', __('Something went wrong!'));
+
+            return;
+        }
+
+        $cart = Cart::instance($this->cart_instance);
+        $exists = $cart->search(fn ($cartItem) => $cartItem->id === $service['uuid']);
+
+        if ($exists->isNotEmpty()) {
+            $this->alert('error', __('Service already added to cart!'));
+
+            return;
+        }
+        
+        $cartItem = $this->createCartItemService($service);
+
+        $cart->add($cartItem);
+
+        $this->emit('renderIndex');
+    }
+
     public function calculate($product): array
     {
         $productWarehouse = ProductWarehouse::where('product_id', $product['id'])
@@ -158,6 +184,27 @@ class ProductCart extends Component
         return ['price' => $price, 'unit_price' => $unit_price, 'product_tax' => $product_tax, 'sub_total' => $sub_total];
     }
 
+    private function calculatePricesService($service)
+    {
+        $price = $service['price'];
+        $unit_price = $price;
+        $service_tax = 0.00;
+        $sub_total = $price;
+
+        if ($service['tax_type'] === 1) {
+            $tax = $price * $service['order_tax'] / 100;
+            $price += $tax;
+            $service_tax = $tax;
+            $sub_total = $price;
+        } elseif ($service['tax_type'] === 2) {
+            $tax = $price * $service['order_tax'] / 100;
+            $unit_price -= $tax;
+            $service_tax = $tax;
+        }
+
+        return ['price' => $price, 'unit_price' => $unit_price, 'product_tax' => $service_tax, 'sub_total' => $sub_total];
+    }
+
     private function updateQuantityAndCheckQuantity($productId, $quantity)
     {
         $this->check_quantity[$productId] = $quantity;
@@ -177,9 +224,34 @@ class ProductCart extends Component
             'options' => array_merge($calculation, [
                 'product_discount'      => 0.00,
                 'product_discount_type' => 'fixed',
+                'service_type'          => null,
                 'code'                  => $product['code'],
                 'stock'                 => $productWarehouse->qty,
                 'unit'                  => $product['unit'],
+            ]),
+        ];
+    }
+
+    private function createCartItemService($service)
+    {
+        $serviceModel = Service::where('id', $service['id'])->first();
+        $serviceType = $serviceModel->service_type->name;
+
+        $calculation = $this->calculatePricesService($service);
+
+        return [
+            'id'      => $service['uuid'],
+            'name'    => $service['name'],
+            'qty'     => 1,
+            'price'   => $service['price'],
+            'weight'  => 1,
+            'options' => array_merge($calculation, [
+                'product_discount'      => 0.00,
+                'product_discount_type' => 'fixed',
+                'service_type'          => $serviceType,
+                'code'                  => $service['code'],
+                'stock'                 => null,
+                'unit'                  => null,
             ]),
         ];
     }
@@ -206,6 +278,7 @@ class ProductCart extends Component
                 'unit_price'            => $cart_item->price,
                 'product_discount'      => $cart_item->options->product_discount,
                 'product_discount_type' => $cart_item->options->product_discount_type,
+                'service_type'          => is_int($product_id) ? null : $cart_item->options->service_type,
             ],
         ]);
     }
@@ -272,6 +345,7 @@ class ProductCart extends Component
                 'unit_price'            => $cart_item->options->unit_price,
                 'product_discount'      => $cart_item->options->product_discount,
                 'product_discount_type' => $cart_item->options->product_discount_type,
+                'service_type'          => null,
             ],
         ]);
     }

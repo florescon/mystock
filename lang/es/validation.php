@@ -227,6 +227,8 @@ return [
         'global_discount' => 'descuento global',
         'global_tax' => 'impuesto global',
         'shipping_amount' => 'monto de envío',
+        'customer_id' => 'cliente',
+        'service_type' => 'tipo de servicio',
     ],
 
 ];

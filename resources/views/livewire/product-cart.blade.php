@@ -9,9 +9,9 @@
         </div>
         <x-table>
             
-            @json($check_quantity)<br>
-            Warehouse @json($warehouse_id)
-            <br>
+            {{-- @json($check_quantity)<br> --}}
+            {{-- Warehouse @json($warehouse_id) --}}
+            {{-- <br> --}}
             {{-- @json($cart_items) --}}
 
             <x-slot name="thead">
@@ -40,14 +40,22 @@
                             </x-table.td>
 
                             <x-table.td>
-                                <span
-                                    class="badge badge-info">
-                                    {{ $cart_item->options->stock . ' ' . $cart_item->options->unit }}
-                                </span>
+                                @if(!$cart_item->options->service_type)
+                                    <span
+                                        class="badge badge-info">
+                                        {{ $cart_item->options->stock . ' ' . $cart_item->options->unit }}
+                                    </span>
+                                @else
+                                    {{ __('No apply') }}
+                                @endif
                             </x-table.td>
 
                             <x-table.td>
-                                @include('livewire.includes.product-cart-quantity')
+                                @if(!$cart_item->options->service_type)
+                                    @include('livewire.includes.product-cart-quantity')
+                                @else
+                                    1 - {{ __('Service') }}
+                                @endif
                             </x-table.td>
 
                             <x-table.td>

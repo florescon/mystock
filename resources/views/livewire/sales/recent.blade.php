@@ -222,6 +222,27 @@
                                                             </x-table.td>
                                                         </x-table.tr>
                                                     @endforeach
+                                                    @foreach ($sale->saleDetailsService as $item)
+                                                        <x-table.tr>
+                                                            <x-table.td>
+                                                                {{ $item->name }} <br>
+                                                                <x-badge type="success">
+                                                                    {{ $item->code }}
+                                                                </x-badge>
+                                                            </x-table.td>
+                                                            <x-table.td>
+                                                                {{ format_currency($item->unit_price) }}
+                                                            </x-table.td>
+
+                                                            <x-table.td>
+                                                                {{ $item->quantity }}
+                                                            </x-table.td>
+
+                                                            <x-table.td>
+                                                                {{ format_currency($item->sub_total) }}
+                                                            </x-table.td>
+                                                        </x-table.tr>
+                                                    @endforeach
                                                 @endif
                                             </x-table.tbody>
                                         </x-table>

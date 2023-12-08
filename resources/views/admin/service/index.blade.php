@@ -35,10 +35,20 @@
                     </a>
                 </div>
             </div>
+            <div class="flex space-x-2">
+
+                @can('brand_create')
+                    <x-button primary type="button" onclick="Livewire.emit('createModal')">
+                        {{ __('Create Service') }}
+                    </x-button>
+                @endcan
+            </div>
         </div>
     </section>
 @endsection
 
 <x-app-layout>
-
+    <x-card>
+        <livewire:services.index />
+    </x-card>
 </x-app-layout>

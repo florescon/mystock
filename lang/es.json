@@ -145,6 +145,7 @@
     "Create Sale From Quotation": "Crear Venta desde Cotización",
     "Create Sale Return": "Crear Devolución de Venta",
     "Create Sale Returns": "Crear Devoluciones de Ventas",
+    "Create Service": "Crear Servicio",
     "Create Supplier": "Crear Proveedor",
     "Create Token": "Crear Token",
     "Create User": "Crear Usuario",
@@ -223,6 +224,7 @@
     "Edit Role": "Editar Rol",
     "Edit Sale": "Editar Venta",
     "Edit Sale Return": "Editar Devolución de Venta",
+    "Edit Service": "Editar Servicio",
     "Edit Settings": "Editar Configuraciones",
     "Edit User": "Editar Usuario",
     "Edit Warehouse": "Editar Almacén",
@@ -593,6 +595,7 @@
     "Select Payment Status": "Seleccione Estado de Pago",
     "Select Payments": "Seleccione Pagos",
     "Select Status": "Seleccione Estado",
+    "Select Service Type": "Seleccione Tipo de Servicio",
     "Select Supplier": "Seleccione Proveedor",
     "Select Tax Type": "Seleccione Tipo de Impuesto",
     "Select Warehouse": "Seleccione Almacén",
@@ -606,8 +609,11 @@
     "Send to telegram": "Enviar a telegram",
     "Send to Whatsapp": "Enviar a Whatsapp",
     "Server Error": "Error de Servidor",
+    "Service": "Servicio",
     "Services": "Servicios",
     "Service Unavailable": "Servicio No Disponible",
+    "Service created successfully.": "Servicio creado",
+    "Service updated successfully.": "Servicio actualizado",
     "Set as Default": "Establecer por defecto",
     "Settings": "Configuraciones",
     "Settings backuped saved.": "Settings backuped saved.",
@@ -644,6 +650,7 @@
     "Start Scanning": "Iniciar Escaneo",
     "Status": "Estado",
     "Status Changed successfully!": "¡Estado cambiado!",
+    "Service Type": "Tipo de Servicio",
     "Stock": "Stock",
     "Stock adjustments": "Ajuste de Existencias",
     "Stock Alert": "Alerta de Stock",
@@ -797,5 +804,11 @@
     "SALERETURN": "DEVOLUCIÓN DE VENTA",
     "PURCHASERETURN": "DEVOLUCIÓN DE COMPRA",
     "SALETRANSFER": "TRANSFERENCIA DE VENTA",
-    "PURCHASETRANSFER": "TRANSFERENCIA DE COMPRA"
+    "PURCHASETRANSFER": "TRANSFERENCIA DE COMPRA",
+
+    "MONTHLYPAYMENT": "MENSUALIDAD",
+    "INSCRIPTION": "INSCRIPCIÓN",
+    "FREEPASS": "PASE LIBRE",
+    "OTHER": "OTRO"
+
 }

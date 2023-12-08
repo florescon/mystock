@@ -61,7 +61,7 @@ class Recent extends Component
     {
         abort_if(Gate::denies('sale_access'), 403);
 
-        $query = Sale::with('customer', 'saleDetails')->advancedFilter([
+        $query = Sale::with('customer', 'saleDetails', 'saleDetailsService')->advancedFilter([
             's'               => $this->search ?: null,
             'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,

@@ -19,6 +19,10 @@
                 </div>
             @endcan
 
+            <x-button type="button" primary onclick="Livewire.emit('createAssociate')">
+                {{ __('Services') }}
+            </x-button>
+
             <x-dropdown align="right" width="56">
                 <x-slot name="trigger">
                     <x-button type="button" secondary>

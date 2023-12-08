@@ -85,7 +85,23 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            @endif
+                                @foreach ($sale->saleDetailsService as $item)
+                                    <tr>
+                                        <td>
+                                            {{ $item->name }} <br>
+                                            {{ $item->code }}
+                                        </td>
+                                        <td>
+                                            {{ $item->quantity }}
+                                        </td>
+                                        <td>
+                                            {{ format_currency($item->unit_price) }}
+                                        </td>
+                                        <td>
+                                            {{ format_currency($item->sub_total) }}
+                                        </td>
+                                    </tr>
+                                @endforeach                            @endif
                         </tbody>
                     </table>
                 </div>

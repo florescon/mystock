@@ -50,7 +50,34 @@
                             </td>
                         </tr>
                     @endforeach
-                </tbody>
+                    @foreach ($sale->saleDetailsService as $item)
+                        <tr>
+                            <td class="align-middle">
+                                {{ $item->name }} <br>
+                                <span class="badge badge-success">
+                                    {{ $item->code }}
+                                </span>
+                            </td>
+
+                            <td class="align-middle">{{ format_currency($item->unit_price) }}</td>
+
+                            <td class="align-middle">
+                                {{ $item->quantity }}
+                            </td>
+
+                            <td class="align-middle">
+                                {{ format_currency($item->product_discount_amount) }}
+                            </td>
+
+                            <td class="align-middle">
+                                {{ format_currency($item->product_tax_amount) }}
+                            </td>
+
+                            <td class="align-middle">
+                                {{ format_currency($item->sub_total) }}
+                            </td>
+                        </tr>
+                    @endforeach                </tbody>
             </table>
         </div>
         <div class="row">

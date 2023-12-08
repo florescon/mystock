@@ -56,7 +56,7 @@
                     @isset($slot)
                         {{ $slot }}
                     @endisset
-                    <x-settings-bar />
+                    {{-- <x-settings-bar /> --}}
 
                 </main>
 

@@ -114,7 +114,7 @@ class Index extends Component
     {
         abort_if(Gate::denies('sale_access'), 403);
 
-        $query = Sale::with(['customer', 'user', 'saleDetails', 'salepayments', 'saleDetails.product'])
+        $query = Sale::with(['customer', 'user', 'saleDetails', 'salepayments', 'saleDetails.product', 'saleDetailsService.service'])
             ->advancedFilter([
                 's'               => $this->search ?: null,
                 'order_column'    => $this->sortBy,

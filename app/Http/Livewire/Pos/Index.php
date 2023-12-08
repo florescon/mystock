@@ -13,9 +13,11 @@ use App\Models\Warehouse;
 use App\Models\Movement;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\Service;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProductWarehouse;
 use App\Models\SaleDetails;
+use App\Models\SaleDetailsService;
 use App\Models\SalePayment;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
@@ -194,43 +196,64 @@ class Index extends Component
 
             // foreach ($this->cart_instance as cart_items) {}
             foreach (Cart::instance('sale')->content() as $cart_item) {
-                SaleDetails::create([
-                    'sale_id'                 => $sale->id,
-                    'warehouse_id'            => $this->warehouse_id,
-                    'product_id'              => $cart_item->id,
-                    'name'                    => $cart_item->name,
-                    'code'                    => $cart_item->options->code,
-                    'quantity'                => $cart_item->qty,
-                    'price'                   => $cart_item->price * 100,
-                    'unit_price'              => $cart_item->options->unit_price * 100,
-                    'sub_total'               => $cart_item->options->sub_total * 100,
-                    'product_discount_amount' => $cart_item->options->product_discount * 100,
-                    'product_discount_type'   => $cart_item->options->product_discount_type,
-                    'product_tax_amount'      => $cart_item->options->product_tax * 100,
-                ]);
+                if(is_int($cart_item->id)){
+                    SaleDetails::create([
+                        'sale_id'                 => $sale->id,
+                        'warehouse_id'            => $this->warehouse_id,
+                        'product_id'              => $cart_item->id,
+                        'name'                    => $cart_item->name,
+                        'code'                    => $cart_item->options->code,
+                        'quantity'                => $cart_item->qty,
+                        'price'                   => $cart_item->price * 100,
+                        'unit_price'              => $cart_item->options->unit_price * 100,
+                        'sub_total'               => $cart_item->options->sub_total * 100,
+                        'product_discount_amount' => $cart_item->options->product_discount * 100,
+                        'product_discount_type'   => $cart_item->options->product_discount_type,
+                        'product_tax_amount'      => $cart_item->options->product_tax * 100,
+                    ]);
 
-                $product = Product::findOrFail($cart_item->id);
-                $product_warehouse = ProductWarehouse::where('product_id', $product->id)
-                    ->where('warehouse_id', $this->warehouse_id)
-                    ->first();
+                    $product = Product::findOrFail($cart_item->id);
+                    $product_warehouse = ProductWarehouse::where('product_id', $product->id)
+                        ->where('warehouse_id', $this->warehouse_id)
+                        ->first();
 
-                $new_quantity = $product_warehouse->qty - $cart_item->qty;
+                    $new_quantity = $product_warehouse->qty - $cart_item->qty;
 
-                $product_warehouse->update([
-                    'qty' => $new_quantity,
-                ]);
+                    $product_warehouse->update([
+                        'qty' => $new_quantity,
+                    ]);
 
-                $movement = new Movement([
-                    'type'         => MovementType::SALE,
-                    'quantity'     => $cart_item->qty,
-                    'price'        => $cart_item->price * 100,
-                    'date'         => date('Y-m-d'),
-                    'movable_type' => get_class($product),
-                    'movable_id'   => $product->id,
-                    'user_id'      => Auth::user()->id,
-                ]);
+                    $movement = new Movement([
+                        'type'         => MovementType::SALE,
+                        'quantity'     => $cart_item->qty,
+                        'price'        => $cart_item->price * 100,
+                        'date'         => date('Y-m-d'),
+                        'movable_type' => get_class($product),
+                        'movable_id'   => $product->id,
+                        'user_id'      => Auth::user()->id,
+                    ]);
 
-                $movement->save();
+                    $movement->save();
+                }
+                else{
+                    $service = Service::where('uuid', $cart_item->id)
+                        ->first();
+
+                    SaleDetailsService::create([
+                        'sale_id'                 => $sale->id,
+                        'service_id'              => $service->id,
+                        'name'                    => $cart_item->name,
+                        'code'                    => $cart_item->options->code,
+                        'quantity'                => $cart_item->qty,
+                        'price'                   => $cart_item->price * 100,
+                        'unit_price'              => $cart_item->options->unit_price * 100,
+                        'sub_total'               => $cart_item->options->sub_total * 100,
+                        'product_discount_amount' => $cart_item->options->product_discount * 100,
+                        'product_discount_type'   => $cart_item->options->product_discount_type,
+                        'product_tax_amount'      => $cart_item->options->product_tax * 100,
+                        // 'service_type'            => $cart_item->options->service_type,
+                    ]);
+                }
             }
 
             Cart::instance('sale')->destroy();
