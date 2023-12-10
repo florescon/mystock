@@ -14,8 +14,8 @@
 @php
     $attributes = $attributes->class([
         'shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md',
-        'disabled:opacity-50' => $disabled,
-        'border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:ring-red-500' => $errors->has($name),
+        'shadow-sm disabled:opacity-50' => $disabled,
+        'shadow-sm border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:ring-red-500' => $errors->has($name),
     ])->merge([
         'id' => $id,
         'type' => $type,
