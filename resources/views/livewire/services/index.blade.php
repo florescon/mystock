@@ -35,33 +35,30 @@
         <div class="flex flex-wrap -m-4 text-center">
         @forelse($services as $service)
           <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
-            <div
-                class="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto bg-white shadow-xl rounded-lg text-gray-900">
-                <div class="rounded-t-lg h-32 overflow-hidden">
-                    @php
+            <div class="bg-white rounded-lg overflow-hidden shadow-lg ring-4 ring-indigo-500 ring-opacity-40 max-w-sm">
+                <div class="relative">
+                    {{-- @php
                         $banner = $service->service_type->getBannerType();
                     @endphp
 
                     @if(!$service->image)
-                        <img class="object-cover object-top w-full" src='{{ asset('images/'.$banner) }}' alt='  '>
+                        <img class="w-full" src='{{ asset('images/'.$banner) }}' alt="{{ $service->name }}">
                     @else
-                        <img class="object-cover object-top w-full" src='{{ asset('/storage/'.$service->image) }}' alt='  '>
-                    @endif
-                </div>
+                        <img class="w-full" src='{{ asset('/storage/'.$service->image) }}' alt="{{ $service->name }}">
+                    @endif --}}
 
-                <div class="text-center mt-2">
-                    <h1 class="font-semibold">{{ $service->name }}</h1>
-                    <p class="text-gray-500">${{ $service->price }}</p>
-                    <p class="text-gray-500">{{ $service->note ? Str::limit($service->note, 24, '...') : '--' }}</p>
+                    <div class="absolute top-0 right-0 text-white px-2 py-1 m-2 rounded-md text-sm font-medium">
+                        @php
+                            $type = $service->service_type->getBadgeType();
+                        @endphp
+                        <x-badge :type="$type">{{ __($service->service_type->getName()) }}</x-badge>
+                    </div>
                 </div>
-                <ul class="py-4 mt-2 text-gray-700 flex items-center justify-around">
-                    @php
-                        $type = $service->service_type->getBadgeType();
-                    @endphp
-                    <x-badge :type="$type">{{ __($service->service_type->getName()) }}</x-badge>
-                </ul>
-
-                <ul class="py-4 mt-2 text-gray-700 flex items-center justify-around">
+                <div class="p-4">
+                    <h3 class="text-lg font-medium mt-9">{{ $service->name }}</h3>
+                    <p class="text-gray-600 text-sm mt-2 mb-12">{{ $service->note ? Str::limit($service->note, 28, '...') : '--' }}</p>
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-lg">${{ $service->price }}</span>
                     @can('service_update')
                     <li class="flex flex-col items-center justify-around">
                         <x-button primary wire:click="$emit('editModal', {{ $service->id }})" type="button"
@@ -78,11 +75,10 @@
                         </x-button>
                     </li>
                     @endcan
-                </ul>
-                <div class="p-4 border-t mx-4 mt-2">
-                    <button class="w-full block mx-auto rounded-full bg-green-300 hover:shadow-lg font-semibold text-white px-6 py-2">Activo</button>
+                    </div>
                 </div>
             </div>
+
           </div>
         @empty
             {{ __('No entries found.') }}

@@ -48,29 +48,30 @@ class Transactions extends Component
 
     public function getStartDateProperty()
     {
-        return $this->startDate = Carbon::now()->startOfMonth()->toDateString();
+        return $this->startDate = today()->subDays(30)->format('Y-m-d');
     }
 
     public function getEndDateProperty()
     {
-        return $this->endDate = Carbon::now()->endOfMonth()->toDateString();
+        return $this->endDate = today()->format('Y-m-d');
     }
 
     public function mount()
     {
+        $this->startDate = today()->subDays(30)->format('Y-m-d');
+        $this->endDate = today()->format('Y-m-d');
         $this->categoriesCount = Category::count('id');
 
-        $this->productCount = Product::whereBetween('created_at', [$this->startDate, $this->endDate])->count();
-        $this->supplierCount = Supplier::whereBetween('created_at', [$this->startDate, $this->endDate])->count();
-        $this->customerCount = Customer::whereBetween('created_at', [$this->startDate, $this->endDate])->count();
+        $this->productCount = Product::count();
+        $this->supplierCount = Supplier::count();
+        $this->customerCount = Customer::count();
         $this->salesCount = Sale::whereBetween('created_at', [$this->startDate, $this->endDate])
             ->count();
-        $this->purchasesCount = Purchase::whereBetween('created_at', [$this->startDate, $this->endDate])
-            ->count();
+        $this->purchasesCount = Purchase::count();
 
-        $this->salesTotal = Sale::whereDate('created_at', [$this->startDate, $this->endDate])->sum('total_amount') / 100;
+        $this->salesTotal = Sale::whereBetween('created_at', [$this->startDate, $this->endDate])->sum('total_amount') / 100;
 
-        $this->stockValue = ProductWarehouse::whereDate('created_at', [$this->startDate, $this->endDate])->sum(DB::raw('qty * cost'));
+        $this->stockValue = ProductWarehouse::sum(DB::raw('qty * cost'));
 
         $this->lastSales = Sale::with('customer')
             ->latest()

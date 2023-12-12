@@ -1,4 +1,4 @@
-<div class="antialiased sans-serif bg-gray-100 h-full">
+<div class="antialiased sans-serif bg-red-100 h-full">
     <div x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
         <div class="container mx-auto px-4 py-2 md:py-4">
               
@@ -6,7 +6,7 @@
                 Schedule Tasks
             </div> -->
 
-            <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="bg-white rounded-lg shadow overflow-hidden my-2">
 
                 <div class="flex items-center justify-between py-2 px-6">
                     <div>

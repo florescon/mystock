@@ -45,22 +45,11 @@
                         class="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto bg-white shadow-xl rounded-lg text-gray-900"
                         wire:click.prevent="selectService({{ $service }})"
                         >
-                        <div class="rounded-t-lg h-32 overflow-hidden">
-                            @php
-                                $banner = $service->service_type->getBannerType();
-                            @endphp
-
-                            @if(!$service->image)
-                                <img class="object-cover object-top w-full" src='{{ asset('images/'.$banner) }}' alt='  '>
-                            @else
-                                <img class="object-cover object-top w-full" src='{{ asset('/storage/'.$service->image) }}' alt='  '>
-                            @endif
-                        </div>
 
                         <div class="text-center mt-2">
                             <h1 class="font-semibold">{{ $service->name }}</h1>
                             <p class="text-gray-500">${{ $service->price }}</p>
-                            <p class="text-gray-500">{{ $service->note ? Str::limit($service->note, 24, '...') : '--' }}</p>
+                            <p class="text-gray-500">{{ $service->note ? Str::limit($service->note, 22, '...') : '--' }}</p>
                         </div>
                         <ul class="py-4 mt-2 text-gray-700 flex items-center justify-around">
                             @php

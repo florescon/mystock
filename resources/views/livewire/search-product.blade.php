@@ -1,4 +1,4 @@
-<div class="relative mt-8" x-data="{ showScan: false }">
+<div class="relative mt-1" x-data="{ showScan: false }">
     <div class="mb-3 px-2">
         <div class="mb-2 w-full relative text-gray-600 focus-within:text-gray-400">
             <span class="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -43,9 +43,8 @@
 
         </div>
     </div>
-
     
-    <div class="w-full px-2 mb-4 bg-white">
+    <div class="w-full px-2 mb-4 bg-transparent">
         <div class="flex flex-wrap w-full">
             <div
                 class="w-full grid gap-3 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 px-2 mt-5 overflow-y-auto">

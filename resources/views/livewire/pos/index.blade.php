@@ -137,7 +137,25 @@
                     </div>
                 </div>
                 <div class="float-left pb-4 px-2">
-                    <x-button primary type="submit" wire:loading.attr="disabled">{{ __('Submit') }}</x-button>
+                    <div x-data="{ open : false }" class="w-96 rounded border bg-white p-4 shadow ml-4">
+                        <div x-show="!open" class="flex items-center justify-between">
+                            <div class="ml-2">¿Realmente desea procesar?</div>
+                            <button type="button" class="btn rounded bg-gray-200 px-4 py-2 font-medium hover:bg-gray-300" @click="open = !open">Procesar</button>
+                        </div>
+
+                        <!-- container after clicked "EDIT" -->
+                        <div x-show="open" class="flex items-center justify-between">
+                            <p>
+                                Sí, procesar
+                            </p>
+
+                            <div class="flex items-center justify-center space-x-2">
+
+                                <x-button primary type="submit" class="mr-3" wire:loading.attr="disabled">{{ __('Submit') }}</x-button>
+                                <button type="button" @click="open = false" class="btn rounded bg-gray-200 px-4 py-2 font-medium hover:bg-gray-300">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </x-slot>

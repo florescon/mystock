@@ -127,6 +127,7 @@ class ProductCart extends Component
         $cart->add($cartItem);
         $this->updateQuantityAndCheckQuantity($product['id'], $productWarehouse->qty);
 
+        $this->alert('success', __('Added product'));
         $this->emit('renderIndex');
     }
 
@@ -151,6 +152,7 @@ class ProductCart extends Component
 
         $cart->add($cartItem);
 
+        $this->alert('success', __('Added service'));
         $this->emit('renderIndex');
     }
 

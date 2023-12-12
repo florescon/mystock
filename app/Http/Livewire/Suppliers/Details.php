@@ -20,6 +20,8 @@ class Details extends Component
 
     public $supplier_id;
 
+    public $purchase;
+
     /** @var mixed */
     public $supplier;
 

@@ -43,7 +43,7 @@
 
 @section('content')
     <div class="px-4 mx-auto">
-        <div class="w-full py-5">
+        <div class="w-full py-5 pr-5 pl-5">
             <livewire:livesearch />
         </div>
         <div class="flex flex-wrap px-4 mx-auto">
