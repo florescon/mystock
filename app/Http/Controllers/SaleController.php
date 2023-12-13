@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SaleDetails;
+use App\Models\Quotation;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -66,6 +67,11 @@ class SaleController extends Controller
         }
 
         return view('admin.sale.edit', compact('sale'));
+    }
+
+    public function store(Quotation $quotation)
+    {
+        dd($quotation->id);
     }
 
     public function update(UpdateSaleRequest $request, Sale $sale)

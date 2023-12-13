@@ -13,7 +13,7 @@
             <table style="border-collapse:collapse">
                 <thead>
                     <tr class="title">
-                        <th class="align-middle">{{ __('Product') }}</th>
+                        <th class="align-middle">{{ __('Concept') }}</th>
                         <th class="align-middle">{{ __('Net Unit Price') }}</th>
                         <th class="align-middle">{{ __('Quantity') }}</th>
                         <th class="align-middle">{{ __('Discount') }}</th>

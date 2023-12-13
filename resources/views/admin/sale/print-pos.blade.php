@@ -127,7 +127,7 @@
             <table>
                 <thead>
                     <tr class="title">
-                        <th colspan="2" style="text-align: left;">{{ __('Product information') }}</th>
+                        <th colspan="2" style="text-align: left;">{{ __('Concept') }}</th>
                         <th colspan="2" style="text-align: right;">{{ __('Qty') }}</th>
                     </tr>
                 </thead>

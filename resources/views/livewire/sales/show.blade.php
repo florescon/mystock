@@ -60,7 +60,7 @@
                     <table style="margin:10px 0">
                         <thead>
                             <tr>
-                                <th>{{ __('Product') }}</th>
+                                <th>{{ __('Concept') }}</th>
                                 <th>{{ __('Quantity') }}</th>
                                 <th>{{ __('Unit Price') }}</th>
                                 <th>{{ __('Subtotal') }}</th>

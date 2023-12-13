@@ -11,6 +11,7 @@ use App\Models\ProductWarehouse;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Models\Warehouse;
 
 class Edit extends Component
 {
@@ -23,6 +24,7 @@ class Edit extends Component
     public $reference;
     public $quantity;
     public $type;
+    public $warehouses;
     public $warehouse_id;
 
     public $products;
@@ -43,6 +45,7 @@ class Edit extends Component
 
     public function mount($adjustment)
     {
+        $this->warehouses = Warehouse::select(['id', 'name'])->get();
         $this->adjustment = Adjustment::with('adjustedProducts', 'adjustedProducts.warehouse', 'adjustedProducts.product')
             ->where('id', $adjustment->id)->first();
 

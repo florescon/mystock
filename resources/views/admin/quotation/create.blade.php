@@ -140,7 +140,7 @@
                         </div>
                     </div>
 
-                    <div class="w-full mt-3">
+                    <div class="w-full mt-3 mb-3">
                         <x-button type="submit" primary class="w-full text-center">
                             {{ __('Create Quotation') }}
                         </x-button>

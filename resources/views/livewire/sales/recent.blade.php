@@ -193,7 +193,7 @@
                                     <div class="">
                                         <x-table>
                                             <x-slot name="thead">
-                                                <x-table.th>{{ __('Product') }}</x-table.th>
+                                                <x-table.th>{{ __('Concept') }}</x-table.th>
                                                 <x-table.th>{{ __('Quantity') }}</x-table.th>
                                                 <x-table.th>{{ __('Unit Price') }}</x-table.th>
                                                 <x-table.th>{{ __('Subtotal') }}</x-table.th>

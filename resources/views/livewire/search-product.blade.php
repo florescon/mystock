@@ -53,7 +53,7 @@
                         class="select-none cursor-pointer transition-shadow overflow-hidden rounded-2xl bg-white shadow hover:shadow-lg w-full py-8 relative border border-green-400"
                         style="{{ asset('images/products/').$product->image ? 'background-image: url(' . asset('images/products/').$product->image . '); background-size: cover; background-position: center;multiply-blend-mode: darken;' : '' }}">
                         <div
-                            class="inline-block p-1 text-center font-semibold text-xs align-baseline leading-none text-white bg-blue-400 mb-3 absolute top-0 right-0">
+                            class="inline-block p-1 text-center font-semibold text-xs align-baseline leading-none text-white bg-blue-400 mb-3 absolute top-0 right-0 rounded-bl-lg">
                             @php
                                 $warehouse = $product->warehouses->where('id', $warehouse_id)->first();
                                 $qty = $warehouse ? $warehouse->pivot->qty : 0;
@@ -74,7 +74,7 @@
                             </p>
                         </div>
                         <span
-                            class="block p-1 text-center font-semibold text-xs align-baseline leading-none text-white bg-green-400 absolute bottom-0">
+                            class="block p-1 text-center font-semibold text-xs align-baseline leading-none text-white bg-green-400 absolute bottom-0 rounded-tr-lg">
                             {{ $product->code }}
                         </span>
                     </div>
