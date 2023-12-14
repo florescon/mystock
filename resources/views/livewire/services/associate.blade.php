@@ -42,7 +42,7 @@
                 @forelse($services as $service)
                   <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
                     <div
-                        class="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto bg-white shadow-xl rounded-lg text-gray-900"
+                        class="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto bg-white shadow-xl rounded-lg text-gray-900 border border-purple-600 cursor-pointer"
                         wire:click.prevent="selectService({{ $service }})"
                         >
 

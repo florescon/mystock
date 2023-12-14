@@ -51,7 +51,7 @@
                 @forelse($products as $product)
                     <div 
                         wire:click.prevent="selectProduct({{ $product }})"
-                        class="px-3 py-3 flex flex-col border border-red-200 rounded-md h-32 justify-between cursor-pointer">
+                        class="px-3 py-3 flex flex-col border border-red-400 rounded-md h-32 justify-between cursor-pointer">
                       <div>
                         @php
                             $warehouse = $product->warehouses->where('id', $warehouse_id)->first();

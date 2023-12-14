@@ -97,7 +97,7 @@
     <div class="p-2 w-full">
         <div class="bg-white rounded-lg border border-gray-200 pb-2">
             <div class="py-3 px-5 mb-3 w-full inline-flex itees-center justify-between">
-                <span class="text-md font-semibold text-gray-700">{{ __('Recent Sale') }}</span>
+                <span class="text-md font-semibold text-gray-700">{{ __('Recent Sales') }}</span>
             </div>
             <table class="table">
                 <thead>
@@ -134,7 +134,7 @@
     <div class="p-2 w-full">
         <div class="bg-white rounded-lg border border-gray-200 pb-2">
             <div class="py-3 px-5 mb-3 w-full inline-flex items-center justify-between">
-                <span class="text-md font-semibold text-gray-700">{{ __('Recent Purchase') }}</span>
+                <span class="text-md font-semibold text-gray-700">{{ __('Recent Purchases') }}</span>
             </div>
             <table class="table">
                 <thead>
