@@ -3,9 +3,9 @@
 
         <div class="mb-6 flex justify-center gap-4 items-center w-full">
             <label class="font-semibold">{{ __('Filtre by date') }}:</label>
-            <input type="date" wire:model="startDate" class="border rounded px-2 py-1">
+            <input type="datetime-local" wire:model="startDate" class="border rounded px-2 py-1">
             <span class="mx-2">@lang('to')</span>
-            <input type="date" wire:model="endDate" class="border rounded px-2 py-1">
+            <input type="datetime-local" wire:model="endDate" class="border rounded px-2 py-1">
         </div>
 
         @can('show_total_stats')
@@ -42,14 +42,6 @@
                 </x-counter-card>
             </div>
             <div class="sm:w-1/4 w-1/2 px-2 pb-2">
-                <x-counter-card color="purple" counter="{{ $salesCount }}" :title="__('Total Sales')"
-                    href="{{ route('sales.index') }}">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
-                    </path>
-                </x-counter-card>
-            </div>
-            <div class="sm:w-1/4 w-1/2 px-2 pb-2">
                 <x-counter-card color="cyan" counter="{{ $purchasesCount }}" :title="__('Total Purchases')"
                     href="{{ route('purchases.index') }}">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -58,7 +50,15 @@
                 </x-counter-card>
             </div>
             <div class="sm:w-1/4 w-1/2 px-2 pb-2">
-                <x-counter-card color="green" counter="${{ $salesTotal }}" :title="__('Sales Total')"
+                <x-counter-card color="purple" counter="{{ $salesCount }}" :title="'# '.__('Sales by date')"
+                    href="{{ route('sales.index') }}">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                    </path>
+                </x-counter-card>
+            </div>
+            <div class="sm:w-1/4 w-1/2 px-2 pb-2">
+                <x-counter-card color="green" counter="${{ $salesTotal }}" :title="'$ '.__('Sales by date')"
                     href="{{ route('sales.index') }}">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
@@ -88,7 +88,7 @@
             <div id="monthly-chart"></div>
         </div>
         <div class="mx-4 pb-2 w-full mt-2 bg-white relative">
-            <div class="flex w-full px-4 justify-between items-center">
+            <div class="w-full px-4 justify-between items-center">
                 <h3>{{ __('Sales/Purchases') }}</h3>
             </div>
             <div id="chart"></div>
@@ -272,7 +272,7 @@
                     ],
                     chart: {
                         height: 350,
-                        width: '100%',
+                        width: '75%',
                         type: "bar",
                         zoom: {
                             enabled: false
@@ -323,7 +323,7 @@
                     },
                     yaxis: {
                         title: {
-                            text: "Amount",
+                            text: "Monto",
                         },
                     },
                     tooltip: {

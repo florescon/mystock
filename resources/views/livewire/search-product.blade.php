@@ -49,34 +49,26 @@
             <div
                 class="w-full grid gap-3 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 px-2 mt-5 overflow-y-auto">
                 @forelse($products as $product)
-                    <div wire:click.prevent="selectProduct({{ $product }})"
-                        class="select-none cursor-pointer transition-shadow overflow-hidden rounded-2xl bg-white shadow hover:shadow-lg w-full py-8 relative border border-green-400"
-                        style="{{ asset('images/products/').$product->image ? 'background-image: url(' . asset('images/products/').$product->image . '); background-size: cover; background-position: center;multiply-blend-mode: darken;' : '' }}">
-                        <div
-                            class="inline-block p-1 text-center font-semibold text-xs align-baseline leading-none text-white bg-blue-400 mb-3 absolute top-0 right-0 rounded-bl-lg">
-                            @php
-                                $warehouse = $product->warehouses->where('id', $warehouse_id)->first();
-                                $qty = $warehouse ? $warehouse->pivot->qty : 0;
-                            @endphp
-                            {{ __('Stock') }}: {{ $qty }}
-
-                        </div>
-                        <div class="pb-3 px-3 text-sm -mt-3">
-                            <h6 class="text-md text-center font-semibold mb-3 md:mb-0">
-                                {{ $product->name }}
-                            </h6>
-                            <p class="mb-0 text-center font-bold">
-                                @php
-                                    $price = $warehouse ? $warehouse->pivot->price : 0;
-                                @endphp
-                                {{ format_currency($price) }}
-
-                            </p>
-                        </div>
-                        <span
-                            class="block p-1 text-center font-semibold text-xs align-baseline leading-none text-white bg-green-400 absolute bottom-0 rounded-tr-lg">
-                            {{ $product->code }}
-                        </span>
+                    <div 
+                        wire:click.prevent="selectProduct({{ $product }})"
+                        class="px-3 py-3 flex flex-col border border-red-200 rounded-md h-32 justify-between cursor-pointer">
+                      <div>
+                        @php
+                            $warehouse = $product->warehouses->where('id', $warehouse_id)->first();
+                            $qty = $warehouse ? $warehouse->pivot->qty : 0;
+                        @endphp
+                        <div class="font-bold text-sm text-gray-800">{{ $product->name }} - {{ '['.$qty.' '.$product->unit.']' }}</div>
+                        <span class="font-light text-xs text-gray-600">{{ $product->code }}</span>
+                      </div>
+                      <div class="flex flex-row justify-between items-center">
+                        @php
+                            $price = $warehouse ? $warehouse->pivot->price : 0;
+                        @endphp
+                        <span class="self-end font-bold text-sm text-blue-500">${{ $price }}</span>
+                        @if($product->image)
+                            <img src="{{ asset('/storage/' . $product->image) }}" class=" h-14 w-14 object-cover rounded-md" alt="">
+                        @endif
+                      </div>
                     </div>
                 @empty
                     <div class="col-span-full w-full px-2 py-3 mb-4 border rounded">

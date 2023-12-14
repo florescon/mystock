@@ -19,32 +19,27 @@
 
         <x-language-dropdown />
 
-        @can('show_notifications')
+        {{-- @can('show_notifications')
             <div class="md:flex hidden flex-wrap items-center">
                 @livewire('notifications')
             </div>
-        @endcan
+        @endcan --}}
 
         <x-button primary :href="route('app.pos.index')">
             {{ __('POS') }}
         </x-button>
-
-        {{--
-             <x-button type="button" class="hidden md:inline-flex" iconOnly secondary srText="Toggle dark mode"
+    
+        {{-- <x-button type="button" class="hidden md:inline-flex" iconOnly secondary srText="Toggle dark mode"
             @click="toggleTheme">
             <x-icons.moon x-show="!isDarkMode" aria-hidden="true" class="w-5 h-5" />
             <x-icons.sun x-show="isDarkMode" aria-hidden="true" class="w-5 h-5" />
-             </x-button>
-              --}}
-
-
-        {{--
-                 <x-button type="button" class="hidden md:inline-flex" iconOnly primary srText="Toggle RTL mode"
-                @click="toggleRtl">
-                <a x-show="!isRtl" aria-hidden="true" class="font-bold text-md"> LTR </a>
-                <a x-show="isRtl" aria-hidden="true" class="font-bold text-md"> RTL </a>
-            </x-button> 
-            --}}
+         </x-button> --}}
+          
+        {{-- <x-button type="button" class="hidden md:inline-flex" iconOnly primary srText="Toggle RTL mode"
+            @click="toggleRtl">
+            <a x-show="!isRtl" aria-hidden="true" class="font-bold text-md"> LTR </a>
+            <a x-show="isRtl" aria-hidden="true" class="font-bold text-md"> RTL </a>
+        </x-button> --}}
 
         <ul class="flex-col md:flex-row list-none items-center md:flex">
             <x-dropdown align="right" width="56">

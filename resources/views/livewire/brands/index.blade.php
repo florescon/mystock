@@ -36,6 +36,7 @@
                 <input wire:model="selectPage" type="checkbox" />
             </x-table.th> --}}
             <x-table.th>
+                {{ __('Image') }}
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
@@ -56,7 +57,9 @@
                     </x-table.td> --}}
                     <x-table.td>
                         @if($brand->image)
-                            <img class="card-img-top" src="{{ asset('/storage/' . $brand->image) }}" width="100px">
+                            <img class="card-img-top" src="{{ asset('/storage/' . $brand->image) }}" width="50px">
+                        @else
+                            --
                         @endif
                     </x-table.td>
                     <x-table.td>

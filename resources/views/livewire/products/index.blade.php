@@ -43,6 +43,9 @@
             {{-- <x-table.th>
                 #
             </x-table.th> --}}
+            <x-table.th>
+                {{ __('Image') }}
+            </x-table.th>
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
             </x-table.th>
@@ -62,7 +65,7 @@
                 {{ __('Status') }}
             </x-table.th>
             <x-table.th>
-                {{ __('Warehouse') }}
+                {{ __('Warehouse').' / '.__('Brand') }} 
             </x-table.th>
             <x-table.th>
                 {{ __('Actions') }}
@@ -74,6 +77,15 @@
                     {{-- <x-table.td>
                         <input type="checkbox" value="{{ $product->id }}" wire:model="selected">
                     </x-table.td> --}}
+                    <x-table.td>
+                        @if($product->image)
+                        <a href="{{ asset('/storage/' . $product->image) }}" target="_blank">
+                            <img class="card-img-top" src="{{ asset('/storage/' . $product->image) }}" width="50px">
+                        </a>
+                        @else
+                            --
+                        @endif
+                    </x-table.td>
                     <x-table.td>
                         <button type="button" wire:click="$emit('showModal',{{ $product->id }})"
                             class="whitespace-nowrap hover:text-blue-400 active:text-blue-400">
@@ -104,6 +116,12 @@
                             @empty
                                 {{ __('No warehouse assigned') }}
                             @endforelse
+                            /
+                            @if($product->brand_id)
+                                {{ optional($product->brand)->name ?: '--' }}
+                            @else
+                                --
+                            @endif
                         </div>
                     </x-table.td>
                     <x-table.td>

@@ -48,84 +48,28 @@ class Transactions extends Component
 
     public function getStartDateProperty()
     {
-        return $this->startDate = today()->subDays(30)->format('Y-m-d');
+        return $this->startDate = today()->subDays(30)->format('Y-m-d 00:00:00');
     }
 
     public function getEndDateProperty()
     {
-        return $this->endDate = today()->format('Y-m-d');
+        return $this->endDate = today()->format('Y-m-d 23:59:00');
     }
 
     public function mount()
     {
-        $this->startDate = today()->subDays(30)->format('Y-m-d');
-        $this->endDate = today()->format('Y-m-d');
-        $this->categoriesCount = Category::count('id');
-
-        $this->productCount = Product::count();
-        $this->supplierCount = Supplier::count();
-        $this->customerCount = Customer::count();
-        $this->salesCount = Sale::whereBetween('created_at', [$this->startDate, $this->endDate])
-            ->count();
-        $this->purchasesCount = Purchase::count();
-
-        $this->salesTotal = Sale::whereBetween('created_at', [$this->startDate, $this->endDate])->sum('total_amount') / 100;
-
-        $this->stockValue = ProductWarehouse::sum(DB::raw('qty * cost'));
-
-        $this->lastSales = Sale::with('customer')
-            ->latest()
-            ->take(5)
-            ->get(['id', 'reference', 'total_amount', 'status', 'customer_id', 'user_id', 'date']);
-
-        $this->lastPurchases = Purchase::with('supplier')
-            ->latest()
-            ->take(5)
-            ->get(['id', 'reference', 'total_amount', 'status', 'supplier_id', 'date', 'user_id']);
-
-        $this->bestSales = Sale::query()
-            ->select('sales.*', 'customers.name')
-            ->join('customers', 'sales.customer_id', '=', 'customers.id')
-            ->with('user', 'customer')
-            ->whereMonth('sales.created_at', Carbon::now()->startOfMonth())
-            ->orderBy('sales.total_amount', 'desc')
-            ->take(5)
-            ->get();
-
-        $this->topProducts = SaleDetails::query()
-            ->selectRaw(
-                'SUM(sale_details.quantity) as qtyItem, products.name as name, products.code as code, SUM(sale_details.sub_total) as totalSalesAmount, sale_details.id'
-            )
-            ->join('products', 'products.id', '=', 'sale_details.product_id')
-            ->whereMonth('sale_details.created_at', Carbon::now()->startOfMonth())
-            ->groupBy('sale_details.id', 'sale_details.product_id', 'products.name', 'products.code')
-            ->orderByDesc('qtyItem')
-            ->limit(5)
-            ->get();
-
-        $this->purchases_count = Purchase::where('date', '>=', Carbon::now()->subWeek())
-            ->select(DB::raw('DATE(date) as date'), DB::raw('count(*) as purchases'))
-            ->groupBy('date')
-            ->pluck('purchases');
-
-        $this->sales_count = Sale::whereDate('date', '>=', Carbon::now()->subWeek())
-            ->select(DB::raw('DATE(date) as date'), DB::raw('count(*) as sales'))
-            ->groupBy('date')
-            ->pluck('sales');
-
-        $this->chart();
+        $this->startDate = today()->subDays(30)->format('Y-m-d 00:00:00');
+        $this->endDate = today()->format('Y-m-d 23:59:00');
     }
 
     public function updatedStartDate($value)
     {
         $this->startDate = $value;
-        $this->mount();
     }
 
     public function updatedEndDate($value)
     {
         $this->endDate = $value;
-        $this->mount();
     }
 
     public function chart()
@@ -323,6 +267,61 @@ class Transactions extends Component
 
     public function render()
     {
+        $this->categoriesCount = DB::table('categories')->where('deleted_at', null)->count();
+
+        $this->productCount = DB::table('products')->where('deleted_at', null)->count();
+        $this->supplierCount = DB::table('suppliers')->where('deleted_at', null)->count();
+        $this->customerCount = DB::table('customers')->where('deleted_at', null)->count();
+        $this->salesCount = Sale::whereBetween('created_at', [$this->startDate, $this->endDate])
+            ->count();
+        $this->purchasesCount = DB::table('purchases')->where('deleted_at', null)->count();
+
+        $this->salesTotal = Sale::whereBetween('created_at', [$this->startDate, $this->endDate])->sum('total_amount') / 100;
+
+        $this->stockValue = ProductWarehouse::sum(DB::raw('qty * cost'));
+
+        $this->lastSales = Sale::with('customer')
+            ->latest()
+            ->take(5)
+            ->get(['id', 'reference', 'total_amount', 'status', 'customer_id', 'user_id', 'date']);
+
+        $this->lastPurchases = Purchase::with('supplier')
+            ->latest()
+            ->take(5)
+            ->get(['id', 'reference', 'total_amount', 'status', 'supplier_id', 'date', 'user_id']);
+
+        $this->bestSales = Sale::query()
+            ->select('sales.*', 'customers.name')
+            ->join('customers', 'sales.customer_id', '=', 'customers.id')
+            ->with('user', 'customer')
+            ->whereMonth('sales.created_at', Carbon::now()->startOfMonth())
+            ->orderBy('sales.total_amount', 'desc')
+            ->take(5)
+            ->get();
+
+        $this->topProducts = SaleDetails::query()
+            ->selectRaw(
+                'SUM(sale_details.quantity) as qtyItem, products.name as name, products.code as code, SUM(sale_details.sub_total) as totalSalesAmount, sale_details.id'
+            )
+            ->join('products', 'products.id', '=', 'sale_details.product_id')
+            ->whereMonth('sale_details.created_at', Carbon::now()->startOfMonth())
+            ->groupBy('sale_details.id', 'sale_details.product_id', 'products.name', 'products.code')
+            ->orderByDesc('qtyItem')
+            ->limit(5)
+            ->get();
+
+        $this->purchases_count = Purchase::where('date', '>=', Carbon::now()->subWeek())
+            ->select(DB::raw('DATE(date) as date'), DB::raw('count(*) as purchases'))
+            ->groupBy('date')
+            ->pluck('purchases');
+
+        $this->sales_count = Sale::whereDate('date', '>=', Carbon::now()->subWeek())
+            ->select(DB::raw('DATE(date) as date'), DB::raw('count(*) as sales'))
+            ->groupBy('date')
+            ->pluck('sales');
+
+        $this->chart();
+
         return view('livewire.stats.transactions');
     }
 }

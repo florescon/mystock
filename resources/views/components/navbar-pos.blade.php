@@ -13,11 +13,11 @@
 
             <x-language-dropdown />
 
-            @can('show_notifications')
+            {{-- @can('show_notifications')
                 <div class="md:flex hidden flex-wrap items-center">
                     @livewire('notifications')
                 </div>
-            @endcan
+            @endcan --}}
 
             <x-button type="button" primary onclick="Livewire.emit('createAssociate')">
                 {{ __('Services') }}

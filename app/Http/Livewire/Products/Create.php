@@ -105,8 +105,13 @@ class Create extends Component
             $validatedData = $this->validate();
 
             if ($this->image) {
-                $imageName = Str::slug($this->product->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
-                $this->image->store('products', $imageName);
+
+                // $imageName = Str::slug($this->product->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+                // $this->image->store('products', $imageName);
+                // $this->product->image = $imageName;
+
+                $image = Str::slug($this->product->name).'-'.date('Y-m-d');
+                $imageName = $this->image->store('products/'.$image, 'public');
                 $this->product->image = $imageName;
             }
 

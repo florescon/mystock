@@ -28,9 +28,7 @@
                         <x-table.tr>
                             <x-table.td>
                                 {{ $cart_item->name }} <br>
-                                <span class="badge badge-success">
-                                    {{ $cart_item->options->code }}
-                                </span>
+                                <span class="font-light text-xs text-gray-600">{{ $cart_item->options->code }}</span>
                                 {{-- @include('livewire.includes.product-cart-modal') --}}
                             </x-table.td>
 
