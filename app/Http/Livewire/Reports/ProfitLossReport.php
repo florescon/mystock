@@ -101,7 +101,7 @@ class ProfitLossReport extends Component
             ->when($this->end_date, function ($query) {
                 return $query->whereDate('date', '<=', $this->end_date);
             })
-            ->sum('total_amount') / 100;
+            ->sum('total_amount');
 
         $this->total_purchases = Purchase::completed()
             ->when($this->start_date, function ($query) {
@@ -119,7 +119,7 @@ class ProfitLossReport extends Component
             ->when($this->end_date, function ($query) {
                 return $query->whereDate('date', '<=', $this->end_date);
             })
-            ->sum('total_amount') / 100;
+            ->sum('total_amount');
 
         $this->total_sale_returns = SaleReturn::completed()
             ->when($this->start_date, function ($query) {
@@ -137,7 +137,7 @@ class ProfitLossReport extends Component
             ->when($this->end_date, function ($query) {
                 return $query->whereDate('date', '<=', $this->end_date);
             })
-            ->sum('total_amount') / 100;
+            ->sum('total_amount');
 
         $this->total_purchase_returns = PurchaseReturn::completed()
             ->when($this->start_date, function ($query) {
@@ -155,7 +155,7 @@ class ProfitLossReport extends Component
             ->when($this->end_date, function ($query) {
                 return $query->whereDate('date', '<=', $this->end_date);
             })
-            ->sum('total_amount') / 100;
+            ->sum('total_amount');
 
         $this->expenses_amount = Expense::when($this->start_date, function ($query) {
             return $query->whereDate('date', '>=', $this->start_date);
@@ -163,7 +163,7 @@ class ProfitLossReport extends Component
             ->when($this->end_date, function ($query) {
                 return $query->whereDate('date', '<=', $this->end_date);
             })
-            ->sum('amount') / 100;
+            ->sum('amount');
 
         $this->profit_amount = $this->calculateProfit();
 
@@ -207,7 +207,7 @@ class ProfitLossReport extends Component
             ->when($this->end_date, function ($query) {
                 return $query->whereDate('date', '<=', $this->end_date);
             })
-            ->sum('amount') / 100;
+            ->sum('amount');
 
         $purchase_return_payments = PurchaseReturnPayment::when($this->start_date, function ($query) {
             return $query->whereDate('date', '>=', $this->start_date);
@@ -215,7 +215,7 @@ class ProfitLossReport extends Component
             ->when($this->end_date, function ($query) {
                 return $query->whereDate('date', '<=', $this->end_date);
             })
-            ->sum('amount') / 100;
+            ->sum('amount');
 
         return $sale_payments + $purchase_return_payments;
     }
@@ -228,7 +228,7 @@ class ProfitLossReport extends Component
             ->when($this->end_date, function ($query) {
                 return $query->whereDate('date', '<=', $this->end_date);
             })
-            ->sum('amount') / 100;
+            ->sum('amount');
 
         $sale_return_payments = SaleReturnPayment::when($this->start_date, function ($query) {
             return $query->whereDate('date', '>=', $this->start_date);
@@ -236,7 +236,7 @@ class ProfitLossReport extends Component
             ->when($this->end_date, function ($query) {
                 return $query->whereDate('date', '<=', $this->end_date);
             })
-            ->sum('amount') / 100;
+            ->sum('amount');
 
         return $purchase_payments + $sale_return_payments + $this->expenses_amount;
     }

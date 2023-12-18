@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
+use App\Enums\ServiceType;
+use Carbon\Carbon;
 
 class Customer extends Model
 {
@@ -100,7 +103,7 @@ class Customer extends Model
             }
         }
 
-        $revenue = ($sales - $sale_returns) / 100;
+        $revenue = ($sales - $sale_returns);
 
         return $revenue - $product_costs;
     }
@@ -109,4 +112,40 @@ class Customer extends Model
     {
         return $model::where('customer_id', $this->id)->sum($column);
     }
+
+    /**
+     * 
+     */
+
+    public function lastInscription(): HasOne
+    {
+        return $this->hasOne(SaleDetailsService::class)->ofMany([
+            'created_at' => 'max',
+            'id' => 'max',
+        ], function (Builder $query) {
+            $query->where('created_at', '<', now())->where('service_id', ServiceType::INSCRIPTION->getID());
+        });
+    }
+
+    public function getInscriptionDateDiffForHumansAttribute()
+    {
+        return $this->lastInscription->created_at->diffForHumans();
+    }
+
+    public function getInscriptionExpirationAttribute()
+    {
+        return $this->lastInscription->created_at->addYear();
+    }
+
+    public function getInscriptionRemainingAttribute()
+    {
+        if ($this->inscription_expiration) {
+            $remaining_days = now()->diffInDays($this->inscription_expiration, false);
+        } else {
+            $remaining_days = 0;
+        }
+
+        return $remaining_days;
+    }
+
 }

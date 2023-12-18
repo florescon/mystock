@@ -153,6 +153,6 @@ class Details extends Component
 
     private function customerSum(string $field): int|float
     {
-        return Sale::whereBelongsTo($this->customer)->sum($field) / 100;
+        return Sale::whereBelongsTo($this->customer)->sum($field) / 1;
     }
 }

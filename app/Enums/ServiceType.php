@@ -64,4 +64,19 @@ enum ServiceType: int
                 return 'other.jpg';
         }
     }
+
+    public function getID(): int
+    {
+        switch ($this) {
+            case self::INSCRIPTION:
+                return 1;
+            case self::MONTHLYPAYMENT:
+                return 2;
+            case self::FREEPASS:
+                return 3;
+            default:
+                return 1;
+        }
+    }
+
 }

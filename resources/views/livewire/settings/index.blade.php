@@ -204,7 +204,7 @@
                                 class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1" />
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-4">
-                            <x-label for="saleReturn_prefix" :value="__('Sale Prefix')" />
+                            <x-label for="saleReturn_prefix" :value="__('Sale Return Prefix')" />
                             <input wire:model.defer="settings.saleReturn_prefix" type="text" id="saleReturn_prefix"
                                 name="saleReturn_prefix"
                                 class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1" />
@@ -222,7 +222,7 @@
                                 class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1" />
                         </div>
                         <div class="w-full md:w-1/3 px-3 mb-4">
-                            <x-label for="purchaseReturn_prefix" :value="__('Purchase Prefix')" />
+                            <x-label for="purchaseReturn_prefix" :value="__('Purchase Return Prefix')" />
                             <input wire:model.defer="settings.purchaseReturn_prefix" type="text" id="purchaseReturn_prefix"
                                 name="purchaseReturn_prefix"
                                 class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1" />

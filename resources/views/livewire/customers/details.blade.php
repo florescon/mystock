@@ -59,9 +59,13 @@
         </div>
         <div class="w-full mx-auto">
             <div class="w-full px-2 my-5">
+
+                @livewire('customers.alert-inscription', ['customer_id' => $customer->id])
+
                 <h2 class="my-5 text-2xl font-bold">
                     {{ __('Sales') }}
                 </h2>
+
                 <div class="flex flex-wrap justify-center">
                     <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-wrap my-2">
                         <select wire:model="perPage"

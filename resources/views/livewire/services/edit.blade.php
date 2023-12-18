@@ -18,6 +18,13 @@
                 </div>
 
                 <div class="w-full px-3 mb-4">
+                    <x-label for="price" :value="__('Price')" />
+                    <x-input id="price" class="block mt-1 w-full" type="text" name="price"
+                        wire:model.lazy="service.price" />
+                    <x-input-error :messages="$errors->get('service.price')" for="price" class="mt-2" />
+                </div>
+
+                <div class="w-full px-3 mb-4">
                     <x-label for="note" :value="__('Note')" />
                     <textarea id="note" class="block mt-1 w-full" type="text" name="note"
                         wire:model.lazy="service.note"></textarea>

@@ -104,7 +104,7 @@ class Details extends Component
             }
         }
 
-        $debt = ($purchases - $purchase_returns) / 100;
+        $debt = ($purchases - $purchase_returns) ;
 
         return $debt - $product_costs;
     }
@@ -142,6 +142,6 @@ class Details extends Component
 
     private function supplierSum(string $field): int|float
     {
-        return Purchase::whereBelongsTo($this->supplier)->sum($field) / 100;
+        return Purchase::whereBelongsTo($this->supplier)->sum($field) / 1;
     }
 }

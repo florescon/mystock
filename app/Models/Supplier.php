@@ -77,7 +77,7 @@ class Supplier extends Model
 
     public function getTotalDueAttribute()
     {
-        return Purchase::where('supplier_id', $this->id)->sum('due_amount') / 100;
+        return Purchase::where('supplier_id', $this->id)->sum('due_amount');
     }
 
     public function getTotalPaymentsAttribute()
@@ -100,7 +100,7 @@ class Supplier extends Model
             }
         }
 
-        $debt = ($purchases - $purchase_returns) / 100;
+        $debt = ($purchases - $purchase_returns);
 
         return $debt - $product_costs;
     }

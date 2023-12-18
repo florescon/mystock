@@ -132,16 +132,16 @@ class Edit extends Component
                 'customer_id'         => $this->customer_id,
                 'tax_percentage'      => $this->tax_percentage,
                 'discount_percentage' => $this->discount_percentage,
-                'shipping_amount'     => $this->shipping_amount * 100,
-                'paid_amount'         => $this->paid_amount * 100,
-                'total_amount'        => $this->total_amount * 100,
-                'due_amount'          => $due_amount * 100,
+                'shipping_amount'     => $this->shipping_amount,
+                'paid_amount'         => $this->paid_amount,
+                'total_amount'        => $this->total_amount,
+                'due_amount'          => $due_amount,
                 'status'              => $this->status,
                 'payment_status'      => $payment_status,
                 'payment_method'      => $this->payment_method,
                 'note'                => $this->note,
-                'tax_amount'          => Cart::instance('sale')->tax() * 100,
-                'discount_amount'     => Cart::instance('sale')->discount() * 100,
+                'tax_amount'          => Cart::instance('sale')->tax(),
+                'discount_amount'     => Cart::instance('sale')->discount(),
             ]);
 
             foreach (Cart::instance('sale')->content() as $cart_item) {
@@ -152,12 +152,12 @@ class Edit extends Component
                     'name'                    => $cart_item->name,
                     'code'                    => $cart_item->options->code,
                     'quantity'                => $cart_item->qty,
-                    'price'                   => $cart_item->price * 100,
-                    'unit_price'              => $cart_item->options->unit_price * 100,
-                    'sub_total'               => $cart_item->options->sub_total * 100,
-                    'product_discount_amount' => $cart_item->options->product_discount * 100,
+                    'price'                   => $cart_item->price,
+                    'unit_price'              => $cart_item->options->unit_price,
+                    'sub_total'               => $cart_item->options->sub_total,
+                    'product_discount_amount' => $cart_item->options->product_discount,
                     'product_discount_type'   => $cart_item->options->product_discount_type,
-                    'product_tax_amount'      => $cart_item->options->product_tax * 100,
+                    'product_tax_amount'      => $cart_item->options->product_tax,
                 ]);
 
                 $product = Product::findOrFail($cart_item->id);
@@ -174,7 +174,7 @@ class Edit extends Component
                 $movement = new Movement([
                     'type'         => MovementType::PURCHASE,
                     'quantity'     => $cart_item->qty,
-                    'price'        => $cart_item->price * 100,
+                    'price'        => $cart_item->price,
                     'date'         => date('Y-m-d'),
                     'movable_type' => get_class($product),
                     'movable_id'   => $product->id,

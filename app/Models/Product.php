@@ -97,32 +97,6 @@ class Product extends Model
         return $this->hasMany(PriceHistory::class);
     }
 
-    /**
-     * Interact with product cost
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    protected function productCost(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $value / 100,
-            set: fn ($value) => $value * 100,
-        );
-    }
-
-    /**
-     * Interact with product price
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    protected function productPrice(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $value / 100,
-            set: fn ($value) => $value * 100,
-        );
-    }
-
     public function getTotalQuantityAttribute()
     {
         return $this->warehouses->sum('pivot.qty');

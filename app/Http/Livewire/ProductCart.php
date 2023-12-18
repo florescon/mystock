@@ -8,6 +8,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\ProductWarehouse;
 use App\Models\Service;
+use App\Models\Customer;
 use Livewire\Component;
 
 class ProductCart extends Component
@@ -54,7 +55,7 @@ class ProductCart extends Component
     {
         return [
             'global_discount'         => 'numeric|min:0|max:100',
-            'global_tax'              => 'numeric|min:0',
+            'global_tax'              => 'numeric|min:0|max:100',
             'shipping_amount'         => 'numeric|min:0',
         ];
     }
@@ -97,7 +98,7 @@ class ProductCart extends Component
     public function productSelected($product): void
     {
         if (empty($product)) {
-            $this->alert('error', __('Something went wrong!'));
+            $this->alert('error', __('Something went wrong!'), ['position' => 'top']);
 
             return;
         }
@@ -106,7 +107,7 @@ class ProductCart extends Component
         $exists = $cart->search(fn ($cartItem) => $cartItem->id === $product['id']);
 
         if ($exists->isNotEmpty()) {
-            $this->alert('error', __('Product already added to cart!'));
+            $this->alert('error', __('Product already added to cart!'), ['position' => 'top']);
 
             return;
         }
@@ -117,7 +118,7 @@ class ProductCart extends Component
 
         if($this->warehouse_id){
             if($productWarehouse->qty < 1){
-                $this->alert('error', __('There are no stock'));
+                $this->alert('error', __('There are no stock'), ['position' => 'top']);
                 return;
             }
         }
@@ -127,32 +128,35 @@ class ProductCart extends Component
         $cart->add($cartItem);
         $this->updateQuantityAndCheckQuantity($product['id'], $productWarehouse->qty);
 
-        $this->alert('success', __('Added product'));
+        $this->alert('success', __('Added product'), ['position' => 'top']);
         $this->emit('renderIndex');
     }
 
-    public function serviceSelected($service): void
+    public function serviceSelected($getService): void
     {
+        $service = $getService[0];
+        $customer = $getService ? (int) $getService[1] : null;
+
         if (empty($service)) {
-            $this->alert('error', __('Something went wrong!'));
+            $this->alert('error', __('Something went wrong!'), ['position' => 'top']);
 
             return;
         }
 
         $cart = Cart::instance($this->cart_instance);
-        $exists = $cart->search(fn ($cartItem) => $cartItem->id === $service['uuid']);
+        $exists = $cart->search(fn ($cartItem) => (($cartItem->id === $service['uuid'])) && ($cartItem->options->customer_id === $customer));
 
         if ($exists->isNotEmpty()) {
-            $this->alert('error', __('Service already added to cart!'));
+            $this->alert('error', __('Service already added to cart!'), ['position' => 'top']);
 
             return;
         }
         
-        $cartItem = $this->createCartItemService($service);
+        $cartItem = $this->createCartItemService($service, $customer);
 
         $cart->add($cartItem);
 
-        $this->alert('success', __('Added service'));
+        $this->alert('success', __('Added service'), ['position' => 'top']);
         $this->emit('renderIndex');
     }
 
@@ -173,12 +177,12 @@ class ProductCart extends Component
         $sub_total = $price;
 
         if ($product['tax_type'] === 1) {
-            $tax = $price * $product['order_tax'] / 100;
+            $tax = $price * $product['order_tax'];
             $price += $tax;
             $product_tax = $tax;
             $sub_total = $price;
         } elseif ($product['tax_type'] === 2) {
-            $tax = $price * $product['order_tax'] / 100;
+            $tax = $price * $product['order_tax'];
             $unit_price -= $tax;
             $product_tax = $tax;
         }
@@ -194,12 +198,12 @@ class ProductCart extends Component
         $sub_total = $price;
 
         if ($service['tax_type'] === 1) {
-            $tax = $price * $service['order_tax'] / 100;
+            $tax = $price * $service['order_tax'];
             $price += $tax;
             $service_tax = $tax;
             $sub_total = $price;
         } elseif ($service['tax_type'] === 2) {
-            $tax = $price * $service['order_tax'] / 100;
+            $tax = $price * $service['order_tax'];
             $unit_price -= $tax;
             $service_tax = $tax;
         }
@@ -234,10 +238,12 @@ class ProductCart extends Component
         ];
     }
 
-    private function createCartItemService($service)
+    private function createCartItemService($service, ?int $customer = null)
     {
         $serviceModel = Service::where('id', $service['id'])->first();
         $serviceType = $serviceModel->service_type->name;
+
+        $customerName = $customer ? Customer::findOrFail($customer)->name : null;
 
         $calculation = $this->calculatePricesService($service);
 
@@ -250,6 +256,8 @@ class ProductCart extends Component
             'options' => array_merge($calculation, [
                 'product_discount'      => 0.00,
                 'product_discount_type' => 'fixed',
+                'customer_id'           => $customer,
+                'customer_name'         => $customerName,
                 'service_type'          => $serviceType,
                 'code'                  => $service['code'],
                 'stock'                 => null,
@@ -316,7 +324,7 @@ class ProductCart extends Component
     {
         if ($this->cart_instance === 'sale' || $this->cart_instance === 'purchase_return') {
             if ($this->check_quantity[$product_id] < $this->quantity[$product_id]) {
-                $this->alert('error', __('Quantity is greater than in stock!').' '.__('Assigned').': '.$this->check_quantity[$product_id]);
+                $this->alert('error', __('Quantity is greater than in stock!').' '.__('Assigned').': '.$this->check_quantity[$product_id], ['position' => 'top']);
         
                 $this->quantity[$product_id] = $this->check_quantity[$product_id];
                 // return;
@@ -327,7 +335,7 @@ class ProductCart extends Component
 
             $this->quantity[$product_id] = $this->check_quantity[$product_id];
 
-            $this->alert('error', __('Quantity must be greater than zero!'));
+            $this->alert('error', __('Quantity must be greater than zero!'), ['position' => 'top']);
 
             return;
         }
@@ -387,7 +395,7 @@ class ProductCart extends Component
 
             $this->updateCartOptions($row_id, $product_id, $cart_item, $discount_amount);
         }
-        $this->alert('success', __('Product discount set successfully!'));
+        $this->alert('success', __('Product discount set successfully!'), ['position' => 'top']);
 
         $this->discountModal = false;
     }

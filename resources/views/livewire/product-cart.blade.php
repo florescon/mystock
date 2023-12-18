@@ -66,10 +66,24 @@
                                 </a>
                             </x-table.td>
                         </x-table.tr>
+                        @if($cart_item->options->customer_id)
+                            <x-table.tr>
+                                <x-table.td class="text-center">
+                                    <span class="text-red-500">
+                                        <i class="fa-regular fa-circle-up"></i>
+                                    </span>
+                                </x-table.td>
+                                <x-table.td colspan="5" class="text-left">
+                                    <span class="text-red-500">
+                                        {{ $cart_item->options->customer_name }}
+                                    </span>
+                                </x-table.td>
+                            </x-table.tr>
+                        @endif
                     @endforeach
                 @else
                     <x-table.tr>
-                        <x-table.td colspan="8" class="text-center">
+                        <x-table.td colspan="6" class="text-center">
                             <span class="text-red-500">
                                 {{ __('Please search & select products!') }}
                             </span>
@@ -96,10 +110,6 @@
                     </x-table.tr>
                     @endif
                     <x-table.tr>
-                        <x-table.th>{{ __('Shipping') }}</x-table.th>
-                        <x-table.td>(+) {{ format_currency($shipping_amount) }}</x-table.td>
-                    </x-table.tr>
-                    <x-table.tr>
                         <x-table.th>{{ __('Grand Total') }}</x-table.th>
                         @php
                             $total_with_shipping = Cart::instance($cart_instance)->total() + (float) $shipping_amount;
@@ -116,26 +126,26 @@
     <input type="hidden" name="total_amount" value="{{ $total_with_shipping }}">
 
     <div class="flex flex-wrap my-2">
-        <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0">
+        <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
             <div class="mb-4">
                 <label for="tax_percentage">{{ __('Order Tax (%)') }}</label>
                 <x-input wire:model.lazy="global_tax" value="{{ $global_tax }}" />
                 <x-input-error :messages="$errors->get('global_tax')" for="global_tax" class="mt-2" />
             </div>
         </div>
-        <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0">
+        <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
             <div class="mb-4">
                 <label for="discount_percentage">{{ __('Discount (%)') }}</label>
                 <x-input wire:model.lazy="global_discount" value="{{ $global_discount }}" />
                 <x-input-error :messages="$errors->get('global_discount')" for="global_discount" class="mt-2" />
             </div>
         </div>
-        <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0">
+        {{-- <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0">
             <div class="mb-4">
                 <label for="shipping_amount">{{ __('Shipping') }}</label>
                 <x-input wire:model.lazy="shipping_amount" value="{{ $shipping_amount }}" />
                 <x-input-error :messages="$errors->get('shipping_amount')" for="shipping_amount" class="mt-2" />
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>

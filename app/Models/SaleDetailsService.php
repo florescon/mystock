@@ -22,6 +22,7 @@ class SaleDetailsService extends Model
         'id',
         'sale_id',
         'service_id',
+        'customer_id',
         'name',
         'code',
         'quantity',
@@ -43,63 +44,4 @@ class SaleDetailsService extends Model
         return $this->belongsTo(Sale::class, 'sale_id', 'id');
     }
 
-    /**
-     * get price attribute
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    protected function price(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $value / 100,
-        );
-    }
-
-    /**
-     * Interact with unit price
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    protected function unitPrice(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $value / 100,
-        );
-    }
-
-    /**
-     * get subtotal attribute
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    protected function subTotal(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $value / 100,
-        );
-    }
-
-    /**
-     * product discount amount attribute
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    protected function productDiscountAmount(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $value / 100,
-        );
-    }
-
-    /**
-     * Interact with shipping amount
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    protected function productTaxAmountAttribute(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $value / 100,
-        );
-    }
 }

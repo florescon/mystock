@@ -78,11 +78,4 @@ class PurchasePayment extends Model
         return $query->wherePurchaseId(request()->route('purchase_id'));
     }
 
-    protected function amount(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $value / 100,
-            set: fn ($value) => $value * 100,
-        );
-    }
 }

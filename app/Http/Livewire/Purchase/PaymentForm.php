@@ -95,8 +95,8 @@ class PaymentForm extends Component
             }
 
             $purchase->update([
-                'paid_amount'    => ($purchase->paid_amount + $this->amount) * 100,
-                'due_amount'     => $due_amount * 100,
+                'paid_amount'    => ($purchase->paid_amount + $this->amount),
+                'due_amount'     => $due_amount,
                 'payment_status' => $payment_status,
                 'status'         => $status,
             ]);

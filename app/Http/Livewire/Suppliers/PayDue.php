@@ -44,8 +44,8 @@ class PayDue extends Component
             ]);
 
             $purchase->update([
-                'paid_amount'    => ($purchase->paid_amount + $paidAmount) * 100,
-                'due_amount'     => max(0, $dueAmount - $paidAmount) * 100,
+                'paid_amount'    => ($purchase->paid_amount + $paidAmount),
+                'due_amount'     => max(0, $dueAmount - $paidAmount),
                 'payment_status' => max(0, $dueAmount - $paidAmount) === 0 ? PaymentStatus::PAID : PaymentStatus::PARTIAL,
             ]);
 

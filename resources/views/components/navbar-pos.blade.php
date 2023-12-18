@@ -19,6 +19,12 @@
                 </div>
             @endcan --}}
 
+            @if(\App\Models\Sale::orderBy('id', 'DESC')->first())
+                <a type="button" class="bg-gray-500 border border-transparent text-white hover:bg-gray-600 focus:ring-gray-500 active:bg-gray-900 focus:outline-none focus:border-gray-900 inline-flex items-center px-4 py-2 rounded-md font-semibold text-xs uppercase tracking-widest disabled:opacity-25 transition ease-in-out duration-150" target="_blank" href="{{ route('sales.pos.pdf', \App\Models\Sale::orderBy('id', 'DESC')->first()->id) }}">
+                    {{ __('Print Last Sale') }}&nbsp; <i class="fas fa-print"></i>
+                </a>
+            @endif
+
             <x-button type="button" primary onclick="Livewire.emit('createAssociate')">
                 {{ __('Services') }}
             </x-button>

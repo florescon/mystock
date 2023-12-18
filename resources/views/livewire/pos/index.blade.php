@@ -4,6 +4,7 @@
 
             {{-- Customer: @json($customer_id) - --}}
             {{-- Total: @json('$'.$total_amount) --}}
+            {{-- @json($cart_items) --}}
         <div class="flex gap-4">
 
             <div class="w-full relative inline-flex">
@@ -30,6 +31,10 @@
                 </select>
             </div>
         </div>
+        
+        @if((int) $customer_id)
+            @livewire('customers.alert-inscription', ['customer_id' => $customer_id])
+        @endif
 
         <livewire:product-cart :cartInstance="'sale'" />
 
@@ -52,22 +57,31 @@
         </x-slot>
 
         <x-slot name="content">
+
+            {{-- @json(Cart::instance('sale')->content()) --}}
+
             <form id="checkout-form" wire:submit.prevent="store" class="py-5">
                 <div class="flex flex-wrap">
                     <div class="w-1/2 px-2">
                         <div class="flex flex-wrap -mx-2 mb-3">
                             <div class="w-full px-2">
                                 <x-label for="total_amount" :value="__('Total Amount')" required />
-                                <input id="total_amount" type="text" wire:model="total_amount"
-                                    class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
-                                    name="total_amount" readonly required>
+                                <p class="text-center">{{ $total_amount }}</p>
                             </div>
                             <div class="w-full px-2">
                                 <x-label for="paid_amount" :value="__('Paid Amount')" required />
                                 <input id="paid_amount" type="text" wire:model="paid_amount"
-                                    class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
+                                    class="block w-full text-center shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
                                     name="paid_amount" required>
                                 <x-input-error :messages="$errors->get('paid_amount')" for="paid_amount" class="mt-2" />
+                            </div>
+                            <div class="w-full px-2">
+                                <x-label for="difference" :value="__('Difference')" required />
+                                    @if(($total_amount == $paid_amount) && ($difference == 0))
+                                        <p class="text-center text-blue-600">@lang('Covered payment') <i class="fa-solid fa-check-double text-green-500"></i> </p>
+                                    @else
+                                        <p class="text-center">{{ $difference }}</p>
+                                    @endif
                             </div>
                             <div class="w-full px-2">
                                 <x-label for="payment_method" :value="__('Payment Method')" required />
@@ -92,11 +106,10 @@
                         <x-table-responsive>
                             <x-table.tr>
                                 <x-table.th>
-                                    {{ __('Total Products') }}
+                                    {{ __('Concepts') }}
                                 </x-table.th>
                                 <x-table.td>
                                     <span class="badge badge-success">
-
                                         {{ Cart::instance($cart_instance)->count() }}
                                     </span>
                                 </x-table.td>
@@ -117,21 +130,21 @@
                                     (-) {{ format_currency(Cart::instance($cart_instance)->discount()) }}
                                 </x-table.td>
                             </x-table.tr>
-                            <x-table.tr>
+                            {{-- <x-table.tr>
                                 <x-table.th>
                                     {{ __('Shipping') }}
                                 </x-table.th>
                                 <x-table.td>
                                     (+) {{ format_currency($shipping_amount) }}
                                 </x-table.td>
-                            </x-table.tr>
+                            </x-table.tr> --}}
                             <x-table.tr>
                                 <x-table.th>
                                     {{ __('Grand Total') }}
                                 </x-table.th>
-                                <x-table.th>
+                                <x-table.td>
                                     (=) {{ format_currency($total_amount) }}
-                                </x-table.th>
+                                </x-table.td>
                             </x-table.tr>
                         </x-table-responsive>
                     </div>

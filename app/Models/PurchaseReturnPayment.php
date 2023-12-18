@@ -55,16 +55,4 @@ class PurchaseReturnPayment extends Model
         return $query->wherePurchaseReturnId(request()->route('purchase_return_id'));
     }
 
-    /**
-     * Interact with the expenses amount
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    protected function amount(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $value / 100,
-            set: fn ($value) => $value * 100,
-        );
-    }
 }

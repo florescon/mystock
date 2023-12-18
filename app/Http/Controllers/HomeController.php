@@ -36,7 +36,7 @@ class HomeController extends Controller
         //     }
         // }
 
-        // $revenue = ($sales - $sale_returns) / 100;
+        // $revenue = ($sales - $sale_returns);
         // $profit = $revenue - $product_costs;
 
         // $data = [
@@ -60,8 +60,8 @@ class HomeController extends Controller
 
         // return view('admin.home', [
         //     'revenue'          => $revenue,
-        //     'sale_returns'     => $sale_returns / 100,
-        //     'purchase_returns' => $purchase_returns / 100,
+        //     'sale_returns'     => $sale_returns ,
+        //     'purchase_returns' => $purchase_returns,
         //     'profit'           => $profit,
         //     'data'             => $data,
         // ]);
@@ -75,13 +75,13 @@ class HomeController extends Controller
 
         $currentMonthSales = Sale::whereStatus('Completed')->whereMonth('date', date('m'))
             ->whereYear('date', date('Y'))
-            ->sum('total_amount') / 100;
+            ->sum('total_amount');
         $currentMonthPurchases = Purchase::whereStatus('Completed')->whereMonth('date', date('m'))
             ->whereYear('date', date('Y'))
-            ->sum('total_amount') / 100;
+            ->sum('total_amount');
         $currentMonthExpenses = Expense::whereMonth('date', date('m'))
             ->whereYear('date', date('Y'))
-            ->sum('amount') / 100;
+            ->sum('amount');
 
         return response()->json([
             'sales'     => $currentMonthSales,
@@ -206,7 +206,7 @@ class HomeController extends Controller
         $days = [];
 
         foreach ($dates as $key => $value) {
-            $data[] = $value / 100;
+            $data[] = $value;
             $days[] = $key;
         }
 
@@ -240,7 +240,7 @@ class HomeController extends Controller
         $days = [];
 
         foreach ($dates as $key => $value) {
-            $data[] = $value / 100;
+            $data[] = $value;
             $days[] = $key;
         }
 

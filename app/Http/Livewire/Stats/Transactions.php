@@ -276,7 +276,7 @@ class Transactions extends Component
             ->count();
         $this->purchasesCount = DB::table('purchases')->where('deleted_at', null)->count();
 
-        $this->salesTotal = Sale::whereBetween('created_at', [$this->startDate, $this->endDate])->sum('total_amount') / 100;
+        $this->salesTotal = Sale::whereBetween('created_at', [$this->startDate, $this->endDate])->sum('total_amount');
 
         $this->stockValue = ProductWarehouse::sum(DB::raw('qty * cost'));
 

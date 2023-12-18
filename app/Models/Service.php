@@ -63,29 +63,4 @@ class Service extends Model
         parent::__construct($attributes);
     }
 
-    /**
-     * Interact with service cost
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    protected function serviceCost(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $value / 100,
-            set: fn ($value) => $value * 100,
-        );
-    }
-
-    /**
-     * Interact with service price
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    protected function servicePrice(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $value / 100,
-            set: fn ($value) => $value * 100,
-        );
-    }
 }
