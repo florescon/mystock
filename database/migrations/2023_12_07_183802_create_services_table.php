@@ -24,6 +24,7 @@ return new class extends Migration
             $table->tinyInteger('tax_type')->nullable();
             $table->text('image')->nullable();
             $table->boolean('featured')->default(0);
+            $table->boolean('with_input')->default(0);
             $table->string('service_type');
             $table->softDeletes();
             $table->timestamps();

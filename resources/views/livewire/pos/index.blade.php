@@ -41,9 +41,10 @@
     </div>
 
     <div class="mb-4 d-flex justify-center flex-wrap py-3">
-        <x-button danger type="button" wire:click="resetCart" wire:loading.attr="disabled" class="ml-2 font-bold">
+        <x-button danger :href="route('app.pos.index')"  class="ml-2 font-bold">
             {{ __('Reset') }}
         </x-button>
+
         <button
             class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-bold text-xs text-white uppercase tracking-widest active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-green-300 disabled:opacity-25 transition ease-in-out duration-150 bg-green-500 hover:bg-green-700"
             type="submit" wire:click="proceed" wire:loading.attr="disabled" {{ (($total_amount == 0) || !$customer_id) ? 'disabled' : '' }}>

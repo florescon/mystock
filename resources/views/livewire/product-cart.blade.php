@@ -52,7 +52,7 @@
                                 @if(!$cart_item->options->service_type)
                                     @include('livewire.includes.product-cart-quantity')
                                 @else
-                                    1 - {{ __('Service') }}
+                                    {{ $cart_item->qty }} - {{ __('Service') }}
                                 @endif
                             </x-table.td>
 

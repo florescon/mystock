@@ -205,6 +205,7 @@ return [
         'document' => 'documento',
         'type' => 'tipo',
         'quantity' => 'cantidad',
+        'quantity_' => 'cantidad',
         'cost' => 'costo',
         'price' => 'precio',
         'price.*' => 'precio',
@@ -229,6 +230,7 @@ return [
         'shipping_amount' => 'monto de envío',
         'customer_id' => 'cliente',
         'service_type' => 'tipo de servicio',
+        'customerAssociate' => 'cliente',
     ],
 
 ];

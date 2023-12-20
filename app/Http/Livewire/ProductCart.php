@@ -136,6 +136,7 @@ class ProductCart extends Component
     {
         $service = $getService[0];
         $customer = $getService ? (int) $getService[1] : null;
+        $qty = $getService[2];
 
         if (empty($service)) {
             $this->alert('error', __('Something went wrong!'), ['position' => 'top']);
@@ -152,9 +153,11 @@ class ProductCart extends Component
             return;
         }
         
-        $cartItem = $this->createCartItemService($service, $customer);
+        $cartItem = $this->createCartItemService($service, $customer, $qty);
 
         $cart->add($cartItem);
+
+        $this->quantity[$service['id']] = $qty;
 
         $this->alert('success', __('Added service'), ['position' => 'top']);
         $this->emit('renderIndex');
@@ -238,7 +241,7 @@ class ProductCart extends Component
         ];
     }
 
-    private function createCartItemService($service, ?int $customer = null)
+    private function createCartItemService($service, ?int $customer = null, $qty)
     {
         $serviceModel = Service::where('id', $service['id'])->first();
         $serviceType = $serviceModel->service_type->name;
@@ -250,10 +253,11 @@ class ProductCart extends Component
         return [
             'id'      => $service['uuid'],
             'name'    => $service['name'],
-            'qty'     => 1,
+            'qty'     => $qty ?? 1,
             'price'   => $service['price'],
             'weight'  => 1,
             'options' => array_merge($calculation, [
+                'sub_total'             => $service['price'] * $qty ?? 1,
                 'product_discount'      => 0.00,
                 'product_discount_type' => 'fixed',
                 'customer_id'           => $customer,
@@ -286,6 +290,8 @@ class ProductCart extends Component
                 'unit'                  => $cart_item->options->unit,
                 'product_tax'           => $cart_item->options->product_tax,
                 'unit_price'            => $cart_item->price,
+                'customer_id'           => is_int($product_id) ? null : $cart_item->options->customer_id,
+                'customer_name'         => is_int($product_id) ? null : $cart_item->options->customer_name,
                 'product_discount'      => $cart_item->options->product_discount,
                 'product_discount_type' => $cart_item->options->product_discount_type,
                 'service_type'          => is_int($product_id) ? null : $cart_item->options->service_type,
@@ -322,24 +328,26 @@ class ProductCart extends Component
 
     public function updateQuantity($row_id, $product_id)
     {
-        if ($this->cart_instance === 'sale' || $this->cart_instance === 'purchase_return') {
-            if ($this->check_quantity[$product_id] < $this->quantity[$product_id]) {
-                $this->alert('error', __('Quantity is greater than in stock!').' '.__('Assigned').': '.$this->check_quantity[$product_id], ['position' => 'top']);
-        
+
+        if(is_int($product_id)){
+            if ($this->cart_instance === 'sale' || $this->cart_instance === 'purchase_return') {
+                if ($this->check_quantity[$product_id] < $this->quantity[$product_id]) {
+                    $this->alert('error', __('Quantity is greater than in stock!').' '.__('Assigned').': '.$this->check_quantity[$product_id], ['position' => 'top']);
+            
+                    $this->quantity[$product_id] = $this->check_quantity[$product_id];
+                    // return;
+                }
+            }
+
+            if ($this->quantity[$product_id] < 1) {
+
                 $this->quantity[$product_id] = $this->check_quantity[$product_id];
-                // return;
+
+                $this->alert('error', __('Quantity must be greater than zero!'), ['position' => 'top']);
+
+                return;
             }
         }
-
-        if ($this->quantity[$product_id] < 1) {
-
-            $this->quantity[$product_id] = $this->check_quantity[$product_id];
-
-            $this->alert('error', __('Quantity must be greater than zero!'), ['position' => 'top']);
-
-            return;
-        }
-
 
         Cart::instance($this->cart_instance)->update($row_id, $this->quantity[$product_id]);
 
@@ -353,9 +361,11 @@ class ProductCart extends Component
                 'unit'                  => $cart_item->options->unit,
                 'product_tax'           => $cart_item->options->product_tax,
                 'unit_price'            => $cart_item->options->unit_price,
+                'customer_id'           => is_int($product_id) ? null : $cart_item->options->customer_id,
+                'customer_name'         => is_int($product_id) ? null : $cart_item->options->customer_name,
                 'product_discount'      => $cart_item->options->product_discount,
                 'product_discount_type' => $cart_item->options->product_discount_type,
-                'service_type'          => null,
+                'service_type'          => is_int($product_id) ? null : $cart_item->options->service_type,
             ],
         ]);
     }

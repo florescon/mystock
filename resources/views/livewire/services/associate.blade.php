@@ -96,6 +96,15 @@
                                       <h1 class="mt-2 text-center text-2xl font-bold text-gray-500">Mismo cliente</h1>
                                       <p class="my-4 text-center text-sm text-gray-500">Mismo comprador se le asigna el servicio</p>
                                       <div class="space-x-4 bg-gray-100 py-4 text-center">
+
+                                        @if($serviceAssociate?->with_input)
+                                            <div class="md:w-full sm:w-full px-14 pb-4">
+                                                <x-input id="quantity" class="block mt-1 w-full text-center" type="text" name="quantity"
+                                                    wire:model.lazy="quantity" />
+                                                <x-input-error :messages="$errors->get('quantity')" for="quantity" class="mt-2" />
+                                            </div>
+                                        @endif
+
                                         <button wire:click.prevent="selectService({{ $serviceAssociate }})" class="inline-block rounded-md bg-green-500 px-6 py-2 font-semibold text-green-100 shadow-md duration-75 hover:bg-green-400">Select</button>
                                       </div>
                                     </div>
@@ -111,12 +120,21 @@
                                                     <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                                 @endforeach
                                             </select>
+                                            <x-input-error :messages="$errors->get('customerAssociate')" for="customerAssociate" class="mt-2" />
 
-                                              @if($customerAssociate)
+                                            @if($customerAssociate)
                                                 @livewire('customers.alert-inscription', ['customer_id' => $customerAssociate])
-                                              @else
+                                            @else
                                                 <p class="my-4 text-center text-sm text-gray-500">Servicio asignado a otro cliente</p>
-                                              @endif
+                                            @endif
+
+                                            @if($serviceAssociate?->with_input)
+                                                <div class="md:w-full sm:w-full px-14 pb-4">
+                                                    <x-input id="quantity_" class="block mt-1 w-full text-center" type="text" name="quantity_"
+                                                        wire:model.lazy="quantity_" />
+                                                    <x-input-error :messages="$errors->get('quantity_')" for="quantity_" class="mt-2" />
+                                                </div>
+                                            @endif
 
                                         </div>
 

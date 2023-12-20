@@ -24,6 +24,10 @@ class Associate extends Component
 
     public $serviceAssociate;
 
+    public $quantity;
+
+    public $quantity_;
+
     /** @var array<string> */
     public $listeners = ['createAssociate', 'showCustomerAssociate'];
 
@@ -51,6 +55,8 @@ class Associate extends Component
 
     public function mount(): void
     {
+        $this->quantity = 1;
+        $this->quantity_ = 1;
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
         $this->perPage = 25;
@@ -58,17 +64,43 @@ class Associate extends Component
         $this->orderable = (new Service())->orderable;
     }
 
+    public function updatedShowCustomerAssociate()
+    {
+        $this->quantity = 1;
+        $this->quantity_ = 1;
+    }
+
     public function selectService($service)
     {
-        $this->emit('serviceSelected', [$service, null]);
+        $this->validate([
+            'quantity' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
+        ]);
+
+        $this->emit('serviceSelected', [$service, null, $this->quantity]);
 
         $this->showCustomerAssociate = false;
     }
 
     public function selectServiceWithCustomer($service)
     {
+        $this->validate([
+            'customerAssociate' => [
+                'required',
+                'integer',
+            ],
+            'quantity_' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
+        ]);
+
         if($this->customerAssociate){
-            $this->emit('serviceSelected', [$service, $this->customerAssociate]);
+            $this->emit('serviceSelected', [$service, $this->customerAssociate, $this->quantity_]);
         }
         else{
             $this->emit('serviceSelected', $service);
