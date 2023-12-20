@@ -80,6 +80,20 @@
                                 </x-table.td>
                             </x-table.tr>
                         @endif
+                        @if($cart_item->options->days)
+                            <x-table.tr>
+                                <x-table.td class="text-center">
+                                    <span class="text-red-500">
+                                        <i class="fa-regular fa-circle-up"></i>
+                                    </span>
+                                </x-table.td>
+                                <x-table.td colspan="5" class="text-left">
+                                    <span class="text-red-500">
+                                        {{ implode(', ', $cart_item->options->days) }}
+                                    </span>
+                                </x-table.td>
+                            </x-table.tr>
+                        @endif
                     @endforeach
                 @else
                     <x-table.tr>

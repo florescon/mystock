@@ -33,6 +33,7 @@ class Edit extends Component
         'customer.country'    => 'nullable|max:255',
         'customer.address'    => 'nullable|max:255',
         'customer.tax_number' => 'nullable|max:255',
+        'customer.blood_type' => 'nullable|max:255',
     ];
 
     protected $messages = [
@@ -76,7 +77,7 @@ class Edit extends Component
 
             $this->emit('refreshIndex');
         } catch (Throwable $th) {
-            $this->alert('success', __('Error.').$th->getMessage());
+            $this->alert('error', __('Error.').$th->getMessage());
         }
     }
 }

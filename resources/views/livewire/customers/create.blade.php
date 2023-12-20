@@ -52,6 +52,23 @@
                                     wire:model.lazy="customer.tax_number" />
                                 <x-input-error :messages="$errors->get('customer.tax_number')" class="mt-2" />
                             </div>
+                            <div class="md:w-1/2 sm:w-full px-3">
+                                <x-label for="blood_type" :value="__('Blood Type')" />
+
+                                <select
+                                    class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
+                                    name="blood_type" id="blood_type" wire:model.lazy="customer.blood_type">
+                                    <option>@lang('Select Blood Type')</option>
+                                    @foreach (\App\Enums\BloodType::cases() as $status)
+                                        <option value="{{ $status->value }}">
+                                            {{ __($status->name) }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <x-input-error :messages="$errors->get('customer.blood_type')" class="mt-2" />
+                            </div>
+
                         </div>
                     </x-accordion>
 

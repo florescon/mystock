@@ -31,6 +31,7 @@ class Create extends Component
         'customer.country'    => 'nullable|min:3|max:255',
         'customer.address'    => 'nullable|max:255',
         'customer.tax_number' => 'nullable|max:255',
+        'customer.blood_type' => 'nullable|max:255',
     ];
 
     protected $messages = [
@@ -73,7 +74,7 @@ class Create extends Component
 
             $this->createCustomer = false;
         } catch (Throwable $th) {
-            $this->alert('success', __('Error.').$th->getMessage());
+            $this->alert('error', __('Error.').$th->getMessage());
         }
     }
 

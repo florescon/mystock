@@ -598,6 +598,7 @@
     "Select a Product": "Seleccionar un Producto",
     "Select all": "Seleccionar todo",
     "Select All": "Seleccionar Todo",
+    "Select Blood Type": "Selecciona Tipo de Sangre",
     "Select Customer": "Seleccione Cliente",
     "Select Expense Category": "Seleccione Categoría de Egreso",
     "Select Message Type": "Seleccione Tipo de Mensaje",
@@ -821,6 +822,20 @@
     "MONTHLYPAYMENT": "MENSUALIDAD",
     "INSCRIPTION": "INSCRIPCIÓN",
     "FREEPASS": "PASE LIBRE",
-    "OTHER": "OTRO"
+    "OTHER": "OTRO",
+    "MONDAY": "LUNES",
+    "TUESDAY": "MARTES",
+    "WEDNESDAY": "MIERCOLES",
+    "THURSDAY": "JUEVES",
+    "FRIDAY": "VIERNES",
+    "SATURDAY": "SABADO",
 
+    "APOSITIVE": "A POSITIVO",
+    "ANEGATIVE": "A NEGATIVO",
+    "BPOSITIVE": "B POSITIVO",
+    "BNEGATIVE": "B NEGATIVO",
+    "ABPOSITIVE": "AB POSITIVO",
+    "ABNEGATIVE": "AB NEGATIVO",
+    "OPOSITIVE": "O POSITIVO",
+    "ONEGATIVE": "O NEGATIVO"
 }

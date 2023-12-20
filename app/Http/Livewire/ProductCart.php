@@ -137,6 +137,7 @@ class ProductCart extends Component
         $service = $getService[0];
         $customer = $getService ? (int) $getService[1] : null;
         $qty = $getService[2];
+        $days = $getService[3] ?? null;
 
         if (empty($service)) {
             $this->alert('error', __('Something went wrong!'), ['position' => 'top']);
@@ -153,7 +154,7 @@ class ProductCart extends Component
             return;
         }
         
-        $cartItem = $this->createCartItemService($service, $customer, $qty);
+        $cartItem = $this->createCartItemService($service, $customer, $qty, $days);
 
         $cart->add($cartItem);
 
@@ -241,7 +242,7 @@ class ProductCart extends Component
         ];
     }
 
-    private function createCartItemService($service, ?int $customer = null, $qty)
+    private function createCartItemService($service, ?int $customer = null, $qty, $days)
     {
         $serviceModel = Service::where('id', $service['id'])->first();
         $serviceType = $serviceModel->service_type->name;
@@ -266,6 +267,7 @@ class ProductCart extends Component
                 'code'                  => $service['code'],
                 'stock'                 => null,
                 'unit'                  => null,
+                'days'                  => $days,
             ]),
         ];
     }
@@ -295,6 +297,7 @@ class ProductCart extends Component
                 'product_discount'      => $cart_item->options->product_discount,
                 'product_discount_type' => $cart_item->options->product_discount_type,
                 'service_type'          => is_int($product_id) ? null : $cart_item->options->service_type,
+                'days'                  => is_int($product_id) ? null : $cart_item->options->days,
             ],
         ]);
     }

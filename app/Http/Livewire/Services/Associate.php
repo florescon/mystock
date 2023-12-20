@@ -12,6 +12,7 @@ use App\Models\Service;
 use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
 use App\Traits\Datatable;
+use App\Enums\Days;
 
 class Associate extends Component
 {
@@ -23,6 +24,8 @@ class Associate extends Component
     public $customerAssociate;
 
     public $serviceAssociate;
+    public $selectedDays = [];
+    public $selectedDays_ = [];
 
     public $quantity;
 
@@ -68,10 +71,13 @@ class Associate extends Component
     {
         $this->quantity = 1;
         $this->quantity_ = 1;
+        $this->selectedDays = [];
     }
 
     public function selectService($service)
     {
+        // dd(implode(',', $this->selectedDays));
+
         $this->validate([
             'quantity' => [
                 'required',
@@ -80,7 +86,7 @@ class Associate extends Component
             ],
         ]);
 
-        $this->emit('serviceSelected', [$service, null, $this->quantity]);
+        $this->emit('serviceSelected', [$service, null, $this->quantity, $this->selectedDays]);
 
         $this->showCustomerAssociate = false;
     }
@@ -100,10 +106,7 @@ class Associate extends Component
         ]);
 
         if($this->customerAssociate){
-            $this->emit('serviceSelected', [$service, $this->customerAssociate, $this->quantity_]);
-        }
-        else{
-            $this->emit('serviceSelected', $service);
+            $this->emit('serviceSelected', [$service, $this->customerAssociate, $this->quantity_, $this->selectedDays_]);
         }
 
         $this->showCustomerAssociate = false;
@@ -126,6 +129,17 @@ class Associate extends Component
     public function getCustomersProperty()
     {
         return Customer::select(['name', 'id'])->get();
+    }
+
+    public function getDaysProperty()
+    {
+        return Days::cases();
+    }
+
+    public function cancel()
+    {
+        $this->showCustomerAssociate = false;
+        $this->updatedShowCustomerAssociate();
     }
 
     public function render()

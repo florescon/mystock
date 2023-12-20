@@ -26,6 +26,7 @@ class CreateCustomersTable extends Migration
             $table->string('country')->nullable();
             $table->text('address')->nullable();
             $table->string('tax_number', 192)->nullable();
+            $table->string('blood_type', 192)->nullable();
 
             $table->softDeletes();
             $table->timestamps();

@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text('image')->nullable();
             $table->boolean('featured')->default(0);
             $table->boolean('with_input')->default(0);
+            $table->boolean('with_days')->default(0);
             $table->string('service_type');
             $table->softDeletes();
             $table->timestamps();

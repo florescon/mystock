@@ -32,7 +32,26 @@ class SaleDetailsService extends Model
         'product_discount_amount',
         'product_discount_type',
         'product_tax_amount',
+        'with_days',
     ];
+
+    public function setWithDaysAttribute($value)
+    {
+        $this->attributes['with_days'] = implode(',', $value ?? '');
+    }
+
+    public function getWithDaysAttribute($value)
+    {
+        return explode(',',(string) $value ?? '');
+    }
+
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(
+            related: Customer::class,
+            foreignKey: 'customer_id',
+        );
+    }
 
     public function service(): BelongsTo
     {

@@ -76,7 +76,7 @@ class Edit extends Component
 
             $this->editModal = false;
         } catch (Throwable $th) {
-            $this->alert('success', __('Error.').$th->getMessage());
+            $this->alert('error', __('Error.').$th->getMessage());
         }
     }
 

@@ -1,5 +1,5 @@
 <div>
-    <x-modal wire:model="createAssociate">
+    <x-modal wire:model="createAssociate" maxWidth="5xl">
         <x-slot name="title">
             {{ __('Services') }}
         </x-slot>
@@ -77,7 +77,7 @@
                 </div>
             </div>
 
-            <x-modal wire:model="showCustomerAssociate">
+            <x-modal wire:model="showCustomerAssociate" maxWidth="5xl">
                 <x-slot name="title">
                     {{ __('Select Customer') }} <i class="fa-solid fa-right-long"></i> <strong>{{ $serviceAssociate?->name }}</strong>
                 </x-slot>
@@ -89,8 +89,8 @@
                                 <div class="p-4">
 
                                   <div class="flex h-full flex-col items-center justify-center space-y-6 bg-white px-2 sm:flex-row sm:space-x-3 py-4 sm:space-y-0">
-                                    <div class="w-full mr-4 max-w-sm overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
-                                        <div class="flex items-center justify-center text-5xl my-6">
+                                    <div class="w-1/4 mr-4 max-w-sm overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
+                                        <div class="flex items-center justify-center text-4xl my-6">
                                             <i class="fa-regular fa-circle-check"></i>
                                         </div>
                                       <h1 class="mt-2 text-center text-2xl font-bold text-gray-500">Mismo cliente</h1>
@@ -105,17 +105,36 @@
                                             </div>
                                         @endif
 
-                                        <button wire:click.prevent="selectService({{ $serviceAssociate }})" class="inline-block rounded-md bg-green-500 px-6 py-2 font-semibold text-green-100 shadow-md duration-75 hover:bg-green-400">Select</button>
+                                        @if($serviceAssociate?->with_days)
+                                            <div class="inline-flex items-center">
+                                                <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg text-center dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                                    @foreach ($this->days as $day)
+                                                        <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                                                            <div class="flex items-center ps-3">
+                                                                <input id="vue-checkbox-{{ $day->value }}" type="checkbox" value="{{ $day->name }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" wire:model="selectedDays">
+                                                                <label for="vue-checkbox-{{ $day->value }}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ __($day->name) }}</label>
+                                                            </div>
+                                                        </li>
+                                                    @endforeach    
+                                                </ul>                                            
+                                            </div>
+                                        @endif
+
+                                        <div class="mt-3">
+                                            <button wire:click.prevent="selectService({{ $serviceAssociate }})" class="inline-block rounded-md bg-green-500 px-6 py-2 font-semibold text-green-100 shadow-md duration-75 hover:bg-green-400">@lang('Select')</button>
+                                        </div>
+
                                       </div>
                                     </div>
-                                    <div class="w-full ml-4 max-w-sm overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
-                                        <div class="flex items-center justify-center text-5xl my-6">
+
+                                    <div class="w-3/4 ml-4 max-w-sm overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
+                                        <div class="flex items-center justify-center text-4xl my-6">
                                             <i class="fa-solid fa-users"></i>
                                         </div>
-                                        <div class="mx-3">
+                                        <div class="mx-4 text-center py-4 ">
                                             <select required id="customerAssociate" name="customerAssociate" wire:model="customerAssociate"
-                                                class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
-                                                <option value="">{{ __('Select Customer') }}</option>
+                                                class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1 ">
+                                                <option value="" class="text-center">{{ __('Select Customer') }}</option>
                                                 @foreach ($this->customers as $customer)
                                                     <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                                 @endforeach
@@ -128,6 +147,21 @@
                                                 <p class="my-4 text-center text-sm text-gray-500">Servicio asignado a otro cliente</p>
                                             @endif
 
+
+                                            @if($serviceAssociate?->with_days)
+                                                <div class="inline-flex items-center">
+                                                    <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg text-center dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                                        @foreach ($this->days as $day)
+                                                            <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                                                                <div class="flex items-center ps-3">
+                                                                    <input id="vue-checkbox-second-{{ $day->value }}" type="checkbox" value="{{ $day->name }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" wire:model="selectedDays_">
+                                                                    <label for="vue-checkbox-second-{{ $day->value }}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ __($day->name) }}</label>
+                                                                </div>
+                                                            </li>
+                                                        @endforeach    
+                                                    </ul>                                            
+                                                </div>
+                                            @endif
                                             @if($serviceAssociate?->with_input)
                                                 <div class="md:w-full sm:w-full px-14 pb-4">
                                                     <x-input id="quantity_" class="block mt-1 w-full text-center" type="text" name="quantity_"
@@ -135,12 +169,10 @@
                                                     <x-input-error :messages="$errors->get('quantity_')" for="quantity_" class="mt-2" />
                                                 </div>
                                             @endif
-
                                         </div>
-
                                       <div class="space-x-4 bg-gray-100 py-4 text-center">
-                                        <button class="inline-block rounded-md bg-red-500 px-10 py-2 font-semibold text-red-100 shadow-md duration-75 hover:bg-red-400">Cancel</button>
-                                        <button wire:click.prevent="selectServiceWithCustomer({{ $serviceAssociate }})" class="inline-block rounded-md bg-green-500 px-6 py-2 font-semibold text-green-100 shadow-md duration-75 hover:bg-green-400">Select</button>
+                                        <button class="inline-block rounded-md bg-red-500 px-10 py-2 font-semibold text-red-100 shadow-md duration-75 hover:bg-red-400" wire:click.prevent="cancel">@lang('Cancel')</button>
+                                        <button wire:click.prevent="selectServiceWithCustomer({{ $serviceAssociate }})" class="inline-block rounded-md bg-green-500 px-6 py-2 font-semibold text-green-100 shadow-md duration-75 hover:bg-green-400">@lang('Select')</button>
                                       </div>
                                     </div>
                                   </div>

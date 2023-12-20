@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use App\Enums\ServiceType;
+use App\Enums\BloodType;
 use Carbon\Carbon;
 
 class Customer extends Model
@@ -53,6 +54,7 @@ class Customer extends Model
         'phone',
         'country',
         'address',
+        'blood_type',
     ];
 
     /** @return HasOne<Wallet> */

@@ -33,6 +33,7 @@ return new class extends Migration
             $table->integer('product_discount_amount');
             $table->string('product_discount_type')->default('fixed');
             $table->integer('product_tax_amount');
+            $table->string('with_days');
 
             $table->softDeletes();
             $table->timestamps();

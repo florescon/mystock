@@ -271,6 +271,7 @@ class Index extends Component
                         'product_discount_amount' => $cart_item->options->product_discount,
                         'product_discount_type'   => $cart_item->options->product_discount_type,
                         'product_tax_amount'      => $cart_item->options->product_tax,
+                        'with_days'               => $cart_item->options->days,
                         // 'service_type'            => $cart_item->options->service_type,
                     ]);
                 }

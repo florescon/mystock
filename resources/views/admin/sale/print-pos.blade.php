@@ -123,7 +123,7 @@
                 </p>
             </div>
         </div>
-        <div id="table">
+        <div id="table" style="margin-right: -15px; margin-left: -15px;">
             <table>
                 <thead>
                     <tr class="title">
@@ -146,7 +146,15 @@
                     @foreach ($sale->saleDetailsService as $saleDetail)
                         <tr>
                             <td colspan="2" style="text-align: left;">
-                                {{ $saleDetail->name }} <br>
+                                {{ $saleDetail->name }} 
+                                <em>
+                                    {{ optional($saleDetail->customer)->name }}
+                                    @if($saleDetail->with_days)
+                                       - {{ implode(', ', $saleDetail->with_days) }}
+                                    @endif
+                                </em>
+                                <br>
+
                                 <small><strong>{{ format_currency($saleDetail->price) }}</strong></small>
                             </td>
                             <td colspan="2" style="text-align: right;">
