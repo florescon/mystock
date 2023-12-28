@@ -124,6 +124,18 @@
         </x-sidebar.dropdown>
     @endcan
 
+    @can('cash_access')
+        <x-sidebar.dropdown title="{{ __('Cash Out') }}" :active="request()->routeIs(['cash.index'])">
+            <x-slot name="icon">
+                <span class="inline-block mx-4">
+                    <i class="fas fa-money-bill-alt w-5 h-5"></i>
+                </span>
+            </x-slot>
+
+            <x-sidebar.sublink title="{{ __('All Cash Out') }}" href="{{ route('cash.index') }}" :active="request()->routeIs('cash.index')" />
+        </x-sidebar.dropdown>
+    @endcan
+
     @can('report_access')
         <x-sidebar.dropdown title="{{ __('Reports') }}" :active="request()->routeIs([
             'purchases-report.index',

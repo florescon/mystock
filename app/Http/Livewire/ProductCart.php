@@ -292,12 +292,12 @@ class ProductCart extends Component
                 'unit'                  => $cart_item->options->unit,
                 'product_tax'           => $cart_item->options->product_tax,
                 'unit_price'            => $cart_item->price,
-                'customer_id'           => is_int($product_id) ? null : $cart_item->options->customer_id,
-                'customer_name'         => is_int($product_id) ? null : $cart_item->options->customer_name,
+                'customer_id'           => is_numeric($product_id) ? null : $cart_item->options->customer_id,
+                'customer_name'         => is_numeric($product_id) ? null : $cart_item->options->customer_name,
                 'product_discount'      => $cart_item->options->product_discount,
                 'product_discount_type' => $cart_item->options->product_discount_type,
-                'service_type'          => is_int($product_id) ? null : $cart_item->options->service_type,
-                'days'                  => is_int($product_id) ? null : $cart_item->options->days,
+                'service_type'          => is_numeric($product_id) ? null : $cart_item->options->service_type,
+                'days'                  => is_numeric($product_id) ? null : $cart_item->options->days,
             ],
         ]);
     }
@@ -331,8 +331,7 @@ class ProductCart extends Component
 
     public function updateQuantity($row_id, $product_id)
     {
-
-        if(is_int($product_id)){
+        if(is_numeric($product_id)){
             if ($this->cart_instance === 'sale' || $this->cart_instance === 'purchase_return') {
                 if ($this->check_quantity[$product_id] < $this->quantity[$product_id]) {
                     $this->alert('error', __('Quantity is greater than in stock!').' '.__('Assigned').': '.$this->check_quantity[$product_id], ['position' => 'top']);
@@ -364,11 +363,11 @@ class ProductCart extends Component
                 'unit'                  => $cart_item->options->unit,
                 'product_tax'           => $cart_item->options->product_tax,
                 'unit_price'            => $cart_item->options->unit_price,
-                'customer_id'           => is_int($product_id) ? null : $cart_item->options->customer_id,
-                'customer_name'         => is_int($product_id) ? null : $cart_item->options->customer_name,
+                'customer_id'           => is_numeric($product_id) ? null : $cart_item->options->customer_id,
+                'customer_name'         => is_numeric($product_id) ? null : $cart_item->options->customer_name,
                 'product_discount'      => $cart_item->options->product_discount,
                 'product_discount_type' => $cart_item->options->product_discount_type,
-                'service_type'          => is_int($product_id) ? null : $cart_item->options->service_type,
+                'service_type'          => is_numeric($product_id) ? null : $cart_item->options->service_type,
             ],
         ]);
     }

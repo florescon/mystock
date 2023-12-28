@@ -20,7 +20,7 @@ class CustomerFactory extends Factory
     {
         return [
             'uuid'    => fake()->uuid(),
-            'name'    => fake()->name(),
+            'name'    => fake()->name().' '.fake()->lastName().' '.fake()->postcode(),
             'email'   => fake()->unique()->safeEmail(),
             'phone'   => fake()->phoneNumber(),
             'city'    => fake()->city(),

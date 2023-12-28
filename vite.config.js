@@ -15,4 +15,7 @@ export default defineConfig({
             refresh: ['resources/css/app.css'], 
         }),
     ],
+    // server: {
+    //     host: '192.168.1.69',  // Add this to force IPv4 only
+    // },
 });

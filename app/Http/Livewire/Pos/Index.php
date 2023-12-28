@@ -215,7 +215,7 @@ class Index extends Component
 
             // foreach ($this->cart_instance as cart_items) {}
             foreach (Cart::instance('sale')->content() as $cart_item) {
-                if(is_int($cart_item->id)){
+                if(is_numeric($cart_item->id)){
                     SaleDetails::create([
                         'sale_id'                 => $sale->id,
                         'warehouse_id'            => $this->warehouse_id,
@@ -325,7 +325,9 @@ class Index extends Component
 
     public function getCustomersProperty()
     {
-        return Customer::select(['name', 'id'])->get();
+        return Customer::select(['name', 'id'])->orderBy('name')->get();
+
+        // return DB::table('customers')->select('name', 'id')->orderBy('name')->get();
     }
 
     public function getWarehousesProperty()
