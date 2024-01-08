@@ -9,15 +9,16 @@ class AlertInscription extends Component
 {
     public $customer_id;
     public $customer;
-    public $listeners = ['getUserAgain'];
+    public $listeners = ['getUserAgain' => '$refresh'];
 
-    public function getUserAgain($customer_id){
+    public function mount($customer_id)
+    {
         $this->customer_id = $customer_id;
+        $this->customer = $customer_id ? Customer::with('lastInscription')->findOrFail($customer_id) : null;
     }
 
     public function render()
     {
-        $this->customer = Customer::with('lastInscription')->findOrFail($this->customer_id);
         return view('livewire.customers.alert-inscription');
     }
 }

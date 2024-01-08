@@ -8,6 +8,7 @@
         <div class="flex gap-4">
 
             <div class="w-full relative inline-flex">
+                
                 <select required id="warehouse_id" name="warehouse_id" wire:model="warehouse_id"
                     class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
                     {{-- @if (settings()->default_warehouse_id == true)
@@ -21,14 +22,23 @@
                 </select>
             </div>
 
-            <div class="w-full relative inline-flex">
-                <select required id="customer_id" name="customer_id" wire:model="customer_id"
+            <div class="w-full relative">
+                {{-- @json($customer_id) --}}
+
+                <livewire:components.select-customer
+                    name="select_customer_id"
+                    placeholder="{{ __('Choose a Customer') }}"
+                    :value="request('select_customer_id')"
+                    :searchable="true"
+                />
+
+                {{-- <select required id="customer_id" name="customer_id" wire:model="customer_id"
                     class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
                     <option value="">{{ __('Select Customer') }}</option>
                     @foreach ($this->customers as $customer)
                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                     @endforeach
-                </select>
+                </select> --}}
             </div>
         </div>
         

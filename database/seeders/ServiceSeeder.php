@@ -55,7 +55,7 @@ class ServiceSeeder extends Seeder
             ],
             [
                 'id'                => 3,
-                'name'              => 'Pase Libre',
+                'name'              => 'Nado Libre',
                 'uuid'              => Str::uuid()->toString(),
                 'code'              => '16027913',
                 'price'             => 100,

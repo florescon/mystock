@@ -40,5 +40,7 @@
 @endsection
 
 <x-app-layout>
-
+    <x-card>
+        <livewire:free.index />
+    </x-card>
 </x-app-layout>

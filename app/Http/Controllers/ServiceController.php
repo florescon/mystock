@@ -14,6 +14,11 @@ class ServiceController extends Controller
         return view('admin.service.index');
     }
 
+    public function inscriptions()
+    {
+        return view('admin.service.services-inscriptions-index');
+    }
+
     public function monthly()
     {
         return view('admin.service.services-monthly-index');

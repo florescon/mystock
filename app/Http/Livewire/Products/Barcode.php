@@ -16,7 +16,7 @@ class Barcode extends Component
 {
     use LivewireAlert;
 
-    public $warehouse_id;
+    public ?int $warehouse_id = 1;
     public $products = [];
     public $barcodes = [];
     public $paperSize = 'A4';
@@ -84,19 +84,33 @@ class Barcode extends Component
 
     public function downloadBarcodes()
     {
-        $data = [
-            'barcodes' => $this->barcodes,
-        ];
+        // $data = [
+        //     'barcodes' => $this->barcodes,
+        // ];
 
-        $stylesheet = file_get_contents(public_path('print/bootstrap.min.css'));
+        // $stylesheet = file_get_contents(public_path('print/bootstrap.min.css'));
 
-        $pdf = PDF::loadView('admin.barcode.print', $data, [
-            'format' => $this->paperSize,
-        ]);
+        // $pdf = PDF::loadView('admin.barcode.print', $data, [
+        //     'format' => $this->paperSize,
+        // ]);
 
-        $pdf->getMpdf()->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
+        // $pdf->getMpdf()->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
 
-        return $pdf->download('barcodes-'.date('Y-m-d').'.pdf');
+        // return $pdf->download('barcodes-'.date('Y-m-d').'.pdf');
+
+
+        $productGrouped = collect();
+
+        foreach($this->products as $orderID){
+            $order = Product::find($orderID['id']);
+
+            $productGrouped->push(
+                $order->id,
+            );
+        }
+
+        return redirect()->route('sales.ddd', urlencode(json_encode($productGrouped)));
+
     }
 
     public function DownloadNotes(PDF $p) 

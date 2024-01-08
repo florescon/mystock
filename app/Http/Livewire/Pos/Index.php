@@ -33,6 +33,7 @@ class Index extends Component
         'refreshIndex' => '$refresh',
         'renderIndex' => 'render',
         'refreshCustomers',
+        'updatedCustomerIDD',
     ];
 
     public $cart_instance;
@@ -150,6 +151,12 @@ class Index extends Component
 
     public function updatedCustomerId()
     {
+        $this->emit('getUserAgain', $this->customer_id);
+    }
+
+    public function updatedCustomerIDD(?int $id = null)
+    {
+        $this->customer_id = $id;
         $this->emit('getUserAgain', $this->customer_id);
     }
 

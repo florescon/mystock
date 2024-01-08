@@ -8,7 +8,7 @@
         </x-slot>
     </x-sidebar.link>
 
-    <x-sidebar.dropdown title="{{ __('Services') }}" :active="request()->routeIs('services.index') || request()->routeIs('services-monthly.index') || request()->routeIs('services-free.index')">
+    <x-sidebar.dropdown title="{{ __('Services') }}" :active="request()->routeIs('services.index') || request()->routeIs('services-inscriptions.index') || request()->routeIs('services-monthly.index') || request()->routeIs('services-free.index')">
 
         <x-slot name="icon">
             <span class="inline-block mx-4">
@@ -17,6 +17,8 @@
         </x-slot>
         <x-sidebar.sublink title="{{ __('Services') }}" href="{{ route('services.index') }}"
             :active="request()->routeIs('services.index')" />
+        <x-sidebar.sublink title="{{ __('Inscriptions') }}" href="{{ route('services-inscriptions.index') }}"
+            :active="request()->routeIs('services-inscriptions.index')" />
         <x-sidebar.sublink title="{{ __('Monthly payments') }}" href="{{ route('services-monthly.index') }}"
             :active="request()->routeIs('services-monthly.index')" />
         <x-sidebar.sublink title="{{ __('Free passes') }}" href="{{ route('services-free.index') }}"

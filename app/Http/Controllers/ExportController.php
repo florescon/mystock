@@ -8,11 +8,13 @@ use App\Models\Customer;
 use App\Models\Purchase;
 use App\Models\PurchaseReturn;
 use App\Models\Quotation;
+use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SaleReturn;
 use App\Models\Supplier;
-use PDF;
 use Symfony\Component\HttpFoundation\Response;
+use Milon\Barcode\Facades\DNS1DFacade;
+use PDF;
 
 class ExportController extends Controller
 {
@@ -37,6 +39,48 @@ class ExportController extends Controller
         ]);
 
         return $pdf->stream(__('Sale').$sale->reference.'.pdf');
+    }
+
+
+    public function ddd(?string $products = null)
+    {
+        $barcodes = [];
+
+        $productsJson = Product::whereIn('id', json_decode($products))->get();
+
+
+        foreach ($productsJson as  $product) {
+            $quantity = 1;
+            $name = $product->name;
+            $price = $product->price;
+            for ($i = 0; $i < $quantity; $i++) {
+                $barcode = DNS1DFacade::getBarCodeSVG(
+                    $product->code, 
+                    $product->barcode_symbology, 
+                    1, 60, 'black', false);
+
+                array_push($barcodes, ['barcode' => $barcode, 'name' => $product->name, 'price' => $product->price]);
+            }
+        }
+
+        $data = [
+            'barcodes' => $barcodes,
+        ];
+
+        $stylesheet = file_get_contents(public_path('print/bootstrap.min.css'));
+
+        $pdf = PDF::loadView('admin.barcode.print', $data, [], [
+            // 'format' => 'a5',
+            'format' => [80, 270]
+        ]);
+
+
+        $pdf->getMpdf()->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
+
+        return $pdf->stream('barcodes-'.date('Y-m-d').'.pdf');
+
+        return redirect()->route('sales.dd', urlencode(json_encode($ordercollection)));
+
     }
 
     public function sale($id): Response

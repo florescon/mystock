@@ -40,5 +40,7 @@
 @endsection
 
 <x-app-layout>
-    <livewire:monthlies.index />
+    <x-card>
+        <livewire:monthlies.index />
+    </x-card>
 </x-app-layout>

@@ -191,6 +191,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/sales/pdf/{id}', [ExportController::class, 'sale'])->name('sales.pdf');
     Route::get('/sales/pos/pdf/{id}', [ExportController::class, 'salePos'])->name('sales.pos.pdf');
 
+    Route::get('/sales/ddd/{products?}', [ExportController::class, 'ddd'])->name('sales.ddd');
+
     //Sales
     Route::resource('sales', SaleController::class);
 
@@ -230,6 +232,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Services
     Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+    Route::get('/inscriptions', [ServiceController::class, 'inscriptions'])->name('services-inscriptions.index');
     Route::get('/monthly', [ServiceController::class, 'monthly'])->name('services-monthly.index');
     Route::get('/free', [ServiceController::class, 'free'])->name('services-free.index');
 

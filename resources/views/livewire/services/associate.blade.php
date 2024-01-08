@@ -89,7 +89,7 @@
                                 <div class="p-4">
 
                                   <div class="flex h-full flex-col items-center justify-center space-y-6 bg-white px-2 sm:flex-row sm:space-x-3 py-4 sm:space-y-0">
-                                    <div class="w-1/4 mr-4 max-w-sm overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
+                                    <div class="w-1/2 mr-4 max-w-sm overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
                                         <div class="flex items-center justify-center text-4xl my-6">
                                             <i class="fa-regular fa-circle-check"></i>
                                         </div>
@@ -127,7 +127,7 @@
                                       </div>
                                     </div>
 
-                                    <div class="w-3/4 ml-4 max-w-sm overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
+                                    <div class="w-1/2 ml-4 max-w-sm overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
                                         <div class="flex items-center justify-center text-4xl my-6">
                                             <i class="fa-solid fa-users"></i>
                                         </div>

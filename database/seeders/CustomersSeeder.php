@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Customer;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CustomersSeeder extends Seeder
 {
@@ -16,6 +17,9 @@ class CustomersSeeder extends Seeder
      */
     public function run()
     {
-        Customer::factory(3000)->create();
+        // Customer::factory(100)->create();
+        DB::unprepared(file_get_contents(public_path('/import/customers.sql')));
+        DB::unprepared(file_get_contents(public_path('/import/sales.sql')));
+        DB::unprepared(file_get_contents(public_path('/import/sale_details_services.sql')));
     }
 }

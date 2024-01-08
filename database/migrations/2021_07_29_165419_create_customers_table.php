@@ -20,7 +20,7 @@ class CreateCustomersTable extends Migration
             $table->uuid();
 
             $table->string('name', 192);
-            $table->string('phone', 192);
+            $table->string('phone', 192)->nullable();
             $table->string('email', 192)->nullable();
             $table->string('city')->nullable();
             $table->string('country')->nullable();
