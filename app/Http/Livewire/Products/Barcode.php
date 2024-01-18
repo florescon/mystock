@@ -104,10 +104,14 @@ class Barcode extends Component
         foreach($this->products as $orderID){
             $order = Product::find($orderID['id']);
 
-            $productGrouped->push(
-                $order->id,
-            );
+            $productGrouped->push([
+                'id'    => $order->id,
+                'q'     => $orderID['quantity'],
+                'price' => $orderID['price'],
+            ]);
         }
+
+        // dd($productGrouped);
 
         return redirect()->route('sales.ddd', urlencode(json_encode($productGrouped)));
 

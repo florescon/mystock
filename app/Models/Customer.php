@@ -150,4 +150,8 @@ class Customer extends Model
         return $remaining_days;
     }
 
+    public function getInscriptionDateAttribute()
+    {
+        return $this->lastInscription ?? '';
+    }
 }

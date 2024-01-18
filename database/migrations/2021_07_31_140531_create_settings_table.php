@@ -57,6 +57,7 @@ class CreateSettingsTable extends Migration
 
             $table->enum('receipt_printer_type', ['browser', 'printer'])->default('browser');
             $table->integer('printer_id')->nullable();
+            $table->text('inscription')->nullable();
 
             $table->timestamps();
         });

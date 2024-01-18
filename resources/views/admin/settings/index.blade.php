@@ -1,5 +1,9 @@
 @section('title', __('Edit Settings'))
 
+@section('style')
+    <link href='https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
+@endsection
+
 @section('breadcrumb')
     <section class="py-3 px-4">
         <div class="flex flex-wrap items-center rtl:justify-start justify-between ">
@@ -40,6 +44,11 @@
             @livewire('settings.update')
         </div>
     </section>
+@endsection
+
+
+@section('scripts')
+    <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>
 @endsection
 
 <x-app-layout>

@@ -8,7 +8,7 @@
         </x-slot>
     </x-sidebar.link>
 
-    <x-sidebar.dropdown title="{{ __('Services') }}" :active="request()->routeIs('services.index') || request()->routeIs('services-inscriptions.index') || request()->routeIs('services-monthly.index') || request()->routeIs('services-free.index')">
+    <x-sidebar.dropdown title="{{ __('Services') }}" :active="request()->routeIs('services.index') || request()->routeIs('services-inscriptions.index') || request()->routeIs('services-monthly.index') || request()->routeIs('services-free.index') || request()->routeIs('service-format.index')">
 
         <x-slot name="icon">
             <span class="inline-block mx-4">
@@ -23,6 +23,10 @@
             :active="request()->routeIs('services-monthly.index')" />
         <x-sidebar.sublink title="{{ __('Free passes') }}" href="{{ route('services-free.index') }}"
             :active="request()->routeIs('services-free.index')" />
+
+        <x-sidebar.sublink title="{{ __('Create Format') }}" href="{{ route('service-format.index') }}"
+            :active="request()->routeIs('service-format.index')" />
+
     </x-sidebar.dropdown>
 
     @canany(['product_access', 'brand_access'])

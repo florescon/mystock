@@ -14,6 +14,10 @@
                     class="px-4 py-2 w-full text-left hover:bg-indigo-500 hover:text-white transition-colors">
                     {{ __('Invoice Configuration') }}
                 </button>
+                <button @click="tab = 'inscription'" :class="{ 'bg-indigo-500 text-white': tab === 'inscription' }"
+                    class="px-4 py-2 w-full text-left hover:bg-indigo-500 hover:text-white transition-colors">
+                    {{ __('Inscription') }}
+                </button>
                 {{-- <button @click="tab = 'mail'" :class="{ 'bg-indigo-500 text-white': tab === 'mail' }"
                     class="px-4 py-2 w-full text-left hover:bg-indigo-500 hover:text-white transition-colors">
                     {{ __('Mail Configuration') }}
@@ -247,6 +251,14 @@
                     </div>
                 </div>
             </form>
+            <div x-show="tab === 'inscription'">
+                <div class="py-3 px-6 mb-2 bg-indigo-500 border-b-1 border-gray-light text-white">
+                    <h2>{{ __('Inscription') }}</h2>
+                </div>
+                <div class="w-full px-2">
+                    <livewire:settings.inscription />
+                </div>
+            </div>
             <div x-show="tab === 'mail'">
                 <div class="py-3 px-6 mb-2 bg-indigo-500 border-b-1 border-gray-light text-white">
                     <h2>{{ __('Mail Configuration') }}</h2>

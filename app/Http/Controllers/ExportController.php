@@ -9,9 +9,11 @@ use App\Models\Purchase;
 use App\Models\PurchaseReturn;
 use App\Models\Quotation;
 use App\Models\Product;
+use App\Models\Service;
 use App\Models\Sale;
 use App\Models\SaleReturn;
 use App\Models\Supplier;
+use App\Models\Setting;
 use Symfony\Component\HttpFoundation\Response;
 use Milon\Barcode\Facades\DNS1DFacade;
 use PDF;
@@ -45,19 +47,30 @@ class ExportController extends Controller
     public function ddd(?string $products = null)
     {
         $barcodes = [];
+        $productsJson = [];
 
-        $productsJson = Product::whereIn('id', json_decode($products))->get();
+        // $productsjson = Product::whereIn('id', json_decode($products))->get();
 
+        foreach(json_decode($products) as $product){
+            $prod=Product::where('id',$product->id)->first();
+            $prod->quantity = $product->q;
+            $prod->price = $product->price;
+            if($prod){
+                array_push($productsJson,$prod);
+            }
+        }
+
+        // dd($productsJson);
 
         foreach ($productsJson as  $product) {
-            $quantity = 1;
+            $quantity = $product->quantity ?? 1;
             $name = $product->name;
             $price = $product->price;
             for ($i = 0; $i < $quantity; $i++) {
                 $barcode = DNS1DFacade::getBarCodeSVG(
                     $product->code, 
                     $product->barcode_symbology, 
-                    1, 60, 'black', false);
+                    1, 35, 'black', false);
 
                 array_push($barcodes, ['barcode' => $barcode, 'name' => $product->name, 'price' => $product->price]);
             }
@@ -71,7 +84,11 @@ class ExportController extends Controller
 
         $pdf = PDF::loadView('admin.barcode.print', $data, [], [
             // 'format' => 'a5',
-            'format' => [80, 270]
+            'margin_left'                => 2,
+            'margin_right'               => 2,
+            'margin_top'                 => 2,
+            'margin_bottom'              => 2,
+            'format' => [50, 25]
         ]);
 
 
@@ -101,6 +118,83 @@ class ExportController extends Controller
         ]);
 
         return $pdf->stream(__('Sale').$sale->reference.'.pdf');
+    }
+
+    public function inscriptionPrint(): Response
+    {
+        $settings = Setting::firstOrFail();
+
+        $data = [
+            'logo'     => $this->getCompanyLogo(),
+            'inscription' => $settings->inscription,
+        ];
+
+        $pdf = PDF::loadView('admin.inscription.print', $data, [], [
+            'format'    => 'a4',
+        ]);
+
+        return $pdf->stream(__('Inscription').'.pdf');
+    }
+
+    public function serviceFormat()
+    {
+        $services = Service::query()->limit(6)->get();
+
+        return view('admin.service.format', compact('services'));
+    }
+
+    public function formatOne(?string $services = null)
+    {
+        $barcodes = [];
+        $servicesJson = [];
+        // dd($comment);
+
+        foreach(json_decode($services) as $service){
+            $prod=Service::where('id',$service)->first();
+            if($prod){
+                array_push($servicesJson, $prod);
+            }
+        }
+
+        $services = $servicesJson;
+
+        return view('admin.service.format.format-one', compact('services'));
+    }
+
+    public function formatTwo(?string $services = null)
+    {
+        $barcodes = [];
+        $servicesJson = [];
+        // dd($comment);
+
+        foreach(json_decode($services) as $service){
+            $prod=Service::where('id',$service)->first();
+            if($prod){
+                array_push($servicesJson, $prod);
+            }
+        }
+
+        $services = $servicesJson;
+
+        return view('admin.service.format.format-two', compact('services'));
+    }
+
+    public function formatThree(?string $services = null)
+    {
+        $barcodes = [];
+        $servicesJson = [];
+        // dd($comment);
+
+        foreach(json_decode($services) as $service){
+            $prod=Service::where('id',$service)->first();
+            if($prod){
+                array_push($servicesJson, $prod);
+            }
+        }
+
+        $services = $servicesJson;
+
+        return view('admin.service.format.format-three', compact('services'));
     }
 
     public function purchaseReturns($id): Response

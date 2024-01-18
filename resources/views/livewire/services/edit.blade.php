@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="w-full px-3 mb-4">
-                    <x-label for="note" :value="__('Note')" />
+                    <x-label for="note" :value="__('Note or Description')" />
                     <textarea id="note" class="block mt-1 w-full" type="text" name="note"
                         wire:model.lazy="service.note"></textarea>
                     <x-input-error :messages="$errors->get('service.note')" for="note" class="mt-2" />

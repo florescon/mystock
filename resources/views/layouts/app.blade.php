@@ -28,6 +28,9 @@
             display: none;
         }
     </style>
+
+    @yield('style')
+
 </head>
 
 <body class="antialiased bg-gray-50 text-body font-body" dir="ltr">
@@ -71,5 +74,7 @@
     @include('includes.main-js')
     @vite('resources/js/app.js')
   
+    @yield('scripts')
+
 </body>
 </html>

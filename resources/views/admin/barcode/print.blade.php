@@ -14,15 +14,15 @@
         <div class="row justify-content-center">
             @foreach ($barcodes as $barcode)
                 <div class="col-xs-3" style="border: 1px solid #dddddd;border-style: dashed; text-align: center;">
-                    <p style="font-size: 15px;color: #000;margin-top: 15px;margin-bottom: 5px; text-align: center;">
+                    <p style="font-size: 7px;color: #000;margin-top: 1px;margin-bottom: 1px; text-align: center;">
                         {{ $barcode['name'] }}
 
                     </p>
                     {{-- read $barcode as svg image --}}
                     <img src="data:image/svg+xml;base64,{{ base64_encode($barcode['barcode']) }}" alt="barcode" />
 
-                    <p style="font-size: 15px;color: #000;font-weight: bold; text-align: center;">
-                        {{ __('Price') }}: {{ $barcode['price'] }}MX
+                    <p style="font-size: 6px;color: #000;font-weight: bold; text-align: center;">
+                        {{ __('Price') }}: {{ $barcode['price'] }} MX
                     </p>
                 </div>
             @endforeach

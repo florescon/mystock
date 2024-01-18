@@ -191,6 +191,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/sales/pdf/{id}', [ExportController::class, 'sale'])->name('sales.pdf');
     Route::get('/sales/pos/pdf/{id}', [ExportController::class, 'salePos'])->name('sales.pos.pdf');
 
+    Route::get('/inscription/print', [ExportController::class, 'inscriptionPrint'])->name('inscription.print');
+
     Route::get('/sales/ddd/{products?}', [ExportController::class, 'ddd'])->name('sales.ddd');
 
     //Sales
@@ -235,5 +237,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/inscriptions', [ServiceController::class, 'inscriptions'])->name('services-inscriptions.index');
     Route::get('/monthly', [ServiceController::class, 'monthly'])->name('services-monthly.index');
     Route::get('/free', [ServiceController::class, 'free'])->name('services-free.index');
+    Route::get('/service-format', [ExportController::class, 'serviceFormat'])->name('service-format.index');
+
+    Route::get('/format-one/{services?}', [ExportController::class, 'formatOne'])->name('format-one.index');
+    Route::get('/format-two/{services?}', [ExportController::class, 'formatTwo'])->name('format-two.index');
+    Route::get('/format-three/{services?}', [ExportController::class, 'formatThree'])->name('format-three.index');
+
 
 });
