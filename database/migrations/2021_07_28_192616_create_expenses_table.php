@@ -29,6 +29,7 @@ return new class () extends Migration {
             $table->string('details', 192)->nullable();
             $table->float('amount', 10, 0);
             $table->string('document')->nullable();
+            $table->boolean('is_expense')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

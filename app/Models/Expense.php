@@ -70,4 +70,24 @@ class Expense extends Model
     {
         return $this->belongsTo(Warehouse::class, 'warehouse_id')->withTrashed();
     }
+
+    /**
+     * @param mixed $query
+     *
+     * @return mixed
+     */
+    public function scopeIncomes($query)
+    {
+        return $query->whereIsExpense(false);
+    }
+
+    /**
+     * @param mixed $query
+     *
+     * @return mixed
+     */
+    public function scopeExpenses($query)
+    {
+        return $query->whereIsExpense(true);
+    }
 }

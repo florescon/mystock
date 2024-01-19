@@ -29,6 +29,7 @@
                     <x-table.th>{{ __('Date') }}</x-table.th>
                     <x-table.th>{{ __('Amount') }}</x-table.th>
                     <x-table.th>{{ __('Payment Method') }}</x-table.th>
+                    <x-table.th>{{ __('Actions') }}</x-table.th>
                 </x-slot>
                 <x-table.tbody>
 
@@ -39,6 +40,15 @@
                                 {{ format_currency($salepayment->amount) }}
                             </x-table.td>
                             <x-table.td>{{ __($salepayment->payment_method) }}</x-table.td>
+                            <x-table.td>
+                                
+                                <x-dropdown-link wire:click="$emit('deletePaymentModal', {{ $salepayment->id }})"
+                                    wire:loading.attr="disabled">
+                                    <i class="fas fa-trash"></i>
+                                    {{ __('Delete') }}
+                                </x-dropdown-link>
+
+                            </x-table.td>
                         </x-table.tr>
                     @empty
                         <x-table.tr>
@@ -56,3 +66,26 @@
     </x-modal>
 
 </div>
+
+@push('scripts')
+    <script>
+        document.addEventListener('livewire:load', function() {
+            window.livewire.on('deletePaymentModal', paymentId => {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '¡Si, eliminar!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('deletePayment', paymentId)
+                    }
+                })
+            })
+        })
+    </script>
+@endpush
+

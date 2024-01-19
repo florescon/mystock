@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Expense;
+namespace App\Http\Livewire\Income;
 
-use App\Exports\ExpenseExport;
+use App\Exports\IncomeExport;
 use App\Http\Livewire\WithSorting;
 use App\Models\Expense;
 use App\Traits\Datatable;
@@ -22,7 +22,7 @@ class Index extends Component
     use Datatable;
 
     /** @var mixed */
-    public $expense;
+    public $income;
 
     /** @var array<string> */
     public $listeners = [
@@ -96,7 +96,7 @@ class Index extends Component
 
     public function render()
     {
-        abort_if(Gate::denies('expense_access'), 403);
+        abort_if(Gate::denies('income_access'), 403);
 
         $query = Expense::with(['category', 'user', 'warehouse'])
             ->advancedFilter([
@@ -105,68 +105,69 @@ class Index extends Component
                 'order_direction' => $this->sortDirection,
             ])
             ->whereBetween('created_at', [$this->startDate, $this->endDate.' 23:59:59'])
-            ->expenses();
+            ->incomes();
 
-        $expenses = $query->paginate($this->perPage);
+        $incomes = $query->paginate($this->perPage);
 
-        return view('livewire.expense.index', compact('expenses'));
+        return view('livewire.income.index', compact('incomes'));
     }
 
     public function deleteSelected(): void
     {
-        abort_if(Gate::denies('expense_delete'), 403);
+        abort_if(Gate::denies('income_delete'), 403);
 
         Expense::whereIn('id', $this->selected)->delete();
 
         $this->resetSelected();
     }
 
-    public function delete(Expense $expense): void
+    public function delete(Expense $income): void
     {
-        abort_if(Gate::denies('expense_delete'), 403);
+        abort_if(Gate::denies('income_delete'), 403);
 
-        $expense->delete();
+        $income->delete();
     }
 
     public function showModal($id): void
     {
-        abort_if(Gate::denies('expense_show'), 403);
+        abort_if(Gate::denies('income_show'), 403);
 
-        $this->expense = Expense::find($id);
+        $this->income = Expense::find($id);
 
         $this->showModal = true;
     }
 
     public function downloadSelected(): BinaryFileResponse
     {
-        abort_if(Gate::denies('expense_download'), 403);
+        abort_if(Gate::denies('income_download'), 403);
 
-        return $this->callExport()->forModels($this->selected)->download('expenses.xlsx');
+        return $this->callExport()->forModels($this->selected)->download('incomes.xlsx');
     }
 
     public function downloadAll(): BinaryFileResponse
     {
-        abort_if(Gate::denies('expense_download'), 403);
+        abort_if(Gate::denies('income_download'), 403);
 
-        return $this->callExport()->download('expenses.xlsx');
+        return $this->callExport()->download('incomes.xlsx');
     }
 
     public function exportSelected(): BinaryFileResponse
     {
-        abort_if(Gate::denies('expense_download'), 403);
+        abort_if(Gate::denies('income_download'), 403);
 
-        return $this->callExport()->forModels($this->selected)->download('expenses.pdf');
+        return $this->callExport()->forModels($this->selected)->download('incomes.pdf');
     }
 
     public function exportAll(): BinaryFileResponse
     {
-        abort_if(Gate::denies('expense_download'), 403);
+        abort_if(Gate::denies('income_download'), 403);
 
-        return $this->callExport()->download('expenses.pdf', \Maatwebsite\Excel\Excel::MPDF);
+        return $this->callExport()->download('incomes.pdf', \Maatwebsite\Excel\Excel::MPDF);
     }
 
-    private function callExport(): ExpenseExport
+    private function callExport(): IncomeExport
     {
-        return new ExpenseExport();
+        return new IncomeExport();
     }
+
 }

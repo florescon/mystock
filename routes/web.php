@@ -13,6 +13,7 @@ use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\CustomerGroupController;
 use App\Http\Controllers\ExpenseCategoriesController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\CashController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
@@ -97,6 +98,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Expense
     Route::get('expenses', ExpenseController::class)->name('expenses.index');
+
+    //Expense
+    Route::get('incomes', IncomeController::class)->name('incomes.index');
 
     Route::get('cash', CashController::class)->name('cash.index');
 

@@ -26,6 +26,7 @@ class Index extends Component
     public $listeners = [
         'showPayments',
         'refreshIndex' => '$refresh',
+        'deletePayment',
     ];
 
     public $showPayments;
@@ -33,6 +34,9 @@ class Index extends Component
     public $listsForFields = [];
 
     public $sale_id;
+
+    /** @var bool */
+    public $deleteModal = false;
 
     /** @var array<array<string>> */
     protected $queryString = [
@@ -80,5 +84,16 @@ class Index extends Component
         $this->sale = Sale::findOrFail($sale_id);
 
         $this->showPayments = true;
+    }
+
+    public function deletePayment($payment)
+    {
+        $salePayment = SalePayment::where('id', $payment)->first();
+        $amount = $salePayment->amount;
+        $this->sale->increment('due_amount', $amount);
+
+        $salePayment->delete();
+
+        $this->alert('success', __('Payment deleted successfully.'));
     }
 }

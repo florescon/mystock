@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Exports;
 
 use App\Models\Expense;
@@ -9,7 +7,7 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromView;
 
-class ExpenseExport implements FromView
+class IncomeExport implements FromView
 {
     use Exportable;
     use ForModelsTrait;
@@ -21,15 +19,15 @@ class ExpenseExport implements FromView
     {
 
         if ($this->models) {
-            return Expense::query()->whereIn('id', $this->models)->datesForPeriod('this year')->expenses();
+            return Expense::query()->whereIn('id', $this->models)->datesForPeriod('this year')->incomes();
         }
 
-        return Expense::query()->datesForPeriod('this year')->expenses();
+        return Expense::query()->datesForPeriod('this year')->incomes();
     }
 
     public function view(): View
     {
-        return view('pdf.expenses', [
+        return view('pdf.incomes', [
             'data' => $this->query()->get(),
         ]);
     }
