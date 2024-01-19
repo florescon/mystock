@@ -30,6 +30,7 @@ class Create extends Component
         'income.details'      => 'nullable|string|min:3',
         'income.user_id'      => 'nullable',
         'income.warehouse_id' => 'nullable',
+        'income.is_expense' => 'required',
     ];
 
     public function updated($propertyName)
@@ -51,6 +52,8 @@ class Create extends Component
         $this->resetValidation();
 
         $this->income = new Expense();
+
+        $this->income->is_expense = false;
 
         $this->income->date = date('Y-m-d');
 

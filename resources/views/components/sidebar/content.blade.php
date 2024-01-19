@@ -115,7 +115,7 @@
 
 
     @can('expense_access')
-        <x-sidebar.dropdown title="{{ __('Expenses') }}" :active="request()->routeIs(['expenses.index', 'incomes.index', 'expense-categories.index'])">
+        <x-sidebar.dropdown title="{{ __('Finances') }}" :active="request()->routeIs(['expenses.index', 'incomes.index', 'expense-categories.index'])">
             <x-slot name="icon">
                 <span class="inline-block mx-4">
                     <i class="fas fa-money-bill-alt w-5 h-5"></i>
