@@ -26,7 +26,7 @@ if ( ! function_exists('format_currency')) {
 
         return $position === 'prefix'
             ? $symbol.number_format((float) $value, 2, $decimalSeparator, $thousandSeparator)
-            : number_format((float) $value, 2, $decimalSeparator, $thousandSeparator).$symbol;
+            : number_format((float) $value, 2, $decimalSeparator, $thousandSeparator).' '.$symbol;
     }
 }
 

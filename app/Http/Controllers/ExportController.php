@@ -120,13 +120,16 @@ class ExportController extends Controller
         return $pdf->stream(__('Sale').$sale->reference.'.pdf');
     }
 
-    public function inscriptionPrint(): Response
+    public function inscriptionPrint($id): Response
     {
         $settings = Setting::firstOrFail();
+
+        $sale = Sale::where('id', $id)->firstOrFail();
 
         $data = [
             'logo'     => $this->getCompanyLogo(),
             'inscription' => $settings->inscription,
+            'sale' =>   $sale,
         ];
 
         $pdf = PDF::loadView('admin.inscription.print', $data, [], [

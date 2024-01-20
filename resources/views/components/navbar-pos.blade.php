@@ -19,12 +19,17 @@
                 </div>
             @endcan --}}
 
-            <a type="button" class="bg-gray-500 border border-transparent text-white hover:bg-gray-600 focus:ring-gray-500 active:bg-gray-900 focus:outline-none focus:border-gray-900 inline-flex items-center px-4 py-2 rounded-md font-semibold text-xs uppercase tracking-widest disabled:opacity-25 transition ease-in-out duration-150" target="_blank" href="{{ route('inscription.print') }}">
-                {{ __('Print Inscription') }}&nbsp; <i class="fas fa-print"></i>
-            </a>
+            @if(\App\Models\SaleDetailsService::where('service_id', 1)->latest()->first())
+                @php( $last = \App\Models\SaleDetailsService::where('service_id', 1)->latest()->first() )
+                @if($last->sale_id)
+                    <a type="button" class="bg-gray-500 border border-transparent text-white hover:bg-gray-600 focus:ring-gray-500 active:bg-gray-900 focus:outline-none focus:border-gray-900 inline-flex items-center px-4 py-2 rounded-md font-semibold text-xs uppercase tracking-widest disabled:opacity-25 transition ease-in-out duration-150" target="_blank" href="{{ route('inscription.print', $last->sale_id) }}">
+                        {{ __('Print Last Inscription') }}&nbsp; <i class="fas fa-print"></i>
+                    </a>
+                @endif
+            @endif
 
             @if(\App\Models\Sale::orderBy('id', 'DESC')->first())
-                <a type="button" class="bg-gray-500 border border-transparent text-white hover:bg-gray-600 focus:ring-gray-500 active:bg-gray-900 focus:outline-none focus:border-gray-900 inline-flex items-center px-4 py-2 rounded-md font-semibold text-xs uppercase tracking-widest disabled:opacity-25 transition ease-in-out duration-150" target="_blank" href="{{ route('sales.pos.pdf', \App\Models\Sale::orderBy('id', 'DESC')->first()->id) }}">
+                <a type="button" class="bg-red-200 border border-transparent text-black hover:bg-red-300 focus:ring-gray-500 active:bg-gray-900 focus:outline-none focus:border-gray-900 inline-flex items-center px-4 py-2 rounded-md font-semibold text-xs uppercase tracking-widest disabled:opacity-25 transition ease-in-out duration-150" target="_blank" href="{{ route('sales.pos.pdf', \App\Models\Sale::orderBy('id', 'DESC')->first()->id) }}">
                     {{ __('Print Last Sale') }}&nbsp; <i class="fas fa-print"></i>
                 </a>
             @endif

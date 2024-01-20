@@ -15,6 +15,7 @@ use App\Http\Controllers\ExpenseCategoriesController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\CashController;
+use App\Http\Controllers\CashHistoryController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IntegrationController;
@@ -103,6 +104,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('incomes', IncomeController::class)->name('incomes.index');
 
     Route::get('cash', CashController::class)->name('cash.index');
+    Route::get('cash-history', [CashHistoryController::class, 'history'])->name('cash-history.index');
+
+    Route::get('/cash-history-print/{cash}', [CashHistoryController::class, 'print'])->name('cash-history-print.index');
 
     //Customers
     Route::get('customers', [CustomersController::class, 'index'])->name('customers.index');
@@ -195,7 +199,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/sales/pdf/{id}', [ExportController::class, 'sale'])->name('sales.pdf');
     Route::get('/sales/pos/pdf/{id}', [ExportController::class, 'salePos'])->name('sales.pos.pdf');
 
-    Route::get('/inscription/print', [ExportController::class, 'inscriptionPrint'])->name('inscription.print');
+    Route::get('/inscription/print/{id}', [ExportController::class, 'inscriptionPrint'])->name('inscription.print');
 
     Route::get('/sales/ddd/{products?}', [ExportController::class, 'ddd'])->name('sales.ddd');
 

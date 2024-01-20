@@ -20,8 +20,8 @@ class SettingsSeeder extends Seeder
             [
                 'id'                        => 1,
                 'company_name'              => 'Acuática Azul',
-                'company_email'             => 'contact@aqua.com',
-                'company_phone'             => '212 5 22 22 22 22',
+                'company_email'             => 'acuaticaazul@gmail.com',
+                'company_phone'             => '4747421696',
                 'company_logo'              => 'logo.png',
                 'company_address'           => 'Hernando de Martell',
                 'company_tax'               => '0',

@@ -10,11 +10,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Scopes\CashOutScope;
 
 class SalePayment extends Model
 {
     use HasAdvancedFilter;
     use SoftDeletes;
+    use CashOutScope;
 
     public const ATTRIBUTES = [
         'id',
@@ -24,7 +26,6 @@ class SalePayment extends Model
         'amount',
         'created_at',
         'updated_at',
-
     ];
 
     public $orderable = self::ATTRIBUTES;
@@ -40,6 +41,7 @@ class SalePayment extends Model
         'amount',
         'note',
         'sale_id',
+        'cash_id',
         'payment_method',
         'user_id',
     ];

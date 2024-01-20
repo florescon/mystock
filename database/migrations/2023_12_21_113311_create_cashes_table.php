@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->longText('comment')->nullable();
             $table->decimal('initial', 8, 2)->nullable();
-            $table->dateTime('start', $precision = 0);
-            $table->dateTime('end', $precision = 0);
+            $table->dateTime('start', $precision = 0)->nullable();
+            $table->dateTime('end', $precision = 0)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

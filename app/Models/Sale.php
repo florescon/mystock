@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Enums\PaymentStatus;
 use App\Enums\SaleStatus;
 use App\Scopes\SaleScope;
+use App\Scopes\CashOutScope;
 use App\Support\HasAdvancedFilter;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
@@ -20,6 +21,7 @@ class Sale extends Model
 {
     use HasAdvancedFilter;
     use SaleScope;
+    use CashOutScope;
     use UuidGenerator;
     use GetModelByUuid;
     use SoftDeletes;
@@ -74,6 +76,7 @@ class Sale extends Model
         'payment_method',
         'shipping_status',
         'note',
+        'cash_id',
         'created_at',
         'updated_at',
     ];

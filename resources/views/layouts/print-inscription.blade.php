@@ -114,8 +114,8 @@
                             </td>
                             
                             <td>
-                                <strong>Folio #:</strong> 123<br>
-                                <strong>Creado:</strong> Febrero 1, 2024<br>
+                                <strong>Folio #:</strong> {{ $sale->id }}<br>
+                                <strong>Creado:</strong> {{ $sale->created_at }}<br>
                             </td>
                         </tr>
                     </table>
@@ -133,9 +133,9 @@
                             </td>
                             
                             <td>
-                                Acme Corp.<br>
-                                John Doe<br>
-                                john@example.com
+                                {{ optional($sale->customer)->name }}<br>
+                                {{ optional($sale->customer)->phone }}<br>
+                                {{ optional($sale->customer)->email }}
                             </td>
                         </tr>
                     </table>

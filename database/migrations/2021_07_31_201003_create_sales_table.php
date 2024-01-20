@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Models\Customer;
 use App\Models\User;
 use App\Models\Warehouse;
+use App\Models\Cash;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -41,6 +42,7 @@ class CreateSalesTable extends Migration
             $table->string('shipping_status')->nullable();
             $table->string('document')->nullable();
             $table->text('note')->nullable();
+            $table->foreignIdFor(Cash::class)->nullable()->cascadeOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

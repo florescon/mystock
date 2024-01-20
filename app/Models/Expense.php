@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\Scope\DateScope;
+use App\Scopes\CashOutScope;
 
 class Expense extends Model
 {
@@ -19,6 +20,7 @@ class Expense extends Model
     use HasFactory;
     use SoftDeletes;
     use DateScope;
+    use CashOutScope;
 
     public const ATTRIBUTES = [
         'id',
@@ -45,6 +47,7 @@ class Expense extends Model
         'date',
         'reference',
         'details',
+        'cash_id',
         'amount',
     ];
 
