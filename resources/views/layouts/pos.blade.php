@@ -27,7 +27,6 @@
 </head>
 
 <body class="antialiased bg-gray-50 text-body font-body" dir="ltr">
-    <div x-data="mainState" :class="{ dark: isDarkMode }" @resize.window="handleWindowResize" x-cloak>
         <div class="min-h-screen">
 
             <x-navbar-pos />
@@ -56,7 +55,6 @@
             {{-- <x-settings-bar /> --}}
 
         </div>
-    </div>
 
     @include('includes.main-js')
 

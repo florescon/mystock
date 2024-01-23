@@ -1,7 +1,7 @@
 <div>
     <div class="relative mb-4">
         <div class="w-full rounded-lg">
-            <x-input wire:model.debounce.500ms="searchQuery" autofocus
+            <x-input wire:model.debounce.500ms="searchQuery"
                 x-on:keydown.escape="searchQuery"
                 placeholder="{{ __('Search with names and codes, or reference') }}" />
         </div>

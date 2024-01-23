@@ -79,37 +79,64 @@
                                 <x-label for="total_amount" :value="__('Total Amount')" required />
                                 <p class="text-center">{{ $total_amount }}</p>
                             </div>
-                            <div class="w-full px-2">
-                                <x-label for="paid_amount" :value="__('Paid Amount')" required />
-                                <input id="paid_amount" type="text" wire:model="paid_amount"
-                                    class="block w-full text-center shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
-                                    name="paid_amount" required>
-                                <x-input-error :messages="$errors->get('paid_amount')" for="paid_amount" class="mt-2" />
-                            </div>
-                            <div class="w-full px-2">
-                                <x-label for="difference" :value="__('Difference')" required />
-                                    @if(($total_amount == $paid_amount) && ($difference == 0))
-                                        <p class="text-center text-blue-600">@lang('Covered payment') <i class="fa-solid fa-check-double text-green-500"></i> </p>
-                                    @else
-                                        <p class="text-center">{{ $difference }}</p>
-                                    @endif
-                            </div>
-                            <div class="w-full px-2">
-                                <x-label for="payment_method" :value="__('Payment Method')" required />
-                                <select wire:model="payment_method" id="payment_method" required
-                                    class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
-                                    <option value="Cash">{{ __('Cash') }}</option>
-                                    <option value="Bank Transfer">{{ __('Bank Transfer') }}</option>
-                                    <option value="Card">{{ __('Card') }}</option>
-                                    <option value="Other">{{ __('Other') }}</option>
-                                </select>
-                            </div>
+
                             <div class="mb-4 w-full px-2">
-                                <x-label for="note" :value="__('Note')" />
-                                <textarea name="note" id="note" rows="5" wire:model.lazy="note"
-                                    class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"></textarea>
-                                <x-input-error :messages="$errors->get('note')" for="note" class="mt-2" />
+                                <section class="grid mt-9 place-items-center bg-emerald-300 ">
+                                  <div class="w-full items-center border-l-8 border-orange-500 bg-emerald-50 p-4 text-emerald-900 shadow-lg">
+                                    <div class="min-w-0">
+
+                                        <x-label for="payment_cash" :value="__('Payment')" required />
+                                        <select wire:model="payment_cash" id="payment_cash" required disabled 
+                                            class="bg-gray-100 block w-full shadow-sm text-center focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
+                                            <option value="Cash">{{ __('Cash') }}</option>
+                                        </select>
+
+                                        <x-label for="paid_cash" :value="__('Paid Cash')" required />
+                                        <input id="paid_cash" type="text" wire:model="paid_cash"
+                                            class="block w-full text-center shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
+                                            name="paid_cash" required>
+                                        <x-input-error :messages="$errors->get('paid_cash')" for="paid_cash" class="mt-2" />
+
+                                        <x-label for="paid_with" :value="__('Paid With') .' — '.__('Must be greater than or equal to the Paid Cash')" required />
+                                        <input id="paid_with" type="text" wire:model="paid_with"
+                                            class="block w-full text-center shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
+                                            name="paid_with" required>
+                                        <x-input-error :messages="$errors->get('paid_with')" for="paid_with" class="mt-2" />
+
+                                        <x-label for="exchance_for_cash" :value="__('Exchance For Cash')" />
+                                        <input id="exchance_for_cash" type="text" wire:model="exchance_for_cash"
+                                            class="bg-gray-100 text-dark block w-full text-center shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
+                                            name="exchance_for_cash" disabled>
+                                        <x-input-error :messages="$errors->get('exchance_for_cash')" for="exchance_for_cash" class="mt-2" />
+
+                                    </div>
+                                  </div>
+                                </section>
+
+                                <section class="grid mt-9 place-items-center bg-emerald-300 ">
+                                  <div class="w-full items-center border-l-8 border-blue-500 bg-emerald-50 p-4 text-emerald-900 shadow-lg">
+                                    <div class="min-w-0">
+                                      <h2 class="overflow-hidden text-ellipsis whitespace-nowrap">@lang('Another Payment Method')</h2>
+
+                                        <x-label for="payment_method" :value="__('Payment Method')" required />
+                                        <select wire:model="payment_method" id="payment_method" required
+                                            class="block w-full shadow-sm text-center focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
+                                            <option value="Bank Transfer">{{ __('Bank Transfer') }}</option>
+                                            <option value="Card">{{ __('Card') }}</option>
+                                            <option value="Other">{{ __('Other') }}</option>
+                                        </select>
+
+                                        <x-label for="paid_amount" :value="__('Paid Amount')" required />
+                                        <input id="paid_amount" type="text" wire:model="paid_amount"
+                                            class="block w-full text-center shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
+                                            name="paid_amount" required>
+                                        <x-input-error :messages="$errors->get('paid_amount')" for="paid_amount" class="mt-2" />
+
+                                    </div>
+                                  </div>
+                                </section>
                             </div>
+                            
                         </div>
                     </div>
 
@@ -158,9 +185,24 @@
                                 </x-table.td>
                             </x-table.tr>
                         </x-table-responsive>
-                    </div>
-                </div>
-                <div class="float-left pb-4 px-2">
+
+                            <div class="mb-4 w-full px-2">
+                                <x-label for="note" :value="__('Note')" />
+                                <textarea name="note" id="note" rows="5" wire:model.lazy="note"
+                                    class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"></textarea>
+                                <x-input-error :messages="$errors->get('note')" for="note" class="mt-2" />
+                            </div>
+
+                            <div class="w-full px-2 text-center">
+                                <x-label for="difference" :value="__('Difference')" required />
+                                    @if(($total_amount == ((float) $paid_amount + (float)$paid_cash)) && ($difference == 0))
+                                        <p class="text-center text-blue-600">@lang('Covered payment') <i class="fa-solid fa-check-double text-green-500"></i> </p>
+                                    @else
+                                        <p class="text-center">{{ $difference }}</p>
+                                    @endif
+                            </div>
+
+
                     <div x-data="{ open : false }" class="w-96 rounded border bg-white p-4 shadow ml-4">
                         <div x-show="!open" class="flex items-center justify-between">
                             <div class="ml-2">¿Realmente desea procesar?</div>
@@ -179,6 +221,8 @@
                                 <button type="button" @click="open = false" class="btn rounded bg-gray-200 px-4 py-2 font-medium hover:bg-gray-300">Cancel</button>
                             </div>
                         </div>
+                    </div>
+
                     </div>
                 </div>
             </form>

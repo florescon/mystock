@@ -1,11 +1,11 @@
 <div class="relative mt-1" x-data="{ showScan: false }">
     <div class="mb-3 px-2">
         <div class="mb-2 w-full relative text-gray-600 focus-within:text-gray-400">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+            {{-- <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                 <a href="#" class="p-1 focus:outline-none focus:shadow-outline" @click="showScan = true">
                     <i class="fas fa-camera"></i>
                 </a>
-            </span>
+            </span> --}}
             <x-input wire:keydown.escape="resetQuery" wire:model.debounce.500ms="query" type="search" class="pl-10"
                 minlength="4" placeholder="{{ __('Search for products with code, reference or name') }}" autofocus />
             <div class="absolute right-0 top-0 mt-2 mr-4 text-purple-lighter">
@@ -95,7 +95,7 @@
         </div>
     </div>
 
-    <div x-show="showScan" x-transition:enter="ease-out duration-300"
+    {{-- <div x-show="showScan" x-transition:enter="ease-out duration-300"
         x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
         x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200"
         x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
@@ -119,11 +119,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 </div>
 
-@push('scripts')
+{{-- @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"
         integrity="sha512-bCsBoYoW6zE0aja5xcIyoCDPfT27+cGr7AOCqelttLVRGay6EKGQbR6wm6SUcUGOMGXJpj+jrIpMS6i80+kZPw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -157,4 +157,4 @@
             showScan = false;
         });
     </script>
-@endpush
+@endpush --}}

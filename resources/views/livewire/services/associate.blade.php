@@ -132,17 +132,26 @@
                                             <i class="fa-solid fa-users"></i>
                                         </div>
                                         <div class="mx-4 text-center py-4 ">
-                                            <select required id="customerAssociate" name="customerAssociate" wire:model="customerAssociate"
+
+                                            <livewire:components.select-customer-second
+                                                name="customerAssociate"
+                                                placeholder="{{ __('Choose a Customer') }}"
+                                                :value="request('customerAssociate')"
+                                                :searchable="true"
+                                            />
+
+                                            {{-- <select required id="customerAssociate" name="customerAssociate" wire:model="customerAssociate"
                                                 class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1 ">
                                                 <option value="" class="text-center">{{ __('Select Customer') }}</option>
                                                 @foreach ($this->customers as $customer)
                                                     <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                                 @endforeach
-                                            </select>
-                                            <x-input-error :messages="$errors->get('customerAssociate')" for="customerAssociate" class="mt-2" />
+                                            </select> --}}
+
+                                            {{-- <x-input-error :messages="$errors->get('customerAssociate')" for="customerAssociate" class="mt-2" /> --}}
 
                                             @if($customerAssociate)
-                                                @livewire('customers.alert-inscription', ['customer_id' => $customerAssociate])
+                                                @livewire('customers.alert-inscription-second', ['customer_id' => $customerAssociate])
                                             @else
                                                 <p class="my-4 text-center text-sm text-gray-500">Servicio asignado a otro cliente</p>
                                             @endif

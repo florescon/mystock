@@ -32,7 +32,11 @@ class Associate extends Component
     public $quantity_;
 
     /** @var array<string> */
-    public $listeners = ['createAssociate', 'showCustomerAssociate'];
+    public $listeners = [
+        'createAssociate', 
+        'showCustomerAssociate', 
+        'updatedCustomerIDSecond',
+    ];
 
     public $showCustomerAssociate = false;
 
@@ -72,6 +76,12 @@ class Associate extends Component
         $this->quantity = 1;
         $this->quantity_ = 1;
         $this->selectedDays = [];
+    }
+
+    public function updatedCustomerIDSecond(?int $id = null)
+    {
+        $this->customerAssociate = $id;
+        $this->emit('getUserAgainSecond', $this->customerAssociate);
     }
 
     public function selectService($service)
@@ -123,7 +133,7 @@ class Associate extends Component
 
     public function updatedCustomerAssociate()
     {
-        $this->emit('getUserAgain', $this->customerAssociate);
+        $this->emit('getUserAgainSecond', $this->customerAssociate);
     }
 
     public function getCustomersProperty()

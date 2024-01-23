@@ -30,6 +30,9 @@
                                 {{ $cart_item->name }} <br>
                                 <span class="font-light text-xs text-gray-600">{{ $cart_item->options->code }}</span>
                                 {{-- @include('livewire.includes.product-cart-modal') --}}
+
+                                @livewire('includes.product-cart-modal', ['cart_item' => (array) $cart_item], key('show-modal-' . $cart_item?->rowId))
+
                             </x-table.td>
 
                             <x-table.td>

@@ -68,6 +68,12 @@ class Index extends Component
 
     public $paid_amount;
 
+    public $paid_cash;
+
+    public $paid_with;
+
+    public $exchance_for_cash;
+
     public $tax_percentage;
 
     public $discount_percentage;
@@ -81,6 +87,8 @@ class Index extends Component
     public $shipping_amount;
 
     public $payment_method;
+
+    public $payment_cash;
 
     public $note;
 
@@ -103,6 +111,8 @@ class Index extends Component
             'shipping_amount'     => 'nullable|numeric',
             'total_amount'        => 'required|numeric',
             'paid_amount'         => 'nullable|numeric|min:0|lte:total_amount',
+            'paid_cash'         => 'nullable|numeric|min:0|lte:total_amount',
+            'paid_with'         => 'nullable|numeric|min:0|gte:paid_cash',
             'note'                => 'nullable|string|max:255',
             'price'               => 'nullable|numeric',
         ];
@@ -124,11 +134,13 @@ class Index extends Component
         $this->quantity = [];
         $this->discount_type = [];
         $this->item_discount = [];
-        $this->payment_method = 'Cash';
+        $this->payment_method = 'Bank Transfer';
 
         $this->tax_percentage = 0;
         $this->discount_percentage = 0;
         $this->paid_amount = 0;
+        $this->paid_cash = 0;
+        $this->paid_with = 0;
 
         $this->default_client = Customer::find(settings()->default_client_id);
         $this->default_warehouse = Warehouse::find(settings()->default_warehouse_id);
@@ -162,11 +174,29 @@ class Index extends Component
 
     public function updatedPaidAmount()
     {   
-        if($this->paid_amount > 0){
-            $this->difference = (float) $this->total_amount - (float) $this->paid_amount;
+            $this->difference = (float) $this->total_amount - (float) $this->paid_amount - (float) $this->paid_cash;
+    }
+
+    public function updatedPaidCash()
+    {   
+        if($this->paid_cash > 0){
+            if($this->paid_with > 1){
+                $this->exchance_for_cash = (float) $this->paid_with - (float) $this->paid_cash;
+            }
+            $this->difference = (float) $this->total_amount - (float) $this->paid_amount - (float) $this->paid_cash;
         }
         else{
-            $this->difference = 0;
+            $this->exchance_for_cash = 0;
+        }
+    }
+
+    public function updatedPaidWith()
+    {   
+        if($this->paid_with > 0){
+            $this->exchance_for_cash = (float) $this->paid_with - (float) $this->paid_cash;
+        }
+        else{
+            $this->exchance_for_cash = 0;
         }
     }
 
@@ -191,7 +221,7 @@ class Index extends Component
             $this->validate();
 
             // Determine payment status
-            $due_amount = $this->total_amount - $this->paid_amount;
+            $due_amount = $this->total_amount - $this->paid_cash - $this->paid_amount;
 
             if ($due_amount === $this->total_amount) {
                 $payment_status = PaymentStatus::PENDING;
@@ -209,7 +239,7 @@ class Index extends Component
                 'tax_percentage'      => $this->tax_percentage,
                 'discount_percentage' => $this->discount_percentage,
                 'shipping_amount'     => $this->shipping_amount,
-                'paid_amount'         => $this->paid_amount,
+                'paid_amount'         => $this->difference,
                 'total_amount'        => $this->total_amount,
                 'due_amount'          => $due_amount,
                 'status'              => SaleStatus::COMPLETED,
@@ -286,10 +316,20 @@ class Index extends Component
 
             Cart::instance('sale')->destroy();
 
-            if ($sale->paid_amount > 0) {
+            if ($this->paid_cash > 0) {
                 SalePayment::create([
                     'date'           => date('Y-m-d'),
-                    'amount'         => $sale->paid_amount,
+                    'amount'         => $this->paid_cash,
+                    'sale_id'        => $sale->id,
+                    'payment_method' => 'Cash',
+                    'user_id'        => Auth::user()->id,
+                ]);
+            }
+
+            if ($this->paid_amount > 0) {
+                SalePayment::create([
+                    'date'           => date('Y-m-d'),
+                    'amount'         => $this->paid_amount,
                     'sale_id'        => $sale->id,
                     'payment_method' => $this->payment_method,
                     'user_id'        => Auth::user()->id,

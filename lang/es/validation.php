@@ -231,6 +231,8 @@ return [
         'customer_id' => 'cliente',
         'service_type' => 'tipo de servicio',
         'customerAssociate' => 'cliente',
+        'paid_with' => 'pago con',
+        'paid_cash' => 'pago en efectivo',
     ],
 
 ];
