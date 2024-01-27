@@ -93,10 +93,10 @@
             </x-slot>
             <x-sidebar.sublink title="{{ __('All Purchases') }}" href="{{ route('purchases.index') }}"
                 :active="request()->routeIs('purchases.index')" />
-            @can('purchase_return_access')
+            {{-- @can('purchase_return_access')
                 <x-sidebar.sublink title="{{ __('All Purchase Returns') }}" href="{{ route('purchase-returns.index') }}"
                     :active="request()->routeIs('purchase-returns.index')" />
-            @endcan
+            @endcan --}}
         </x-sidebar.dropdown>
     @endcan
     @can('sale_access')
@@ -109,10 +109,10 @@
 
             <x-sidebar.sublink title="{{ __('All Sales') }}" href="{{ route('sales.index') }}" :active="request()->routeIs('sales.index')" />
 
-            @can('sale_return_access')
+            {{-- @can('sale_return_access')
                 <x-sidebar.sublink title="{{ __('All Sale Returns') }}" href="{{ route('sale-returns.index') }}"
                     :active="request()->routeIs('sale-returns.index')" />
-            @endcan
+            @endcan --}}
         </x-sidebar.dropdown>
     @endcan
 
@@ -224,10 +224,10 @@
                 </span>
             </x-slot>
             <x-sidebar.sublink title="{{ __('Settings') }}" href="{{ route('settings.index') }}" :active="request()->routeIs('settings.index')" />
-            <x-sidebar.sublink title="{{ __('Monthly payment schedules') }}" href="{{ route('setting-hour.index') }}" :active="request()->routeIs('setting-hour.index')" />
-            @can('log_access')
+            {{-- <x-sidebar.sublink title="{{ __('Monthly payment schedules') }}" href="{{ route('setting-hour.index') }}" :active="request()->routeIs('setting-hour.index')" /> --}}
+            {{-- @can('log_access')
                 <x-sidebar.sublink title="{{ __('Logs') }}" href="{{ route('logs.index') }}" :active="request()->routeIs('logs.index')" />
-            @endcan
+            @endcan --}}
             @can('currency_access')
                 <x-sidebar.sublink title="{{ __('Currencies') }}" href="{{ route('currencies.index') }}" :active="request()->routeIs('currencies.index')" />
             @endcan
