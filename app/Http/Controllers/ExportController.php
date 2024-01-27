@@ -37,7 +37,7 @@ public function salePos($id): Response
 
         $pdf = PDF::loadView('admin.sale.print-pos', $data, [], [
             // 'format' => 'a5',
-            'format' => [80, 350]
+            'format' => [80, 380]
         ]);
 
         return $pdf->stream(__('Sale').$sale->reference.'.pdf');

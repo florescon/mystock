@@ -21,6 +21,7 @@ class FreeSwim extends Model
 
     public const ATTRIBUTES = [
         'id',
+        'status',
     ];
 
     public $orderable = self::ATTRIBUTES;

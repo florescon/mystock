@@ -19,8 +19,8 @@
             :active="request()->routeIs('services.index')" />
         <x-sidebar.sublink title="{{ __('Inscriptions') }}" href="{{ route('services-inscriptions.index') }}"
             :active="request()->routeIs('services-inscriptions.index')" />
-        <x-sidebar.sublink title="{{ __('Monthly payments') }}" href="{{ route('services-monthly.index') }}"
-            :active="request()->routeIs('services-monthly.index')" />
+        {{-- <x-sidebar.sublink title="{{ __('Monthly payments') }}" href="{{ route('services-monthly.index') }}"
+            :active="request()->routeIs('services-monthly.index')" /> --}}
         <x-sidebar.sublink title="{{ __('Free swim').' - '.__('Grouped') }}" href="{{ route('services-free.index') }}"
             :active="request()->routeIs('services-free.index')" />
 

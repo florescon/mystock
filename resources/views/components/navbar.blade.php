@@ -62,9 +62,9 @@
 
                     <div class="border-t border-gray-100"></div>
 
-                    <x-dropdown-link>
+                    {{-- <x-dropdown-link>
                         @livewire('cache')
-                    </x-dropdown-link>
+                    </x-dropdown-link> --}}
 
 
                     {{-- <x-dropdown-link href="{{ route('profile.show') }}">

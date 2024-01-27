@@ -71,7 +71,7 @@
             <x-table.th sortable wire:click="sortBy('due_amount')" :direction="$sorts['due_amount'] ?? null">
                 {{ __('Due Amount') }}
             </x-table.th>
-            <x-table.th sortable wire:click="sortBy('total')" :direction="$sorts['total'] ?? null">
+            <x-table.th sortable wire:click="sortBy('total_amount')" :direction="$sorts['total_amount'] ?? null">
                 {{ __('Total') }}
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">

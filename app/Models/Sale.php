@@ -38,6 +38,7 @@ class Sale extends Model
         'shipping_amount',
         'total_amount',
         'payment_date',
+        'date',
         'paid_amount',
         'due_amount',
         'status',
