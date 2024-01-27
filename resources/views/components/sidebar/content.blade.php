@@ -8,7 +8,7 @@
         </x-slot>
     </x-sidebar.link>
 
-    <x-sidebar.dropdown title="{{ __('Services') }}" :active="request()->routeIs('services.index') || request()->routeIs('services-inscriptions.index') || request()->routeIs('services-monthly.index') || request()->routeIs('services-free.index') || request()->routeIs('service-format.index')">
+    <x-sidebar.dropdown title="{{ __('Services') }}" :active="request()->routeIs('services.index') || request()->routeIs('services-inscriptions.index') || request()->routeIs('services-monthly.index') || request()->routeIs('services-free-swim.index') || request()->routeIs('services-free.index') || request()->routeIs('service-format.index')">
 
         <x-slot name="icon">
             <span class="inline-block mx-4">
@@ -21,8 +21,11 @@
             :active="request()->routeIs('services-inscriptions.index')" />
         <x-sidebar.sublink title="{{ __('Monthly payments') }}" href="{{ route('services-monthly.index') }}"
             :active="request()->routeIs('services-monthly.index')" />
-        <x-sidebar.sublink title="{{ __('Free passes') }}" href="{{ route('services-free.index') }}"
+        <x-sidebar.sublink title="{{ __('Free swim').' - '.__('Grouped') }}" href="{{ route('services-free.index') }}"
             :active="request()->routeIs('services-free.index')" />
+
+        <x-sidebar.sublink title="{{ __('Free swim') }}" href="{{ route('services-free-swim.index') }}"
+            :active="request()->routeIs('services-free-swim.index')" />
 
         <x-sidebar.sublink title="{{ __('Create Format') }}" href="{{ route('service-format.index') }}"
             :active="request()->routeIs('service-format.index')" />
@@ -209,6 +212,7 @@
     @can('access_settings')
         <x-sidebar.dropdown title="{{ __('Settings') }}" :active="request()->routeIs([
             'settings.index',
+            'setting-hour.index',
             'logs.index',
             'currencies.index',
             'languages.index',
@@ -220,6 +224,7 @@
                 </span>
             </x-slot>
             <x-sidebar.sublink title="{{ __('Settings') }}" href="{{ route('settings.index') }}" :active="request()->routeIs('settings.index')" />
+            <x-sidebar.sublink title="{{ __('Monthly payment schedules') }}" href="{{ route('setting-hour.index') }}" :active="request()->routeIs('setting-hour.index')" />
             @can('log_access')
                 <x-sidebar.sublink title="{{ __('Logs') }}" href="{{ route('logs.index') }}" :active="request()->routeIs('logs.index')" />
             @endcan

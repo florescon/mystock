@@ -17,7 +17,7 @@ class CashHistoryController extends Controller
 
     public function print(Cash $cash)
     {
-        $cash->load('sales.customer');
+        $cash->load('sales.customer', 'sale_payments.sale.customer');
         return view('admin.cashhistory.print', compact('cash'));
     }
 

@@ -36,7 +36,7 @@
                                 {{ __('Set as Default') }}</x-button>
                         @endif
 
-                        <x-button success href="{{ route('translation.index', $language['code']) }}">
+                        {{-- <x-button success href="{{ route('translation.index', $language['code']) }}">
                             {{ __('Translate') }}
                         </x-button>
 
@@ -50,7 +50,7 @@
 
                         <x-button danger type="button" wire:click="$emit('deleteModal', {{ $language['id'] }})">
                             <i class="fas fa-trash"></i>
-                        </x-button>
+                        </x-button> --}}
                     </x-table.td>
                 </x-table.tr>
             @empty

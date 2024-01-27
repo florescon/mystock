@@ -106,6 +106,25 @@
                                         @endif
 
                                         @if($serviceAssociate?->with_days)
+
+                                            <div class='flex items-center justify-center from-cyan-100 via-pink-200 to-yellow-200 bg-gradient-to-br mb-4 py-4'>
+                                                <div class="flex items-center max-w-md mx-auto bg-white rounded-lg " >
+                                                    <div class="w-full">
+                                                      <div class="flex">
+
+                                                        <select name="hour" wire:model="hour" class="bg-transparent text-xl appearance-none outline-none">
+                                                            <option value="" class="text-center">{{ __('Select Hour') }}</option>
+                                                            @foreach ($hours as $hour)
+                                                                <option
+                                                                    value="{{ $hour->full_label }}">{{ $hour->hour.' '.$hour->label_is_am }}</option>
+                                                            @endforeach
+
+                                                        </select>
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="inline-flex items-center">
                                                 <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg text-center dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                                     @foreach ($this->days as $day)
@@ -156,8 +175,25 @@
                                                 <p class="my-4 text-center text-sm text-gray-500">Servicio asignado a otro cliente</p>
                                             @endif
 
-
                                             @if($serviceAssociate?->with_days)
+
+                                                <div class='flex items-center justify-center from-cyan-100 via-pink-200 to-yellow-200 bg-gradient-to-br mb-4 py-4'>
+                                                    <div class="flex items-center max-w-md mx-auto bg-white rounded-lg " >
+                                                        <div class="w-full">
+                                                          <div class="flex">
+                                                            <select name="hourSelected" wire:model="hourSelected" class="bg-transparent text-xl appearance-none outline-none">
+                                                                <option value="" class="text-center">{{ __('Select Hour') }}</option>
+                                                                @foreach ($hours as $hour)
+                                                                    <option
+                                                                        value="{{ $hour->full_label }}">{{ $hour->hour.' '.$hour->label_is_am }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                          </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <div class="inline-flex items-center">
                                                     <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg text-center dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                                         @foreach ($this->days as $day)

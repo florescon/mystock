@@ -102,6 +102,7 @@
                         <tr>
                             <th>{{ __('#') }}</th>
                             <th>{{ __('Reference') }}</th>
+                            <th>{{ __('Details') }}</th>
                             <th>{{ __('Amount') }}</th>
                             <th>{{ __('Created At') }}</th>
                         </tr>
@@ -111,6 +112,7 @@
                             <tr>
                                 <td>{{ $row->id }}</td>
                                 <td>{{ $row->reference }}</td>
+                                <td>{{ $row->details }}</td>
                                 <td>{{ $row->amount }}</td>
                                 <td>{{ $row->created_at->format('d-m-Y') }}</td>
                             </tr>

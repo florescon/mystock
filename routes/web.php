@@ -37,6 +37,7 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SalesReturnController;
 use App\Http\Controllers\SendQuotationEmailController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SettingHourController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\UsersController;
@@ -237,6 +238,8 @@ Route::group(['middleware' => 'auth'], function () {
     //General Settings
     Route::get('/settings', SettingController::class)->name('settings.index');
 
+    Route::get('/setting-hour', SettingHourController::class)->name('setting-hour.index');
+
     // Integrations
     Route::get('/integrations', IntegrationController::class)->name('integrations.index');
 
@@ -245,6 +248,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/inscriptions', [ServiceController::class, 'inscriptions'])->name('services-inscriptions.index');
     Route::get('/monthly', [ServiceController::class, 'monthly'])->name('services-monthly.index');
     Route::get('/free', [ServiceController::class, 'free'])->name('services-free.index');
+
+    Route::get('/free-swim', [ServiceController::class, 'freeSwim'])->name('services-free-swim.index');
+
     Route::get('/service-format', [ExportController::class, 'serviceFormat'])->name('service-format.index');
 
     Route::get('/format-one/{services?}', [ExportController::class, 'formatOne'])->name('format-one.index');

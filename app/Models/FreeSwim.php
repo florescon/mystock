@@ -1,24 +1,26 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Models;
 
+use App\Support\HasAdvancedFilter;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\Scope\DateScope;
 
-class SaleDetailsService extends Model
+
+class FreeSwim extends Model
 {
     use HasAdvancedFilter;
+    use HasFactory;
     use SoftDeletes;
+    use DateScope;
 
     public const ATTRIBUTES = [
         'id',
-        'name',
-        'hour',
     ];
 
     public $orderable = self::ATTRIBUTES;
@@ -30,32 +32,12 @@ class SaleDetailsService extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id',
         'sale_id',
-        'service_id',
         'customer_id',
-        'name',
-        'code',
-        'quantity',
-        'price',
-        'unit_price',
-        'sub_total',
-        'product_discount_amount',
-        'product_discount_type',
-        'product_tax_amount',
-        'with_days',
-        'hour',
+        'user_id',
+        'status',
+        'details',
     ];
-
-    public function setWithDaysAttribute($value)
-    {
-        $this->attributes['with_days'] = implode(',', $value ?? '');
-    }
-
-    public function getWithDaysAttribute($value)
-    {
-        return explode(',',(string) $value ?? '');
-    }
 
     public function customer(): BelongsTo
     {
@@ -65,9 +47,12 @@ class SaleDetailsService extends Model
         );
     }
 
-    public function service(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Service::class, 'service_id', 'id');
+        return $this->belongsTo(
+            related: User::class,
+            foreignKey: 'user_id',
+        );
     }
 
     public function sale(): BelongsTo

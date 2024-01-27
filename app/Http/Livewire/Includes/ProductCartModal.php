@@ -72,6 +72,7 @@ class ProductCartModal extends Component
                 'product_discount_type' => $cart_item->options->product_discount_type,
                 'service_type'          => is_numeric($product_id) ? null : $cart_item->options->service_type,
                 'days'                  => is_numeric($product_id) ? null : $cart_item->options->days,
+                'hour'                  => is_numeric($product_id) ? null : $cart_item->options->hour,
             ],
         ]);
     }

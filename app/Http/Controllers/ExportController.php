@@ -27,9 +27,9 @@ class ExportController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function salePos($id): Response
+public function salePos($id): Response
     {
-        $sale = Sale::with('saleDetails', 'saleDetailsService.customer')->where('id', $id)->firstOrFail();
+        $sale = Sale::with('saleDetails', 'saleDetailsService.customer', 'freeSwims.customer', 'freeSwims.sale')->where('id', $id)->firstOrFail();
 
         $data = [
             'sale' => $sale,
@@ -37,7 +37,7 @@ class ExportController extends Controller
 
         $pdf = PDF::loadView('admin.sale.print-pos', $data, [], [
             // 'format' => 'a5',
-            'format' => [80, 270]
+            'format' => [80, 350]
         ]);
 
         return $pdf->stream(__('Sale').$sale->reference.'.pdf');
@@ -124,7 +124,7 @@ class ExportController extends Controller
     {
         $settings = Setting::firstOrFail();
 
-        $sale = Sale::where('id', $id)->firstOrFail();
+        $sale = Sale::where('id', $id)->with('saleDetailsService.customer')->firstOrFail();
 
         $data = [
             'logo'     => $this->getCompanyLogo(),

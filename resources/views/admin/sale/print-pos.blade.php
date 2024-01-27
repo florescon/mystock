@@ -196,6 +196,27 @@
                         {{ __('Amount') }}: {{ format_currency($salepayments->amount) }}
                 </div>
             @endforeach
+
+            @foreach($sale->freeSwims as $free)
+                {{-- <div class="centered" style="background-color:#ddd;padding: 5px; margin-bottom: 5px;">
+                        {{ __('ID') }}: {{ __($salepayments->id) }} <br>
+                </div> --}}
+
+                <div id="table" style="margin-right: -5px; margin-left: -5px;">
+                    <table style="border: 2px solid #000;border-style: dashed; margin-top: 5px;">
+                      <tr>
+                        <th style="width: 120px;">#SWIM-PASS-{{ $free->id }}</th>
+                        <td  rowspan="2" style="text-align: center;">{{ $free->customer->name }}</td>
+                      </tr>
+                      <tr >
+                        <th><img src="{{ public_path('images/logo.png') }}" alt="" width="40"/></th>
+                      </tr>
+                    </table>
+                </div>
+
+            @endforeach
+
+
         </div>
     </div>
 </body>

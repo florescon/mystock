@@ -94,6 +94,11 @@
                                     <span class="text-red-500">
                                         {{ implode(', ', $cart_item->options->days) }}
                                     </span>
+                                    @if($cart_item->options->hour)
+                                        <span class="text-blue-500">
+                                            {{ '['.$cart_item->options->hour.']' }}
+                                        </span>
+                                    @endif
                                 </x-table.td>
                             </x-table.tr>
                         @endif

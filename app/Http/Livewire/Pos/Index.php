@@ -19,9 +19,11 @@ use App\Models\ProductWarehouse;
 use App\Models\SaleDetails;
 use App\Models\SaleDetailsService;
 use App\Models\SalePayment;
+use App\Models\FreeSwim;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Enums\ServiceType;
 use Livewire\Component;
 
 class Index extends Component
@@ -295,6 +297,17 @@ class Index extends Component
                     $service = Service::where('uuid', $cart_item->id)
                         ->first();
 
+                    if($cart_item->options->service_type === ServiceType::FREEPASS->name ){
+    
+                        for($i=1; $i < $cart_item->qty+1 ; $i++) {
+                            FreeSwim::create([
+                                'sale_id'                 => $sale->id,
+                                'customer_id'             => $cart_item->options->customer_id ?: $this->customer_id,
+                                'user_id'                 => Auth::user()->id,
+                            ]);
+                        }
+                    }
+
                     SaleDetailsService::create([
                         'sale_id'                 => $sale->id,
                         'service_id'              => $service->id,
@@ -309,6 +322,7 @@ class Index extends Component
                         'product_discount_type'   => $cart_item->options->product_discount_type,
                         'product_tax_amount'      => $cart_item->options->product_tax,
                         'with_days'               => $cart_item->options->days,
+                        'hour'                    => $cart_item->options->hour,
                         // 'service_type'            => $cart_item->options->service_type,
                     ]);
                 }

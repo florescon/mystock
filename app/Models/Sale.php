@@ -115,6 +115,11 @@ class Sale extends Model
         return $this->hasMany(SaleDetailsService::class);
     }
 
+    public function freeSwims(): HasMany
+    {
+        return $this->hasMany(FreeSwim::class);
+    }
+
     public function salePayments(): HasMany
     {
         return $this->hasMany(SalePayment::class, 'sale_id', 'id');

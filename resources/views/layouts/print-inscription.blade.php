@@ -133,7 +133,11 @@
                             </td>
                             
                             <td>
-                                {{ optional($sale->customer)->name }}<br>
+                                @foreach($sale->saleDetailsService->where('service_id', 1) as $inscription)
+                                    {{ optional($inscription->customer)->name }}
+                                    {{ !$loop->last ? ',' : '' }}
+                                @endforeach
+                                <br>
                                 {{ optional($sale->customer)->phone }}<br>
                                 {{ optional($sale->customer)->email }}
                             </td>

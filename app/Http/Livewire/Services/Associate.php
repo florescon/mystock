@@ -9,6 +9,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use App\Models\Service;
+use App\Models\SettingHour;
 use Livewire\WithPagination;
 use App\Http\Livewire\WithSorting;
 use App\Traits\Datatable;
@@ -26,6 +27,9 @@ class Associate extends Component
     public $serviceAssociate;
     public $selectedDays = [];
     public $selectedDays_ = [];
+
+    public $hour;
+    public $hourSelected;
 
     public $quantity;
 
@@ -96,7 +100,7 @@ class Associate extends Component
             ],
         ]);
 
-        $this->emit('serviceSelected', [$service, null, $this->quantity, $this->selectedDays]);
+        $this->emit('serviceSelected', [$service, null, $this->quantity, $this->selectedDays, $this->hour]);
 
         $this->showCustomerAssociate = false;
     }
@@ -116,7 +120,7 @@ class Associate extends Component
         ]);
 
         if($this->customerAssociate){
-            $this->emit('serviceSelected', [$service, $this->customerAssociate, $this->quantity_, $this->selectedDays_]);
+            $this->emit('serviceSelected', [$service, $this->customerAssociate, $this->quantity_, $this->selectedDays_, $this->hourSelected]);
         }
 
         $this->showCustomerAssociate = false;
@@ -160,8 +164,10 @@ class Associate extends Component
             'order_direction' => $this->sortDirection,
         ]);
 
+        $hours = SettingHour::orderBy('is_am', 'DESC')->orderBy('hour', 'ASC')->get();
+
         $services = $query->paginate($this->perPage);
 
-        return view('livewire.services.associate', compact('services'));
+        return view('livewire.services.associate', compact('services', 'hours'));
     }
 }

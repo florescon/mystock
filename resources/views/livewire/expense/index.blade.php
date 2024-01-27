@@ -66,6 +66,9 @@
             <x-table.th sortable wire:click="sortBy('reference')" :direction="$sorts['reference'] ?? null">
                 {{ __('Reference') }}
             </x-table.th>
+            <x-table.th sortable wire:click="sortBy('details')" :direction="$sorts['details'] ?? null">
+                {{ __('Details') }}
+            </x-table.th>
             <x-table.th sortable wire:click="sortBy('category_id')" :direction="$sorts['category_id'] ?? null">
                 {{ __('Expense Category') }}
             </x-table.th>
@@ -90,6 +93,9 @@
                         <button type="button" wire:click="showModal({{ $expense->id }})">
                             {{ $expense->reference }}
                         </button>
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $expense ? Str::limit($expense->details, 28, '...') : '--' }}
                     </x-table.td>
                     <x-table.td>
                         @if($expense->category_id)

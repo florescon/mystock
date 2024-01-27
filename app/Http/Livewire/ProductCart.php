@@ -138,6 +138,7 @@ class ProductCart extends Component
         $customer = $getService ? (int) $getService[1] : null;
         $qty = $getService[2];
         $days = $getService[3] ?? null;
+        $hour = $getService[4] ?? null;
 
         if (empty($service)) {
             $this->alert('error', __('Something went wrong!'), ['position' => 'top']);
@@ -154,7 +155,7 @@ class ProductCart extends Component
             return;
         }
         
-        $cartItem = $this->createCartItemService($service, $customer, $qty, $days);
+        $cartItem = $this->createCartItemService($service, $customer, $qty, $days, $hour);
 
         $cart->add($cartItem);
 
@@ -242,7 +243,7 @@ class ProductCart extends Component
         ];
     }
 
-    private function createCartItemService($service, ?int $customer = null, $qty, $days)
+    private function createCartItemService($service, ?int $customer = null, $qty, $days, $hour)
     {
         $serviceModel = Service::where('id', $service['id'])->first();
         $serviceType = $serviceModel->service_type->name;
@@ -268,6 +269,7 @@ class ProductCart extends Component
                 'stock'                 => null,
                 'unit'                  => null,
                 'days'                  => $days,
+                'hour'                  => $hour,
             ]),
         ];
     }
@@ -298,6 +300,7 @@ class ProductCart extends Component
                 'product_discount_type' => $cart_item->options->product_discount_type,
                 'service_type'          => is_numeric($product_id) ? null : $cart_item->options->service_type,
                 'days'                  => is_numeric($product_id) ? null : $cart_item->options->days,
+                'hour'                  => is_numeric($product_id) ? null : $cart_item->options->hour,
             ],
         ]);
     }

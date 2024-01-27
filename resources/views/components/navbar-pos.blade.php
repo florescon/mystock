@@ -50,9 +50,9 @@
                         {{ __('Dashboard') }}
                     </x-dropdown-link>
 
-                    <x-dropdown-link onclick="Livewire.emit('createModal')">
+                    {{-- <x-dropdown-link onclick="Livewire.emit('createModal')">
                         {{ __('Create Product') }}
-                    </x-dropdown-link>
+                    </x-dropdown-link> --}}
 
                     <x-dropdown-link onclick="Livewire.emit('createCustomer')">
                         {{ __('Create Customer') }}

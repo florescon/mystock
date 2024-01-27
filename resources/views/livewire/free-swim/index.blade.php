@@ -7,19 +7,6 @@
                     <option value="{{ $value }}">{{ $value }}</option>
                 @endforeach
             </select>
-            @if ($selected)
-                <x-button danger type="button" wire:click="deleteSelected" class="ml-3">
-                    <i class="fas fa-trash"></i>
-                </x-button>
-            @endif
-            @if ($this->selectedCount)
-                <p class="text-sm leading-5 ml-3">
-                    <span class="font-medium">
-                        {{ $this->selectedCount }}
-                    </span>
-                    {{ __('Entries selected') }}
-                </p>
-            @endif
         </div>
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2">
             <div class="my-2">
@@ -60,39 +47,42 @@
                 {{ __('ID') }}
             </x-table.th>
             <x-table.th>
-                {{ __('Created By') }}
+                {{ __('Customer') }}
             </x-table.th>
             <x-table.th>
-                {{ __('Cash') }}
+                {{ __('Sale') }}
+            </x-table.th>
+            <x-table.th sortable wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">
+                {{ __('Applied') }}
             </x-table.th>
             <x-table.th>
-                {{ __('Another Payment Methods') }}
+                {{ __('Updated At') }}
             </x-table.th>
             <x-table.th>
-                {{ __('Actions') }}
+                {{ __('Created At') }}
             </x-table.th>
         </x-slot>
 
         <x-table.tbody>
-            @forelse ($cashes as $cash)
+            @forelse ($inscriptions as $inscription)
                 <x-table.tr wire:loading.class.delay="opacity-50">
                     <x-table.td>
-                        #{{ $cash->id }}
+                        #SWIM-PASS-{{ $inscription->id }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $cash->user->name }}
+                        {{ optional($inscription->customer)->name }}
                     </x-table.td>
                     <x-table.td>
-                        ${{  $cash->total_cash + $cash->total_incomes - $cash->total_expenses }}
+                        #{{ optional($inscription->sale)->id }}
                     </x-table.td>
                     <x-table.td>
-                        ${{ $cash->total_other }}
+                        <livewire:toggle-button :model="$inscription" field="status" key="{{ $inscription->id }}" />
                     </x-table.td>
                     <x-table.td>
-                        <x-button target="_blank" secondary class="d-print-none"
-                            href="{{ route('cash-history-print.index', $cash->id) }}">
-                            {{ __('Print') }}
-                        </x-button>
+                        {{ $inscription->updated_at }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $inscription->created_at }}
                     </x-table.td>
                 </x-table.tr>
             @empty
@@ -109,62 +99,8 @@
     </x-table>
 
     <div class="px-6 py-3">
-        {{ $cashes->links() }}
+        {{ $inscriptions->links() }}
     </div>
 
-    <x-modal wire:model="importModal">
-        <x-slot name="title">
-            <div class="flex justify-between items-center">
-                {{ __('Import Excel') }}
-                <x-button primary wire:click="downloadSample" type="button">
-                    {{ __('Download Sample') }}
-                </x-button>
-            </div>
-        </x-slot>
-
-        <x-slot name="content">
-            <form wire:submit.prevent="import">
-                <div class="mb-4">
-
-                    <div class="w-full px-3">
-                        <x-label for="import" :value="__('Import')" />
-                        <x-input id="import" class="block mt-1 w-full" type="file" name="import"
-                            wire:model.defer="import_file" />
-                        <x-input-error :messages="$errors->get('import')" for="import" class="mt-2" />
-                    </div>
-
-                    <div class="w-full px-3">
-                        <x-button primary type="submit" class="w-full text-center" wire:loading.attr="disabled">
-                            {{ __('Import') }}
-                        </x-button>
-                    </div>
-                </div>
-            </form>
-        </x-slot>
-    </x-modal>
-
-    @pushOnce('scripts')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
-            integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    @endPushOnce
-    
-    @push('scripts')
-        <script>
-            function printContent() {
-                const content = document.getElementById("printable-content");
-                html2canvas(content).then(canvas => {
-                    const printWindow = window.open('', '',
-                        'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
-                    const printDocument = printWindow.document;
-                    printDocument.body.appendChild(canvas);
-                    canvas.onload = function() {
-                        printWindow.print();
-                        printWindow.close();
-                    };
-                });
-            }
-        </script>
-    @endpush
 
 </div>

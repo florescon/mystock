@@ -33,7 +33,7 @@ class Create extends Component
         'service.note' => 'nullable|min:3',
         'service.price' => 'required|integer|min:1',
         'service.service_type' => 'required',
-        'image' => 'nullable|mimes:jpeg,png,jpg,gif|size:2024',
+        'image' => 'nullable|mimes:jpeg,png,jpg,gif|max:2024',
     ];
 
     public function updated($propertyName): void
@@ -58,6 +58,17 @@ class Create extends Component
     {
         try {
             $validatedData = $this->validate();
+
+            switch ($this->service->service_type->value) {
+                case 1:
+                    $this->service->with_days = 1;
+                    break;
+                case 2:
+                    $this->service->with_input = 1;
+                    break;
+                default:
+                    break;
+            }
 
             if ($this->image) {
                 // $imageName = Str::slug($this->service->name).'-'.Str::random(5).'.'.$this->image->extension();

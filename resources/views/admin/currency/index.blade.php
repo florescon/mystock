@@ -35,13 +35,13 @@
                     </a>
                 </div>
             </div>
-            <div class="float-right">
+            {{-- <div class="float-right">
                 @can('currency_access')
                     <x-button primary onclick="Livewire.emit('createModal')">
                         {{ __('Create Currency') }}
                     </x-button>
                 @endcan
-            </div>
+            </div> --}}
         </div>
     </section>
 @endsection

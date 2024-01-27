@@ -28,7 +28,9 @@
             <table class="table">
                 <thead>
                     <th>
-
+                    </th>
+                    <th>
+                        {{ _('ID') }}
                     </th>
                     <th>
                         {{ __('Name') }}
@@ -45,7 +47,10 @@
                     @forelse($services as $service)
                         <tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $service->id }}">
                             <td class="pr-0">
-                                <input wire:model="selected" type="checkbox" value="{{ $service->id }}, {{ $service->name }}" />
+                                <input wire:model="selected" type="checkbox" value="{{ $service->id }}" />
+                            </td>
+                            <td>
+                                {{ $service->id }}
                             </td>
                             <td>
                                 {{ $service->name }}
