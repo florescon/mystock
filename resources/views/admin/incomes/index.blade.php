@@ -53,7 +53,7 @@
                         </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
-                @can('income_create')
+                @can('expense_access')
                     <x-button primary type="button" onclick="Livewire.emit('createModal')">
                         {{ __('Create Income') }}
                     </x-button>

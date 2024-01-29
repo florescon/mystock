@@ -11,7 +11,7 @@ class CashController extends Controller
 {
     public function __invoke()
     {
-        abort_if(Gate::denies('cash_access'), 403);
+        abort_if(Gate::denies('expense_access'), 403);
 
         return view('admin.cash.index');
     }

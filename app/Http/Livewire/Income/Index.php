@@ -96,7 +96,7 @@ class Index extends Component
 
     public function render()
     {
-        abort_if(Gate::denies('income_access'), 403);
+        abort_if(Gate::denies('expense_access'), 403);
 
         $query = Expense::with(['category', 'user', 'warehouse'])
             ->advancedFilter([
@@ -114,7 +114,7 @@ class Index extends Component
 
     public function deleteSelected(): void
     {
-        abort_if(Gate::denies('income_delete'), 403);
+        abort_if(Gate::denies('expense_access'), 403);
 
         Expense::whereIn('id', $this->selected)->delete();
 
@@ -123,14 +123,14 @@ class Index extends Component
 
     public function delete(Expense $income): void
     {
-        abort_if(Gate::denies('income_delete'), 403);
+        abort_if(Gate::denies('expense_access'), 403);
 
         $income->delete();
     }
 
     public function showModal($id): void
     {
-        abort_if(Gate::denies('income_show'), 403);
+        abort_if(Gate::denies('expense_access'), 403);
 
         $this->income = Expense::find($id);
 
@@ -139,28 +139,28 @@ class Index extends Component
 
     public function downloadSelected(): BinaryFileResponse
     {
-        abort_if(Gate::denies('income_download'), 403);
+        abort_if(Gate::denies('expense_access'), 403);
 
         return $this->callExport()->forModels($this->selected)->download('incomes.xlsx');
     }
 
     public function downloadAll(): BinaryFileResponse
     {
-        abort_if(Gate::denies('income_download'), 403);
+        abort_if(Gate::denies('expense_access'), 403);
 
         return $this->callExport()->download('incomes.xlsx');
     }
 
     public function exportSelected(): BinaryFileResponse
     {
-        abort_if(Gate::denies('income_download'), 403);
+        abort_if(Gate::denies('expense_access'), 403);
 
         return $this->callExport()->forModels($this->selected)->download('incomes.pdf');
     }
 
     public function exportAll(): BinaryFileResponse
     {
-        abort_if(Gate::denies('income_download'), 403);
+        abort_if(Gate::denies('expense_access'), 403);
 
         return $this->callExport()->download('incomes.pdf', \Maatwebsite\Excel\Excel::MPDF);
     }

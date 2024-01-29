@@ -128,7 +128,7 @@ class Associate extends Component
 
     public function showCustomerAssociate($id)
     {
-        abort_if(Gate::denies('sale_access'), 403);
+        abort_if(Gate::denies('expense_access'), 403);
 
         $this->serviceAssociate = Service::findOrFail($id);
 

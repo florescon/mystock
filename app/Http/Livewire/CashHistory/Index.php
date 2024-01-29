@@ -106,7 +106,7 @@ class Index extends Component
 
     public function render()
     {
-        abort_if(Gate::denies('cash_access'), 403);
+        abort_if(Gate::denies('expense_access'), 403);
 
         $query = Cash::with(['sales', 'sale_payments', 'expenses', 'user'])
             ->advancedFilter([

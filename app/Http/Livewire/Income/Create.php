@@ -40,7 +40,7 @@ class Create extends Component
 
     public function render()
     {
-        abort_if(Gate::denies('income_create'), 403);
+        abort_if(Gate::denies('expense_access'), 403);
 
         return view('livewire.income.create');
     }

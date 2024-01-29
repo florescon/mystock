@@ -15,8 +15,11 @@
                 <i class="fas fa-solid fa-tarp-droplet w-5 h-5"></i>
             </span>
         </x-slot>
+
+        @can('category_access')
         <x-sidebar.sublink title="{{ __('Services') }}" href="{{ route('services.index') }}"
             :active="request()->routeIs('services.index')" />
+        @endcan
         <x-sidebar.sublink title="{{ __('Inscriptions') }}" href="{{ route('services-inscriptions.index') }}"
             :active="request()->routeIs('services-inscriptions.index')" />
         <x-sidebar.sublink title="{{ __('Monthly payments') }}" href="{{ route('services-monthly.index') }}"
@@ -134,7 +137,7 @@
         </x-sidebar.dropdown>
     @endcan
 
-    @can('cash_access')
+    @can('expense_access')
         <x-sidebar.dropdown title="{{ __('Cash Out') }}" :active="request()->routeIs(['cash.index', 'cash-history.index'])">
             <x-slot name="icon">
                 <span class="inline-block mx-4">
