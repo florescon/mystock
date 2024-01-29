@@ -86,11 +86,11 @@
                 @endforelse
             </div>
             <div class="my-3 mx-auto">
-                @if ($products->count() >= $showCount)
+                {{-- @if ($products->count() >= $showCount)
                     <x-button wire:click.prevent="loadMore" primary type="button">
                         {{ __('Load More') }} <i class="bi bi-arrow-down-circle"></i>
                     </x-button>
-                @endif
+                @endif --}}
             </div>
         </div>
     </div>

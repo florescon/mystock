@@ -50,6 +50,15 @@
                 {{ __('Customer') }}
             </x-table.th>
             <x-table.th>
+                {{ __('Quantity') }}
+            </x-table.th>
+            <x-table.th>
+                {{ __('Discount') }}
+            </x-table.th>
+            <x-table.th>
+                {{ __('Subtotal') }}
+            </x-table.th>
+            <x-table.th>
                 {{ __('Sale') }}
             </x-table.th>
             <x-table.th>
@@ -58,24 +67,33 @@
         </x-slot>
 
         <x-table.tbody>
-            @forelse ($inscriptions as $inscription)
+            @forelse ($inscriptions as $free)
                 <x-table.tr wire:loading.class.delay="opacity-50">
                     <x-table.td>
-                        {{ $inscription->name }}
+                        {{ $free->name }}
                     </x-table.td>
                     <x-table.td>
-                        {{ optional($inscription->customer)->name }}
+                        {{ optional($free->customer)->name }}
                     </x-table.td>
                     <x-table.td>
-                        #{{ optional($inscription->sale)->id }}
+                        {{ $free->quantity }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $inscription->created_at }}
+                        $ {{ $free->product_discount_amount * $free->quantity }}
+                    </x-table.td>
+                    <x-table.td>
+                        $ <p class="text-blue-600/100 inline-block">{{ $free->sub_total }}</p>
+                    </x-table.td>
+                    <x-table.td>
+                        #{{ optional($free->sale)->id }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $free->created_at }}
                     </x-table.td>
                 </x-table.tr>
             @empty
                 <x-table.tr>
-                    <x-table.td colspan="4">
+                    <x-table.td colspan="7">
                         <div class="flex justify-center items-center">
                             <i class="fas fa-box-open text-4xl text-gray-400"></i>
                             {{ __('No results found') }}

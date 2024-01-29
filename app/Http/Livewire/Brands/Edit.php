@@ -29,8 +29,8 @@ class Edit extends Component
 
     /** @var array */
     protected $rules = [
-        'brand.name'        => 'required|string||min:3|max:50',
-        'brand.description' => 'nullable|string',
+        'brand.name'        => 'required|string||min:3|max:30',
+        'brand.description' => 'nullable|string|min:3|max:255',
     ];
 
     protected $messages = [

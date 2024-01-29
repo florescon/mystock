@@ -44,4 +44,19 @@ class SaleDetails extends Model
         return $this->belongsTo(Sale::class, 'sale_id', 'id');
     }
 
+    public function getDiscountTypeAttribute()
+    {
+        switch ($this->product_discount_type) {
+            case 'percentage':
+                return '%';
+            default:
+                return '$';
+        }
+    }
+
+    public function getDiscountAttribute()
+    {
+        return $this->product_discount_amount ? '('.$this->discount_type . $this->product_discount_amount.')' : '';
+    }
+
 }

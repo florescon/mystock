@@ -13,7 +13,7 @@
 
     <em class="text-red-400">Seleccionados:</em> @json($selected)
 
-    <div class="flex justify-between mt-4">
+    <div class="flex justify-between mt-4 pb-9">
 
         @if($step != 1)
             <x-wizard-button class="ml-4" wire:click="moveBack">Anterior</x-wizard-button>

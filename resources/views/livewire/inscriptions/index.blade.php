@@ -50,6 +50,12 @@
                 {{ __('Customer') }}
             </x-table.th>
             <x-table.th>
+                {{ __('Discount') }}
+            </x-table.th>
+            <x-table.th>
+                {{ __('Subtotal') }}
+            </x-table.th>
+            <x-table.th>
                 {{ __('Sale') }}
             </x-table.th>
             <x-table.th>
@@ -67,6 +73,12 @@
                         {{ optional($inscription->customer)->name }}
                     </x-table.td>
                     <x-table.td>
+                        $ {{ $inscription->product_discount_amount * $inscription->quantity }}
+                    </x-table.td>
+                    <x-table.td>
+                        $ <p class="text-blue-600/100 inline-block">{{ $inscription->sub_total }}</p>
+                    </x-table.td>
+                    <x-table.td>
                         #{{ optional($inscription->sale)->id }}
                     </x-table.td>
                     <x-table.td>
@@ -75,7 +87,7 @@
                 </x-table.tr>
             @empty
                 <x-table.tr>
-                    <x-table.td colspan="4">
+                    <x-table.td colspan="6">
                         <div class="flex justify-center items-center">
                             <i class="fas fa-box-open text-4xl text-gray-400"></i>
                             {{ __('No results found') }}

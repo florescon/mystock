@@ -38,7 +38,7 @@
                             </td>
 
                             <td class="align-middle">
-                                {{ format_currency($item->product_discount_amount) }}
+                                {{ format_currency($item->product_discount_amount * $item->quantity) }}
                             </td>
 
                             <td class="align-middle">
@@ -50,34 +50,35 @@
                             </td>
                         </tr>
                     @endforeach
-                    @foreach ($sale->saleDetailsService as $item)
+                    @foreach ($sale->saleDetailsService as $itemService)
                         <tr>
                             <td class="align-middle">
-                                {{ $item->name }} <br>
+                                {{ $itemService->name }} <br>
                                 <span class="badge badge-success">
-                                    {{ $item->code }}
+                                    {{ $itemService->code }}
                                 </span>
                             </td>
 
-                            <td class="align-middle">{{ format_currency($item->unit_price) }}</td>
+                            <td class="align-middle">{{ format_currency($itemService->unit_price) }}</td>
 
                             <td class="align-middle">
-                                {{ $item->quantity }}
+                                {{ $itemService->quantity }}
                             </td>
 
                             <td class="align-middle">
-                                {{ format_currency($item->product_discount_amount) }}
+                                {{ format_currency($itemService->product_discount_amount * $itemService->quantity) }}
                             </td>
 
                             <td class="align-middle">
-                                {{ format_currency($item->product_tax_amount) }}
+                                {{ format_currency($itemService->product_tax_amount) }}
                             </td>
 
                             <td class="align-middle">
-                                {{ format_currency($item->sub_total) }}
+                                {{ format_currency($itemService->sub_total) }}
                             </td>
                         </tr>
-                    @endforeach                </tbody>
+                    @endforeach                
+                </tbody>
             </table>
         </div>
         <div class="row">

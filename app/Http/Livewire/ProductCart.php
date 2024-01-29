@@ -235,6 +235,7 @@ class ProductCart extends Component
             'options' => array_merge($calculation, [
                 'product_discount'      => 0.00,
                 'product_discount_type' => 'fixed',
+                'discount_get'          => 0,
                 'service_type'          => null,
                 'code'                  => $product['code'],
                 'stock'                 => $productWarehouse->qty,
@@ -262,6 +263,7 @@ class ProductCart extends Component
                 'sub_total'             => $service['price'] * $qty ?? 1,
                 'product_discount'      => 0.00,
                 'product_discount_type' => 'fixed',
+                'discount_get'              => 0,
                 'customer_id'           => $customer,
                 'customer_name'         => $customerName,
                 'service_type'          => $serviceType,
@@ -277,7 +279,7 @@ class ProductCart extends Component
     public function updatePrice($row_id, $product_id)
     {
         $validatedData = $this->validate(
-            ['price.*' => 'integer|not_in:0'],
+            ['price.*' => 'integer|not_in:0|required'],
         );
 
         Cart::instance($this->cart_instance)->update($row_id, [
@@ -296,8 +298,9 @@ class ProductCart extends Component
                 'unit_price'            => $cart_item->price,
                 'customer_id'           => is_numeric($product_id) ? null : $cart_item->options->customer_id,
                 'customer_name'         => is_numeric($product_id) ? null : $cart_item->options->customer_name,
-                'product_discount'      => $cart_item->options->product_discount,
+                'product_discount'      => 0.00,
                 'product_discount_type' => $cart_item->options->product_discount_type,
+                'discount_get'          => 0.00,
                 'service_type'          => is_numeric($product_id) ? null : $cart_item->options->service_type,
                 'days'                  => is_numeric($product_id) ? null : $cart_item->options->days,
                 'hour'                  => is_numeric($product_id) ? null : $cart_item->options->hour,
@@ -370,6 +373,7 @@ class ProductCart extends Component
                 'customer_name'         => is_numeric($product_id) ? null : $cart_item->options->customer_name,
                 'product_discount'      => $cart_item->options->product_discount,
                 'product_discount_type' => $cart_item->options->product_discount_type,
+                'discount_get'          => $cart_item->options->discount_get,
                 'service_type'          => is_numeric($product_id) ? null : $cart_item->options->service_type,
             ],
         ]);

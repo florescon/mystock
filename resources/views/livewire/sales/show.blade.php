@@ -63,6 +63,7 @@
                                 <th>{{ __('Concept') }}</th>
                                 <th>{{ __('Quantity') }}</th>
                                 <th>{{ __('Unit Price') }}</th>
+                                <th>{{ __('Discount') }}</th>
                                 <th>{{ __('Subtotal') }}</th>
                             </tr>
                         </thead>
@@ -81,27 +82,34 @@
                                             {{ format_currency($item->unit_price) }}
                                         </td>
                                         <td>
+                                            {{ format_currency($item->product_discount_amount * $item->quantity) }}
+                                        </td>
+                                        <td>
                                             {{ format_currency($item->sub_total) }}
                                         </td>
                                     </tr>
                                 @endforeach
-                                @foreach ($sale->saleDetailsService as $item)
+                                @foreach ($sale->saleDetailsService as $itemService)
                                     <tr>
                                         <td>
-                                            {{ $item->name }} <br>
-                                            {{ $item->code }}
+                                            {{ $itemService->name }} <br>
+                                            {{ $itemService->code }}
                                         </td>
                                         <td>
-                                            {{ $item->quantity }}
+                                            {{ $itemService->quantity }}
                                         </td>
                                         <td>
-                                            {{ format_currency($item->unit_price) }}
+                                            {{ format_currency($itemService->unit_price) }}
                                         </td>
                                         <td>
-                                            {{ format_currency($item->sub_total) }}
+                                            {{ format_currency($itemService->product_discount_amount * $itemService->quantity) }}
+                                        </td>
+                                        <td>
+                                            {{ format_currency($itemService->sub_total) }}
                                         </td>
                                     </tr>
-                                @endforeach                            @endif
+                                @endforeach                            
+                            @endif
                         </tbody>
                     </table>
                 </div>

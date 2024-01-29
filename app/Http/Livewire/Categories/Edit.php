@@ -25,7 +25,7 @@ class Edit extends Component
 
     /** @var array */
     protected $rules = [
-        'category.name' => 'required|min:3|max:50',
+        'category.name' => 'required|min:3|max:30',
         'category.code' => 'required|max:255',
     ];
 

@@ -37,7 +37,7 @@ class Create extends Component
     /** @var array */
     protected $rules = [
         'product.name'                => 'required|string|min:3|max:255',
-        'product.code'                => 'required|string|min:3|max:15',
+        'product.code'                => 'required|string|min:3|max:15|unique:products,code',
         'product.barcode_symbology'   => 'required|string|max:255',
         'product.unit'                => 'required|string|max:255',
         'productWarehouse'            => 'required',

@@ -65,6 +65,21 @@ class SaleDetailsService extends Model
         );
     }
 
+    public function getDiscountTypeAttribute()
+    {
+        switch ($this->product_discount_type) {
+            case 'percentage':
+                return '%';
+            default:
+                return '$';
+        }
+    }
+
+    public function getDiscountAttribute()
+    {
+        return $this->product_discount_amount ? '('.$this->discount_type . $this->product_discount_amount.')' : '';
+    }
+
     public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class, 'service_id', 'id');

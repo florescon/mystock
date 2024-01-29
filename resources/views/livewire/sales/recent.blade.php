@@ -196,6 +196,7 @@
                                                 <x-table.th>{{ __('Concept') }}</x-table.th>
                                                 <x-table.th>{{ __('Quantity') }}</x-table.th>
                                                 <x-table.th>{{ __('Unit Price') }}</x-table.th>
+                                                <x-table.th>{{ __('Discount') }}</x-table.th>
                                                 <x-table.th>{{ __('Subtotal') }}</x-table.th>
                                             </x-slot>
 
@@ -209,12 +210,17 @@
                                                                     {{ $item->code }}
                                                                 </x-badge>
                                                             </x-table.td>
+
+                                                            <x-table.td>
+                                                                {{ $item->quantity }}
+                                                            </x-table.td>
+
                                                             <x-table.td>
                                                                 {{ format_currency($item->unit_price) }}
                                                             </x-table.td>
 
                                                             <x-table.td>
-                                                                {{ $item->quantity }}
+                                                                ${{ $item->product_discount_amount * $itemService->quantity }}
                                                             </x-table.td>
 
                                                             <x-table.td>
@@ -222,24 +228,28 @@
                                                             </x-table.td>
                                                         </x-table.tr>
                                                     @endforeach
-                                                    @foreach ($sale->saleDetailsService as $item)
+                                                    @foreach ($sale->saleDetailsService as $itemService)
                                                         <x-table.tr>
                                                             <x-table.td>
-                                                                {{ $item->name }} <br>
+                                                                {{ $itemService->name }} <br>
                                                                 <x-badge type="success">
-                                                                    {{ $item->code }}
+                                                                    {{ $itemService->code }}
                                                                 </x-badge>
                                                             </x-table.td>
                                                             <x-table.td>
-                                                                {{ format_currency($item->unit_price) }}
+                                                                {{ $itemService->quantity }}
                                                             </x-table.td>
 
                                                             <x-table.td>
-                                                                {{ $item->quantity }}
+                                                                {{ format_currency($itemService->unit_price) }}
                                                             </x-table.td>
 
                                                             <x-table.td>
-                                                                {{ format_currency($item->sub_total) }}
+                                                                ${{ $itemService->product_discount_amount * $itemService->quantity }}
+                                                            </x-table.td>
+
+                                                            <x-table.td>
+                                                                {{ format_currency($itemService->sub_total) }}
                                                             </x-table.td>
                                                         </x-table.tr>
                                                     @endforeach
@@ -292,4 +302,11 @@
             </x-modal>
         </x-slot>
     </x-modal>
+    <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-50" aria-hidden="true">
+        <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#00FFFF] to-[#FFA07A] opacity-10 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+
+        <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
+          <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#00FF00] to-[#9089fc] opacity-50 sm:left-[calc(60%+36rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+        </div>
+    </div>
 </div>

@@ -136,29 +136,29 @@
                         <tr>
                             <td colspan="2" style="text-align: left;">
                                 {{ $saleDetail->name }} <br>
-                                <small><strong>{{ format_currency($saleDetail->price) }}</strong></small>
+                                <small><strong>{{ format_currency($saleDetail->price) }}</strong> -${{ $saleDetail->product_discount_amount * $saleDetail->quantity }} </small>
                             </td>
                             <td colspan="2" style="text-align: right;">
                                 {{ $saleDetail->quantity }}
                             </td>
                         </tr>
                     @endforeach
-                    @foreach ($sale->saleDetailsService as $saleDetail)
+                    @foreach ($sale->saleDetailsService as $saleDetailService)
                         <tr>
                             <td colspan="2" style="text-align: left;">
-                                {{ $saleDetail->name }} 
+                                {{ $saleDetailService->name }} 
                                 <em>
-                                    {{ optional($saleDetail->customer)->name }}
-                                    @if($saleDetail->with_days)
-                                       - {{ implode(', ', $saleDetail->with_days) }}
+                                    {{ optional($saleDetailService->customer)->name }}
+                                    @if($saleDetailService->with_days)
+                                       - {{ implode(', ', $saleDetailService->with_days) }}
                                     @endif
                                 </em>
                                 <br>
 
-                                <small><strong>{{ format_currency($saleDetail->price) }}</strong></small>
+                                <small><strong>{{ format_currency($saleDetailService->price) }}</strong> -${{ $saleDetailService->product_discount_amount * $saleDetailService->quantity }} </small>
                             </td>
                             <td colspan="2" style="text-align: right;">
-                                {{ $saleDetail->quantity }}
+                                {{ $saleDetailService->quantity }}
                             </td>
                         </tr>
                     @endforeach

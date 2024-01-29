@@ -95,7 +95,9 @@ class Index extends Component
                 'order_column'    => $this->sortBy,
                 'order_direction' => $this->sortDirection,
             ])
-            ->where('service_id', 1)
+            ->whereHas('service', function($query) {
+                $query->where('service_type', 0);
+            })
             ->whereBetween('created_at', [$this->startDate, $this->endDate.' 23:59:59'])
             ;
 
