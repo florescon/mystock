@@ -19,21 +19,29 @@ class Profile extends Component
     public $user;
 
     public $name;
+    public $phone;
     public $email;
     public $image;
     public $password;
+    public $current_password;
+    public $password_confirmation;
 
     /** @var array */
-    protected $rules = [
-        'name'     => 'required|string|max:255',
-        'email'    => 'required|email|unique:users,email',
-        'password' => 'required|string|min:8',
-        'phone'    => 'required|numeric',
-    ];
+    public function rules()
+    {
+        return [ 
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email,'.Auth::user()->id,
+            'phone'    => 'required|numeric',
+        ];
+    }
 
     public function mount(): void
     {
         $this->user = User::find(Auth::user()->id);
+        $this->name = $this->user->name;
+        $this->email = $this->user->email;
+        $this->phone = $this->user->phone;
     }
 
     public function render()
@@ -48,6 +56,7 @@ class Profile extends Component
         auth()->user()->update([
             'name'  => $this->name,
             'email' => $this->email,
+            'phone' => $this->phone,
         ]);
 
         if (isset($this->image)) {
@@ -63,9 +72,15 @@ class Profile extends Component
     public function updatePassword()
     {
         $this->validate([
-            'current_password' => ['required', 'max:255', new MatchCurrentPassword()],
+            'current_password' => ['required', 'max:255'],
             'password'         => 'required|min:8|max:255|confirmed',
         ]);
+
+        if(!Hash::check($this->current_password, auth()->user()->password)){
+            $this->alert('error', __("Current Password Doesn't match"), ['position' => 'top']);
+
+            return;
+        }
 
         auth()->user()->update([
             'password' => Hash::make($this->password),

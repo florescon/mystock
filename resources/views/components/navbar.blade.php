@@ -66,10 +66,9 @@
                         @livewire('cache')
                     </x-dropdown-link> --}}
 
-
-                    {{-- <x-dropdown-link href="{{ route('profile.show') }}">
+                    <x-dropdown-link href="{{ route('profile.index') }}">
                         {{ __('Profile') }}
-                    </x-dropdown-link> --}}
+                    </x-dropdown-link>
 
                     <div class="border-t border-gray-100"></div>
 

@@ -9,7 +9,7 @@
         style="transition-property: width, transform; transition-duration: 150ms;"
         @mouseenter="handleSidebarHover(true)" @mouseleave="handleSidebarHover(false)"
 >
-    {{-- <x-sidebar.header /> --}}
+    <x-sidebar.header />
 
     <x-sidebar.content />
     
