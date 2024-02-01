@@ -122,7 +122,11 @@
     </x-table>
 
     <div class="px-6 py-3">
-        {{ $inscriptions->links() }}
+        {{ $inscriptions->onEachSide(1)->links() }}
+        @if($inscriptions->count() < $perPage && $page < 2)
+            Mostrando
+            {{ $inscriptions->total() }} resultados
+        @endif
     </div>
 
 
