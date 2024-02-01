@@ -9,7 +9,7 @@
         </x-slot>
         <x-table.tbody>
             @forelse ($languages as $language)
-                <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $language['id'] }}">
+                <x-table.tr  wire:key="row-{{ $language['id'] }}">
                     <x-table.td>#</x-table.td>
                     <x-table.td>{{ $language['name'] }}</x-table.td>
                     <x-table.td>

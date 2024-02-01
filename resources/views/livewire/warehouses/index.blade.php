@@ -49,7 +49,7 @@
         <x-table.tbody>
 
             @forelse($warehouses as $warehouse)
-                <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $warehouse->id }}">
+                <x-table.tr  wire:key="row-{{ $warehouse->id }}">
                     <x-table.td>
                         @if($warehouse->id != 1)
                             <input type="checkbox" value="{{ $warehouse->id }}" wire:model="selected">

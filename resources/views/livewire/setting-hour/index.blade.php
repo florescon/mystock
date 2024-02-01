@@ -45,7 +45,7 @@
         </x-slot>
         <x-table.tbody>
             @forelse ($hours as $hour)
-                <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $hour->id }}">
+                <x-table.tr  wire:key="row-{{ $hour->id }}">
                     {{-- <x-table.td class="pr-0">
                         <input type="checkbox" value="{{ $hour->id }}" wire:model="selected" />
                     </x-table.td> --}}

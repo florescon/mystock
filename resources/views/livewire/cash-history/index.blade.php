@@ -75,7 +75,7 @@
 
         <x-table.tbody>
             @forelse ($cashes as $cash)
-                <x-table.tr wire:loading.class.delay="opacity-50">
+                <x-table.tr >
                     <x-table.td>
                         #{{ $cash->id }}
                     </x-table.td>

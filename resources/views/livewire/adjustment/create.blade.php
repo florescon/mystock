@@ -26,7 +26,7 @@
                     </x-slot>
                     <x-table.tbody>
                         @foreach ($products as $key => $product)
-                            <x-table.tr wire:loading.class.delay="opacity-50">
+                            <x-table.tr >
                                 <x-table.td>{{ $key + 1 }}</x-table.td>
                                 <x-table.td>{{ $product['name'] ?? $product['product']['name'] }}
                                     <small>{{ $product['code'] ?? $product['product']['code'] }}</small>

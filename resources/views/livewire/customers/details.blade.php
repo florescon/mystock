@@ -125,7 +125,7 @@
 
                         <x-table.tbody>
                             @forelse ($this->sales as $sale)
-                                <x-table.tr wire:loading.class.delay="opacity-50">
+                                <x-table.tr >
                                     {{-- <x-table.td>
                                         <input type="checkbox" value="{{ $sale->id }}" wire:model="selected" />
                                     </x-table.td> --}}

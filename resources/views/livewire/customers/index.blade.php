@@ -48,7 +48,7 @@
         </x-slot>
         <x-table.tbody>
             @forelse ($customers as $customer)
-                <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $customer->id }}">
+                <x-table.tr  wire:key="row-{{ $customer->id }}">
                     <x-table.td class="pr-0">
                         <input type="checkbox" value="{{ $customer->id }}" wire:model="selected" />
                     </x-table.td>

@@ -46,7 +46,7 @@
 
         <x-table.tbody>
             @forelse($customergroups as $customergroup)
-                <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $customergroup->id }}">
+                <x-table.tr  wire:key="row-{{ $customergroup->id }}">
                     {{-- <x-table.td>
                         <input type="checkbox" value="{{ $customergroup->id }}" wire:model="selected">
                     </x-table.td> --}}

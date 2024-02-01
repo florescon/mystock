@@ -154,4 +154,19 @@ class Customer extends Model
     {
         return $this->lastInscription ?? '';
     }
+
+    public function getEmailAttribute()
+    {
+        return strtolower((string) $this->attributes['email']);
+    }
+
+    public function getNameAttribute()
+    {
+        return ucwords(strtolower((string) $this->attributes['name']));
+    }
+
+    public function getCityAttribute()
+    {
+        return ucwords(strtolower((string) $this->attributes['city']));
+    }
 }

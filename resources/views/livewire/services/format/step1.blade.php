@@ -45,7 +45,7 @@
 
                 <tbody>
                     @forelse($services as $service)
-                        <tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $service->id }}">
+                        <tr  wire:key="row-{{ $service->id }}">
                             <td class="pr-0">
                                 <input wire:model="selected" type="checkbox" value="{{ $service->id }}" />
                             </td>

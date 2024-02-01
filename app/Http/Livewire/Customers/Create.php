@@ -26,7 +26,7 @@ class Create extends Component
     protected $rules = [
         'customer.name'       => 'required|string|min:3|max:255',
         'customer.email'      => 'nullable|email|max:255',
-        'customer.phone'      => 'required|numeric',
+        'customer.phone'      => 'required|numeric|digits:10',
         'customer.city'       => 'nullable|min:3|max:255',
         'customer.country'    => 'nullable|min:3|max:255',
         'customer.address'    => 'nullable|max:255',

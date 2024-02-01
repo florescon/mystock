@@ -26,12 +26,18 @@ class Index extends Component
     public $startDate;
     public $endDate;
 
+    public $searchTerm = '';
+
+    public $sortField = 'created_at';
+    public $sortAsc = false;
+
     public $importModal = false;
 
     public $listsForFields = [];
 
     /** @var array<array<string>> */
     protected $queryString = [
+        'searchTerm' => ['except' => ''],
         'search' => [
             'except' => '',
         ],
@@ -85,21 +91,55 @@ class Index extends Component
         }
     }
 
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortAsc = ! $this->sortAsc;
+        } else {
+            $this->sortAsc = true;
+        }
+
+        $this->sortField = $field;
+    }
+
+    private function applySearchFilter($sales)
+    {
+        if ($this->searchTerm) {
+
+            return $sales->where(function($queryy) {
+                $queryy->whereHas('customer', function ($qu) {
+                    $qu->whereRaw("name LIKE \"%$this->searchTerm%\"");
+                })
+                ->orWhere('name', 'like', '%' . $this->searchTerm . '%')
+                ->orWhere('sub_total', 'like', '%' . $this->searchTerm . '%')
+                ->orWhere('sale_id', 'like', '%' . $this->searchTerm . '%');
+
+            });
+        }
+
+        return null;
+    }
+
+    public function updatedSearchTerm()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         // abort_if(Gate::denies('sale_access'), 403);
 
         $query = SaleDetailsService::with(['customer', 'service', 'sale'])
-            ->advancedFilter([
-                's'               => $this->search ?: null,
-                'order_column'    => $this->sortBy,
-                'order_direction' => $this->sortDirection,
-            ])
             ->whereHas('service', function($query) {
                 $query->where('service_type', 2);
             })
             ->whereBetween('created_at', [$this->startDate, $this->endDate.' 23:59:59'])
+            ->when($this->sortField, function ($que) {
+                $que->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+            })
             ;
+
+        $this->applySearchFilter($query);
 
         $inscriptions = $query->paginate($this->perPage);
 

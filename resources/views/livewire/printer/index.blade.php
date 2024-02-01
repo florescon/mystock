@@ -43,7 +43,7 @@
         </x-slot>
         <x-table.tbody>
             @forelse ($printers as $printer)
-                <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $printer->id }}">
+                <x-table.tr  wire:key="row-{{ $printer->id }}">
                     <x-table.td class="pr-0">
                         <x-input type="checkbox" class="rounded-tl rounded-bl" value="{{ $printer->id }}"
                             wire:model="selected" />

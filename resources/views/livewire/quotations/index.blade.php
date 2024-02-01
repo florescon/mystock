@@ -42,7 +42,7 @@
 
         <x-table.tbody>
             @forelse ($quotations as $quotation)
-                <x-table.tr wire:loading.class.delay="opacity-50">
+                <x-table.tr >
                     {{-- <x-table.td class="pr-0">
                         <input type="checkbox" value="{{ $quotation->id }}" wire:model="selected" />
                     </x-table.td> --}}
