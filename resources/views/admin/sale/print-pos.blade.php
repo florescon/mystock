@@ -152,6 +152,7 @@
                                     @if($saleDetailService->with_days)
                                        - {{ implode(', ', $saleDetailService->with_days) }}
                                     @endif
+                                    {{ $saleDetailService->hour ? '['.$saleDetailService->hour.']' : '' }}
                                 </em>
                                 <br>
 
