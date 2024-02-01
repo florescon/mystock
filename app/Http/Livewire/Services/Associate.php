@@ -80,6 +80,9 @@ class Associate extends Component
         $this->quantity = 1;
         $this->quantity_ = 1;
         $this->selectedDays = [];
+        $this->selectedDays_ = [];
+        $this->hour = null;
+        $this->hourSelected = null;
     }
 
     public function updatedCustomerIDSecond(?int $id = null)
@@ -99,8 +102,11 @@ class Associate extends Component
                 'min:1',
             ],
         ]);
+        $selectedDays = $service['with_days'] ? $this->selectedDays : [];
+        $hour = $service['with_days'] ? $this->hour : null;
+        $quantity = $service['with_input'] ? $this->quantity : 1; 
 
-        $this->emit('serviceSelected', [$service, null, $this->quantity, $this->selectedDays, $this->hour]);
+        $this->emit('serviceSelected', [$service, null, $quantity, $selectedDays, $hour]);
 
         $this->showCustomerAssociate = false;
     }
@@ -119,8 +125,12 @@ class Associate extends Component
             ],
         ]);
 
+        $selectedDays_ = $service['with_days'] ? $this->selectedDays_ : [];
+        $hourSelected = $service['with_days'] ? $this->hourSelected : null;
+        $quantity_ = $service['with_input'] ? $this->quantity_ : 1; 
+
         if($this->customerAssociate){
-            $this->emit('serviceSelected', [$service, $this->customerAssociate, $this->quantity_, $this->selectedDays_, $this->hourSelected]);
+            $this->emit('serviceSelected', [$service, $this->customerAssociate, $quantity_, $selectedDays_, $hourSelected]);
         }
 
         $this->showCustomerAssociate = false;
