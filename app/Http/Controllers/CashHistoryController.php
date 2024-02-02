@@ -15,6 +15,12 @@ class CashHistoryController extends Controller
         return view('admin.cashhistory.index');
     }
 
+    public function printShort(Cash $cash)
+    {
+        $cash->load('sale_payments.sale.customer');
+        return view('admin.cashhistory.printshort', compact('cash'));
+    }
+
     public function print(Cash $cash)
     {
         $cash->load('sales.customer', 'sale_payments.sale.customer');

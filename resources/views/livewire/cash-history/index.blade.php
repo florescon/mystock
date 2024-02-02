@@ -63,6 +63,9 @@
                 {{ __('Created By') }}
             </x-table.th>
             <x-table.th>
+                {{ __('Initial') }}
+            </x-table.th>
+            <x-table.th>
                 {{ __('Cash') }}
             </x-table.th>
             <x-table.th>
@@ -83,16 +86,30 @@
                         {{ $cash->user->name }}
                     </x-table.td>
                     <x-table.td>
+                        {{ $cash->initial }}
+                    </x-table.td>
+                    <x-table.td>
                         ${{  $cash->total_cash + $cash->total_incomes - $cash->total_expenses }}
                     </x-table.td>
                     <x-table.td>
                         ${{ $cash->total_other }}
                     </x-table.td>
                     <x-table.td>
-                        <x-button target="_blank" secondary class="d-print-none"
-                            href="{{ route('cash-history-print.index', $cash->id) }}">
-                            {{ __('Print') }}
-                        </x-button>
+                        @if($cash)
+                            @if($cash->is_processed)
+                                <x-button target="_blank" primary class="d-print-none"
+                                    href="{{ route('cash-history-print-short.index', $cash->id) }}">
+                                    {{ __('Print') }}
+                                </x-button>
+                                <x-button target="_blank" secondary class="d-print-none"
+                                    href="{{ route('cash-history-print.index', $cash->id) }}">
+                                    {{ __('Print Extended') }}
+                                </x-button>
+                            @else
+                                <p class="text-base text-blue-600/75">@lang('Pending to process') ...</p>
+                            @endif
+                        @endif
+
                     </x-table.td>
                 </x-table.tr>
             @empty

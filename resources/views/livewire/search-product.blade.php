@@ -33,11 +33,10 @@
                 <x-label for="showCount" :value="__('Product per page')" />
                 <select wire:model="showCount"
                     class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1">
-                    <option value="9">9</option>
-                    <option value="15">15</option>
-                    <option value="21">21</option>
-                    <option value="30">30</option>
-                    <option value="">{{ __('All') }}</option>
+                    <option value="12">12</option>
+                    <option value="16">16</option>
+                    <option value="20">20</option>
+                    <option value="28">28</option>
                 </select>
             </div>
 
@@ -51,7 +50,7 @@
                 @forelse($products as $product)
                     <div 
                         wire:click.prevent="selectProduct({{ $product }})"
-                        class="px-3 py-3 flex flex-col border border-red-400 rounded-md h-32 justify-between cursor-pointer">
+                        class="px-3 py-3 flex flex-col border-double border-4 border-red-300 rounded-md h-32 justify-between cursor-pointer">
                       <div>
                         @php
                             $warehouse = $product->warehouses->where('id', $warehouse_id)->first();

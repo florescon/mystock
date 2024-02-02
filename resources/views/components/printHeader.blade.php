@@ -71,7 +71,7 @@
             </td>
             @if (isset($sale))
                 <td style="padding:8px; border:1px solid #ddd; width:50%">
-                    {{ __('Reference') }}: {{ $sale->reference }}<br>
+                    {{ __('Reference') }}: #{{ $sale->id }} _ {{ $sale->reference }}<br>
                     {{ __('Date') }}: {{ format_date($sale->date) }}<br>
                     {{ __('Status') }}:
                     @php

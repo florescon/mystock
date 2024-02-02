@@ -118,7 +118,7 @@
                     {{ settings()->company_phone }} <br>
                     {{ settings()->company_address }} <br>
                     {{ __('Date') }}: {{ format_date($sale->date).' — '.now()->format('H:i') }}<br>
-                    {{ __('Reference') }}: {{ $sale->reference }}<br>
+                    {{ __('Reference') }}: #{{ $sale->id }} _ {{ $sale->reference }}<br>
                     {{ __('Name') }}: {{ $sale->customer->name }}
                 </p>
             </div>

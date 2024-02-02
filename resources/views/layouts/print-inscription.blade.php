@@ -114,7 +114,7 @@
                             </td>
                             
                             <td>
-                                <strong>Folio #:</strong> {{ $sale->id }}<br>
+                                <strong>Folio:</strong> #{{ $sale->id }}<br>
                                 <strong>Creado:</strong> {{ $sale->created_at }}<br>
                             </td>
                         </tr>

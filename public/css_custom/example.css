@@ -12,7 +12,7 @@ a {
 body {
   position: relative;
   width: 21cm;  
-  height: 29.7cm; 
+  height: 27cm; 
   margin: 0 auto; 
   color: #001028;
   background: #FFFFFF; 
@@ -87,7 +87,6 @@ table td {
 }
 
 table th {
-  padding: 5px 20px;
   color: #5D6975;
   border-bottom: 1px solid #C1CED9;
   white-space: nowrap;        
@@ -100,7 +99,6 @@ table .desc {
 }
 
 table td {
-  padding: 20px;
   text-align: right;
 }
 

@@ -8,21 +8,37 @@ use App\Models\Sale;
 use App\Models\SalePayment;
 use App\Models\Expense;
 use Illuminate\Support\Facades\Auth;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Index extends Component
 {
-    public $lastCash;
+    use LivewireAlert;
+
     public $startDate;
     public $endDate;
+
+    public $initial;
+
+    public $cash;
+    public $cashGet;
 
     /** @var array<string> */
     public $listeners = [
         'CheckOutCash',
+        'refreshIndex' => '$refresh',
+    ];
+
+    /** @var array */
+    protected $rules = [
+        'cashGet.initial'        => 'required|integer||min:1',
+        'cashGet.title' => 'nullable|string|min:3|max:255',
     ];
 
     public function mount(): void
     {
-        $this->lastCash = Cash::latest()->first();
+        $this->cash = Cash::latest()->first();
+
+        $this->cashGet = !optional($this->cash)->is_processed ? $this->cash : null; 
 
         $this->perPage = 25;
         $this->paginationOptions = config('project.pagination.options');
@@ -30,9 +46,36 @@ class Index extends Component
         $this->endDate = now()->endOfDay()->format('Y-m-d');
     }
 
+    public function saveInitialCash()
+    {
+        $this->validate();
+
+        $lastCash = Cash::latest()->first();
+
+        if(($lastCash == null) || ($lastCash->is_processed == true)){
+            Cash::create([
+                'initial'       => $this->cashGet['initial'], 
+                'title'       => $this->cashGet['title'] ?? '', 
+                'user_id'       => Auth::user()->id,
+            ]);
+        }
+        else{
+            $lastCash->update([
+                'initial' => $this->cashGet['initial'],
+                'title'       => $this->cashGet['title'] ?? '', 
+            ]);
+        }
+
+        $this->emit('refreshIndex');
+
+        $this->alert('success', __('Initial Cash updated successfully!'));
+    }
+
     public function CheckOutCash()
     {
-        $cash = Cash::create([
+        $lastCash = Cash::latest()->first();
+
+        $lastCash::update([
             'user_id'             => Auth::user()->id,
         ]);
 
@@ -82,6 +125,8 @@ class Index extends Component
 
         $totalCash = $currentSalePaymentCash + $incomesCash - $expensesCash;
 
-    return view('livewire.cash.index', compact('salesCash', 'salesOutCash', 'expenses', 'incomes', 'totalCash', 'currentSaleOutPaymentCash'));
+        $lastCash = Cash::latest()->first();
+
+        return view('livewire.cash.index', compact('salesCash', 'salesOutCash', 'expenses', 'incomes', 'totalCash', 'currentSaleOutPaymentCash', 'lastCash'));
     }
 }

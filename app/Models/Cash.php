@@ -89,4 +89,9 @@ class Cash extends Model
         });
     }
 
+    public function getInitialAttribute()
+    {
+        return (integer) $this->attributes['initial'];
+    }
+
 }

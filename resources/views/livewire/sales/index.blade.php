@@ -89,7 +89,7 @@
                         <input type="checkbox" value="{{ $sale->id }}" wire:model="selected" />
                     </x-table.td> --}}
                     <x-table.td>
-                        {{ $sale->reference }}
+                        #{{ $sale->id }} _ {{ $sale->reference }}
                     </x-table.td>
                     <x-table.td>
                         {{ format_date($sale->date) }}

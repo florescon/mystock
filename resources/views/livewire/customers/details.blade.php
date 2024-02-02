@@ -130,7 +130,7 @@
                                         <input type="checkbox" value="{{ $sale->id }}" wire:model="selected" />
                                     </x-table.td> --}}
                                     <x-table.td>
-                                        {{ $sale->reference }}
+                                        #{{ $sale->id }} _ {{ $sale->reference }}
                                     </x-table.td>
                                     <x-table.td>
                                         {{ $sale->date }}
@@ -197,7 +197,7 @@
                             @forelse ($customerPayment->salepayments as $salepayment)
                                 <x-table.tr>
                                     <x-table.td>{{ $salepayment->created_at }}</x-table.td>
-                                    <x-table.td>{{ $salepayment->sale->reference }}</x-table.td>
+                                    <x-table.td>#{{ $salepayment->sale->id }} _ {{ $salepayment->sale->reference }}</x-table.td>
                                     <x-table.td>
                                         {{ format_currency($salepayment->amount) }}
                                     </x-table.td>

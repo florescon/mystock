@@ -25,7 +25,7 @@ class SearchProduct extends Component
 
     public $search_results;
 
-    public $showCount = 9;
+    public $showCount = 12;
 
     public $featured = false;
 
@@ -35,7 +35,7 @@ class SearchProduct extends Component
     protected $queryString = [
         'query'       => ['except' => ''],
         'category_id' => ['except' => null],
-        'showCount'   => ['except' => 9],
+        'showCount'   => ['except' => 12],
     ];
 
     public function loadMore()
