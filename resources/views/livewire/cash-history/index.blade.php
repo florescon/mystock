@@ -72,6 +72,9 @@
                 {{ __('Another Payment Methods') }}
             </x-table.th>
             <x-table.th>
+                {{ __('Created At') }}
+            </x-table.th>
+            <x-table.th>
                 {{ __('Actions') }}
             </x-table.th>
         </x-slot>
@@ -86,13 +89,16 @@
                         {{ $cash->user->name }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $cash->initial }}
+                        ${{ $cash->initial }}
                     </x-table.td>
                     <x-table.td>
                         ${{  $cash->total_cash + $cash->total_incomes - $cash->total_expenses }}
                     </x-table.td>
                     <x-table.td>
                         ${{ $cash->total_other }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $cash->created_at }}
                     </x-table.td>
                     <x-table.td>
                         @if($cash)
@@ -159,29 +165,5 @@
             </form>
         </x-slot>
     </x-modal>
-
-    @pushOnce('scripts')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
-            integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    @endPushOnce
-    
-    @push('scripts')
-        <script>
-            function printContent() {
-                const content = document.getElementById("printable-content");
-                html2canvas(content).then(canvas => {
-                    const printWindow = window.open('', '',
-                        'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
-                    const printDocument = printWindow.document;
-                    printDocument.body.appendChild(canvas);
-                    canvas.onload = function() {
-                        printWindow.print();
-                        printWindow.close();
-                    };
-                });
-            }
-        </script>
-    @endpush
 
 </div>

@@ -158,7 +158,7 @@
             <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-2">
               <div class="mx-auto flex max-w-xs flex-col gap-y-6">
                 <dt class="text-base leading-7 text-gray-600">@lang('Cash')</dt>
-                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">${{ format_currency($totalCash + optional($lastCash)->initial) }}</dd>
+                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">${{ format_currency($totalCash + (!$lastCash->is_processed ? optional($lastCash)->initial : 0)   ) }}</dd>
               </div>
               <div class="mx-auto flex max-w-xs flex-col gap-y-6">
                 <dt class="text-base leading-7 text-gray-600">@lang('Another Payment Methods')</dt>

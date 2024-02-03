@@ -34,6 +34,11 @@ class Index extends Component
         'cashGet.title' => 'nullable|string|min:3|max:255',
     ];
 
+    protected $messages = [
+        'cashGet.initial'        => 'Verifique el corte inicial. No decimales, deben ser enteros y no letras. Min: 1',
+        'cashGet.title' => 'Verifique el título. Mín 3 caracteres.',
+    ];
+ 
     public function mount(): void
     {
         $this->cash = Cash::latest()->first();
@@ -75,23 +80,24 @@ class Index extends Component
     {
         $lastCash = Cash::latest()->first();
 
-        $lastCash::update([
+        $lastCash->update([
             'user_id'             => Auth::user()->id,
+            'is_processed'        => true,
         ]);
 
         $sales = Sale::query()->withoutCash()->get();
         foreach($sales as $sale){
-            $sale->update(['cash_id' => $cash->id]);
+            $sale->update(['cash_id' => $lastCash->id]);
         }
 
         $salesPayment = SalePayment::query()->withoutCash()->get();
         foreach($salesPayment as $SalePayment){
-            $SalePayment->update(['cash_id' => $cash->id]);
+            $SalePayment->update(['cash_id' => $lastCash->id]);
         }
 
         $finances = Expense::query()->withoutCash()->get();
         foreach($finances as $finance){
-            $finance->update(['cash_id' => $cash->id]);
+            $finance->update(['cash_id' => $lastCash->id]);
         }
 
         return redirect()->route('cash.index');

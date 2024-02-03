@@ -36,6 +36,7 @@ class Cash extends Model
         'initial',
         'start',
         'end',
+        'is_processed',
     ];
 
     public function user(): BelongsTo

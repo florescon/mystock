@@ -235,7 +235,8 @@
     </div>
 
     @pushOnce('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        {{-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> --}}
+        <script src="{{ asset('js_custom/apexcharts.js') }}"></script>
     @endPushOnce
 
     @push('scripts')

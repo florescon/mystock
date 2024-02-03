@@ -1,7 +1,7 @@
 @section('title', __('Edit Settings'))
 
 @section('style')
-    <link href='https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="{{ asset('css_custom/froala_editor.pkgd.min.css') }}">
 @endsection
 
 @section('breadcrumb')
@@ -48,7 +48,7 @@
 
 
 @section('scripts')
-    <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>
+    <script src="{{ asset('js_custom/froala_editor.pkgd.min.js') }}"></script>
 @endsection
 
 <x-app-layout>
