@@ -174,7 +174,9 @@ class Associate extends Component
             'order_direction' => $this->sortDirection,
         ]);
 
-        $hours = SettingHour::orderBy('is_am', 'DESC')->orderBy('hour', 'ASC')->get();
+        $hours = SettingHour::get();
+
+        $hours = $hours->sortBy([ ['is_am', 'desc'], ['hour', 'asc'] ]);
 
         $services = $query->paginate($this->perPage);
 

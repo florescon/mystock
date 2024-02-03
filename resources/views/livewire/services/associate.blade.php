@@ -5,7 +5,7 @@
         </x-slot>
 
         <x-slot name="content">
-            <div class="flex flex-wrap justify-center">
+            <div class="flex flex-wrap justify-center bg-[url('images/tinypng.png')] rounded-md">
                 <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-wrap my-2">
                     <select wire:model="perPage"
                         class="w-20 border border-gray-300 rounded-md shadow-sm py-2 px-4 bg-white text-sm leading-5 font-medium text-gray-700 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out">
@@ -29,14 +29,14 @@
                         </p>
                     @endif
                 </div>
-                <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2">
+                <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 pr-6">
                     <div class="my-2">
                         <x-input wire:model.debounce.500ms="search" placeholder="{{ __('Search') }}" autofocus />
                     </div>
                 </div>
             </div>
 
-            <section class="text-gray-700 body-font">
+            <section class="text-gray-700 body-font ">
               <div class="container px-5 py-16 mx-auto">
                 <div class="flex flex-wrap -m-4 text-center">
                 @forelse($services as $service)
@@ -95,7 +95,7 @@
                                         </div>
                                       <h1 class="mt-2 text-center text-2xl font-bold text-gray-500">Mismo cliente</h1>
                                       <p class="my-4 text-center text-sm text-gray-500">Mismo comprador se le asigna el servicio</p>
-                                      <div class="space-x-4 bg-gray-100 py-4 text-center">
+                                      <div class="space-x-4 bg-gray-100 pb-4 text-center">
 
                                         @if($serviceAssociate?->with_input)
                                             <div class="md:w-full sm:w-full px-14 pb-4">
@@ -107,7 +107,7 @@
 
                                         @if($serviceAssociate?->with_days)
 
-                                            <div class='flex items-center justify-center from-cyan-100 via-pink-200 to-yellow-200 bg-gradient-to-br mb-4 py-4'>
+                                            <div class="flex items-center justify-center bg-[url('images/gradient.png')] rounded-md mb-4 py-4">
                                                 <div class="flex items-center max-w-md mx-auto bg-white rounded-lg " >
                                                     <div class="w-full">
                                                       <div class="flex">
@@ -115,10 +115,11 @@
                                                         <select name="hour" wire:model="hour" class="bg-transparent text-xl appearance-none outline-none">
                                                             <option value="" class="text-center">{{ __('Select Hour') }}</option>
                                                             @foreach ($hours as $hour)
-                                                                <option
-                                                                    value="{{ $hour->full_label }}">{{ $hour->hour.' '.$hour->label_is_am }}</option>
+                                                                <option class="{{ $hour->is_am ? 'text-blue-600' : 'text-red-400' }}"
+                                                                    value="{{ $hour->full_label }}">
+                                                                        {{ $hour->hour.' '.$hour->label_is_am }}
+                                                                </option>
                                                             @endforeach
-
                                                         </select>
                                                       </div>
                                                     </div>
@@ -150,7 +151,7 @@
                                         <div class="flex items-center justify-center text-4xl my-6">
                                             <i class="fa-solid fa-users"></i>
                                         </div>
-                                        <div class="mx-4 text-center py-4 ">
+                                        <div class="mx-4 text-center pb-4 ">
 
                                             <livewire:components.select-customer-second
                                                 name="customerAssociate"
@@ -177,15 +178,17 @@
 
                                             @if($serviceAssociate?->with_days)
 
-                                                <div class='flex items-center justify-center from-cyan-100 via-pink-200 to-yellow-200 bg-gradient-to-br mb-4 py-4'>
+                                                <div class="flex items-center justify-center bg-[url('images/gradient.png')] rounded-md mb-4 py-4">
                                                     <div class="flex items-center max-w-md mx-auto bg-white rounded-lg " >
                                                         <div class="w-full">
                                                           <div class="flex">
                                                             <select name="hourSelected" wire:model="hourSelected" class="bg-transparent text-xl appearance-none outline-none">
                                                                 <option value="" class="text-center">{{ __('Select Hour') }}</option>
                                                                 @foreach ($hours as $hour)
-                                                                    <option
-                                                                        value="{{ $hour->full_label }}">{{ $hour->hour.' '.$hour->label_is_am }}</option>
+                                                                    <option class="{{ $hour->is_am ? 'text-blue-600' : 'text-red-400' }}"
+                                                                        value="{{ $hour->full_label }}">
+                                                                            {{ $hour->hour.' '.$hour->label_is_am }}
+                                                                    </option>
                                                                 @endforeach
 
                                                             </select>
