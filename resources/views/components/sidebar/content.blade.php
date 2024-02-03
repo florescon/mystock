@@ -181,7 +181,7 @@
         </x-sidebar.dropdown>
     @endcan
 
-    @can('user_access')
+    @canany(['user_access', 'customer_access', 'suppliers_access', 'access_roles', 'access_permissions'])
         <x-sidebar.dropdown title="{{ __('People') }}" :active="request()->routeIs('customers.*') ||
             request()->routeIs('customer-group.*') ||
             request()->routeIs('suppliers.*') ||
@@ -193,7 +193,10 @@
                     <i class="fas fa-users w-5 h-5"></i>
                 </span>
             </x-slot>
-            <x-sidebar.sublink title="{{ __('Users') }}" href="{{ route('users.index') }}" :active="request()->routeIs('users.index')" />
+
+            @can('user_access')
+                <x-sidebar.sublink title="{{ __('Users') }}" href="{{ route('users.index') }}" :active="request()->routeIs('users.index')" />
+            @endcan
             @can('customer_access')
                 <x-sidebar.sublink title="{{ __('Customers') }}" href="{{ route('customers.index') }}" :active="request()->routeIs('customers.index')" />
             @endcan
@@ -211,7 +214,7 @@
                     :active="request()->routeIs('permissions.index')" />
             @endcan
         </x-sidebar.dropdown>
-    @endcan
+    @endcanany
     @can('access_settings')
         <x-sidebar.dropdown title="{{ __('Settings') }}" :active="request()->routeIs([
             'settings.index',
