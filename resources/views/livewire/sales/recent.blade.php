@@ -15,7 +15,7 @@
                 </div>
                 <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2">
                     <div class="my-2">
-                        <x-input wire:model.debounce.500ms="search" placeholder="{{ __('Search') }}" autofocus />
+                        <x-input wire:model.debounce.500ms="searchTerm" placeholder="{{ __('Search') }}" autofocus />
                     </div>
                 </div>
             </div>
@@ -23,24 +23,24 @@
                 <x-table>
                     <x-slot name="thead">
                         <x-table.th>
-                            <input type="checkbox" wire:model="selectPage" />
+                            ID
                         </x-table.th>
-                        <x-table.th sortable multi-column wire:click="sortBy('date')" :direction="$sorts['date'] ?? null">
+                        <x-table.th sortable multi-column wire:click="sortField('date')" :direction="$sorts['date'] ?? null">
                             {{ __('Date') }}
                         </x-table.th>
-                        <x-table.th sortable multi-column wire:click="sortBy('customer_id')" :direction="$sorts['customer_id'] ?? null">
+                        <x-table.th sortable multi-column wire:click="sortField('customer_id')" :direction="$sorts['customer_id'] ?? null">
                             {{ __('Customer') }}
                         </x-table.th>
-                        <x-table.th sortable multi-column wire:click="sortBy('payment_status')" :direction="$sorts['payment_status'] ?? null">
+                        <x-table.th sortable multi-column wire:click="sortField('payment_status')" :direction="$sorts['payment_status'] ?? null">
                             {{ __('Payment status') }}
                         </x-table.th>
-                        <x-table.th sortable multi-column wire:click="sortBy('due_amount')" :direction="$sorts['due_amount'] ?? null">
+                        <x-table.th sortable multi-column wire:click="sortField('due_amount')" :direction="$sorts['due_amount'] ?? null">
                             {{ __('Due Amount') }}
                         </x-table.th>
-                        <x-table.th sortable multi-column wire:click="sortBy('total')" :direction="$sorts['total'] ?? null">
+                        <x-table.th sortable multi-column wire:click="sortField('total')" :direction="$sorts['total'] ?? null">
                             {{ __('Total') }}
                         </x-table.th>
-                        <x-table.th sortable multi-column wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">
+                        <x-table.th sortable multi-column wire:click="sortField('status')" :direction="$sorts['status'] ?? null">
                             {{ __('Status') }}
                         </x-table.th>
                         <x-table.th>
@@ -52,7 +52,7 @@
                         @forelse ($sales as $saleRecent)
                             <x-table.tr >
                                 <x-table.td class="pr-0">
-                                    <input type="checkbox" value="{{ $saleRecent->id }}" wire:model="selected" />
+                                    #{{  $saleRecent->id }} _ {{ $saleRecent->reference }}
                                 </x-table.td>
                                 <x-table.td>
                                     {{ $saleRecent->date }}

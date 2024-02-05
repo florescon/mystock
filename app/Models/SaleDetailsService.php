@@ -80,6 +80,22 @@ class SaleDetailsService extends Model
         return $this->product_discount_amount ? '('.$this->discount_type . $this->product_discount_amount.')' : '';
     }
 
+    public function getInscriptionExpirationAttribute()
+    {
+        return $this->created_at->addYear();
+    }
+
+    public function getInscriptionRemainingAttribute()
+    {
+        if ($this->created_at) {
+            $remaining_days = now()->diffInDays($this->inscription_expiration, false);
+        } else {
+            $remaining_days = 0;
+        }
+
+        return $remaining_days;
+    }
+
     public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class, 'service_id', 'id');

@@ -1,10 +1,9 @@
 <div>
-    
     <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md mb-3" role="alert">
       <div class="flex">
         <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
         <div>
-          <p class="font-bold">Inscripciones por defecto <u>un año</u> anterior a la fecha de hoy</p>
+          <p class="font-bold">Otros Servicios por defecto <u>año {{ now()->year }}</u> </p>
         </div>
       </div>
     </div>
@@ -68,48 +67,36 @@
             <x-table.th sortable wire:click="sortBy('sale_id')">
                 {{ __('Sale') }}
             </x-table.th>
-            <x-table.th>
-                {{ __('Remaining') }}
-            </x-table.th>
-            <x-table.th>
-                {{ __('Expiration') }}
-            </x-table.th>
             <x-table.th sortable wire:click="sortBy('created_at')">
-                {{ __('Created At') }}
+                {{ __('Date') }}
             </x-table.th>
         </x-slot>
 
         <x-table.tbody>
-            @forelse ($inscriptions as $inscription)
+            @forelse ($inscriptions as $monthlie)
                 <x-table.tr >
                     <x-table.td>
-                        {{ $inscription->name }}
+                        {{ $monthlie->name }}
                     </x-table.td>
                     <x-table.td>
-                        {{ optional($inscription->customer)->name }}
+                        {{ optional($monthlie->customer)->name }}
                     </x-table.td>
                     <x-table.td>
-                        $ {{ $inscription->product_discount_amount * $inscription->quantity }}
+                        $ {{ $monthlie->product_discount_amount * $monthlie->quantity }}
                     </x-table.td>
                     <x-table.td>
-                        $ <p class="text-blue-600/100 inline-block">{{ $inscription->sub_total }}</p>
+                        $ <p class="text-blue-600/100 inline-block">{{ $monthlie->sub_total }}</p>
                     </x-table.td>
                     <x-table.td>
-                        #{{ optional($inscription->sale)->id }}
+                        #{{ optional($monthlie->sale)->id.' _ '.optional($monthlie->sale)->reference }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $inscription->inscription_remaining }}
-                    </x-table.td>
-                    <x-table.td>
-                        {{ $inscription->inscription_expiration }}
-                    </x-table.td>
-                    <x-table.td>
-                        {{ $inscription->created_at }}
+                        {{ $monthlie->created_at }}
                     </x-table.td>
                 </x-table.tr>
             @empty
                 <x-table.tr>
-                    <x-table.td colspan="6">
+                    <x-table.td colspan="8">
                         <div class="flex justify-center items-center">
                             <i class="fas fa-box-open text-4xl text-gray-400"></i>
                             {{ __('No results found') }}
@@ -121,7 +108,7 @@
     </x-table>
 
     <div class="px-6 py-3">
-        {{ $inscriptions->links() }}
+        {{ $inscriptions->onEachSide(1)->links() }}
         @if($inscriptions->count() < $perPage && $page < 2)
             Mostrando
             {{ $inscriptions->total() }} resultados

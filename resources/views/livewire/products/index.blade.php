@@ -189,13 +189,15 @@
         </div>
     </div>
 
-    <!-- Show Modal -->
-    @livewire('products.show', ['product' => $product], key('show-modal-' . $product?->id))
-    <!-- End Show Modal -->
+    @if($product?->id)
+        <!-- Show Modal -->
+        @livewire('products.show', ['product' => $product], key('show-modal-' . $product?->id))
+        <!-- End Show Modal -->
 
-    <!-- Edit Modal -->
-    @livewire('products.edit', ['product' => $product], key('edit-modal-' . $product?->id))
-    <!-- End Edit Modal -->
+        <!-- Edit Modal -->
+        @livewire('products.edit', ['product' => $product], key('edit-modal-' . $product?->id))
+        <!-- End Edit Modal -->
+    @endif
 
     <livewire:products.create />
 

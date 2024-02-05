@@ -33,4 +33,9 @@ class ServiceController extends Controller
     {
         return view('admin.service.services-free-swim-index');
     }
+
+    public function other()
+    {
+        return view('admin.service.services-other-index');
+    }
 }

@@ -1,42 +1,40 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App\Http\Livewire\Sales;
+namespace App\Http\Livewire\OtherServices;
 
 use App\Http\Livewire\WithSorting;
-use App\Models\Sale;
+use App\Models\SaleDetailsService;
 use App\Traits\Datatable;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
-class Recent extends Component
+class Index extends Component
 {
     use WithPagination;
     use WithSorting;
-    use WithFileUploads;
     use LivewireAlert;
     use Datatable;
 
-    public $sale;
 
     /** @var array<string> */
     public $listeners = [
-        'recentSales', 'showModal',
+        'importModal',   'delete',
         'refreshIndex' => '$refresh',
     ];
 
-    public $showModal = false;
+    public $startDate;
+    public $endDate;
 
     public $searchTerm = '';
 
     public $sortField = 'created_at';
     public $sortAsc = false;
 
-    public $recentSales;
+    public $variable = 'docs';
+
+    public $importModal = false;
 
     public $listsForFields = [];
 
@@ -58,9 +56,21 @@ class Recent extends Component
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
-        $this->perPage = 10;
+        $this->perPage = 25;
         $this->paginationOptions = config('project.pagination.options');
-        $this->orderable = (new Sale())->orderable;
+        $this->orderable = (new SaleDetailsService())->orderable;
+        $this->startDate = now()->startOfYear()->format('Y-m-d');
+        $this->endDate = now()->endOfDay()->format('Y-m-d');
+    }
+
+    public function updatedStartDate($value)
+    {
+        $this->startDate = $value;
+    }
+
+    public function updatedEndDate($value)
+    {
+        $this->endDate = $value;
     }
 
     public function filterByType($type)
@@ -103,10 +113,11 @@ class Recent extends Component
                 $queryy->whereHas('customer', function ($qu) {
                     $qu->whereRaw("name LIKE \"%$this->searchTerm%\"");
                 })
-                ->orWhere('id', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('reference', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('total_amount', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('note', 'like', '%' . $this->searchTerm . '%');
+                ->orWhere('name', 'like', '%' . $this->searchTerm . '%')
+                ->orWhere('with_days', 'like', '%' . $this->searchTerm . '%')
+                ->orWhere('hour', 'like', '%' . $this->searchTerm . '%')
+                ->orWhere('sub_total', 'like', '%' . $this->searchTerm . '%')
+                ->orWhere('sale_id', 'like', '%' . $this->searchTerm . '%');
 
             });
         }
@@ -121,35 +132,22 @@ class Recent extends Component
 
     public function render()
     {
-        abort_if(Gate::denies('sale_access'), 403);
+        // abort_if(Gate::denies('sale_access'), 403);
 
-        $query = Sale::with('customer', 'saleDetails', 'saleDetailsService')
+        $query = SaleDetailsService::with(['customer', 'service', 'sale'])
+            ->whereHas('service', function($query) {
+                $query->where('service_type', 3);
+            })
+            ->whereBetween('created_at', [$this->startDate, $this->endDate.' 23:59:59'])
             ->when($this->sortField, function ($que) {
                 $que->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             })
-        ;
+            ;
 
-       $this->applySearchFilter($query);
+        $this->applySearchFilter($query);
 
-        $sales = $query->paginate($this->perPage);
+        $inscriptions = $query->paginate($this->perPage);
 
-        return view('livewire.sales.recent', compact('sales'));
-    }
-
-    public function showModal($id)
-    {
-        abort_if(Gate::denies('sale_access'), 403);
-
-        $this->sale = Sale::with('saleDetails')->findOrFail($id);
-
-        $this->showModal = true;
-    }
-
-    public function recentSales()
-    {
-        abort_if(Gate::denies('sale_access'), 403);
-
-        $this->showModal = false;
-        $this->recentSales = true;
+        return view('livewire.other-services.index', compact('inscriptions'));
     }
 }
