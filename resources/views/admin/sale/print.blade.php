@@ -22,6 +22,34 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php($totalsaleDetailsTax = 0)
+                    @foreach ($sale->saleDetailsTax as $saleDetailsTax)
+                        <tr>
+                            <td class="align-middle">
+                                Comisión Uso Tarjeta
+                            </td>
+
+                            <td class="align-middle">{{ format_currency($saleDetailsTax->tax) }}</td>
+
+                            <td class="align-middle">
+                                1
+                            </td>
+
+                            <td class="align-middle">
+                                --
+                            </td>
+
+                            <td class="align-middle">
+                                --
+                            </td>
+
+                            <td class="align-middle">
+                                {{ format_currency($saleDetailsTax->tax) }}
+                            </td>
+                        </tr>
+                        @php($totalsaleDetailsTax += $saleDetailsTax->tax)
+                    @endforeach
+
                     @foreach ($sale->saleDetails as $item)
                         <tr>
                             <td class="align-middle">
@@ -108,7 +136,7 @@
                         <tr>
                             <td class="left"><strong>{{ __('Grand Total') }}</strong></td>
                             <td class="right">
-                                <strong>{{ format_currency($sale->total_amount) }}</strong>
+                                <strong>{{ format_currency($sale->total_amount_with_tax) }}</strong>
                             </td>
                         </tr>
                     </tbody>

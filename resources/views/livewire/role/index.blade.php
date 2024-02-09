@@ -57,10 +57,10 @@
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
-                            <x-button danger type="button" wire:click="delete({{ $role->id }})"
+                            {{-- <x-button danger type="button" wire:click="delete({{ $role->id }})"
                                 type="button" wire:loading.attr="disabled">
                                 <i class="fas fa-trash"></i>
-                            </x-button>
+                            </x-button> --}}
                         </div>
                     </x-table.td>
                 </x-table.tr>

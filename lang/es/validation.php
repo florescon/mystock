@@ -233,6 +233,7 @@ return [
         'customerAssociate' => 'cliente',
         'paid_with' => 'pago con',
         'paid_cash' => 'pago en efectivo',
+        'selectedDays' => 'días seleccionados',
     ],
 
 ];

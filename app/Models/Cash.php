@@ -49,17 +49,17 @@ class Cash extends Model
 
     public function sales(): HasMany
     {
-        return $this->hasMany(Sale::class, 'cash_id', 'id');
+        return $this->hasMany(Sale::class, 'cash_id', 'id')->withTrashed();
     }
 
     public function sale_payments(): HasMany
     {
-        return $this->hasMany(SalePayment::class, 'cash_id', 'id');
+        return $this->hasMany(SalePayment::class, 'cash_id', 'id')->withTrashed();
     }
 
     public function expenses(): HasMany
     {
-        return $this->hasMany(Expense::class, 'cash_id', 'id');
+        return $this->hasMany(Expense::class, 'cash_id', 'id')->withTrashed();
     }
 
     public function getTotalExpensesAttribute()

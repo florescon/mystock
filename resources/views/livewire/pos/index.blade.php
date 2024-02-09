@@ -132,6 +132,17 @@
                                             name="paid_amount" required>
                                         <x-input-error :messages="$errors->get('paid_amount')" for="paid_amount" class="mt-2" />
 
+                                        @if($payment_method === 'Card')
+                                            <x-label for="total_with_tax" :value="__('Total with Tax')" />
+                                            <input id="total_with_tax" type="text" wire:model="total_with_tax"
+                                                class="bg-gray-100 text-dark block w-full text-center shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
+                                                name="total_with_tax" disabled>
+                                            <x-input-error :messages="$errors->get('total_with_tax')" for="total_with_tax" class="mt-2" />
+                                        @endif
+
+                                        {{-- @json($total_with_tax) --}}
+                                        {{-- <br> --}}
+                                        {{-- @json($tax_card) --}}
                                     </div>
                                   </div>
                                 </section>
@@ -186,42 +197,42 @@
                             </x-table.tr>
                         </x-table-responsive>
 
-                            <div class="mb-4 w-full px-2">
-                                <x-label for="note" :value="__('Note')" />
-                                <textarea name="note" id="note" rows="5" wire:model.lazy="note"
-                                    class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"></textarea>
-                                <x-input-error :messages="$errors->get('note')" for="note" class="mt-2" />
-                            </div>
-
-                            <div class="w-full px-2 text-center">
-                                <x-label for="difference" :value="__('Difference')" required />
-                                    @if(($total_amount == ((float) $paid_amount + (float)$paid_cash)) && ($difference == 0))
-                                        <p class="text-center text-blue-600">@lang('Covered payment') <i class="fa-solid fa-check-double text-green-500"></i> </p>
-                                    @else
-                                        <p class="text-center">{{ $difference }}</p>
-                                    @endif
-                            </div>
-
-
-                    <div x-data="{ open : false }" class="w-96 rounded border bg-white p-4 shadow ml-4">
-                        <div x-show="!open" class="flex items-center justify-between">
-                            <div class="ml-2">¿Realmente desea procesar?</div>
-                            <button type="button" class="btn rounded bg-gray-200 px-4 py-2 font-medium hover:bg-gray-300" @click="open = !open">Procesar</button>
+                        <div class="mb-4 w-full px-2">
+                            <x-label for="note" :value="__('Note')" />
+                            <textarea name="note" id="note" rows="5" wire:model.lazy="note"
+                                class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"></textarea>
+                            <x-input-error :messages="$errors->get('note')" for="note" class="mt-2" />
                         </div>
 
-                        <!-- container after clicked "EDIT" -->
-                        <div x-show="open" class="flex items-center justify-between">
-                            <p>
-                                Sí, procesar
-                            </p>
+                        <div class="w-full px-2 text-center">
+                            <x-label for="difference" :value="__('Difference')" required />
+                                @if(($total_amount == ((float) $paid_amount + (float)$paid_cash)) && ($difference == 0))
+                                    <p class="text-center text-blue-600">@lang('Covered payment') <i class="fa-solid fa-check-double text-green-500"></i> </p>
+                                @else
+                                    <p class="text-center">{{ $difference }}</p>
+                                @endif
+                        </div>
 
-                            <div class="flex items-center justify-center space-x-2">
 
-                                <x-button primary type="submit" class="mr-3" wire:loading.attr="disabled">{{ __('Submit') }}</x-button>
-                                <button type="button" @click="open = false" class="btn rounded bg-gray-200 px-4 py-2 font-medium hover:bg-gray-300">Cancel</button>
+                        <div x-data="{ open : false }" class="w-96 rounded border bg-white p-4 shadow ml-4">
+                            <div x-show="!open" class="flex items-center justify-between">
+                                <div class="ml-2">¿Realmente desea procesar?</div>
+                                <button type="button" class="btn rounded bg-gray-200 px-4 py-2 font-medium hover:bg-gray-300" @click="open = !open">Procesar</button>
+                            </div>
+
+                            <!-- container after clicked "EDIT" -->
+                            <div x-show="open" class="flex items-center justify-between">
+                                <p>
+                                    Sí, procesar
+                                </p>
+
+                                <div class="flex items-center justify-center space-x-2">
+
+                                    <x-button primary type="submit" class="mr-3" wire:loading.attr="disabled">{{ __('Submit') }}</x-button>
+                                    <button type="button" @click="open = false" class="btn rounded bg-gray-200 px-4 py-2 font-medium hover:bg-gray-300">Cancel</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
                     </div>
                 </div>

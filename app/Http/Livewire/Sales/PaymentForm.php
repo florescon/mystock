@@ -8,6 +8,7 @@ use App\Enums\PaymentStatus;
 use App\Enums\SaleStatus;
 use App\Models\Sale;
 use App\Models\SalePayment;
+use App\Models\SaleDetailsTax;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -70,7 +71,7 @@ class PaymentForm extends Component
         try {
             $this->validate();
 
-            SalePayment::create([
+            $salePayment = SalePayment::create([
                 'date'           => $this->date,
                 'amount'         => $this->amount,
                 'note'           => $this->note,
@@ -79,6 +80,16 @@ class PaymentForm extends Component
                 'user_id'        => Auth::user()->id,
             ]);
 
+            if($this->payment_method === 'Card'){
+                $tax_card = (float)$this->amount > 1 ? ( ( settings()->tax_credit /100) * (float)$this->amount ) : 0;
+
+                SaleDetailsTax::create([
+                    'sale_id'           => $this->sale_id,
+                    'sale_payment_id'   => $salePayment->id ?? null,
+                    'tax'               => $tax_card,
+                    'tax_percentage'    => (float) settings()->tax_credit,
+                ]);
+            }
             $sale = Sale::findOrFail($this->sale_id);
 
             $due_amount = $sale->due_amount - $this->amount;

@@ -149,7 +149,7 @@
                                     </x-table.td>
 
                                     <x-table.td>
-                                        {{ format_currency($sale->total_amount) }}
+                                        {{ format_currency($sale->total_amount_with_tax) }}
                                     </x-table.td>
 
                                     <x-table.td>

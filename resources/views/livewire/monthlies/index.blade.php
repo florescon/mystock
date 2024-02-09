@@ -88,6 +88,10 @@
                         {{ optional($monthlie->customer)->name }}
                     </x-table.td>
                     <x-table.td>
+                        <x-button primary wire:click="$emit('editModal', {{ $monthlie->id }})" type="button"
+                            wire:loading.attr="disabled">
+                            <i class="fas fa-edit"></i>
+                        </x-button>
                         @if($monthlie->with_days)
                            - {{ implode(', ', $monthlie->with_days) }}
                         @endif
@@ -129,5 +133,8 @@
         @endif
     </div>
 
+    <!-- Edit Modal -->
+    @livewire('monthlies.update-schedule', ['monthlie' => $monthlie])
+    <!-- End Edit modal -->
 
 </div>

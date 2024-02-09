@@ -49,10 +49,10 @@
                                 <i class="fas fa-eye"></i>
                             </x-button>
 
-                            <x-button info href="{{ route('adjustments.edit', $adjustment->id) }}"
+                            {{-- <x-button info href="{{ route('adjustments.edit', $adjustment->id) }}"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
-                            </x-button>
+                            </x-button> --}}
 
                             <x-button danger type="button" 
                             wire:click="$emit('deleteModal', {{ $adjustment->id }})"

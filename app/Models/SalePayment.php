@@ -42,6 +42,7 @@ class SalePayment extends Model
         'note',
         'sale_id',
         'cash_id',
+        'tax',
         'payment_method',
         'user_id',
     ];

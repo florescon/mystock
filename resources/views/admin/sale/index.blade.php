@@ -59,9 +59,9 @@
                     </x-dropdown-link> --}}
                     {{-- </x-slot>
                 </x-dropdown> --}}
-                @can('sale_create')
+                {{-- @can('sale_create')
                     <x-button primary href="{{ route('sales.create') }}">{{ __('Create Invoice') }}</x-button>
-                @endcan
+                @endcan --}}
             </div>
         </div>
     </section>

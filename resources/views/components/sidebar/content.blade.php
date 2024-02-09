@@ -77,7 +77,7 @@
     </x-sidebar.dropdown>
     @endcanany
 
-    @can('quotation_access')
+    {{-- @can('quotation_access')
         <x-sidebar.dropdown title="{{ __('Quotations') }}" :active="request()->routeIs('quotations.index')">
 
             <x-slot name="icon">
@@ -88,9 +88,9 @@
             <x-sidebar.sublink title="{{ __('All Quotations') }}" href="{{ route('quotations.index') }}"
                 :active="request()->routeIs('quotations.index')" />
         </x-sidebar.dropdown>
-    @endcan
+    @endcan --}}
 
-    @can('purchase_access')
+    {{-- @can('purchase_access')
         <x-sidebar.dropdown title="{{ __('Purchases') }}" :active="request()->routeIs('purchases.index') || request()->routeIs('purchase-returns.index')">
             <x-slot name="icon">
                 <span class="inline-block mx-4">
@@ -99,12 +99,12 @@
             </x-slot>
             <x-sidebar.sublink title="{{ __('All Purchases') }}" href="{{ route('purchases.index') }}"
                 :active="request()->routeIs('purchases.index')" />
-            {{-- @can('purchase_return_access')
+            @can('purchase_return_access')
                 <x-sidebar.sublink title="{{ __('All Purchase Returns') }}" href="{{ route('purchase-returns.index') }}"
                     :active="request()->routeIs('purchase-returns.index')" />
-            @endcan --}}
+            @endcan
         </x-sidebar.dropdown>
-    @endcan
+    @endcan --}}
     @can('sale_access')
         <x-sidebar.dropdown title="{{ __('Sales') }}" :active="request()->routeIs(['sales.index', 'sale-returns.index'])">
             <x-slot name="icon">

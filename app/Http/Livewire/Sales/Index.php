@@ -155,7 +155,7 @@ class Index extends Component
     {
         abort_if(Gate::denies('sale_access'), 403);
 
-        $query = Sale::with(['customer', 'user', 'saleDetails', 'salepayments', 'saleDetails.product', 'saleDetailsService.service'])
+        $query = Sale::with(['customer', 'user', 'saleDetails', 'saleDetailsTax', 'salepayments', 'saleDetails.product', 'saleDetailsService.service'])
             ->whereBetween('created_at', [$this->startDate, $this->endDate.' 23:59:59'])
             ->when($this->sortField, function ($que) {
                 $que->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
@@ -178,11 +178,11 @@ class Index extends Component
         $this->resetSelected();
     }
 
-    public function delete(Sale $sale)
+    public function delete($sale)
     {
         abort_if(Gate::denies('sale_delete'), 403);
 
-        $sale->delete();
+        $deleteSale = Sale::whereId($sale)->delete();
 
         $this->emit('refreshIndex');
 

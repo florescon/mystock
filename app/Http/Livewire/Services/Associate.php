@@ -28,10 +28,15 @@ class Associate extends Component
     public $selectedDays = [];
     public $selectedDays_ = [];
 
-    public $hour;
+    public $hourFirst;
+
     public $hourSelected;
 
     public $quantity;
+
+    public $quantitySelectDays = [];
+
+    public $quantitySelectDaysSecond = [];
 
     public $quantity_;
 
@@ -79,9 +84,14 @@ class Associate extends Component
     {
         $this->quantity = 1;
         $this->quantity_ = 1;
+
         $this->selectedDays = [];
         $this->selectedDays_ = [];
-        $this->hour = null;
+
+        $this->quantitySelectDays = [];
+        $this->quantitySelectDaysSecond = [];
+
+        $this->hourFirst = null;
         $this->hourSelected = null;
     }
 
@@ -93,7 +103,16 @@ class Associate extends Component
 
     public function selectService($service)
     {
-        // dd(implode(',', $this->selectedDays));
+        $getSelectedDays = array();
+        $getSelectedHours = array();
+
+        foreach($this->selectedDays as $key => $day ){  
+            if($day !== false){
+                $hour = array_key_exists($key, $this->quantitySelectDays) ? $this->quantitySelectDays[$key] : '';
+                $getSelectedDays[$key] = $day ? $day . ($hour ? ' — '.$hour : '') : false;
+                $getSelectedHours[$key] = $hour;
+            }
+        }
 
         $this->validate([
             'quantity' => [
@@ -102,8 +121,21 @@ class Associate extends Component
                 'min:1',
             ],
         ]);
-        $selectedDays = $service['with_days'] ? $this->selectedDays : [];
-        $hour = $service['with_days'] ? $this->hour : null;
+        
+        // dd(count(array_unique($getSelectedHours)));
+        $getHour = null;
+        if($this->quantitySelectDays){
+            foreach($this->quantitySelectDays as $day){
+                $getHour = $day;
+            }
+        }
+
+        $selectedDays = $service['with_days'] ? ( $getSelectedDays ? $getSelectedDays : []) : [];
+
+        $hour = $service['with_days'] ? ( (count(array_unique($getSelectedHours)) > 1) ? 'VARIAS' : ($this->hourFirst ?? $getHour) ) : null;
+
+        // dd($hour);
+
         $quantity = $service['with_input'] ? $this->quantity : 1; 
 
         $this->emit('serviceSelected', [$service, null, $quantity, $selectedDays, $hour]);
@@ -113,6 +145,17 @@ class Associate extends Component
 
     public function selectServiceWithCustomer($service)
     {
+        $getSelectedDaysSecond = array();
+        $getSelectedHoursSecond = array();
+
+        foreach($this->selectedDays_ as $key => $day ){  
+            if($day !== false){
+                $hour = array_key_exists($key, $this->quantitySelectDaysSecond) ? $this->quantitySelectDaysSecond[$key] : '';
+                $getSelectedDaysSecond[$key] = $day ? $day . ($hour ? ' — '.$hour : '') : false;
+                $getSelectedHoursSecond[$key] = $hour;
+            }
+        }
+
         $this->validate([
             'customerAssociate' => [
                 'required',
@@ -125,8 +168,18 @@ class Associate extends Component
             ],
         ]);
 
-        $selectedDays_ = $service['with_days'] ? $this->selectedDays_ : [];
-        $hourSelected = $service['with_days'] ? $this->hourSelected : null;
+        $getHour = null;
+        if($this->quantitySelectDaysSecond){
+            foreach($this->quantitySelectDaysSecond as $day){
+                $getHour = $day;
+            }
+        }
+
+        $selectedDays_ = $service['with_days'] ? ( $getSelectedDaysSecond ? $getSelectedDaysSecond : []) : [];
+        // $selectedDays_ = $service['with_days'] ? $this->selectedDays_ : [];
+
+        $hourSelected = $service['with_days'] ? ( (count(array_unique($getSelectedHoursSecond)) > 1) ? 'VARIAS' : ($this->hourSelected ?? $getHour) ) : null;
+        // $hourSelected = $service['with_days'] ? $this->hourSelected : null;
         $quantity_ = $service['with_input'] ? $this->quantity_ : 1; 
 
         if($this->customerAssociate){
@@ -143,6 +196,30 @@ class Associate extends Component
         $this->serviceAssociate = Service::findOrFail($id);
 
         $this->showCustomerAssociate = true;
+    }
+
+    public function setHourFirst()
+    {
+        $this->updatedHourFirst();
+    }
+
+    public function updatedHourFirst()
+    {
+        for ($i = 1; $i <= 6; $i++){
+            $this->quantitySelectDays[$i] = $this->hourFirst;
+        }
+    }
+
+    public function setHourSecond()
+    {
+        $this->updatedHourSelected();
+    }
+
+    public function updatedHourSelected()
+    {
+        for ($i = 1; $i <= 6; $i++){
+            $this->quantitySelectDaysSecond[$i] = $this->hourSelected;
+        }
     }
 
     public function updatedCustomerAssociate()

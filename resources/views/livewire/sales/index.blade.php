@@ -115,7 +115,7 @@
                         {{ format_currency($sale->due_amount) }}
                     </x-table.td>
                     <x-table.td>
-                        {{ format_currency($sale->total_amount) }}
+                        {{ format_currency($sale->total_amount_with_tax) }}
                     </x-table.td>
 
                     <x-table.td>
@@ -147,20 +147,20 @@
                                             {{ __('Send to Whatsapp') }}
                                         </x-dropdown-link>
                                     @endif
-                                    @can('edit_sales')
+                                    {{-- @can('edit_sales')
                                         <x-dropdown-link href="{{ route('sales.edit', $sale->id) }}"
                                             wire:loading.attr="disabled">
                                             <i class="fas fa-edit"></i>
                                             {{ __('Edit') }}
                                         </x-dropdown-link>
-                                    @endcan
-                                    @can('delete_sales')
+                                    @endcan --}}
+                                    {{-- @can('delete_sales')
                                         <x-dropdown-link wire:click="$emit('deleteModal', {{ $sale->id }})"
                                             wire:loading.attr="disabled">
                                             <i class="fas fa-trash"></i>
                                             {{ __('Delete') }}
                                         </x-dropdown-link>
-                                    @endcan
+                                    @endcan --}}
 
                                     <x-dropdown-link target="_blank" href="{{ route('sales.pos.pdf', $sale->id) }}"
                                         wire:loading.attr="disabled">

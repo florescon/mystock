@@ -71,27 +71,20 @@
                         </x-table.tr>
                         @if($cart_item->options->customer_id)
                             <x-table.tr>
-                                <x-table.td class="text-center">
-                                    <span class="text-red-500">
-                                        <i class="fa-regular fa-circle-up"></i>
-                                    </span>
-                                </x-table.td>
-                                <x-table.td colspan="5" class="text-left">
-                                    <span class="text-red-500">
-                                        {{ $cart_item->options->customer_name }}
+                                <x-table.td colspan="6" class="text-left">
+                                    <i class="fa-regular fa-circle-up"></i>
+                                    <span class="text-red-600 ml-7">
+                                        {{ $cart_item->options->customer_name }} &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i class="fa-solid fa-person-swimming"></i>
                                     </span>
                                 </x-table.td>
                             </x-table.tr>
                         @endif
                         @if($cart_item->options->days)
                             <x-table.tr>
-                                <x-table.td class="text-center">
-                                    <span class="text-red-500">
-                                        <i class="fa-regular fa-circle-up"></i>
-                                    </span>
-                                </x-table.td>
-                                <x-table.td colspan="5" class="text-left">
-                                    <span class="text-red-500">
+                                <x-table.td colspan="6" class="text-left">
+                                    <i class="fa-regular fa-circle-up"></i>
+                                    <span class="text-red-500 ml-7">
                                         {{ implode(', ', $cart_item->options->days) }}
                                     </span>
                                     @if($cart_item->options->hour)

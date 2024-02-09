@@ -145,6 +145,14 @@
                             <x-select-list wire:model.defer="settings.default_warehouse_id" id="default_warehouse_id"
                                 name="default_warehouse_id" :options="$this->listsForFields['warehouses']" />
                         </div>
+
+                        <div class="w-full md:w-1/3 px-3 mb-4">
+                            <x-label for="tax_credit" :value="__('Tax Credit').' (%)'" />
+                            <x-input type="number" wire:model.defer="settings.tax_credit"
+                                id="tax_credit" name="tax_credit" />
+                            <x-input-error :messages="$errors->get('settings.tax_credit')" class="mt-2" />
+                        </div>
+
                         <div class="w-full flex justify-center p-4 space-x-4">
                             <div>
                                 <x-label for="show_email" :value="__('Show Email')" required />

@@ -147,11 +147,12 @@ class Index extends Component
         $this->resetSelected();
     }
 
-    public function delete(Service $service): void
+    public function delete($service): void
     {
         abort_if(Gate::denies('service_delete'), 403);
 
-        $service->delete();
+        Service::whereId($service)->delete();
+        // $service->delete();
 
         $this->alert('success', __('Service deleted successfully.'));
     }

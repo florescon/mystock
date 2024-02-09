@@ -78,7 +78,7 @@
                                 </x-table.td>
 
                                 <x-table.td>
-                                    {{ format_currency($saleRecent->total_amount) }}
+                                    {{ format_currency($saleRecent->total_amount_with_tax) }}
                                 </x-table.td>
 
                                 <x-table.td>
@@ -202,6 +202,29 @@
 
                                             <x-table.tbody>
                                                 @if ($sale != null)
+                                                    @foreach ($sale->saleDetailsTax as $saleDetailsTax)
+                                                        <x-table.tr>
+                                                            <x-table.td>
+                                                                Comisión Uso Tarjeta
+                                                            </x-table.td>
+
+                                                            <x-table.td>
+                                                                1
+                                                            </x-table.td>
+
+                                                            <x-table.td>
+                                                                {{ format_currency($saleDetailsTax->tax) }}
+                                                            </x-table.td>
+
+                                                            <x-table.td>
+                                                                --
+                                                            </x-table.td>
+
+                                                            <x-table.td>
+                                                                {{ format_currency($saleDetailsTax->tax) }}
+                                                            </x-table.td>
+                                                        </x-table.tr>
+                                                    @endforeach
                                                     @foreach ($sale->saleDetails as $item)
                                                         <x-table.tr>
                                                             <x-table.td>
@@ -220,7 +243,7 @@
                                                             </x-table.td>
 
                                                             <x-table.td>
-                                                                ${{ $item->product_discount_amount * $itemService->quantity }}
+                                                                ${{ $item->product_discount_amount * $item->quantity }}
                                                             </x-table.td>
 
                                                             <x-table.td>

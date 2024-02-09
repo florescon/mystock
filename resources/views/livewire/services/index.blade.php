@@ -68,15 +68,14 @@
                     </li>
                     @endcan
                     @can('service_delete')
-
-                    @if($service->id > 3)
-                    <li class="flex flex-col items-center justify-around">
-                        <x-button danger wire:click="$emit('deleteModal', {{ $service->id }})" type="button"
-                            wire:loading.attr="disabled">
-                            <i class="fas fa-trash"></i>
-                        </x-button>
-                    </li>
-                    @endif
+                        @if($service->id > 3)
+                            <li class="flex flex-col items-center justify-around">
+                                <x-button danger wire:click="$emit('deleteModal', {{ $service->id }})" type="button"
+                                    wire:loading.attr="disabled">
+                                    <i class="fas fa-trash"></i>
+                                </x-button>
+                            </li>
+                        @endif
                     @endcan
                     </div>
                 </div>
@@ -147,7 +146,7 @@
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: '¡Si, eliminar!'
+                        confirmButtonText: '¡Si, eliminar servicio!'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             window.livewire.emit('delete', serviceId)

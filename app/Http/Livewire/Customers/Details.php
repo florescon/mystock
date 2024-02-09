@@ -68,7 +68,7 @@ class Details extends Component
     public function getSalesProperty(): mixed
     {
         $query = Sale::
-            with('customer')
+            with('customer', 'saleDetailsTax')
             ->advancedFilter([
                 's'               => $this->search ?: null,
                 'order_column'    => $this->sortBy,

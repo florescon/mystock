@@ -116,6 +116,16 @@ class Sale extends Model
         return $this->hasMany(SaleDetailsService::class);
     }
 
+    public function saleDetailsTax(): HasMany
+    {
+        return $this->hasMany(SaleDetailsTax::class);
+    }
+
+    public function getTotalAmountWithTaxAttribute()
+    {
+        return $this->total_amount + $this->saleDetailsTax->sum('tax');
+    }
+
     public function freeSwims(): HasMany
     {
         return $this->hasMany(FreeSwim::class);

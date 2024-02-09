@@ -123,7 +123,7 @@ class Recent extends Component
     {
         abort_if(Gate::denies('sale_access'), 403);
 
-        $query = Sale::with('customer', 'saleDetails', 'saleDetailsService')
+        $query = Sale::with('customer', 'saleDetails', 'saleDetailsService', 'saleDetailsTax')
             ->when($this->sortField, function ($que) {
                 $que->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             })

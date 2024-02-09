@@ -88,11 +88,11 @@
                                         <i class="fas fa-edit"></i>
                                         {{ __('Edit') }}
                                     </x-dropdown-link>
-                                    <x-dropdown-link wire:click="$emit('deleteModal', {{ $customer->id }})"
+                                    {{-- <x-dropdown-link wire:click="$emit('deleteModal', {{ $customer->id }})"
                                         wire:loading.attr="disabled">
                                         <i class="fas fa-trash"></i>
                                         {{ __('Delete') }}
-                                    </x-dropdown-link>
+                                    </x-dropdown-link> --}}
                                 </x-slot>
                             </x-dropdown>
 

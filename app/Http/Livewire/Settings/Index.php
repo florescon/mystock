@@ -48,6 +48,7 @@ class Index extends Component
         'settings.default_date_format'       => 'required|string|min:1|max:255',
         'settings.default_client_id'         => 'nullable|integer|min:0|max:192',
         'settings.default_warehouse_id'      => 'nullable|integer|min:0|max:192',
+        'settings.tax_credit'                => 'integer|min:0|max:99',
         'settings.default_language'          => 'required|string|min:1|max:255',
         'settings.invoice_footer_text'       => 'nullable',
         'settings.invoice_header'            => 'nullable|string|min:0|max:255',

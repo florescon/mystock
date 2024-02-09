@@ -26,7 +26,7 @@
         <div><span>CREADO P:</span> {{ optional($cash->user)->name }}</div>
         <br>
         <div><span>INICIAL</span> {{ $cash->initial}} </div>
-        <div><span>EFECTIVO</span> {{ $cash->total_cash + $cash->total_incomes - $cash->total_expenses }} </div>
+        {{-- <div><span>EFECTIVO</span> {{ $cash->total_cash + $cash->total_incomes - $cash->total_expenses }} </div> --}}
         <div><span>TOTAL EFE.</span> {{ $cash->total_cash + $cash->initial + $cash->total_incomes - $cash->total_expenses }} </div>
         <br>
         <div><span>OTROS M.</span> {{ $cash->total_other }} </div>

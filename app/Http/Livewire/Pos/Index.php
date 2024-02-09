@@ -19,6 +19,7 @@ use App\Models\ProductWarehouse;
 use App\Models\SaleDetails;
 use App\Models\SaleDetailsService;
 use App\Models\SalePayment;
+use App\Models\SaleDetailsTax;
 use App\Models\FreeSwim;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
@@ -75,6 +76,10 @@ class Index extends Component
     public $paid_with;
 
     public $exchance_for_cash;
+
+    public $total_with_tax;
+
+    public $tax_card;
 
     public $tax_percentage;
 
@@ -176,7 +181,27 @@ class Index extends Component
 
     public function updatedPaidAmount()
     {   
-            $this->difference = (float) $this->total_amount - (float) $this->paid_amount - (float) $this->paid_cash;
+        $this->difference = (float) $this->total_amount - (float) $this->paid_amount - (float) $this->paid_cash;
+
+        if($this->payment_method === 'Card'){
+            $this->total_with_tax = (float) $this->paid_amount + ( (float)$this->paid_amount > 1 ? ( (settings()->tax_credit/100) * (float)$this->paid_amount ) : 0) ;
+            $this->tax_card = (float)$this->paid_amount > 1 ? ( ( settings()->tax_credit /100) * (float)$this->paid_amount ) : 0;
+        }
+        else{
+            $this->total_with_tax = 0;
+            $this->tax_card = 0;
+        }
+    }
+
+    public function updatedPaymentMethod()
+    {   
+        if($this->payment_method === 'Card'){
+            $this->updatedPaidAmount();
+        }
+        else{
+            $this->total_with_tax = 0;
+            $this->tax_card = 0;
+        }
     }
 
     public function updatedPaidCash()
@@ -341,13 +366,24 @@ class Index extends Component
             }
 
             if ($this->paid_amount > 0) {
-                SalePayment::create([
+
+                $salePayment = SalePayment::create([
                     'date'           => date('Y-m-d'),
                     'amount'         => $this->paid_amount,
+                    'tax'            => $this->tax_card,
                     'sale_id'        => $sale->id,
                     'payment_method' => $this->payment_method,
                     'user_id'        => Auth::user()->id,
                 ]);
+
+                if($this->tax_card && $salePayment){
+                    SaleDetailsTax::create([
+                        'sale_id'           => $sale->id,
+                        'sale_payment_id'   => $salePayment->id ?? null,
+                        'tax'               => $this->tax_card,
+                        'tax_percentage'    => (float) settings()->tax_credit,
+                    ]);
+                }
             }
 
             $this->alert('success', __('Sale created successfully!'));

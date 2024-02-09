@@ -21,9 +21,10 @@ class Cache extends Component
 
     public function onClearCache()
     {
-        Artisan::call('optimize:clear');
-        Artisan::call('view:clear');
+        // Artisan::call('optimize:clear');
+        // Artisan::call('view:clear');
         Artisan::call('optimize');
+        Artisan::call('config:clear');
 
         $this->alert('success', __('All caches have been cleared!'));
     }
