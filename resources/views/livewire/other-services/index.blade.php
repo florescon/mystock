@@ -52,6 +52,9 @@
             {{-- <x-table.th>
                 <input type="checkbox" wire:model="selectPage" />
             </x-table.th> --}}
+            <x-table.th sortable wire:click="sortBy('sale_id')">
+                {{ __('Sale') }}
+            </x-table.th>
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['reference'] ?? null">
                 {{ __('Reference') }}
             </x-table.th>
@@ -64,9 +67,6 @@
             <x-table.th>
                 {{ __('Subtotal') }}
             </x-table.th>
-            <x-table.th sortable wire:click="sortBy('sale_id')">
-                {{ __('Sale') }}
-            </x-table.th>
             <x-table.th sortable wire:click="sortBy('created_at')">
                 {{ __('Date') }}
             </x-table.th>
@@ -75,6 +75,9 @@
         <x-table.tbody>
             @forelse ($inscriptions as $monthlie)
                 <x-table.tr >
+                    <x-table.td>
+                        #{{ optional($monthlie->sale)->id.' _ '.optional($monthlie->sale)->reference }}
+                    </x-table.td>
                     <x-table.td>
                         {{ $monthlie->name }}
                     </x-table.td>
@@ -86,9 +89,6 @@
                     </x-table.td>
                     <x-table.td>
                         $ <p class="text-blue-600/100 inline-block">{{ $monthlie->sub_total }}</p>
-                    </x-table.td>
-                    <x-table.td>
-                        #{{ optional($monthlie->sale)->id.' _ '.optional($monthlie->sale)->reference }}
                     </x-table.td>
                     <x-table.td>
                         {{ $monthlie->created_at }}

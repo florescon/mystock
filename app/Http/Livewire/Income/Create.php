@@ -65,9 +65,9 @@ class Create extends Component
         try {
             $validatedData = $this->validate();
 
-            $this->income->save($validatedData);
-
             $this->income->user()->associate(auth()->user());
+
+            $this->income->save($validatedData);
 
             $this->alert('success', __('Income created successfully.'));
 

@@ -1,7 +1,7 @@
 <div>
     <x-modal wire:model="createCustomer">
         <x-slot name="title">
-            {{ __('Create Customer') }}
+            {{ __('Create Customer') }} 🌊
         </x-slot>
 
         <x-slot name="content">

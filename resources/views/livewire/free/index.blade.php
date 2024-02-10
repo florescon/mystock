@@ -53,6 +53,9 @@
             {{-- <x-table.th>
                 <input type="checkbox" wire:model="selectPage" />
             </x-table.th> --}}
+            <x-table.th sortable wire:click="sortBy('sale_id')">
+                {{ __('Sale') }}
+            </x-table.th>
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['reference'] ?? null">
                 {{ __('Reference') }}
             </x-table.th>
@@ -68,9 +71,6 @@
             <x-table.th>
                 {{ __('Subtotal') }}
             </x-table.th>
-            <x-table.th sortable wire:click="sortBy('sale_id')">
-                {{ __('Sale') }}
-            </x-table.th>
             <x-table.th sortable wire:click="sortBy('created_at')">
                 {{ __('Date') }}
             </x-table.th>
@@ -79,6 +79,9 @@
         <x-table.tbody>
             @forelse ($inscriptions as $free)
                 <x-table.tr >
+                    <x-table.td>
+                        #{{ optional($free->sale)->id }}
+                    </x-table.td>
                     <x-table.td>
                         {{ $free->name }}
                     </x-table.td>
@@ -93,9 +96,6 @@
                     </x-table.td>
                     <x-table.td>
                         $ <p class="text-blue-600/100 inline-block">{{ $free->sub_total }}</p>
-                    </x-table.td>
-                    <x-table.td>
-                        #{{ optional($free->sale)->id }}
                     </x-table.td>
                     <x-table.td>
                         {{ $free->created_at }}

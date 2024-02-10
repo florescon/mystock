@@ -77,9 +77,19 @@
                 </div>
             </div>
 
-            <x-modal wire:model="showCustomerAssociate" maxWidth="5xl">
+            <x-modal wire:model="showCustomerAssociate" maxWidth="4xl">
                 <x-slot name="title">
-                    {{ __('Select Customer') }} <i class="fa-solid fa-right-long"></i> <strong>{{ $serviceAssociate?->name }}</strong>
+                    <div class="flex items-center justify-between rounded-t-3xl p-3 w-full">
+                        <div class="text-lg font-bold text-navy-700 dark:text-white">
+                            {{ __('Select Customer') }} <i class="fa-solid fa-right-long"></i> <strong>{{ $serviceAssociate?->name }}</strong>
+                        </div>
+                        <button class="linear rounded-[20px] bg-lightPrimary px-4 py-2 text-base font-medium text-brand-500 transition duration-200 hover:bg-red-200 border border-red-300 active:bg-gray-200 dark:bg-white/5 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20" wire:click.prevent="cancel">
+                            @lang('Cancel')
+                        </button>
+                    </div>
+
+                     {{-- <button class="inline-block left-0 rounded-md bg-red-500 px-10 py-2 font-semibold text-red-100 shadow-md duration-75 hover:bg-red-400" wire:click.prevent="cancel">@lang('Cancel')</button> --}}
+
                 </x-slot>
 
                 <x-slot name="content">
@@ -91,14 +101,14 @@
                                   <div class="flex h-full flex-col items-center justify-center space-y-6 bg-white px-2 sm:flex-row sm:space-x-3 py-4 sm:space-y-0">
                                     <div class="w-1/2 mr-4 max-w-sm overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
                                         <div class="flex items-center justify-center text-4xl my-6">
-                                            <i class="fa-regular fa-circle-check"></i>
+                                            🤽
                                         </div>
-                                      <h1 class="mt-2 text-center text-2xl font-bold text-gray-500">Mismo cliente</h1>
+                                      <h1 class="mt-2 text-center text-2xl font-bold text-gray-500">Mismo cliente </h1>
                                       <p class="my-4 text-center text-sm text-gray-500">Mismo comprador se le asigna el servicio</p>
                                       <div class="space-x-4 bg-gray-100 pb-4 text-center">
 
                                         @if($serviceAssociate?->with_input)
-                                            <div class="md:w-full sm:w-full px-14 pb-4">
+                                            <div class="md:w-full sm:w-full px-14 py-4">
                                                 <x-input id="quantity" class="block mt-1 w-full text-center" type="text" name="quantity"
                                                     wire:model.lazy="quantity" />
                                                 <x-input-error :messages="$errors->get('quantity')" for="quantity" class="mt-2" />
@@ -164,9 +174,15 @@
                                                     @endforeach    
                                                 </ul>                                            
                                             </div>
-                                        @endif
 
-                                        <div class="mt-3">
+                                        <div class="mt-9 mb-9">
+                                            <label class="border-dashed border-4 border-red-300 py-2 px-9">
+                                              <input type="checkbox" class="accent-pink-500" wire:model="mix"> &nbsp; Mixto
+                                            </label>
+                                        </div>
+
+                                        @endif
+                                        <div class="mt-3 pt-3">
 
                                             <button wire:click.prevent="selectService({{ $serviceAssociate }})" class="inline-block rounded-md bg-green-500 px-6 py-2 font-semibold text-green-100 shadow-md duration-75 hover:bg-green-400">@lang('Select')</button>
                                         </div>
@@ -176,7 +192,7 @@
 
                                     <div class="w-1/2 ml-4 max-w-sm overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-xl">
                                         <div class="flex items-center justify-center text-4xl my-6">
-                                            <i class="fa-solid fa-users"></i>
+                                            🏊🏾‍♀️🏊
                                         </div>
                                         <div class="mx-4 text-center pb-4 ">
 
@@ -271,7 +287,7 @@
                                             @endif
                                         </div>
                                       <div class="space-x-4 bg-gray-100 py-4 text-center">
-                                        <button class="inline-block rounded-md bg-red-500 px-10 py-2 font-semibold text-red-100 shadow-md duration-75 hover:bg-red-400" wire:click.prevent="cancel">@lang('Cancel')</button>
+                                       
                                         <button wire:click.prevent="selectServiceWithCustomer({{ $serviceAssociate }})" class="inline-block rounded-md bg-green-500 px-6 py-2 font-semibold text-green-100 shadow-md duration-75 hover:bg-green-400">@lang('Select')</button>
                                       </div>
                                     </div>

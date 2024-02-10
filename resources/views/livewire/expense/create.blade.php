@@ -60,6 +60,16 @@
                         </select>
                         <x-input-error :messages="$errors->get('expense.warehouse_id')" class="mt-2" />
                     </div>
+                    <div class="md:w-1/2 sm:w-full px-3">
+                        <x-label for="customerAssociate" :value="__('Customer')" />
+
+                        <livewire:components.select-customer-second
+                            name="customerAssociate"
+                            placeholder="{{ __('Choose a Customer') }}"
+                            :value="request('customerAssociate')"
+                            :searchable="true"
+                        />                        
+                    </div>
                     <div class="w-full px-3">
                         <x-label for="details" :value="__('Description')" />
                         <textarea
@@ -69,7 +79,7 @@
                     </div>
                 </div>
                 <div class="w-full py-3 px-3">
-                    <x-button primary type="submit" class="w-full text-center" wire:loading.attr="disabled">
+                    <x-button danger type="submit" class="w-full text-center" wire:loading.attr="disabled">
                         {{ __('Create') }}
                     </x-button>
                 </div>

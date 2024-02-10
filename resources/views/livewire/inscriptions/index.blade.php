@@ -53,6 +53,9 @@
             {{-- <x-table.th>
                 <input type="checkbox" wire:model="selectPage" />
             </x-table.th> --}}
+            <x-table.th sortable wire:click="sortBy('sale_id')">
+                {{ __('Sale') }}
+            </x-table.th>
             <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['reference'] ?? null">
                 {{ __('Reference') }}
             </x-table.th>
@@ -64,9 +67,6 @@
             </x-table.th>
             <x-table.th>
                 {{ __('Subtotal') }}
-            </x-table.th>
-            <x-table.th sortable wire:click="sortBy('sale_id')">
-                {{ __('Sale') }}
             </x-table.th>
             <x-table.th>
                 {{ __('Remaining') }}
@@ -83,7 +83,13 @@
             @forelse ($inscriptions as $inscription)
                 <x-table.tr >
                     <x-table.td>
+                        #{{ optional($inscription->sale)->id }}
+                    </x-table.td>
+                    <x-table.td>
                         {{ $inscription->name }}
+                        <a type="button" class="bg-blue-800 border border-transparent text-white hover:bg-blue-900 focus:ring-blue-900 active:bg-blue-900 focus:outline-none focus:border-blue-900 inline-flex items-center px-4 py-2 rounded-md font-semibold text-xs uppercase tracking-widest disabled:opacity-25 transition ease-in-out duration-150" target="_blank" href="{{ route('inscription.print', $inscription->sale_id) }}">
+                            <i class="fas fa-print"></i>
+                        </a>
                     </x-table.td>
                     <x-table.td>
                         {{ optional($inscription->customer)->name }}
@@ -93,9 +99,6 @@
                     </x-table.td>
                     <x-table.td>
                         $ <p class="text-blue-600/100 inline-block">{{ $inscription->sub_total }}</p>
-                    </x-table.td>
-                    <x-table.td>
-                        #{{ optional($inscription->sale)->id }}
                     </x-table.td>
                     <x-table.td>
                         {{ $inscription->inscription_remaining }}

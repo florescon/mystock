@@ -69,8 +69,14 @@
             <x-table.th sortable wire:click="sortBy('details')" :direction="$sorts['details'] ?? null">
                 {{ __('Details') }}
             </x-table.th>
+            <x-table.th>
+                {{ __('Customer') }}
+            </x-table.th>
             <x-table.th sortable wire:click="sortBy('category_id')" :direction="$sorts['category_id'] ?? null">
                 {{ __('Expense Category') }}
+            </x-table.th>
+            <x-table.th>
+                {{ __('Created By') }}
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('date')" :direction="$sorts['date'] ?? null">
                 {{ __('Date') }}
@@ -95,7 +101,10 @@
                         </button>
                     </x-table.td>
                     <x-table.td>
-                        {{ $expense ? Str::limit($expense->details, 28, '...') : '--' }}
+                        {{ $expense->details ? Str::limit($expense->details, 28, '...') : '--' }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $expense->customer_id ? Str::limit(optional($expense->customer)->name, 15, '...') : '--' }}
                     </x-table.td>
                     <x-table.td>
                         @if($expense->category_id)
@@ -103,6 +112,9 @@
                                 <small>{{ $expense?->category?->name ?? '' }}</small>
                             </x-badge>
                         @endif
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $expense->user_id ? Str::limit(optional($expense->user)->name, 7, '...') : '--' }}
                     </x-table.td>
                     <x-table.td>
                         {{ $expense->date }}
@@ -187,6 +199,24 @@
                         {{ $this->expense?->amount }}
                     </div>
                     <div class="lg:w-1/2 sm:w-full px-2">
+                        <x-label for="customer_id" :value="__('Customer')" />
+                        {{ $this->expense?->customer?->name }}
+                    </div>
+
+                    <div class="lg:w-1/2 sm:w-full px-2">
+                        <x-label for="created_at" :value="__('Created At')" />
+                        {{ $this->expense?->created_at }}
+                    </div>
+                    <div class="lg:w-1/2 sm:w-full px-2">
+                        <x-label for="updated_at" :value="__('Updated At')" />
+                        {{ $this->expense?->updated_at }}
+                    </div>
+                    <div class="lg:w-1/2 sm:w-full px-2">
+                        <x-label for="user_id" :value="__('Created By')" />
+                        {{ $this->expense?->user?->name }}
+                    </div>
+
+                    <div class="lg:w-full sm:w-full px-2">
                         <x-label for="details" :value="__('Description')" />
                         {{ $this->expense?->details }}
                     </div>

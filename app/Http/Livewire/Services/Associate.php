@@ -40,6 +40,8 @@ class Associate extends Component
 
     public $quantity_;
 
+    public $mix;
+
     /** @var array<string> */
     public $listeners = [
         'createAssociate', 
@@ -95,10 +97,27 @@ class Associate extends Component
         $this->hourSelected = null;
     }
 
+    public function updatedMix()
+    {
+        if($this->mix === true){
+            $this->updatedShowCustomerAssociate();   
+        }    
+    }
+
+    public function desactivateMix()
+    {
+        $this->reset('mix');
+    }
+
     public function updatedCustomerIDSecond(?int $id = null)
     {
         $this->customerAssociate = $id;
         $this->emit('getUserAgainSecond', $this->customerAssociate);
+    }
+
+    public function updatedSelectedDays()
+    {
+        $this->reset('mix');
     }
 
     public function selectService($service)
@@ -201,6 +220,7 @@ class Associate extends Component
     public function setHourFirst()
     {
         $this->updatedHourFirst();
+        $this->desactivateMix();
     }
 
     public function updatedHourFirst()
@@ -208,6 +228,7 @@ class Associate extends Component
         for ($i = 1; $i <= 6; $i++){
             $this->quantitySelectDays[$i] = $this->hourFirst;
         }
+        $this->desactivateMix();
     }
 
     public function setHourSecond()

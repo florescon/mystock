@@ -98,7 +98,7 @@ class Index extends Component
     {
         abort_if(Gate::denies('expense_access'), 403);
 
-        $query = Expense::with(['category', 'user', 'warehouse'])
+        $query = Expense::with(['category', 'user', 'warehouse', 'customer'])
             ->advancedFilter([
                 's'               => $this->search ?: null,
                 'order_column'    => $this->sortBy,

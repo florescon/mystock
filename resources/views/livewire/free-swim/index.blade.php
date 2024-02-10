@@ -52,14 +52,14 @@
             {{-- <x-table.th>
                 <input type="checkbox" wire:model="selectPage" />
             </x-table.th> --}}
+            <x-table.th>
+                {{ __('Sale') }}
+            </x-table.th>
             <x-table.th sortable wire:click="sortBy('id')" :direction="$sorts['id'] ?? null">
                 {{ __('ID') }}
             </x-table.th>
             <x-table.th>
                 {{ __('Customer') }}
-            </x-table.th>
-            <x-table.th>
-                {{ __('Sale') }}
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">
                 {{ __('Applied') }}
@@ -76,13 +76,13 @@
             @forelse ($inscriptions as $inscription)
                 <x-table.tr >
                     <x-table.td>
+                        #{{ optional($inscription->sale)->id }}
+                    </x-table.td>
+                    <x-table.td>
                         #SWIM-PASS-{{ $inscription->id }}
                     </x-table.td>
                     <x-table.td>
                         {{ optional($inscription->customer)->name }}
-                    </x-table.td>
-                    <x-table.td>
-                        #{{ optional($inscription->sale)->id }}
                     </x-table.td>
                     <x-table.td>
                         <livewire:toggle-button :model="$inscription" field="status" key="{{ $inscription->id }}" />

@@ -135,8 +135,8 @@
                 <x-sidebar.sublink title="{{ __('Categories') }}" href="{{ route('expense-categories.index') }}"
                     :active="request()->routeIs('expense-categories.index')" />
             @endcan
-            <x-sidebar.sublink title="{{ __('All Expenses') }}" href="{{ route('expenses.index') }}" :active="request()->routeIs('expenses.index')" />
-            <x-sidebar.sublink title="{{ __('All Incomes') }}" href="{{ route('incomes.index') }}" :active="request()->routeIs('incomes.index')" />
+            <x-sidebar.sublink title="{{ __('All Expenses').' (-)' }}" href="{{ route('expenses.index') }}" :active="request()->routeIs('expenses.index')" />
+            <x-sidebar.sublink title="{{ __('All Incomes').' (+)' }}" href="{{ route('incomes.index') }}" :active="request()->routeIs('incomes.index')" />
         </x-sidebar.dropdown>
     @endcan
 

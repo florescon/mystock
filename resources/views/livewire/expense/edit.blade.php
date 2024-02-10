@@ -46,11 +46,6 @@
                         </select>
                         <x-input-error :messages="$errors->get('expense.warehouse_id')" class="mt-2" />
                     </div>
-                    <div class="xl:w-1/3 lg:w-1/2 sm:w-full px-3">
-                        <x-label for="expense.amount" :value="__('Amount')" required />
-                        <x-input wire:model.lazy="expense.amount" id="expense.amount" type="text" required />
-                        <x-input-error :messages="$errors->get('expense.amount')" class="mt-2" />
-                    </div>
                     <div class="w-full px-4 mb-4">
                         <x-label for="expense.details" :value="__('Description')" />
                         <textarea
@@ -60,7 +55,7 @@
                     </div>
                 </div>
                 <div class="w-full px-3 py-3">
-                    <x-button primary type="submit" class="w-full text-center" wire:loading.attr="disabled">
+                    <x-button danger type="submit" class="w-full text-center" wire:loading.attr="disabled">
                         {{ __('Update') }}
                     </x-button>
                 </div>

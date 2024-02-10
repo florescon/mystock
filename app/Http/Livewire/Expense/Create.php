@@ -17,12 +17,14 @@ class Create extends Component
     use LivewireAlert;
 
     /** @var array<string> */
-    public $listeners = ['createModal'];
+    public $listeners = ['createModal', 'updatedCustomerIDSecond'];
 
     public $createModal = false;
 
     /** @var mixed */
     public $expense;
+
+    public $customerAssociate;
 
     protected $rules = [
         'expense.reference'    => 'required|string|max:255',
@@ -46,6 +48,11 @@ class Create extends Component
         return view('livewire.expense.create');
     }
 
+    public function updatedCustomerIDSecond(?int $id = null)
+    {
+        $this->customerAssociate = $id;
+    }
+
     public function createModal(): void
     {
         $this->resetErrorBag();
@@ -64,9 +71,13 @@ class Create extends Component
         try {
             $validatedData = $this->validate();
 
-            $this->expense->save($validatedData);
+            $this->expense->customer_id = $this->customerAssociate;
+
+            // dd($this->expense);
 
             $this->expense->user()->associate(auth()->user());
+
+            $this->expense->save($validatedData);
 
             $this->alert('success', __('Expense created successfully.'));
 

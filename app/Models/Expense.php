@@ -49,6 +49,7 @@ class Expense extends Model
         'details',
         'cash_id',
         'amount',
+        'customer_id',
     ];
 
     public function __construct(array $attributes = [])
@@ -68,6 +69,11 @@ class Expense extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id')->withTrashed();
+    }
+
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class, 'customer_id')->withTrashed();
     }
 
     public function warehouse(): BelongsTo
