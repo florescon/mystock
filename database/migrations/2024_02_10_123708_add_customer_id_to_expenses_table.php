@@ -15,7 +15,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('expenses', function (Blueprint $table) {
-            $table->foreignIdFor(Customer::class)->nullOnDelete();
+            $table->foreignIdFor(Customer::class)->nullable()->nullOnDelete();
         });
     }
 

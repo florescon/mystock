@@ -28,7 +28,6 @@ class Edit extends Component
         'income.reference'    => 'required|string|max:255',
         'income.category_id'  => 'required|integer|exists:expense_categories,id',
         'income.date'         => 'required|date',
-        'income.amount'       => 'required|numeric|min:1',
         'income.details'      => 'nullable|string|max:255',
         'income.warehouse_id' => 'nullable',
     ];
@@ -37,7 +36,6 @@ class Edit extends Component
         'income.name.required'        => 'The name field cannot be empty.',
         'income.category_id.required' => 'The category field cannot be empty.',
         'income.date.required'        => 'The date field cannot be empty.',
-        'income.amount.required'      => 'The amount field cannot be empty.',
     ];
 
     public function updated($propertyName): void

@@ -182,8 +182,8 @@
                                         </div>
 
                                         @endif
-                                        <div class="mt-3 pt-3">
 
+                                        <div class="mt-3 pt-3">
                                             <button wire:click.prevent="selectService({{ $serviceAssociate }})" class="inline-block rounded-md bg-green-500 px-6 py-2 font-semibold text-green-100 shadow-md duration-75 hover:bg-green-400">@lang('Select')</button>
                                         </div>
 
@@ -253,7 +253,7 @@
                                                                   <div class="flex items-center rtl:space-x-reverse">
                                                                      <div class="flex-1 min-w-0">
                                                                         <div class="flex items-center ps-3">
-                                                                            <input id="vue-checkbox-second-{{ $day->value }}" type="checkbox" value="{{ $day->name }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" wire:model="selectedDays_.{{ $loop->index + 1 }}">
+                                                                            <input id="vue-checkbox-second-{{ $day->value }}" type="checkbox" value="{{ $day->name }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" wire:model="selectedDaysSecond.{{ $loop->index + 1 }}">
                                                                             <label for="vue-checkbox-second-{{ $day->value }}" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ __($day->name) }}</label>
                                                                         </div>
                                                                      </div>
@@ -277,6 +277,13 @@
                                                         @endforeach    
                                                     </ul>                                            
                                                 </div>
+
+                                                <div class="mt-9 mb-9">
+                                                    <label class="border-dashed border-4 border-red-300 py-2 px-9">
+                                                      <input type="checkbox" class="accent-pink-500" wire:model="mixSecond"> &nbsp; Mixto
+                                                    </label>
+                                                </div>
+
                                             @endif
                                             @if($serviceAssociate?->with_input)
                                                 <div class="md:w-full sm:w-full px-14 pb-4">

@@ -95,6 +95,13 @@
                                 @endforeach    
                             </ul>
                           </div>
+
+                            <div class="mt-12 mb-9 text-center">
+                                <label class="border-dashed border-4 border-red-300 py-2 px-9">
+                                  <input type="checkbox" class="accent-pink-500" wire:model="mix"> &nbsp; Mixto
+                                </label>
+                            </div>
+
                         </div>
                     </div>                                 
                 </div>

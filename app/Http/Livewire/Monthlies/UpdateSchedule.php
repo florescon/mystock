@@ -32,6 +32,8 @@ class UpdateSchedule extends Component
     /** @var array<string> */
     public $listeners = ['editModal'];
 
+    public $mix;
+
     // /** @var array */
     // protected $rules = [
     //     'service.name'        => 'required|string||min:3|max:50',
@@ -64,6 +66,7 @@ class UpdateSchedule extends Component
     public function setHour()
     {
         $this->updatedHour();
+        $this->desactivateMix();
     }
 
     public function updatedHour()
@@ -71,6 +74,8 @@ class UpdateSchedule extends Component
         for ($i = 1; $i <= 6; $i++){
             $this->quantitySelectDays[$i] = $this->hour;
         }
+
+        $this->desactivateMix();
     }
 
     // public function update()
@@ -105,11 +110,13 @@ class UpdateSchedule extends Component
     public function selectService()
     {
 
-        $this->validate([
-            'selectedDays' => [
-                'required',
-            ],
-        ]);
+        if(!$this->mix){
+            $this->validate([
+                'selectedDays' => [
+                    'required',
+                ],
+            ]);
+        }
 
         $getSelectedDays = array();
         $getSelectedHours = array();
@@ -130,9 +137,14 @@ class UpdateSchedule extends Component
             }
         }
 
-        $selectedDays = $getSelectedDays ? $getSelectedDays : [];
-
-        $hour = (count(array_unique($getSelectedHours)) > 1) ? 'VARIAS' : ($this->hour ?? $getHour) ;
+        if($this->mix){
+            $selectedDays = ['Horario Mixto'];
+            $hour         = 'Indefinido';
+        }
+        else{
+            $selectedDays = $getSelectedDays ? $getSelectedDays : [];
+            $hour = (count(array_unique($getSelectedHours)) > 1) ? 'VARIAS' : ($this->hour ?? $getHour) ;
+        }
 
         $this->monthlie->update([
             'with_days' => $selectedDays,
@@ -152,6 +164,23 @@ class UpdateSchedule extends Component
         $this->selectedDays = [];
         $this->quantitySelectDays = [];
         $this->hour = null;
+    }
+
+    public function updatedSelectedDays()
+    {
+        $this->reset('mix');
+    }
+
+    public function updatedMix()
+    {
+        if($this->mix === true){
+            $this->resetSchedule();   
+        }    
+    }
+
+    public function desactivateMix()
+    {
+        $this->reset('mix');
     }
 
     public function render()

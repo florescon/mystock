@@ -73,8 +73,6 @@ class Create extends Component
 
             $this->expense->customer_id = $this->customerAssociate;
 
-            // dd($this->expense);
-
             $this->expense->user()->associate(auth()->user());
 
             $this->expense->save($validatedData);

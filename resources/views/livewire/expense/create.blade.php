@@ -62,7 +62,6 @@
                     </div>
                     <div class="md:w-1/2 sm:w-full px-3">
                         <x-label for="customerAssociate" :value="__('Customer')" />
-
                         <livewire:components.select-customer-second
                             name="customerAssociate"
                             placeholder="{{ __('Choose a Customer') }}"

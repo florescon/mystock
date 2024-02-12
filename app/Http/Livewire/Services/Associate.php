@@ -26,7 +26,7 @@ class Associate extends Component
 
     public $serviceAssociate;
     public $selectedDays = [];
-    public $selectedDays_ = [];
+    public $selectedDaysSecond = [];
 
     public $hourFirst;
 
@@ -41,6 +41,7 @@ class Associate extends Component
     public $quantity_;
 
     public $mix;
+    public $mixSecond;
 
     /** @var array<string> */
     public $listeners = [
@@ -88,7 +89,7 @@ class Associate extends Component
         $this->quantity_ = 1;
 
         $this->selectedDays = [];
-        $this->selectedDays_ = [];
+        $this->selectedDaysSecond = [];
 
         $this->quantitySelectDays = [];
         $this->quantitySelectDaysSecond = [];
@@ -97,16 +98,45 @@ class Associate extends Component
         $this->hourSelected = null;
     }
 
+    public function UpdFirstColumn()
+    {
+        $this->quantity = 1;
+        $this->selectedDays = [];
+        $this->quantitySelectDays = [];
+        $this->hourFirst = null;
+    }
+
+    public function UpdSecondColumn()
+    {
+        $this->quantity_ = 1;
+        $this->selectedDaysSecond = [];
+        $this->quantitySelectDaysSecond = [];
+        $this->hourSelected = null;
+    }
+
+
     public function updatedMix()
     {
         if($this->mix === true){
-            $this->updatedShowCustomerAssociate();   
+            $this->UpdFirstColumn();   
+        }    
+    }
+
+    public function updatedMixSecond()
+    {
+        if($this->mixSecond === true){
+            $this->UpdSecondColumn();   
         }    
     }
 
     public function desactivateMix()
     {
         $this->reset('mix');
+    }
+
+    public function desactivateMixSecond()
+    {
+        $this->reset('mixSecond');
     }
 
     public function updatedCustomerIDSecond(?int $id = null)
@@ -118,6 +148,11 @@ class Associate extends Component
     public function updatedSelectedDays()
     {
         $this->reset('mix');
+    }
+
+    public function updatedSelectedDaysSecond()
+    {
+        $this->reset('mixSecond');
     }
 
     public function selectService($service)
@@ -149,9 +184,14 @@ class Associate extends Component
             }
         }
 
-        $selectedDays = $service['with_days'] ? ( $getSelectedDays ? $getSelectedDays : []) : [];
-
-        $hour = $service['with_days'] ? ( (count(array_unique($getSelectedHours)) > 1) ? 'VARIAS' : ($this->hourFirst ?? $getHour) ) : null;
+        if($this->mix){
+            $selectedDays = $service['with_days'] ? ['Horario Mixto'] : [];
+            $hour         = $service['with_days'] ? 'Indefinido' : null;
+        }
+        else{
+            $selectedDays = $service['with_days'] ? ( $getSelectedDays ? $getSelectedDays : []) : [];
+            $hour = $service['with_days'] ? ( (count(array_unique($getSelectedHours)) > 1) ? 'VARIAS' : ($this->hourFirst ?? $getHour) ) : null;
+        }
 
         // dd($hour);
 
@@ -167,7 +207,7 @@ class Associate extends Component
         $getSelectedDaysSecond = array();
         $getSelectedHoursSecond = array();
 
-        foreach($this->selectedDays_ as $key => $day ){  
+        foreach($this->selectedDaysSecond as $key => $day ){  
             if($day !== false){
                 $hour = array_key_exists($key, $this->quantitySelectDaysSecond) ? $this->quantitySelectDaysSecond[$key] : '';
                 $getSelectedDaysSecond[$key] = $day ? $day . ($hour ? ' — '.$hour : '') : false;
@@ -194,15 +234,22 @@ class Associate extends Component
             }
         }
 
-        $selectedDays_ = $service['with_days'] ? ( $getSelectedDaysSecond ? $getSelectedDaysSecond : []) : [];
-        // $selectedDays_ = $service['with_days'] ? $this->selectedDays_ : [];
+        if($this->mixSecond){
+            $selectedDaysSecond        = $service['with_days'] ? ['Horario Mixto'] : [];
+            $hourSelected         = $service['with_days'] ? 'Indefinido' : null;
+        }
+        else{
+            $selectedDaysSecond = $service['with_days'] ? ( $getSelectedDaysSecond ? $getSelectedDaysSecond : []) : [];
+            // $selectedDaysSecond = $service['with_days'] ? $this->selectedDaysSecond : [];
 
-        $hourSelected = $service['with_days'] ? ( (count(array_unique($getSelectedHoursSecond)) > 1) ? 'VARIAS' : ($this->hourSelected ?? $getHour) ) : null;
-        // $hourSelected = $service['with_days'] ? $this->hourSelected : null;
+            $hourSelected = $service['with_days'] ? ( (count(array_unique($getSelectedHoursSecond)) > 1) ? 'VARIAS' : ($this->hourSelected ?? $getHour) ) : null;
+            // $hourSelected = $service['with_days'] ? $this->hourSelected : null;
+        }
+
         $quantity_ = $service['with_input'] ? $this->quantity_ : 1; 
 
         if($this->customerAssociate){
-            $this->emit('serviceSelected', [$service, $this->customerAssociate, $quantity_, $selectedDays_, $hourSelected]);
+            $this->emit('serviceSelected', [$service, $this->customerAssociate, $quantity_, $selectedDaysSecond, $hourSelected]);
         }
 
         $this->showCustomerAssociate = false;
@@ -234,6 +281,7 @@ class Associate extends Component
     public function setHourSecond()
     {
         $this->updatedHourSelected();
+        $this->desactivateMixSecond();
     }
 
     public function updatedHourSelected()
@@ -241,6 +289,7 @@ class Associate extends Component
         for ($i = 1; $i <= 6; $i++){
             $this->quantitySelectDaysSecond[$i] = $this->hourSelected;
         }
+        $this->desactivateMixSecond();
     }
 
     public function updatedCustomerAssociate()
