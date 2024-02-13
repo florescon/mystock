@@ -79,6 +79,9 @@
                 {{ __('Amount') }}
             </x-table.th>
             <x-table.th>
+                {{ __('Created By') }}
+            </x-table.th>
+            <x-table.th>
                 {{ __('Actions') }}
             </x-table.th>
         </x-slot>
@@ -109,6 +112,9 @@
                     </x-table.td>
                     <x-table.td>
                         {{ format_currency($income->amount) }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $income->user_id ? Str::limit(optional($income->user)->name, 7, '...') : '--' }}
                     </x-table.td>
                     <x-table.td>
                         <div class="flex justify-start space-x-2">
