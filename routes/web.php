@@ -205,6 +205,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/sales/ddd/{products?}', [ExportController::class, 'ddd'])->name('sales.ddd');
 
+    Route::get('/expenses/print/{expenses?}', [ExportController::class, 'expensePrint'])->name('expenses.print');
+    Route::get('/finance/ticket/{finance}', [ExportController::class, 'financePrint'])->name('finance.print');
+
     //Sales
     Route::resource('sales', SaleController::class);
 

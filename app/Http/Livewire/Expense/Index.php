@@ -158,6 +158,13 @@ class Index extends Component
         return $this->callExport()->forModels($this->selected)->download('expenses.pdf');
     }
 
+    public function exportSelectedPrint()
+    {
+        abort_if(Gate::denies('expense_download'), 403);
+
+        return redirect()->route('expenses.print', urlencode(json_encode($this->selected)));
+    }
+
     public function exportAll(): BinaryFileResponse
     {
         abort_if(Gate::denies('expense_download'), 403);

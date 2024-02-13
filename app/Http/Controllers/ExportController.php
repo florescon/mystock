@@ -11,6 +11,7 @@ use App\Models\Quotation;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\Sale;
+use App\Models\Expense;
 use App\Models\SaleReturn;
 use App\Models\Supplier;
 use App\Models\Setting;
@@ -27,7 +28,7 @@ class ExportController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-public function salePos($id): Response
+    public function salePos($id): Response
     {
         $sale = Sale::with('saleDetails', 'saleDetailsService.customer', 'freeSwims.customer', 'freeSwims.sale')->where('id', $id)->firstOrFail();
 
@@ -137,6 +138,45 @@ public function salePos($id): Response
         ]);
 
         return $pdf->stream(__('Inscription').'.pdf');
+    }
+
+    public function expensePrint(?string $expenses = null)
+    {
+        $expensesJson = [];
+
+        foreach(json_decode($expenses) as $expense){
+            $exp = Expense::with('customer')->where('id', $expense)->first();
+            if($exp){
+                array_push($expensesJson,$exp);
+            }
+        }
+
+        $data = [
+            'logo'     => $this->getCompanyLogo(),
+            'expenses' => $expensesJson,
+        ];
+
+        $pdf = PDF::loadView('admin.expenses.print', $data, [], [
+            'format'    => 'a4',
+        ]);
+
+        return $pdf->stream(__('Inscription').'.pdf');
+    }
+
+    public function financePrint($id): Response
+    {
+        $sale = Expense::with('customer')->where('id', $id)->firstOrFail();
+
+        $data = [
+            'sale' => $sale,
+        ];
+
+        $pdf = PDF::loadView('admin.expenses.print-ticket', $data, [], [
+            // 'format' => 'a5',
+            'format' => [80, 140]
+        ]);
+
+        return $pdf->stream(__('Finace').$sale->reference.'.pdf');
     }
 
     public function serviceFormat()

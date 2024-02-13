@@ -18,6 +18,9 @@
                 <x-button warning type="button" wire:click="exportSelected" wire:loading.attr="disabled">
                     {{ __('PDF') }}
                 </x-button>
+                <x-button primary type="button" wire:click="exportSelectedPrint" wire:loading.attr="disabled">
+                    {{ __('Print A4') }}
+                </x-button>
             @endif
             @if ($this->selectedCount)
                 <p class="text-sm leading-5 ml-3">
@@ -124,6 +127,10 @@
                     </x-table.td>
                     <x-table.td>
                         <div class="flex justify-start space-x-2">
+                            <a type="button" class="bg-red-800 border border-transparent text-white hover:bg-red-900 focus:ring-red-900 active:bg-red-900 focus:outline-none focus:border-red-900 inline-flex items-center px-2 rounded-md font-semibold text-xs uppercase tracking-widest disabled:opacity-25 transition ease-in-out duration-150 mr-3" target="_blank" href="{{ route('finance.print', $expense->id) }}">
+                                &nbsp; <i class="fas fa-print"></i> &nbsp;
+                            </a>
+
                             <x-button info wire:click="showModal({{ $expense->id }})" type="button"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-eye"></i>

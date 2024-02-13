@@ -138,8 +138,8 @@ class UpdateSchedule extends Component
         }
 
         if($this->mix){
-            $selectedDays = ['Horario Mixto'];
-            $hour         = 'Indefinido';
+            $selectedDays = ['>> HORARIO MIXTO'];
+            $hour         = 'IND.';
         }
         else{
             $selectedDays = $getSelectedDays ? $getSelectedDays : [];

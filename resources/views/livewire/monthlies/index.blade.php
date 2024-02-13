@@ -96,7 +96,7 @@
                             <i class="fas fa-edit"></i>
                         </x-button>
                         @if($monthlie->with_days)
-                           - {{ implode(', ', $monthlie->with_days) }}
+                            &nbsp;{{ implode(', ', $monthlie->with_days) }}
                         @endif
                     </x-table.td>
                     <x-table.td>

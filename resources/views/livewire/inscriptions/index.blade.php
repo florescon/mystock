@@ -101,7 +101,7 @@
                         $ <p class="text-blue-600/100 inline-block">{{ $inscription->sub_total }}</p>
                     </x-table.td>
                     <x-table.td>
-                        {{ $inscription->inscription_remaining }}
+                        {{ $inscription->inscription_remaining . ' '.__('days') }}
                     </x-table.td>
                     <x-table.td>
                         {{ $inscription->inscription_expiration }}

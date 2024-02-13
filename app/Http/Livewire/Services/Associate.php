@@ -185,8 +185,8 @@ class Associate extends Component
         }
 
         if($this->mix){
-            $selectedDays = $service['with_days'] ? ['Horario Mixto'] : [];
-            $hour         = $service['with_days'] ? 'Indefinido' : null;
+            $selectedDays = $service['with_days'] ? ['>> HORARIO MIXTO'] : [];
+            $hour         = $service['with_days'] ? 'IND.' : null;
         }
         else{
             $selectedDays = $service['with_days'] ? ( $getSelectedDays ? $getSelectedDays : []) : [];
@@ -235,8 +235,8 @@ class Associate extends Component
         }
 
         if($this->mixSecond){
-            $selectedDaysSecond        = $service['with_days'] ? ['Horario Mixto'] : [];
-            $hourSelected         = $service['with_days'] ? 'Indefinido' : null;
+            $selectedDaysSecond        = $service['with_days'] ? ['>> HORARIO MIXTO'] : [];
+            $hourSelected         = $service['with_days'] ? 'IND.' : null;
         }
         else{
             $selectedDaysSecond = $service['with_days'] ? ( $getSelectedDaysSecond ? $getSelectedDaysSecond : []) : [];

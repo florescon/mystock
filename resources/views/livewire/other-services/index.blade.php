@@ -62,6 +62,9 @@
                 {{ __('Customer') }}
             </x-table.th>
             <x-table.th>
+                {{ __('Quantity') }}
+            </x-table.th>
+            <x-table.th>
                 {{ __('Discount') }}
             </x-table.th>
             <x-table.th>
@@ -83,6 +86,9 @@
                     </x-table.td>
                     <x-table.td>
                         {{ optional($monthlie->customer)->name }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $monthlie->quantity }}
                     </x-table.td>
                     <x-table.td>
                         $ {{ $monthlie->product_discount_amount * $monthlie->quantity }}

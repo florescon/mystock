@@ -112,6 +112,10 @@
                     </x-table.td>
                     <x-table.td>
                         <div class="flex justify-start space-x-2">
+                            <a type="button" class="bg-red-800 border border-transparent text-white hover:bg-red-900 focus:ring-red-900 active:bg-red-900 focus:outline-none focus:border-red-900 inline-flex items-center px-2 rounded-md font-semibold text-xs uppercase tracking-widest disabled:opacity-25 transition ease-in-out duration-150 mr-3" target="_blank" href="{{ route('finance.print', $income->id) }}">
+                                &nbsp; <i class="fas fa-print"></i> &nbsp;
+                            </a>
+
                             <x-button info wire:click="showModal({{ $income->id }})" type="button"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-eye"></i>
