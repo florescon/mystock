@@ -10,6 +10,7 @@ use App\Models\Warehouse;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Illuminate\Support\Facades\Hash;
 
 class Edit extends Component
 {
@@ -28,6 +29,8 @@ class Edit extends Component
 
     public $password;
 
+    public $password_confirmation;
+
     public $phone;
 
     public $role;
@@ -38,7 +41,8 @@ class Edit extends Component
     protected $rules = [
         'name'         => 'required|string|min:3|max:255',
         'email'        => 'required|email',
-        'password'     => 'required|string|min:8',
+        'password' => 'nullable|string|min:8|confirmed', // nullable y confirmed
+        'password_confirmation' => 'nullable|string|min:8', 
         'phone'        => 'required|numeric',
         'role'         => 'required',
         'warehouse_id' => 'required|array',
@@ -56,8 +60,6 @@ class Edit extends Component
 
         $this->email = $this->user->email;
 
-        $this->password = $this->user->password;
-
         $this->phone = $this->user->phone;
 
         $this->editModal = true;
@@ -66,6 +68,10 @@ class Edit extends Component
     public function update(): void
     {
         $this->validate();
+
+        if (!empty($this->password)) {
+            $this->user->password = Hash::make($this->password);
+        }
 
         $this->user->save();
 

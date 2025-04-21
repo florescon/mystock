@@ -39,9 +39,16 @@
                     </div>
                     <div class="md:w-1/2 sm:w-full px-3">
                         <x-label for="password" :value="__('Password')" />
-                        <x-input id="password" name="password" class="block mt-1 w-full" type="password"
+                        <x-input id="password" name="password" class="block mt-1 w-full" type="text"
                             wire:model.defer="password" />
                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                    </div>
+
+                    <div class="md:w-1/2 sm:w-full px-3">
+                        <x-label for="password_confirmation" :value="__('Password')" />
+                        <x-input id="password_confirmation" name="password_confirmation" class="block mt-1 w-full" type="text"
+                            wire:model.defer="password_confirmation" />
+                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                     </div>
 
                     <div class="md:w-1/2 sm:w-full px-3">

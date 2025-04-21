@@ -81,7 +81,6 @@ class Create extends Component
                 'password' => Hash::make($this->password),
             ]);
 
-
             $user->assignRole($this->role);
 
             foreach (Warehouse::all() as $warehouseId) {

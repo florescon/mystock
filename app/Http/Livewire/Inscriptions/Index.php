@@ -22,6 +22,7 @@ class Index extends Component
     public $listeners = [
         'importModal',   'delete',
         'refreshIndex' => '$refresh',
+        'delete',
     ];
 
     public $startDate;
@@ -35,6 +36,14 @@ class Index extends Component
     public $importModal = false;
 
     public $listsForFields = [];
+
+    /** @var bool */
+    public $showModal = false;
+
+    /** @var bool */
+    public $deleteModal = false;
+
+    public $inscription;
 
     /** @var array<array<string>> */
     protected $queryString = [
@@ -124,6 +133,29 @@ class Index extends Component
     public function updatedSearchTerm()
     {
         $this->resetPage();
+    }
+
+    public function confirmed()
+    {
+        $this->emit('delete');
+    }
+
+    public function deleteModal($inscription)
+    {
+        $this->confirm(__('Are you sure you want to delete this?'), [
+            'toast'             => false,
+            'position'          => 'center',
+            'showConfirmButton' => true,
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed'       => 'delete',
+        ]);
+        $this->inscription = $inscription;
+    }
+
+    public function delete(SaleDetailsService $inscription): void
+    {
+        $inscription->delete();
+        $this->alert('success', __('Inscription deleted successfully.'));
     }
 
     public function render()

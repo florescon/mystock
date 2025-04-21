@@ -77,6 +77,9 @@
             <x-table.th sortable wire:click="sortBy('created_at')">
                 {{ __('Created At') }}
             </x-table.th>
+            <x-table.th>
+                {{ __('Actions') }}
+            </x-table.th>
         </x-slot>
 
         <x-table.tbody>
@@ -109,6 +112,26 @@
                     <x-table.td>
                         {{ $inscription->created_at }}
                     </x-table.td>
+
+                    <x-table.td>
+                        <x-dropdown
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <x-slot name="trigger">
+                                <button type="button"
+                                    class="px-4 text-base font-semibold text-gray-500 hover:text-sky-800 dark:text-slate-400 dark:hover:text-sky-400">
+                                    <i class="fas fa-angle-double-down"></i>
+                                </button>
+                            </x-slot>
+                            <x-slot name="content">
+                                <x-dropdown-link wire:click="$emit('deleteModal', {{ $inscription->id }})"
+                                    wire:loading.attr="disabled">
+                                    <i class="fas fa-trash"></i>
+                                    {{ __('Delete') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                        </x-dropdown>
+                    </x-table.td>
+
                 </x-table.tr>
             @empty
                 <x-table.tr>
@@ -133,3 +156,26 @@
 
 
 </div>
+
+@push('scripts')
+    <script>
+        document.addEventListener('livewire:load', function() {
+            window.livewire.on('deleteModal', inscriptionId => {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '¡Si, eliminar!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('delete', inscriptionId)
+                    }
+                })
+            })
+        })
+    </script>
+@endpush
+
