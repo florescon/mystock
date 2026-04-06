@@ -253,6 +253,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/monthly', [ServiceController::class, 'monthly'])->name('services-monthly.index');
     Route::get('/free', [ServiceController::class, 'free'])->name('services-free.index');
 
+    Route::get('/list-attendance', [ServiceController::class, 'listAttendance'])->name('list-attendance.index');
+    Route::get('/capture-attendance', [ServiceController::class, 'captureAttendance'])->name('capture-attendance.index');
+
+    Route::get('/capture-attendance-hour/{settinghour}', [ServiceController::class, 'captureAttendanceHour'])->name('capture-attendance-hour.index');
+
+
     Route::get('/free-swim', [ServiceController::class, 'freeSwim'])->name('services-free-swim.index');
 
     Route::get('/servive-other', [ServiceController::class, 'other'])->name('services-other.index');

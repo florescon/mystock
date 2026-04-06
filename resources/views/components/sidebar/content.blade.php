@@ -8,6 +8,7 @@
         </x-slot>
     </x-sidebar.link>
 
+    @can('category_access')
     <x-sidebar.dropdown title="{{ __('Services') }}" :active="request()->routeIs('services.index') || request()->routeIs('services-inscriptions.index') || request()->routeIs('services-monthly.index') || request()->routeIs('services-free-swim.index') || request()->routeIs('services-free.index') || request()->routeIs('services-other.index') || request()->routeIs('service-format.index')">
 
         <x-slot name="icon">
@@ -37,6 +38,29 @@
             :active="request()->routeIs('service-format.index')" />
 
     </x-sidebar.dropdown>
+    @endcan
+
+    @can('attendance')
+    <x-sidebar.dropdown title="{{ __('Attendance') }}" :active="request()->routeIs('list-attendance.index') || request()->routeIs('capture-attendance.index') || request()->routeIs('capture-attendance-hour.index')">
+
+        <x-slot name="icon">
+            <span class="inline-block mx-4">
+                <i class="fas fa-solid fa-tarp-droplet w-5 h-5"></i>
+            </span>
+        </x-slot>
+
+        <x-sidebar.sublink title="{{ __('Capture Attendance') }}" href="{{ route('capture-attendance.index') }}"
+            :active="request()->routeIs('capture-attendance.index')" />
+
+        @can('category_access')
+        <x-sidebar.sublink title="{{ __('List Attendance') }}" href="{{ route('list-attendance.index') }}"
+            :active="request()->routeIs('list-attendance.index')" />
+        @endcan
+
+    </x-sidebar.dropdown>
+    @endcan
+
+
 
     @canany(['product_access', 'brand_access'])
     

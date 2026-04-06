@@ -19,13 +19,15 @@ class Create extends Component
 
     public $createModal = false;
 
-    /** @var mixed */
-    public $service;
-
     public $image;
 
     /** @var array<string> */
     public $listeners = ['createModal'];
+    
+    public $service = [
+        'service_type' => null,
+        'no_attendances' => null,
+    ];
 
     /** @var array */
     protected $rules = [
@@ -33,6 +35,9 @@ class Create extends Component
         'service.note' => 'nullable|min:3',
         'service.price' => 'required|integer|min:1',
         'service.service_type' => 'required',
+        'service.no_attendances' => [
+            'required_if:service.service_type,' . \App\Enums\ServiceType::MONTHLYPAYMENT->value,
+        ],
         'image' => 'nullable|mimes:jpeg,png,jpg,gif|max:2024',
     ];
 

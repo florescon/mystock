@@ -233,6 +233,7 @@ return [
         'customerAssociate' => 'cliente',
         'paid_with' => 'pago con',
         'paid_cash' => 'pago en efectivo',
+        'no_attendances' => 'no. de asistencias',
         'selectedDays' => 'días seleccionados',
     ],
 

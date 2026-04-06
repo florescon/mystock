@@ -47,6 +47,7 @@ class Service extends Model
         'image',
         'featured',
         'service_type',
+        'no_attendances',
     ];
 
     protected $casts = [

@@ -85,7 +85,7 @@
                         #{{ optional($monthlie->sale)->id }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $monthlie->name }}
+                        {{ \Illuminate\Support\Str::limit($monthlie->name, 15) }}
                     </x-table.td>
                     <x-table.td>
                         {{ optional($monthlie->customer)->name }}
@@ -133,8 +133,9 @@
         @endif
     </div>
 
+    @isset($monthlie)
     <!-- Edit Modal -->
-    @livewire('monthlies.update-schedule', ['monthlie' => $monthlie])
+        @livewire('monthlies.update-schedule', ['monthlie' => $monthlie])
     <!-- End Edit modal -->
-
+    @endisset
 </div>

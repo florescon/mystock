@@ -24,10 +24,11 @@
                 @livewire('notifications')
             </div>
         @endcan --}}
-
+        @can('sale_access')
         <x-button primary :href="route('app.pos.index')">
             {{ __('POS') }}
         </x-button>
+        @endcan
     
         {{-- <x-button type="button" class="hidden md:inline-flex" iconOnly secondary srText="Toggle dark mode"
             @click="toggleTheme">

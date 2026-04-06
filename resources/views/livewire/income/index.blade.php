@@ -139,7 +139,7 @@
                 </x-table.tr>
             @empty
                 <x-table.tr>
-                    <x-table.td colspan="7">
+                    <x-table.td colspan="8">
                         <div class="flex justify-center items-center space-x-2">
                             <svg class="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd"

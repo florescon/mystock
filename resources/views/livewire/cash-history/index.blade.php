@@ -120,7 +120,7 @@
                 </x-table.tr>
             @empty
                 <x-table.tr>
-                    <x-table.td colspan="5">
+                    <x-table.td colspan="7">
                         <div class="flex justify-center items-center">
                             <i class="fas fa-box-open text-4xl text-gray-400"></i>
                             {{ __('No results found') }}

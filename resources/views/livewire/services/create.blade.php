@@ -32,10 +32,15 @@
 
                 <div class="w-full px-3 mb-4">
                     <label>{{ __('Service Type') }}</label>
-                    <select wire:model.defer="service.service_type"
+                    <select wire:model="service.service_type"
                         class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
                         name="service_type">
-                        <option value="">{{ __('Select Service Type') }}</option>
+                        {{-- <option value="">{{ __('Select Service Type') }}</option> --}}
+
+                        <option value="" {{ data_get($service, 'service_type') ? 'disabled' : 'hidden' }}>
+                            {{ __('Select Service Type') }}
+                        </option>
+
                         @foreach (\App\Enums\ServiceType::cases() as $status)
                             <option value="{{ $status->value }}">
                                 {{ __($status->name) }}
@@ -44,6 +49,18 @@
                     </select>
                     <x-input-error :messages="$errors->get('service.service_type')" for="note" class="mt-2" />
                 </div>
+
+                @if(data_get($service, 'service_type') == \App\Enums\ServiceType::MONTHLYPAYMENT)
+                    <div class="w-full px-3 mb-4">
+                        <label>{{ __('No Attendances') }}</label>
+                        <input type="number"
+                            wire:model.defer="service.no_attendances"
+                            class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
+                            placeholder="Ingrese número" />
+
+                        <x-input-error :messages="$errors->get('service.no_attendances')" class="mt-2" />
+                    </div>
+                @endif
 
                 <div class="w-full px-3 mb-4">
                     <x-label for="image" :value="__('Image')" />

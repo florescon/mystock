@@ -348,6 +348,7 @@ class Index extends Component
                         'product_tax_amount'      => $cart_item->options->product_tax,
                         'with_days'               => $cart_item->options->days,
                         'hour'                    => $cart_item->options->hour,
+                        'available_attendances'   => $service->no_attendances ?? null,
                         // 'service_type'            => $cart_item->options->service_type,
                     ]);
                 }

@@ -45,6 +45,7 @@ class SaleDetailsService extends Model
         'product_tax_amount',
         'with_days',
         'hour',
+        'available_attendances',
     ];
 
     public function setWithDaysAttribute($value)
