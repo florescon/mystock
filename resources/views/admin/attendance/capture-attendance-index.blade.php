@@ -1,5 +1,9 @@
 @section('title', __('Capture Attendance'))
 
+@section('style')
+    <link rel="stylesheet" href="https://horizon-tailwind-react-corporate-7s21b54hb-horizon-ui.vercel.app/static/css/main.d7f96858.css" />
+@endsection
+
 @section('breadcrumb')
     <section class="py-3 px-4">
         <div class="flex flex-wrap items-center rtl:justify-start justify-between ">

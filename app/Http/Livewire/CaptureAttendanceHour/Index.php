@@ -16,6 +16,8 @@ class Index extends Component
 
     public $filterType = 'horario'; // valor por defecto
 
+    public $search = '';
+
     public function mount(SettingHour $settinghour)
     {
         $this->settinghour = SettingHour::findOrFail($settinghour->id);
@@ -89,6 +91,13 @@ class Index extends Component
 
         if ($this->filterType === 'horario') {
             $query->where('sale_details_services.with_days', 'like', "%$dayTime%");
+        }
+        elseif($this->filterType === 'buscar'){
+
+            $query->where(function ($q) {
+                $q->where('customers.name', 'like', '%' . $this->search . '%')
+                  ->orWhere('sale_details_services.with_days', 'like', '%' . $this->search . '%');
+            });    
         }
         else{
             $query->where('sale_details_services.with_days', '>> HORARIO MIXTO');

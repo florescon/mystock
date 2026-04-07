@@ -139,9 +139,6 @@ class Index extends Component
         // abort_if(Gate::denies('sale_access'), 403);
 
         $query = SaleDetailsService::with(['customer', 'service', 'sale'])
-            ->whereHas('service', function($query) {
-                $query->where('service_type', 1);
-            })
             ->whereBetween('created_at', [$this->startDate, $this->endDate.' 23:59:59'])
             ->when($this->sortField, function ($que) {
                 $que->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');

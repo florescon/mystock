@@ -20,7 +20,11 @@ class Edit extends Component
     public $editModal = false;
 
     /** @var mixed */
-    public $service;
+    public $service = [
+        'service_type' => null,
+        'no_attendances' => null,
+    ];
+
 
     public $image;
 
@@ -33,6 +37,12 @@ class Edit extends Component
         'service.note' => 'nullable|string',
         'service.price' => 'required|integer|min:1',
         'service.service_type' => 'required',
+        'service.no_attendances' => [
+            'required_if:service.service_type,' . \App\Enums\ServiceType::MONTHLYPAYMENT->value,
+            'integer',
+            'min:1',
+            'max:100',
+        ],
         'image' => 'nullable|mimes:jpeg,png,jpg,gif|size:2024',
     ];
 
@@ -61,6 +71,24 @@ class Edit extends Component
         $validatedData = $this->validate();
 
         try {
+
+            switch ($this->service->service_type->value) {
+                case 1:
+                    $this->service->with_days = 1;
+                    $this->service->with_input = 0;
+                    break;
+                case 2:
+                    $this->service->with_input = 1;
+                    $this->service->with_days = 0;
+                    $this->service->no_attendances = null;
+                    break;
+                default:
+                    $this->service->with_input = 0;
+                    $this->service->with_days = 0;
+                    $this->service->no_attendances = null;
+                    break;
+            }
+
             if ($this->image) {
                 $date = date("Y-m-d");
                 $imageName = $this->image->store("services/".$date,'public');

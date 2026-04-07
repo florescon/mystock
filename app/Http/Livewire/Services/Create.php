@@ -37,6 +37,9 @@ class Create extends Component
         'service.service_type' => 'required',
         'service.no_attendances' => [
             'required_if:service.service_type,' . \App\Enums\ServiceType::MONTHLYPAYMENT->value,
+            'integer',
+            'min:1',
+            'max:100',
         ],
         'image' => 'nullable|mimes:jpeg,png,jpg,gif|max:2024',
     ];

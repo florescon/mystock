@@ -52,6 +52,9 @@
         <x-sidebar.sublink title="{{ __('Capture Attendance') }}" href="{{ route('capture-attendance.index') }}"
             :active="request()->routeIs('capture-attendance.index')" />
 
+        <x-sidebar.sublink title="{{ __('Free swim') .' - '. __('Passes') }}" href="{{ route('services-free-swim.index') }}"
+            :active="request()->routeIs('services-free-swim.index')" />
+
         @can('category_access')
         <x-sidebar.sublink title="{{ __('List Attendance') }}" href="{{ route('list-attendance.index') }}"
             :active="request()->routeIs('list-attendance.index')" />
