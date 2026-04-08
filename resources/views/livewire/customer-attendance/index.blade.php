@@ -72,9 +72,13 @@
                                         <i class="fas fa-book"></i>
                                         {{ __('Customer Details') }}
                                     </x-dropdown-link>
-                                    <x-dropdown-link href="{{ route('customer.attendance', $customer->uuid) }}">
+                                    <x-dropdown-link href="{{ route('customer.attendance', $customer->uuid) }}" target="_blank">
                                         <i class="fas fa-book"></i>
                                         {{ __('Attendances') }}
+                                    </x-dropdown-link>
+                                    <x-dropdown-link href="{{ route('customer-attendance.print', $customer->id) }}" target="_blank">
+                                        <i class="fas fa-book"></i>
+                                        Ticket {{ __('Attendances') }}
                                     </x-dropdown-link>
                                 </x-slot>
                             </x-dropdown>

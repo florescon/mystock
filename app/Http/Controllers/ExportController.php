@@ -179,6 +179,23 @@ class ExportController extends Controller
         return $pdf->stream(__('Finace').$sale->reference.'.pdf');
     }
 
+
+    public function customerAttendancePrint($id): Response
+    {
+        $customer = Customer::with('attendances')->where('id', $id)->firstOrFail();
+
+        $data = [
+            'customer' => $customer,
+        ];
+
+        $pdf = PDF::loadView('admin.customers.attendance-ticket', $data, [], [
+            // 'format' => 'a5',
+            'format' => [80, 340]
+        ]);
+
+        return $pdf->stream(__('Customer').$customer->id.'.pdf');
+    }
+
     public function serviceFormat()
     {
         $services = Service::query()->limit(6)->get();

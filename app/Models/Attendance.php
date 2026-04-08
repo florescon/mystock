@@ -79,4 +79,10 @@ class Attendance extends Model
     {
         return $this->updated_at->isoFormat('D, MMM, YY h:mm a');
     }
+
+    public function getDateDiffForHumansCreatedShortAttribute()
+    {
+        return $this->updated_at->isoFormat('D, MMM, YY');
+    }
+
 }
