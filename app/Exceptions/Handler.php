@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -50,5 +51,14 @@ class Handler extends ExceptionHandler
                 app('sentry')->captureException($e);
             }
         });
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof TokenMismatchException) {
+            return redirect()->back()->with('error', 'Tu sesión expiró, intenta nuevamente');
+        }
+
+        return parent::render($request, $exception);
     }
 }

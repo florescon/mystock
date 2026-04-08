@@ -25,4 +25,14 @@ class CustomersController extends Controller
 
         return view('admin.customers.details', compact('customer'));
     }
+
+    public function attendance($customer)
+    {
+        abort_if(Gate::denies('customer_show'), 403);
+
+        $customer = Customer::with('attendances.sale_details_service', 'attendances.user')->whereUuid($customer)->first();
+
+        return view('admin.customers.attendance', compact('customer'));
+    }
+
 }

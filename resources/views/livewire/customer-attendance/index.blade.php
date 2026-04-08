@@ -8,17 +8,6 @@
                 @endforeach
             </select>
 
-            @if ($selected)
-                {{-- <x-button danger type="button" wire:click="deleteSelected" class="ml-3">
-                    <i class="fas fa-trash"></i>
-                </x-button> --}}
-                <x-button success type="button" wire:click="downloadSelected" wire:loading.attr="disabled">
-                    {{ __('EXCEL') }}
-                </x-button>
-                <x-button warning type="button" wire:click="exportSelected" wire:loading.attr="disabled">
-                    {{ __('PDF') }}
-                </x-button>
-            @endif
 
         </div>
         <div class="md:w-1/2 sm:w-full my-2">
@@ -30,17 +19,17 @@
 
     <x-table>
         <x-slot name="thead">
-            <x-table.th>
-                <input wire:model="selectPage" type="checkbox" />
-            </x-table.th>
             <x-table.th sortable multi-column wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
             </x-table.th>
-            <x-table.th sortable multi-column wire:click="sortBy('phone')" :direction="$sorts['phone'] ?? null">
-                {{ __('Phone') }}
+            <x-table.th>
+                {{ __('Available') }}
             </x-table.th>
-            <x-table.th sortable multi-column wire:click="sortBy('email')" :direction="$sorts['email'] ?? null">
-                {{ __('Email') }}
+            <x-table.th>
+                {{ __('Last monthly payment') }}
+            </x-table.th>
+            <x-table.th>
+                {{ __('Last visit') }}
             </x-table.th>
             <x-table.th>
                 {{ __('Actions') }}
@@ -49,20 +38,21 @@
         <x-table.tbody>
             @forelse ($customers as $customer)
                 <x-table.tr  wire:key="row-{{ $customer->id }}">
-                    <x-table.td class="pr-0">
-                        <input type="checkbox" value="{{ $customer->id }}" wire:model="selected" />
-                    </x-table.td>
                     <x-table.td>
                         <button type="button" wire:click="showModal({{ $customer->id }})"
                             class="text-indigo-500 hover:text-indigo-600">
                             {{ $customer->name }}
                         </button>
-                    </x-table.td>
-                    <x-table.td>
                         {{ $customer->phone }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $customer->email }}
+                        {{ $customer->total_attendances }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $customer->last_attendance }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $customer->last_time_day }}
                     </x-table.td>
                     <x-table.td>
                         <div class="flex justify-start space-x-2">
@@ -76,23 +66,16 @@
                                     <x-dropdown-link wire:click="showModal({{ $customer->id }})"
                                         wire:loading.attr="disabled">
                                         <i class="fas fa-eye"></i>
-                                        {{ __('View') }}
+                                        {{ __('View customer') }}
                                     </x-dropdown-link>
                                     <x-dropdown-link href="{{ route('customer.details', $customer->uuid) }}">
                                         <i class="fas fa-book"></i>
-                                        {{ __('Details') }}
+                                        {{ __('Customer Details') }}
                                     </x-dropdown-link>
-
-                                    <x-dropdown-link wire:click="$emit('editModal', {{ $customer->id }})"
-                                        wire:loading.attr="disabled">
-                                        <i class="fas fa-edit"></i>
-                                        {{ __('Edit') }}
+                                    <x-dropdown-link href="{{ route('customer.attendance', $customer->uuid) }}">
+                                        <i class="fas fa-book"></i>
+                                        {{ __('Attendances') }}
                                     </x-dropdown-link>
-                                    {{-- <x-dropdown-link wire:click="$emit('deleteModal', {{ $customer->id }})"
-                                        wire:loading.attr="disabled">
-                                        <i class="fas fa-trash"></i>
-                                        {{ __('Delete') }}
-                                    </x-dropdown-link> --}}
                                 </x-slot>
                             </x-dropdown>
 
@@ -101,7 +84,7 @@
                 </x-table.tr>
             @empty
                 <x-table.tr>
-                    <x-table.td colspan="12">
+                    <x-table.td colspan="11">
                         <div class="flex justify-center items-center space-x-2">
                             <i class="fas fa-box-open text-3xl text-gray-400"></i>
                             <span class="text-gray-400">{{ __('No customers found.') }}</span>
@@ -169,71 +152,6 @@
             </div>
         </x-slot>
     </x-modal>
-
-
-    @livewire('customers.edit', ['customer' => $customer])
-
-    <x-modal wire:model="import">
-        <x-slot name="title">
-            {{ __('Import Customers') }}
-        </x-slot>
-
-        <x-slot name="content">
-            <form wire:submit.prevent="importExcel">
-                <div class="space-y-4">
-                    <div class="mt-4">
-                        <x-label for="file" :value="__('Import')" />
-                        <x-input id="file" class="block mt-1 w-full" type="file" name="file"
-                            wire:model.defer="file" />
-                        <x-input-error :messages="$errors->get('file')" for="file" class="mt-2" />
-                    </div>
-
-                    <x-table-responsive>
-                        <x-table.tr>
-                            <x-table.th>{{ __('Name') }}</x-table.th>
-                            <x-table.td><strong>name</strong></x-table.td>
-                            <x-table.td>{{ __('Required') }} | max:100</x-table.td>
-                        </x-table.tr>
-                        <x-table.tr>
-                            <x-table.th>{{ __('Phone') }}</x-table.th>
-                            <x-table.td><strong>phone</strong></x-table.td>
-                            <x-table.td>{{ __('Required') }} | numérico</x-table.td>
-                        </x-table.tr>
-                        <x-table.tr>
-                            <x-table.th>{{ __('Email') }}</x-table.th>
-                            <x-table.td><strong>email</strong></x-table.td>
-                            <x-table.td>{{ __('Optional') }} | dirección de correo</x-table.td>
-                        </x-table.tr>
-                        <x-table.tr>
-                            <x-table.th>{{ __('Address') }}</x-table.th>
-                            <x-table.td><strong>address</strong></x-table.td>
-                            <x-table.td>{{ __('Optional') }} | max:100</x-table.td>
-                        </x-table.tr>
-                        <x-table.tr>
-                            <x-table.th>{{ __('City') }}</x-table.th>
-                            <x-table.td><strong>city</strong></x-table.td>
-                            <x-table.td>{{ __('Optional') }} | max:100</x-table.td>
-                        </x-table.tr>
-                        <x-table.tr>
-                            <x-table.th>{{ __('Tax Number') }}</x-table.th>
-                            <x-table.td><strong>tax_number</strong></x-table.td>
-                            <x-table.td>{{ __('Optional') }} | numérico | entre:1,100</x-table.td>
-                        </x-table.tr>
-                    </x-table-responsive>
-
-                    <div class="w-full flex justify-start">
-                        <x-button primary type="submit" wire:loading.attr="disabled">
-                            {{ __('Import') }}
-                        </x-button>
-                    </div>
-                </div>
-            </form>
-        </x-slot>
-    </x-modal>
-
-
-    <livewire:customers.create />
-
 
     @push('scripts')
         <script>

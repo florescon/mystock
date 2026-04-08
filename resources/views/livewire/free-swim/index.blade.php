@@ -74,6 +74,14 @@
 
         <x-table.tbody>
             @forelse ($inscriptions as $inscription)
+
+            @php
+                $expired = \Carbon\Carbon::parse($inscription->created_at)
+                    ->addDays(30)
+                    ->endOfDay()
+                    ->isPast();
+            @endphp
+
                 <x-table.tr >
                     <x-table.td>
                         #{{ optional($inscription->sale)->id }}
@@ -85,7 +93,17 @@
                         {{ optional($inscription->customer)->name }}
                     </x-table.td>
                     <x-table.td>
-                        <livewire:toggle-button :model="$inscription" field="status" key="{{ $inscription->id }}" />
+                        @if($expired)
+                            @if($inscription->status)
+                                <span class="text-blue-600 font-semibold">
+                                    <span class="text-green-500">✔️</span>
+                                </span>
+                            @else
+                                <span class="text-red-600 font-semibold">No aplicado</span>
+                            @endif
+                        @else
+                            <livewire:toggle-button :model="$inscription" field="status" key="{{ $inscription->id }}" />
+                        @endif
                     </x-table.td>
                     <x-table.td>
                         {{ $inscription->updated_at }}

@@ -41,7 +41,7 @@
     @endcan
 
     @can('attendance')
-    <x-sidebar.dropdown title="{{ __('Attendance') }}" :active="request()->routeIs('list-attendance.index') || request()->routeIs('capture-attendance.index') || request()->routeIs('capture-attendance-hour.index')">
+    <x-sidebar.dropdown title="{{ __('Attendance') }}" :active="request()->routeIs('list-attendance.index') || request()->routeIs('capture-attendance.index') || request()->routeIs('captured-attendances.index') || request()->routeIs('customer-attendance.index') || request()->routeIs('capture-attendance-hour.index')">
 
         <x-slot name="icon">
             <span class="inline-block mx-4">
@@ -58,6 +58,13 @@
         @can('category_access')
         <x-sidebar.sublink title="{{ __('List Attendance') }}" href="{{ route('list-attendance.index') }}"
             :active="request()->routeIs('list-attendance.index')" />
+
+        <x-sidebar.sublink title="{{ __('Customer attendances') }}" href="{{ route('customer-attendance.index') }}"
+            :active="request()->routeIs('customer-attendance.index')" />
+
+        <x-sidebar.sublink title="{{ __('Captured Attendances') }}" href="{{ route('captured-attendances.index') }}"
+            :active="request()->routeIs('captured-attendances.index')" />
+
         @endcan
 
     </x-sidebar.dropdown>

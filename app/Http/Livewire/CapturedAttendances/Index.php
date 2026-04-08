@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Livewire\ListAttendance;
+namespace App\Http\Livewire\CapturedAttendances;
 
 use App\Http\Livewire\WithSorting;
 use App\Models\SaleDetailsService;
+use App\Models\Attendance;
 use App\Traits\Datatable;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -112,11 +113,7 @@ class Index extends Component
                 $queryy->whereHas('customer', function ($qu) {
                     $qu->whereRaw("name LIKE \"%$this->searchTerm%\"");
                 })
-                ->orWhere('name', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('with_days', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('hour', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('sub_total', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('sale_id', 'like', '%' . $this->searchTerm . '%');
+                ->orWhere('time_day', 'like', '%' . $this->searchTerm . '%');
 
             });
         }
@@ -133,18 +130,19 @@ class Index extends Component
     {
         // abort_if(Gate::denies('sale_access'), 403);
 
-        $query = SaleDetailsService::with(['customer', 'service', 'sale'])
+        $query = Attendance::with(['customer', 'user', 'sale_details_service'])
             ->whereBetween('created_at', [$this->startDate, $this->endDate.' 23:59:59'])
             ->when($this->sortField, function ($que) {
                 $que->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             })
-            ->where('available_attendances', '>', 0)
             ;
 
         $this->applySearchFilter($query);
 
         $inscriptions = $query->paginate($this->perPage);
 
-        return view('livewire.list-attendance.index', compact('inscriptions'));
+
+        return view('livewire.captured-attendances.index', compact('inscriptions'));
+
     }
 }

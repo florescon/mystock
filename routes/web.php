@@ -114,6 +114,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('customers', [CustomersController::class, 'index'])->name('customers.index');
     Route::get('customer/details/{id}', [CustomersController::class, 'show'])->name('customer.details');
 
+
+    Route::get('customer/details/{id}', [CustomersController::class, 'show'])->name('customer.details');
+
+    Route::get('customer/attendance/{id}', [CustomersController::class, 'attendance'])->name('customer.attendance');
+
     Route::get('customergroup', [CustomerGroupController::class, 'index'])->name('customer-group.index');
 
     //Suppliers
@@ -254,6 +259,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/free', [ServiceController::class, 'free'])->name('services-free.index');
 
     Route::get('/list-attendance', [ServiceController::class, 'listAttendance'])->name('list-attendance.index');
+
+    Route::get('/captured-attendances', [ServiceController::class, 'capturedAttendances'])->name('captured-attendances.index');
+
+    Route::get('/customer-attendance', [ServiceController::class, 'customerAttendance'])->name('customer-attendance.index');
+
     Route::get('/capture-attendance', [ServiceController::class, 'captureAttendance'])->name('capture-attendance.index');
 
     Route::get('/capture-attendance-hour/{settinghour}', [ServiceController::class, 'captureAttendanceHour'])->name('capture-attendance-hour.index');

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Enums\ServiceType;
 use App\Enums\BloodType;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Customer extends Model
 {
@@ -127,6 +128,39 @@ class Customer extends Model
         ], function (Builder $query) {
             $query->where('created_at', '<', now())->where('service_id', ServiceType::INSCRIPTION->getID());
         });
+    }
+
+    // Relación directa con sale_details_services (opcional, si tienes customer_id en esa tabla)
+    public function saleDetailsServices()
+    {
+        return $this->hasManyThrough(
+            SaleDetailsService::class,
+            Sale::class,
+            'customer_id', // FK en sales
+            'sale_id',     // FK en sale_details_services
+            'id',          // PK en customers
+            'id'           // PK en sales
+        );
+    }
+
+    // Suma de available_attendances
+    public function totalAttendances()
+    {
+        // Si usamos relación directa
+        return $this->saleDetailsServices()->sum('available_attendances');
+    }
+
+    // Último available_attendances
+    public function lastAttendance()
+    {
+        return $this->saleDetailsServices()
+                    ->latest('created_at')
+                    ->value('created_at');
+    }
+
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class, 'customer_id', 'id');
     }
 
     public function getInscriptionDateDiffForHumansAttribute()

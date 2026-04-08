@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Customers;
+namespace App\Http\Livewire\CustomerAttendance;
 
 use App\Exports\CustomerExport;
 use App\Http\Livewire\WithSorting;
-use App\Imports\CustomerImport;
 use App\Models\Customer;
 use App\Traits\Datatable;
 use Illuminate\Support\Facades\Gate;
@@ -20,6 +19,8 @@ use Illuminate\Http\Response;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rules\File;
+use Illuminate\Support\Facades\DB;
+use App\Models\Attendance;
 
 class Index extends Component
 {
@@ -37,14 +38,12 @@ class Index extends Component
     public $listeners = [
         'refreshIndex' => '$refresh',
         'showModal',
-        'import',
         'exportAll', 'downloadAll',
         'delete',
     ];
 
     public $showModal = false;
 
-    public $import;
 
     /** @var array<array<string>> */
     protected $queryString = [
@@ -68,30 +67,6 @@ class Index extends Component
         $this->orderable = (new Customer())->orderable;
     }
 
-    public function render(): View|Factory
-    {
-        abort_if(Gate::denies('customer_access'), 403);
-
-        $query = Customer::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
-            'order_direction' => $this->sortDirection,
-        ]);
-
-        $customers = $query->paginate($this->perPage);
-
-        return view('livewire.customers.index', compact('customers'));
-    }
-
-    public function deleteSelected()
-    {
-        abort_if(Gate::denies('customer_delete'), 403);
-
-        Customer::whereIn('id', $this->selected)->delete();
-
-        $this->resetSelected();
-    }
-
     public function delete(Customer $customer)
     {
         abort_if(Gate::denies('customer_delete'), 403);
@@ -110,13 +85,6 @@ class Index extends Component
         $this->showModal = true;
     }
 
-    public function downloadSelected(): BinaryFileResponse|Response
-    {
-        abort_if(Gate::denies('customer_access'), 403);
-
-        return $this->callExport()->forModels($this->selected)->download('clientes-seleccionados.xlsx');
-    }
-
     public function downloadAll(Customer $customers): BinaryFileResponse|Response
     {
         abort_if(Gate::denies('customer_access'), 403);
@@ -124,12 +92,6 @@ class Index extends Component
         return (new CustomerExport($customers))->download('clientes.xls', \Maatwebsite\Excel\Excel::XLS);
     }
 
-    public function exportSelected(): BinaryFileResponse|Response
-    {
-        abort_if(Gate::denies('customer_access'), 403);
-
-        return $this->callExport()->forModels($this->selected)->download('clientes.pdf', \Maatwebsite\Excel\Excel::MPDF);
-    }
 
     public function exportAll(): BinaryFileResponse|Response
     {
@@ -138,38 +100,32 @@ class Index extends Component
         return $this->callExport()->download('clientes.pdf', \Maatwebsite\Excel\Excel::MPDF);
     }
 
-    public function import(): void
-    {
-        abort_if(Gate::denies('customer_access'), 403);
-
-        $this->import = true;
-    }
-
-    public function importExcel()
-    {
-        abort_if(Gate::denies('customer_access'), 403);
-
-        $this->validate([
-            'file' => [
-                'required',
-                File::types(['xlsx', 'xls'])
-                    ->max(1024),
-            ],
-        ]);
-
-        // $file = $this->file('file');
-
-        Excel::import(new CustomerImport(), $this->file);
-
-        $this->import = false;
-
-        $this->file = null;
-
-        $this->alert('success', __('Customers imported successfully.'));
-    }
-
     private function callExport(): CustomerExport
     {
         return new CustomerExport();
     }
+
+    public function render(): View|Factory
+    {
+        abort_if(Gate::denies('customer_access'), 403);
+
+        $query = Customer::advancedFilter([
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
+            'order_direction' => $this->sortDirection,
+        ])
+        ->withSum('saleDetailsServices as total_attendances', 'available_attendances')
+        ->withMax('saleDetailsServices as last_attendance', 'created_at')
+        ->addSelect([
+            'last_time_day' => Attendance::select('created_at')
+                ->whereColumn('customer_id', 'customers.id')
+                ->latest('id') // o 'time_day' si ese define el orden real
+                ->limit(1)
+        ]);
+
+        $customers = $query->paginate($this->perPage);
+
+        return view('livewire.customer-attendance.index', compact('customers'));
+    }
+
 }

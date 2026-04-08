@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Attendance extends Model
 {
@@ -35,5 +37,46 @@ class Attendance extends Model
     public function sale_details_service(): BelongsTo
     {
         return $this->belongsTo(SaleDetailsService::class, 'sale_details_service_id', 'id');
+    }
+
+    protected function userInitials(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if (!$this->user?->name) {
+                    return null;
+                }
+
+                return collect(explode(' ', $this->user->name))
+                    ->map(function ($word) {
+                        return ucfirst(strtolower(substr($word, 0, 3)));
+                    })
+                    ->implode('. ') . '.';
+            }
+
+        );
+    }
+
+    protected function conceptInitials(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if (!$this->sale_details_service?->name) {
+                    return null;
+                }
+
+                return collect(explode(' ', $this->sale_details_service->name))
+                    ->map(function ($word) {
+                        return ucfirst(strtolower(substr($word, 0, 3)));
+                    })
+                    ->implode('. &nbsp;') . '.';
+            }
+
+        );
+    }
+
+    public function getDateDiffForHumansCreatedAttribute()
+    {
+        return $this->updated_at->isoFormat('D, MMM, YY h:mm a');
     }
 }

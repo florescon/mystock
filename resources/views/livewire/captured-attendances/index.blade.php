@@ -3,7 +3,7 @@
       <div class="flex">
         <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
         <div>
-          <p class="font-bold">Mensualidades por defecto <u>mes {{ now()->translatedFormat('F') }} y 10 dias anteriores del mes de {{ now()->subMonth()->translatedFormat('F') }}</u> siempre y cuando tenga clases disponibles</p>
+          <p class="font-bold">Todas las Asistencias capturadas. Seleccione día y hora, para poder exportar.</p>
         </div>
       </div>
     </div>
@@ -48,32 +48,17 @@
 
     <x-table>
         <x-slot name="thead">
-            {{-- <x-table.th>
-                <input type="checkbox" wire:model="selectPage" />
-            </x-table.th> --}}
-            <x-table.th sortable wire:click="sortBy('sale_id')">
-                {{ __('Sale') }}
-            </x-table.th>
-            <x-table.th sortable wire:click="sortBy('available_attendances')">
-                {{ __('Available') }}
-            </x-table.th>
-            <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['reference'] ?? null">
-                {{ __('Reference') }}
-            </x-table.th>
             <x-table.th>
                 {{ __('Customer') }}
             </x-table.th>
             <x-table.th>
-                {{ __('Days') }}
+                {{ __('Concept') }}
             </x-table.th>
             <x-table.th>
-                {{ __('Hour') }}
+                {{ __('Day and hour') }}
             </x-table.th>
             <x-table.th>
-                {{ __('Discount') }}
-            </x-table.th>
-            <x-table.th>
-                {{ __('Subtotal') }}
+                {{ __('C. by') }}
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('created_at')">
                 {{ __('Date') }}
@@ -84,38 +69,19 @@
             @forelse ($inscriptions as $monthlie)
                 <x-table.tr >
                     <x-table.td>
-                        #{{ optional($monthlie->sale)->id }}
-                    </x-table.td>
-
-                    <x-table.td>
-                        {{ $monthlie->available_attendances }}
-                    </x-table.td>
-                    <x-table.td>
-                        {{ \Illuminate\Support\Str::limit($monthlie->name, 15) }}
-                    </x-table.td>
-                    <x-table.td>
                         {{ optional($monthlie->customer)->name }}
                     </x-table.td>
                     <x-table.td>
-                        <x-button primary wire:click="$emit('editModal', {{ $monthlie->id }})" type="button"
-                            wire:loading.attr="disabled">
-                            <i class="fas fa-edit"></i>
-                        </x-button>
-                        @if($monthlie->with_days)
-                            &nbsp;{{ implode(', ', $monthlie->with_days) }}
-                        @endif
+                        {!! $monthlie->concept_initials !!}
                     </x-table.td>
                     <x-table.td>
-                        {{ $monthlie->hour }}
+                        {{ $monthlie->time_day }}
                     </x-table.td>
                     <x-table.td>
-                        $ {{ $monthlie->product_discount_amount * $monthlie->quantity }}
+                        {{ $monthlie->user_initials }}
                     </x-table.td>
                     <x-table.td>
-                        $ <p class="text-blue-600/100 inline-block">{{ $monthlie->sub_total }}</p>
-                    </x-table.td>
-                    <x-table.td>
-                        {{ $monthlie->created_at }}
+                        {{ $monthlie->date_diff_for_humans_created }}
                     </x-table.td>
                 </x-table.tr>
             @empty
@@ -139,9 +105,4 @@
         @endif
     </div>
 
-    @isset($monthlie)
-    <!-- Edit Modal -->
-        @livewire('monthlies.update-schedule', ['monthlie' => $monthlie])
-    <!-- End Edit modal -->
-    @endisset
 </div>

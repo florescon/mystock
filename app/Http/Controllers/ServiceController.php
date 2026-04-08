@@ -30,6 +30,16 @@ class ServiceController extends Controller
         return view('admin.service.list-attendance-index');
     }
 
+    public function capturedAttendances()
+    {
+        return view('admin.attendance.captured-attendances-index');
+    }
+
+    public function customerAttendance()
+    {
+        return view('admin.attendance.customer-attendance-index');
+    }
+
     public function captureAttendance()
     {
         return view('admin.attendance.capture-attendance-index');
