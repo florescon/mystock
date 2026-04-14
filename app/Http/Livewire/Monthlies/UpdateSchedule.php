@@ -185,9 +185,13 @@ class UpdateSchedule extends Component
 
     public function render()
     {
-        $hours = SettingHour::get();
+        $hours = SettingHour::get()->sortBy(function ($item) {
+            if ($item->hour == 12) {
+                return $item->is_am ? 0 : 12;
+            }
 
-        $hours = $hours->sortBy([ ['is_am', 'desc'], ['hour', 'asc'] ]);
+            return $item->hour + ($item->is_am ? 0 : 12);
+        });
 
         return view('livewire.monthlies.update-schedule', compact('hours'));
     }

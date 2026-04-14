@@ -22,6 +22,7 @@ class Create extends Component
     /** @var mixed */
     public $income;
 
+
     protected $rules = [
         'income.reference'    => 'required|string|max:255',
         'income.category_id'  => 'required|integer|exists:expense_categories,id',
@@ -29,6 +30,7 @@ class Create extends Component
         'income.amount'       => 'required|numeric|min:1',
         'income.details'      => 'nullable|string|min:3',
         'income.user_id'      => 'nullable',
+        'income.payment_method'      => 'required',
         'income.warehouse_id' => 'nullable',
         'income.is_expense' => 'required',
     ];
@@ -56,6 +58,8 @@ class Create extends Component
         $this->income->is_expense = false;
 
         $this->income->date = date('Y-m-d');
+
+        $this->income->payment_method = 'Cash';
 
         $this->createModal = true;
     }

@@ -46,6 +46,18 @@
                         </select>
                         <x-input-error :messages="$errors->get('income.warehouse_id')" class="mt-2" />
                     </div>
+
+                    <div class="xl:w-1/3 lg:w-1/2 sm:w-full px-3">
+                        <x-label for="income.payment_method" :value="__('Payment Method')" />
+
+                        <select class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1" name="payment_method" id="payment_method" wire:model="income.payment_method" required @if($income->cash_id) disabled @endif>
+                            <option {{ $income->payment_method == 'Cash' ? 'selected' : '' }} value="Cash">{{ __('Cash') }}</option>
+                            <option {{ $income->payment_method == 'Bank Transfer' ? 'selected' : '' }} value="Bank Transfer">{{ __('Bank Transfer') }}</option>
+                            <option {{ $income->payment_method == 'Card' ? 'selected' : '' }} value="Card">{{ __('Card') }}</option>
+                        </select>
+                        <x-input-error :messages="$errors->get('income.payment_method')" class="mt-2" />
+                    </div>
+
                     <div class="w-full px-4 mb-4">
                         <x-label for="income.details" :value="__('Description')" />
                         <textarea

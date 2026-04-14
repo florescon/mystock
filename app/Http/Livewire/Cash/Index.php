@@ -126,13 +126,17 @@ class Index extends Component
             ->withoutCash()
             ->sum('amount');
 
-        $incomesCash = Expense::incomes()->withoutCash()->sum('amount');
+        $incomesCash = Expense::incomes()->withoutCash()->onlyPaymentCash()->sum('amount');
+        $incomesOutCash = Expense::incomes()->withoutCash()->otherPaymentMethod()->sum('amount');
+
         $expensesCash = Expense::expenses()->withoutCash()->sum('amount');
 
         $totalCash = $currentSalePaymentCash + $incomesCash - $expensesCash;
 
+        $currentOutPaymentCash = $currentSaleOutPaymentCash + $incomesOutCash;
+
         $lastCash = Cash::latest()->first();
 
-        return view('livewire.cash.index', compact('salesCash', 'salesOutCash', 'expenses', 'incomes', 'totalCash', 'currentSaleOutPaymentCash', 'lastCash'));
+        return view('livewire.cash.index', compact('salesCash', 'salesOutCash', 'expenses', 'incomes', 'totalCash', 'currentOutPaymentCash', 'lastCash'));
     }
 }

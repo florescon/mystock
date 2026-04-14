@@ -77,7 +77,7 @@
 
             @php
                 $expired = \Carbon\Carbon::parse($inscription->created_at)
-                    ->addDays(30)
+                    ->addDays(365)
                     ->endOfDay()
                     ->isPast();
             @endphp

@@ -321,10 +321,14 @@ class Associate extends Component
             'order_direction' => $this->sortDirection,
         ]);
 
-        $hours = SettingHour::get();
+        $hours = SettingHour::get()->sortBy(function ($item) {
+            if ($item->hour == 12) {
+                return $item->is_am ? 0 : 12;
+            }
 
-        $hours = $hours->sortBy([ ['is_am', 'desc'], ['hour', 'asc'] ]);
-
+            return $item->hour + ($item->is_am ? 0 : 12);
+        });
+        
         $services = $query->paginate($this->perPage);
 
         return view('livewire.services.associate', compact('services', 'hours'));

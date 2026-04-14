@@ -7,7 +7,7 @@
     {{-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> --}}
 
-    <title>{{ __('Sale') }} : {{ $sale->reference }}</title>
+    <title>{{ $sale->is_expense ? __('Expense')  : __('Income') }} : {{ $sale->reference }}</title>
 
     <style>
         @font-face {
@@ -149,6 +149,11 @@
                 </tbody>
             </table>
 
+            @if(!$sale->is_expense)
+                <div class="centered" style="background-color:#ddd;padding: 5px; margin-bottom: 5px;">
+                        {{ __('Paid By') }}: {{ __($sale->payment_method) }} <br>
+                </div>
+            @endif
         </div>
     </div>
 </body>

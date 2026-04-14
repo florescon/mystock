@@ -14,7 +14,7 @@
             <img src="{{ asset('images/logo.png') }}">
         </a>
       </div>
-      <h1>CORTE DE CAJA #{{ $cash->id }}</h1>
+      <h1>CORTE DE CAJA NO PROCESADO</h1>
       <div id="company" class="clearfix">
         <div>Acuática Azul</div>
         <div>{{ settings()->company_address }}</div>
@@ -22,14 +22,18 @@
         <div><a href="#">{{ settings()->company_email }}</a></div>
       </div>
       <div id="project">
-        <div><span>CREADO A:</span> {{ $cash->created_at }}</div>
-        <div><span>CREADO P:</span> {{ optional($cash->user)->name }}</div>
+        {{-- <div><span>CREADO A:</span> {{ $cash->created_at }}</div> --}}
+        {{-- <div><span>CREADO P:</span> {{ optional($cash->user)->name }}</div> --}}
         <br>
-        <div><span>INICIAL</span> {{ $cash->initial}} </div>
-        {{-- <div><span>EFECTIVO</span> {{ $cash->total_cash + $cash->total_incomes_cash - $cash->total_expenses }} </div> --}}
-        <div><span>TOTAL EFE.</span> {{ $cash->total_cash + $cash->initial + $cash->total_incomes_cash - $cash->total_expenses }} </div>
+        @if(!$lastCash->is_processed)
+          <div><span>INICIAL</span> {{ $lastCash->initial}} </div>
+        @endif
+        <div><span>EFECTIVO</span> {{ 
+          $totalCash  }} </div>
+        <div><span>TOTAL EFE.</span> {{ 
+          $totalCash + (!optional($lastCash)->is_processed ? optional($lastCash)->initial : 0) }} </div>
         <br>
-        <div><span>OTROS M.</span> {{ $cash->total_other + $cash->total_incomes_other_payment }} </div>
+        <div><span>OTROS M.</span> {{ $currentOutPaymentCash }} </div>
         <br>
       </div>
     </header>
@@ -48,7 +52,7 @@
           </tr>
         </thead>
         <tbody>
-          @foreach($cash->expenses as $key => $expense)
+          @foreach($expenses as $key => $expense)
           <tr>
             <td class="desc">#{{ $expense->id }}</td>
             <td style="text-align: center;">{{ $expense->is_expense ? '-'. $expense->amount : $expense->amount}}</td>
@@ -73,7 +77,7 @@
           </tr>
         </thead>
         <tbody>
-          @foreach($cash->sale_payments as $key => $sale_payment)
+          @foreach($sale_payments as $key => $sale_payment)
           <tr>
             <td class="desc">#{{ $sale_payment->id }}</td>
             <td style="text-align: center;">${{ $sale_payment->amount }}</td>
@@ -98,7 +102,7 @@
           </tr>
         </thead>
         <tbody>
-          @foreach($cash->sales as $key => $sale)
+          @foreach($sales as $key => $sale)
           <tr>
             <td class="desc" style="text-decoration: underline blue 1px;">#{{ $sale->id }}<br>{{ $sale->reference }}</td>
             <td style="text-align: center;">{{ optional($sale->customer)->name }}</td>

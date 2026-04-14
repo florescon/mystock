@@ -76,6 +76,20 @@ class Cash extends Model
         });
     }
 
+    public function getTotalIncomesCashAttribute()
+    {
+        return $this->expenses->where('is_expense', false)->where('payment_method', 'Cash')->sum(function($children) {
+          return $children->amount;
+        });
+    }
+
+    public function getTotalIncomesOtherPaymentAttribute()
+    {
+        return $this->expenses->where('is_expense', false)->where('payment_method', '<>', 'Cash')->sum(function($children) {
+          return $children->amount;
+        });
+    }
+
     public function getTotalCashAttribute()
     {
         return $this->sale_payments->where('payment_method', 'Cash')->sum(function($children) {

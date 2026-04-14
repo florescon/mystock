@@ -35,6 +35,11 @@ class Index extends Component
 
     public $importModal = false;
 
+    /** @var bool */
+    public $deleteModal = false;
+
+    public $month;
+
     public $listsForFields = [];
 
     /** @var array<array<string>> */
@@ -127,6 +132,29 @@ class Index extends Component
     public function updatedSearchTerm()
     {
         $this->resetPage();
+    }
+
+    public function confirmed()
+    {
+        $this->emit('delete');
+    }
+
+    public function deleteModal($month)
+    {
+        $this->confirm(__('Are you sure you want to delete this?'), [
+            'toast'             => false,
+            'position'          => 'center',
+            'showConfirmButton' => true,
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed'       => 'delete',
+        ]);
+        $this->month = $month;
+    }
+
+    public function delete(SaleDetailsService $month): void
+    {
+        $month->delete();
+        $this->alert('success', __('Month deleted successfully.'));
     }
 
     public function render()

@@ -50,6 +50,7 @@ class Expense extends Model
         'cash_id',
         'amount',
         'customer_id',
+        'payment_method',
     ];
 
     public function __construct(array $attributes = [])

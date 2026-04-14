@@ -10,4 +10,15 @@ trait CashOutScope
     {
         return $query->where('cash_id', NULL);
     }
+
+    public function scopeOnlyPaymentCash($query)
+    {
+        return $query->where('payment_method', 'Cash');
+    }
+
+    public function scopeOtherPaymentMethod($query)
+    {
+        return $query->where('payment_method', '<>', 'Cash');
+    }
+
 }

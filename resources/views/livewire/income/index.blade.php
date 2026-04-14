@@ -99,6 +99,13 @@
                     </x-table.td>
                     <x-table.td>
                         {{ $income->details ? Str::limit($income->details, 28, '...') : '--' }}
+
+                        @if($income->payment_method != 'Cash')
+                            <x-badge type="success">
+                                {{ __($income->payment_method) }}
+                            </x-badge>
+                        @endif
+
                     </x-table.td>
                     <x-table.td>
                         @if($income->category_id)
@@ -130,10 +137,12 @@
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
+                            @if(!$income->cash_id)
                             <x-button danger wire:click="$emit('deleteModal', {{ $income->id }})" type="button"
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-trash"></i>
                             </x-button>
+                            @endif
                         </div>
                     </x-table.td>
                 </x-table.tr>
@@ -195,6 +204,10 @@
                     <div class="lg:w-1/2 sm:w-full px-2">
                         <x-label for="amount" :value="__('Amount')" />
                         {{ $this->income?->amount }}
+                    </div>
+                    <div class="lg:w-1/2 sm:w-full px-2">
+                        <x-label for="amount" :value="__('Payment Method')" />
+                        {{ __($this->income?->payment_method) }}
                     </div>
                     <div class="lg:w-1/2 sm:w-full px-2">
                         <x-label for="details" :value="__('Description')" />

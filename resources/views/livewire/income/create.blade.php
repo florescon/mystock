@@ -60,6 +60,18 @@
                         </select>
                         <x-input-error :messages="$errors->get('income.warehouse_id')" class="mt-2" />
                     </div>
+
+                    <div class="md:w-1/2 sm:w-full px-3">
+                        <x-label for="payment_method" :value="__('Payment Method')" required />
+                        <select
+                            class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
+                            name="payment_method" id="payment_method" wire:model="income.payment_method" required>
+                            <option value="Cash">{{ __('Cash') }}</option>
+                            <option value="Bank Transfer">{{ __('Bank Transfer') }}</option>
+                            <option value="Card">{{ __('Card') }}</option>
+                        </select>
+
+                    </div>
                     <div class="w-full px-3">
                         <x-label for="details" :value="__('Description')" />
                         <textarea
@@ -69,7 +81,7 @@
                     </div>
                 </div>
                 <div class="w-full py-3 px-3">
-                    <x-button primary type="submit" class="w-full text-center" wire:loading.attr="disabled">
+                    <x-button success type="submit" class="w-full text-center" wire:loading.attr="disabled">
                         {{ __('Create') }}
                     </x-button>
                 </div>

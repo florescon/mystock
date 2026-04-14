@@ -20,8 +20,13 @@ class Index extends Component
 
     public function render()
     {
-        $hours = SettingHour::get();
-        $hours = $hours->sortBy([ ['is_am', 'desc'], ['hour', 'asc'] ]);
+        $hours = SettingHour::get()->sortBy(function ($item) {
+            if ($item->hour == 12) {
+                return $item->is_am ? 0 : 12;
+            }
+
+            return $item->hour + ($item->is_am ? 0 : 12);
+        });
 
         return view('livewire.capture-attendance.index', compact('hours'));
     }

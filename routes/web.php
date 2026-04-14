@@ -110,6 +110,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/cash-history-print-short/{cash}', [CashHistoryController::class, 'printShort'])->name('cash-history-print-short.index');
     Route::get('/cash-history-print/{cash}', [CashHistoryController::class, 'print'])->name('cash-history-print.index');
 
+
+    Route::get('/cash-actual-print-short', [CashHistoryController::class, 'printActualShort'])->name('cash-actual-print-short.index');
+    Route::get('/cash-actual-print', [CashHistoryController::class, 'printActual'])->name('cash-actual-print.index');
+
+
     //Customers
     Route::get('customers', [CustomersController::class, 'index'])->name('customers.index');
     Route::get('customer/details/{id}', [CustomersController::class, 'show'])->name('customer.details');

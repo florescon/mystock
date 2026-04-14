@@ -165,7 +165,7 @@
               </div>
               <div class="mx-auto flex max-w-xs flex-col gap-y-6">
                 <dt class="text-base leading-7 text-gray-600">@lang('Another Payment Methods')</dt>
-                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">${{ format_currency($currentSaleOutPaymentCash) }}</dd>
+                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">${{ format_currency($currentOutPaymentCash) }}</dd>
               </div>
             </dl>
           </div>
@@ -202,6 +202,41 @@
                   </div>
 
                 </div>
+
+                <div class="mt-10">
+<div class="flex flex-wrap -mx-3 mb-6 text-center">
+
+  <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+
+    <div class="flex justify-center">
+      <x-button
+        target="_blank"
+        primary
+        class="d-print-none w-6/12 rounded-md px-3.5 py-2.5 text-sm inline-flex items-center justify-center font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+        href="{{ route('cash-actual-print-short.index') }}"
+      >
+        {{ __('Print') }}
+      </x-button>
+    </div>
+  </div>
+
+  <div class="w-full md:w-1/2 px-3">
+
+    <div class="flex justify-center">
+      <x-button
+        target="_blank"
+        secondary
+        class="d-print-none w-6/12 rounded-md px-3.5 py-2.5 text-sm inline-flex items-center justify-center font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+        href="{{ route('cash-actual-print.index') }}"
+      >
+        {{ __('Print Extended') }}
+      </x-button>
+    </div>
+  </div>
+
+</div>
+                </div>
+
             </figure>
           </div>
           @if($lastCash && $lastCash->is_processed == false)

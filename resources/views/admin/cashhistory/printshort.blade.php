@@ -26,10 +26,10 @@
         <div><span>CREADO P:</span> {{ optional($cash->user)->name }}</div>
         <br>
         <div><span>INICIAL</span> {{ $cash->initial}} </div>
-        {{-- <div><span>EFECTIVO</span> {{ $cash->total_cash + $cash->total_incomes - $cash->total_expenses }} </div> --}}
-        <div><span>TOTAL EFE.</span> {{ $cash->total_cash + $cash->initial + $cash->total_incomes - $cash->total_expenses }} </div>
+        {{-- <div><span>EFECTIVO</span> {{ $cash->total_cash + $cash->total_incomes_cash - $cash->total_expenses }} </div> --}}
+        <div><span>TOTAL EFE.</span> {{ $cash->total_cash + $cash->initial + $cash->total_incomes_cash - $cash->total_expenses }} </div>
         <br>
-        <div><span>OTROS M.</span> {{ $cash->total_other }} </div>
+        <div><span>OTROS M.</span> {{ $cash->total_other + $cash->total_incomes_other_payment }} </div>
         <br>
       </div>
     </header>
@@ -43,7 +43,7 @@
           <tr>
             <th class="desc">ID</th>
             <th style="text-align: center;">MONTO</th>
-            <th style="text-align: center;">DETALLES</th>
+            <th style="text-align: left;">DETALLES</th>
             <th style="text-align: center;">TIPO</th>
           </tr>
         </thead>
@@ -52,7 +52,7 @@
           <tr>
             <td class="desc">#{{ $expense->id }}</td>
             <td style="text-align: center;">{{ $expense->is_expense ? '-'. $expense->amount : $expense->amount}}</td>
-            <td >{{ $expense->details ?? '--' }}</td>
+            <td style="text-align: left;">{{ $expense->details ?? '--' }} <strong>{{ __($expense->payment_method) }}</strong> </td>
             <td style="text-align: center;">{{ $expense->is_expense ? 'Egreso' : 'Ingreso' }}</td>
           </tr>
           @endforeach

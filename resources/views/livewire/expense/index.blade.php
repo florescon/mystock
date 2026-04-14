@@ -139,10 +139,12 @@
                                 wire:loading.attr="disabled">
                                 <i class="fas fa-edit"></i>
                             </x-button>
-                            <x-button danger wire:click="$emit('deleteModal', {{ $expense->id }})" type="button"
-                                wire:loading.attr="disabled">
-                                <i class="fas fa-trash"></i>
-                            </x-button>
+                            @if(!$expense->cash_id)
+                                <x-button danger wire:click="$emit('deleteModal', {{ $expense->id }})" type="button"
+                                    wire:loading.attr="disabled">
+                                    <i class="fas fa-trash"></i>
+                                </x-button>
+                            @endif
                         </div>
                     </x-table.td>
                 </x-table.tr>

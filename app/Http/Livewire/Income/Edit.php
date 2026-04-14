@@ -30,6 +30,7 @@ class Edit extends Component
         'income.date'         => 'required|date',
         'income.details'      => 'nullable|string|max:255',
         'income.warehouse_id' => 'nullable',
+        'income.payment_method'      => 'required',
     ];
 
     protected $messages = [
