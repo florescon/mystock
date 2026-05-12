@@ -125,7 +125,10 @@
                                 </button>
                             </x-slot>
                             <x-slot name="content">
-                                <x-dropdown-link wire:click="$emit('deleteModal', {{ $monthlie->id }})"
+                                <x-dropdown-link 
+
+                                    wire:click="$emit('deleteModal', {{ $monthlie->id }}, '{{ optional($monthlie->customer)->name }}')"
+
                                     wire:loading.attr="disabled">
                                     <i class="fas fa-trash"></i>
                                     {{ __('Delete') }}
@@ -166,23 +169,22 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('livewire:load', function() {
-            window.livewire.on('deleteModal', monthId => {
-                Swal.fire({
-                    title: '¿Estás seguro?',
-                    text: "¡No podrás revertir esto!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: '¡Si, eliminar!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.livewire.emit('delete', monthId)
-                    }
-                })
+        window.livewire.on('deleteModal', (monthId, customerName) => {
+            Swal.fire({
+                title: `¿Eliminar mensualidad a ${customerName}?`,
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Si, eliminar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.livewire.emit('delete', monthId)
+                }
             })
         })
     </script>
+
 @endpush
 

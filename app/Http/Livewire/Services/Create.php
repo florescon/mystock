@@ -36,6 +36,7 @@ class Create extends Component
         'service.price' => 'required|integer|min:1',
         'service.service_type' => 'required',
         'service.no_attendances' => [
+            'nullable',
             'required_if:service.service_type,' . \App\Enums\ServiceType::MONTHLYPAYMENT->value,
             'integer',
             'min:1',

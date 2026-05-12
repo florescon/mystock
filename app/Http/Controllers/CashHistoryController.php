@@ -48,7 +48,7 @@ class CashHistoryController extends Controller
         $totalCash = $currentSalePaymentCash + $incomesCash - $expensesCash;
 
 
-        $sale_payments = SalePayment::query()->withoutCash()->get();
+        $sale_payments = SalePayment::query()->with('sale.customer')->withoutCash()->get();
         $expenses = Expense::query()->withoutCash()->get();
 
         $currentOutPaymentCash = $currentSaleOutPaymentCash + $incomesOutCash;
@@ -74,8 +74,8 @@ class CashHistoryController extends Controller
         $totalCash = $currentSalePaymentCash + $incomesCash - $expensesCash;
 
 
-        $sales = Sale::query()->withoutCash()->get();
-        $sale_payments = SalePayment::query()->withoutCash()->get();
+        $sales = Sale::query()->with('customer')->withoutCash()->get();
+        $sale_payments = SalePayment::query()->with('sale.customer')->withoutCash()->get();
         $expenses = Expense::query()->withoutCash()->get();
 
         $currentOutPaymentCash = $currentSaleOutPaymentCash + $incomesOutCash;
