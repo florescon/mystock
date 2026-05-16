@@ -3,7 +3,7 @@
       <div class="flex">
         <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
         <div>
-          <p class="font-bold">Mensualidades por defecto <u>mes {{ now()->translatedFormat('F') }} y 10 dias anteriores del mes de {{ now()->subMonth()->translatedFormat('F') }}</u> siempre y cuando tenga clases disponibles</p>
+          <p class="font-bold">Mensualidades por defecto <u>Activas</u>, es decir antes de la fecha de expiración.</p>
         </div>
       </div>
     </div>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="grid gap-4 grid-cols-2 items-center justify-center">
-            <div class="w-full mb-2 flex flex-wrap ">
+{{--             <div class="w-full mb-2 flex flex-wrap ">
                 <div class="w-full md:w-1/2 px-2">
                     <label>{{ __('Start Date') }} <span class="text-red-500">*</span></label>
                     <x-input wire:model="startDate" type="date" name="startDate" value="$startDate" />
@@ -39,9 +39,10 @@
                     @enderror
                 </div>
             </div>
-            <div class="gap-2 inline-flex items-center mx-0 px-2 mb-2">
-                <x-button type="button" primary wire:click="filterByType('day')">{{ __('Today') }}</x-button>
-                <x-button type="button" info wire:click="filterByType('month')">{{ __('This Month') }}</x-button>
+ --}}            <div class="gap-2 inline-flex items-center mx-0 px-2 mb-2">
+                {{-- <x-button type="button" primary wire:click="filterByType('day')">{{ __('Today') }}</x-button> --}}
+                {{-- <x-button type="button" info wire:click="filterByType('month')">{{ __('This Month') }}</x-button> --}}
+                <x-button type="button" info wire:click="filterByType('month')">Mostrar todo, incluyendo expirados</x-button>
             </div>
         </div>
     </div>
@@ -62,6 +63,9 @@
             </x-table.th>
             <x-table.th>
                 {{ __('Customer') }}
+            </x-table.th>
+            <x-table.th>
+                {{ __('Expires at') }}
             </x-table.th>
             <x-table.th>
                 {{ __('Days') }}
@@ -88,6 +92,12 @@
                     </x-table.td>
 
                     <x-table.td>
+
+                        <x-button primary wire:click="$emit('editAttendances', {{ $monthlie->id }})" type="button"
+                            wire:loading.attr="disabled">
+                            <i class="fas fa-edit"></i>
+                        </x-button>
+
                         {{ $monthlie->available_attendances }}
                     </x-table.td>
                     <x-table.td>
@@ -95,6 +105,16 @@
                     </x-table.td>
                     <x-table.td>
                         {{ optional($monthlie->customer)->name }}
+                    </x-table.td>
+                    <x-table.td>
+
+                        <x-button primary wire:click="$emit('editExpires', {{ $monthlie->id }})" type="button"
+                            wire:loading.attr="disabled">
+                            <i class="fas fa-edit"></i>
+                        </x-button>
+
+                        {!! $monthlie->expires_at_format_html !!}
+
                     </x-table.td>
                     <x-table.td>
                         <x-button primary wire:click="$emit('editModal', {{ $monthlie->id }})" type="button"
@@ -115,12 +135,12 @@
                         $ <p class="text-blue-600/100 inline-block">{{ $monthlie->sub_total }}</p>
                     </x-table.td>
                     <x-table.td>
-                        {{ $monthlie->created_at }}
+                        {{ $monthlie->created_at_format }}
                     </x-table.td>
                 </x-table.tr>
             @empty
                 <x-table.tr>
-                    <x-table.td colspan="9">
+                    <x-table.td colspan="10">
                         <div class="flex justify-center items-center">
                             <i class="fas fa-box-open text-4xl text-gray-400"></i>
                             {{ __('No results found') }}
@@ -141,7 +161,9 @@
 
     @isset($monthlie)
     <!-- Edit Modal -->
-        @livewire('monthlies.update-schedule', ['monthlie' => $monthlie])
+@livewire('monthlies.update-schedule', ['monthlie' => $monthlie], key('schedule-'.$monthlie->id))
+@livewire('monthlies.update-expires', ['monthlie' => $monthlie], key('expires-'.$monthlie->id))
+@livewire('monthlies.update-attendances', ['monthlie' => $monthlie], key('attendances-'.$monthlie->id))
     <!-- End Edit modal -->
     @endisset
 </div>

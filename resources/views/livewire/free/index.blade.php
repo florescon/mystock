@@ -72,7 +72,7 @@
                 {{ __('Subtotal') }}
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('created_at')">
-                {{ __('Date') }}
+                {{ __('Created at') }}
             </x-table.th>
         </x-slot>
 
@@ -98,7 +98,7 @@
                         $ <p class="text-blue-600/100 inline-block">{{ $free->sub_total }}</p>
                     </x-table.td>
                     <x-table.td>
-                        {{ $free->created_at }}
+                        {{ $free->created_at_format }}
                     </x-table.td>
                 </x-table.tr>
             @empty

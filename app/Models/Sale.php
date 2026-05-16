@@ -167,4 +167,13 @@ class Sale extends Model
         return $query->whereMonth('date', now()->month);
     }
 
+
+    public function hasServiceType1(): bool
+    {
+        return $this->saleDetailsService()
+            ->whereHas('service', function ($q) {
+                $q->where('service_type', 1);
+            })
+            ->exists();
+    }
 }

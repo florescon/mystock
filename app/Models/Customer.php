@@ -158,6 +158,13 @@ class Customer extends Model
                     ->value('created_at');
     }
 
+    public function lastExpires()
+    {
+        return $this->saleDetailsServices()
+                    ->latest('expires_at')
+                    ->value('expires_at');
+    }
+
     public function attendances(): HasMany
     {
         return $this->hasMany(Attendance::class, 'customer_id', 'id');

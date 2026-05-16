@@ -22,7 +22,7 @@
         <div><a href="#">{{ settings()->company_email }}</a></div>
       </div>
       <div id="project">
-        <div><span>CREADO A:</span> {{ $cash->created_at }}</div>
+        <div><span>CREADO A:</span> {{ $cash->created_at->format('d-m-Y g:i a') }}</div>
         <div><span>CREADO P:</span> {{ optional($cash->user)->name }}</div>
         <br>
         <div><span>INICIAL</span> {{ $cash->initial}} </div>

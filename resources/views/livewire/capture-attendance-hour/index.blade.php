@@ -44,19 +44,19 @@
                 <div class="mt-7 overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <tbody>
-                            @foreach($servicesToUpdate as $serv)
+                            @foreach($servicesToUpdate as $key => $serv)
                             <tr tabindex="0" class="focus:outline-none h-16 border border-gray-100 rounded">
                                 <td>
                                     <div class="ml-5">
                                         <div class="bg-gray-200 rounded-sm w-5 h-5 flex flex-shrink-0 justify-center items-center relative">
 
                                                 @php
-                                                    $checked = in_array($serv->id, $attendances);
+                                                    $checked = in_array($serv->customer_id, $attendances);
                                                 @endphp
 
                                                 <input
                                                     type="checkbox"
-                                                    wire:change="toggleAttendance({{ $serv->id }}, $event.target.checked)"
+                                                    wire:change="toggleAttendance({{ $serv->customer_id }}, $event.target.checked)"
                                                     @checked($checked)
                                                     @disabled($checked)
                                                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -73,7 +73,7 @@
                                 </td>
                                 <td class="">
                                     <div class="flex items-center pl-5">
-                                        <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ $serv->customer->name }}</p>
+                                        <p class="text-base font-medium leading-none text-gray-700 mr-2"> {{ $serv->name }}</p>
                                         &nbsp;
                                         <div class="text-red-500">{{ $serv->available_attendances }}</div>
 
@@ -128,7 +128,7 @@
                                     </div>
                                 </td> --}}
                                 <td class="pl-5">
-                                @if(in_array($serv->id, $attendances))
+                                @if(in_array($serv->customer_id, $attendances))
                                     <button class="py-3 px-3 text-sm focus:outline-none leading-none text-blue-700 bg-blue-100 rounded">Capturado</button>
                                 @endif
                                 </td>
@@ -137,7 +137,7 @@
                                 </td>
                                 <td>
 
-                                @if(in_array($serv->id, $attendances))
+                                @if(in_array($serv->customer_id, $attendances))
                                 <div x-data="{ open: false }" class="relative px-5 pt-2">
 
                                     <!-- Botón del dropdown -->
@@ -160,7 +160,7 @@
                                         class="absolute right-0 mt-2 w-24 bg-white shadow-lg rounded z-10"
                                     >
                                         <div
-                                            wire:click="deleteAttendance({{ $serv->id }})"
+                                            wire:click="deleteAttendance({{ $serv->customer_id }})"
                                             class="text-xs w-full hover:bg-red-600 py-2 px-4 cursor-pointer hover:text-white"
                                         >
                                             Eliminar

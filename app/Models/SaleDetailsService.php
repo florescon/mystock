@@ -46,7 +46,19 @@ class SaleDetailsService extends Model
         'with_days',
         'hour',
         'available_attendances',
+        'expires_at',
     ];
+
+    protected $casts = [
+        'expires_at' => 'datetime',
+    ];
+
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            $model->expires_at = now()->addDays(30);
+        });
+    }
 
     public function setWithDaysAttribute($value)
     {
@@ -86,6 +98,11 @@ class SaleDetailsService extends Model
         return $this->created_at->addYear();
     }
 
+    public function getInscriptionExpirationFormatAttribute()
+    {
+        return $this->created_at->addYear()->format('d-m-Y');
+    }
+
     public function getInscriptionRemainingAttribute()
     {
         if ($this->created_at) {
@@ -95,6 +112,34 @@ class SaleDetailsService extends Model
         }
 
         return $remaining_days;
+    }
+
+
+    public function getCreatedAtFormatAttribute()
+    {
+        return $this->created_at->format('d-m-Y');
+    }
+
+    public function getExpiresAtFormatAttribute()
+    {
+        return $this->expires_at->format('d-m-Y');
+    }
+
+    public function getExpiresAtFormatHtmlAttribute()
+    {
+        $date = $this->expires_at;
+
+        if (!$date) {
+            return null;
+        }
+
+        $formatted = $date->format('d-m-Y');
+
+        if ($date->isPast()) {
+            return "<span style='color:red'>{$formatted}</span>";
+        }
+
+        return $formatted;
     }
 
     public function service(): BelongsTo

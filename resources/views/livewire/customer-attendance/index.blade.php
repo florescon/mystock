@@ -29,6 +29,9 @@
                 {{ __('Last monthly payment') }}
             </x-table.th>
             <x-table.th>
+                Última {{ __('Expires at') }}
+            </x-table.th>
+            <x-table.th>
                 {{ __('Last visit') }}
             </x-table.th>
             <x-table.th>
@@ -50,6 +53,9 @@
                     </x-table.td>
                     <x-table.td>
                         {{ $customer->last_attendance }}
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $customer->last_expires }}
                     </x-table.td>
                     <x-table.td>
                         {{ $customer->last_time_day }}

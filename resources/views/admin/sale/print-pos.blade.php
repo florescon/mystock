@@ -211,6 +211,11 @@
                         {{ __('Amount') }}: {{ format_currency($salepayments->amount + $salepayments->tax) }}
                 </div>
             @endforeach
+            @if($sale->hasServiceType1())
+                <div class="centered" style="background-color:#fff; border: 1px dashed #000; padding: 5px; margin-bottom: 5px;">
+                    MENSUALIDAD VALIDO 30 DIAS
+                </div>
+            @endif
 
         </div>
     </div>

@@ -18,23 +18,31 @@ class Index extends Component
 
     public $search = '';
 
+    protected $queryString = ['filterType'];
+
     public function mount(SettingHour $settinghour)
     {
         $this->settinghour = SettingHour::findOrFail($settinghour->id);
     }
 
-    public function toggleAttendance($serviceId)
+    public function toggleAttendance($customerId)
     {
         $period = $this->settinghour->is_am ? 'AM' : 'PM';
         $day = strtoupper(\Carbon\Carbon::now()->locale('es')->dayName);
         $dayTime = $day . ' — ' . $this->settinghour->hour . ' ' . $period;
 
-        $serv = SaleDetailsService::findOrFail($serviceId);
-
-        $attendance = Attendance::where('sale_details_service_id', $serv->id)
+        $attendance = Attendance::where('customer_id', $customerId)
             ->where('time_day', $dayTime)
             ->whereDate('created_at', now())
             ->first();
+
+        $serv = SaleDetailsService::where('available_attendances', '>', 0)
+                                  ->where('customer_id', $customerId)
+                                  ->whereBetween('created_at', [
+                                      now()->subDays(30)->startOfDay(),
+                                      now()->endOfDay()
+                                  ])->oldest('id')->first();
+
 
         if (!$attendance) {
             // Opcional: proteger de negativos
@@ -51,18 +59,22 @@ class Index extends Component
         }
     }
 
-    public function deleteAttendance($serviceId)
+    public function deleteAttendance($customerId)
     {
         $period = $this->settinghour->is_am ? 'AM' : 'PM';
         $day = strtoupper(\Carbon\Carbon::now()->locale('es')->dayName);
         $dayTime = $day . ' — ' . $this->settinghour->hour . ' ' . $period;
 
-        $serv = SaleDetailsService::findOrFail($serviceId);
-
         $attendance = Attendance::where([
-            'sale_details_service_id' => $serv->id,
+            'customer_id' => $customerId,
             'time_day' => $dayTime,
-        ])->first();
+        ])
+        ->latest('id')
+        ->first();
+
+        $serv = SaleDetailsService::where('customer_id', $customerId)
+                                    ->where('id', $attendance->sale_details_service_id)
+                                    ->latest('id')->first();
 
         if($attendance){
             $serv->increment('available_attendances', 1);
@@ -91,28 +103,26 @@ class Index extends Component
         //     ->select('sale_details_services.*')
         //     ->with('customer');
 
-        $query = SaleDetailsService::query()
-            ->join('customers', 'customers.id', '=', 'sale_details_services.customer_id')
-            ->orderBy('customers.name', 'asc')
-            ->select('sale_details_services.*')
-            ->with('customer')
-            ->whereBetween('sale_details_services.created_at', [
-                now()->subDays(45)->startOfDay(),
-                now()->endOfDay()
-            ])
-            ->where(function ($q) use ($dayTime) {
-
-                $q->where('sale_details_services.available_attendances', '>', 0)
-
-                  ->orWhereExists(function ($sub) use ($dayTime) {
-                      $sub->select(\DB::raw(1))
-                          ->from('attendances')
-                          ->whereColumn('attendances.sale_details_service_id', 'sale_details_services.id')
-                          ->where('attendances.time_day', $dayTime)
-                          ->whereDate('attendances.created_at', now());
-                  });
-
-            });
+$query = SaleDetailsService::query()
+    ->join('customers', 'customers.id', '=', 'sale_details_services.customer_id')
+    ->where('sale_details_services.expires_at', '>=', today())
+    ->where(function ($q) use ($dayTime) {
+        $q->where('sale_details_services.available_attendances', '>', 0)
+          ->orWhereExists(function ($sub) use ($dayTime) {
+              $sub->select(\DB::raw(1))
+                  ->from('attendances')
+                  ->whereColumn('attendances.sale_details_service_id', 'sale_details_services.id')
+                  ->where('attendances.time_day', $dayTime)
+                  ->whereDate('attendances.created_at', now());
+          });
+    })
+    ->groupBy('sale_details_services.customer_id', 'customers.name')
+    ->orderBy('customers.name', 'asc')
+    ->select([
+        'sale_details_services.customer_id',
+        'customers.name',
+        \DB::raw('SUM(sale_details_services.available_attendances) as available_attendances')
+    ]);
 
         if ($this->filterType === 'horario') {
             $query->where('sale_details_services.with_days', 'like', "%$dayTime%");
@@ -130,7 +140,7 @@ class Index extends Component
 
         $attendances = \App\Models\Attendance::where('time_day', $dayTime)
             ->whereDate('created_at', Carbon::today())
-            ->pluck('sale_details_service_id')
+            ->pluck('customer_id')
             ->toArray();
 
         $servicesToUpdate = $query->get();

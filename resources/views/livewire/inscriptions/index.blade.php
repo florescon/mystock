@@ -107,10 +107,10 @@
                         {{ $inscription->inscription_remaining . ' '.__('days') }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $inscription->inscription_expiration }}
+                        {{ $inscription->inscription_expiration_format }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $inscription->created_at }}
+                        {{ $inscription->created_at_format }}
                     </x-table.td>
 
                     <x-table.td>

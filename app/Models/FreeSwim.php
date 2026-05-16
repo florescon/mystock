@@ -61,4 +61,14 @@ class FreeSwim extends Model
         return $this->belongsTo(Sale::class, 'sale_id', 'id');
     }
 
+    public function getUpdatedAtFormatAttribute()
+    {
+        return $this->updated_at->format('d-m-Y g:i a');
+    }
+
+    public function getCreatedAtFormatAttribute()
+    {
+        return $this->created_at->format('d-m-Y');
+    }
+
 }

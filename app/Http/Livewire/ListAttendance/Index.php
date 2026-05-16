@@ -59,12 +59,6 @@ class Index extends Component
         $this->perPage = 25;
         $this->paginationOptions = config('project.pagination.options');
         $this->orderable = (new SaleDetailsService())->orderable;
-        $this->startDate = Carbon::now()
-            ->subMonth()   // retrocede un mes
-            ->subDays(10)   // retrocede 10 días más
-            ->format('Y-m-d');
-
-        $this->endDate = now()->endOfDay()->format('Y-m-d');
     }
 
     public function updatedStartDate($value)
@@ -79,6 +73,8 @@ class Index extends Component
 
     public function filterByType($type)
     {
+        $this->resetPage();
+
         switch ($type) {
             case 'day':
                 $this->startDate = now()->startOfDay()->format('Y-m-d');
@@ -134,11 +130,15 @@ class Index extends Component
         // abort_if(Gate::denies('sale_access'), 403);
 
         $query = SaleDetailsService::with(['customer', 'service', 'sale'])
-            ->whereBetween('created_at', [$this->startDate, $this->endDate.' 23:59:59'])
+            ->when($this->startDate && $this->endDate, function ($q) {
+                $q;
+            }, function ($q) {
+                $q->where('expires_at', '>=', now()->startOfDay());
+            })
             ->when($this->sortField, function ($que) {
                 $que->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
             })
-            ->where('available_attendances', '>', 0)
+            ->where('available_attendances', '<>', null)
             ;
 
         $this->applySearchFilter($query);

@@ -74,7 +74,7 @@
                 {{ __('Subtotal') }}
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('created_at')">
-                {{ __('Date') }}
+                {{ __('Created at') }}
             </x-table.th>
             <x-table.th>
                 {{ __('Actions') }}
@@ -112,7 +112,7 @@
                         $ <p class="text-blue-600/100 inline-block">{{ $monthlie->sub_total }}</p>
                     </x-table.td>
                     <x-table.td>
-                        {{ $monthlie->created_at }}
+                        {{ $monthlie->created_at_format }}
                     </x-table.td>
 
                     <x-table.td>

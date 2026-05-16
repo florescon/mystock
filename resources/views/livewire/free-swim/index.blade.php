@@ -106,10 +106,10 @@
                         @endif
                     </x-table.td>
                     <x-table.td>
-                        {{ $inscription->updated_at }}
+                        {{ $inscription->updated_at_format }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $inscription->created_at }}
+                        {{ $inscription->created_at_format }}
                     </x-table.td>
                 </x-table.tr>
             @empty

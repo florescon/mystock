@@ -98,7 +98,7 @@
                         ${{ $cash->total_other }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $cash->created_at }}
+                        {{ $cash->created_at->format('d-m-Y g:i a') }}
                     </x-table.td>
                     <x-table.td>
                         @if($cash)

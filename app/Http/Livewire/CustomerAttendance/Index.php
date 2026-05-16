@@ -116,6 +116,7 @@ class Index extends Component
         ])
         ->withSum('saleDetailsServices as total_attendances', 'available_attendances')
         ->withMax('saleDetailsServices as last_attendance', 'created_at')
+        ->withMax('saleDetailsServices as last_expires', 'expires_at')
         ->addSelect([
             'last_time_day' => Attendance::select('created_at')
                 ->whereColumn('customer_id', 'customers.id')

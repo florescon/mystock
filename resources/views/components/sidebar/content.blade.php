@@ -56,7 +56,7 @@
             :active="request()->routeIs('services-free-swim.index')" />
 
         @can('category_access')
-        <x-sidebar.sublink title="{{ __('List Attendance') }}" href="{{ route('list-attendance.index') }}"
+        <x-sidebar.sublink title="{{ __('Active monthly payments') }}" href="{{ route('list-attendance.index') }}"
             :active="request()->routeIs('list-attendance.index')" />
 
         <x-sidebar.sublink title="{{ __('Customer attendances') }}" href="{{ route('customer-attendance.index') }}"

@@ -277,7 +277,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/free-swim', [ServiceController::class, 'freeSwim'])->name('services-free-swim.index');
 
-    Route::get('/servive-other', [ServiceController::class, 'other'])->name('services-other.index');
+    Route::get('/service-other', [ServiceController::class, 'other'])->name('services-other.index');
 
     Route::get('/service-format', [ExportController::class, 'serviceFormat'])->name('service-format.index');
 
