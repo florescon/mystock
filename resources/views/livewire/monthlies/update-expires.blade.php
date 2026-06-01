@@ -35,7 +35,40 @@
                         Nueva fecha vence:
                     </p>
                     <p>
-                        {{ $monthlie->expires_at->addDays($hour)->format('d-m-Y') }}
+
+                    @if($hour)
+
+                        @php
+                            $days = \Carbon\Carbon::parse($this->monthlie->created_at)
+                                ->diffInDays(\Carbon\Carbon::parse($hour), false);
+                        @endphp
+
+                        <div class="mt-2 text-center">
+
+                            @if($days < 30)
+
+                                <p class="text-sm font-semibold text-red-600">
+                                    Nueva fecha no debe ser menor a 30 días desde creado.
+                                </p>
+
+                            @else
+
+                                <p class="text-lg font-semibold text-blue-600">
+                                    Van a ser {{ $days }} días, desde creado.
+                                </p>
+
+                                <p class="text-sm text-gray-500">
+                                    Fecha final:
+                                    {{ \Carbon\Carbon::parse($hour)->format('d-m-Y') }}
+                                </p>
+
+                            @endif
+
+                        </div>
+
+                    @endif
+
+
                     </p>
                 </button>
             @else
@@ -53,45 +86,12 @@
 
                           <div class="flex">
 
-                            <select name="hour" wire:model="hour" class="bg-transparent text-xl appearance-none outline-none">
-                                <option value="" class="text-center">Dias a sumar</option>
-                                <option class="text-blue-600"
-                                    value="30">30
-                                </option>
-                                <option class="text-blue-600"
-                                    value="60">60
-                                </option>
-                                <option class="text-blue-600"
-                                    value="90">90
-                                </option>
-                                <option class="text-blue-600"
-                                    value="120">120
-                                </option>
-                                <option class="text-blue-600"
-                                    value="150">150
-                                </option>
-                                <option class="text-blue-600"
-                                    value="180">180
-                                </option>
-                                <option class="text-blue-600"
-                                    value="210">210
-                                </option>
-                                <option class="text-blue-600"
-                                    value="240">240
-                                </option>
-                                <option class="text-blue-600"
-                                    value="270">270
-                                </option>
-                                <option class="text-blue-600"
-                                    value="300">300
-                                </option>
-                                <option class="text-blue-600"
-                                    value="330">330
-                                </option>
-                                <option class="text-blue-600"
-                                    value="365">365
-                                </option>
-                            </select>
+                            <input 
+                                type="date"
+                                wire:model="hour"
+                                class="bg-transparent text-xl outline-none border rounded px-2 py-1"
+                            />
+                            
                           </div>
                         </div>
                     </div>

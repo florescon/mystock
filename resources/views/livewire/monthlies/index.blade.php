@@ -91,10 +91,36 @@
                         {{ \Illuminate\Support\Str::limit($monthlie->name, 15) }}
                     </x-table.td>
                     <x-table.td>
-                        {{ optional($monthlie->customer)->name }}
+<div class="flex items-center gap-2">
+    <span>{{ optional($monthlie->customer)->name }}</span>
+
+    <x-dropdown
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-32 p-1 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+
+        <x-slot name="trigger">
+            <button type="button"
+                class="px-4 text-base font-semibold text-gray-500 hover:text-sky-800 dark:text-slate-400 dark:hover:text-sky-400">
+                <i class="fas fa-angle-double-down"></i>
+            </button>
+        </x-slot>
+
+        <x-slot name="content">
+            <x-dropdown-link
+                wire:click="$emit('editCustomer', {{ $monthlie->id }})"
+                wire:loading.attr="disabled"
+                >
+                <i class="fas fa-person"></i>
+                Reasignar cliente
+            </x-dropdown-link>
+        </x-slot>
+    </x-dropdown>
+</div>
+
                     </x-table.td>
                     <x-table.td>
-                        <x-button primary wire:click="$emit('editModal', {{ $monthlie->id }})" type="button"
+                        <x-button primary 
+                            wire:click="$emit('editModal', {{ $monthlie->id }})" 
+                            type="button"
                             wire:loading.attr="disabled">
                             <i class="fas fa-edit"></i>
                         </x-button>
@@ -161,7 +187,8 @@
 
     @isset($monthlie)
     <!-- Edit Modal -->
-        @livewire('monthlies.update-schedule', ['monthlie' => $monthlie])
+        @livewire('monthlies.update-schedule', ['monthlie' => $monthlie], key('month-'.$monthlie->id))
+        @livewire('monthlies.update-customer', ['monthlie' => $monthlie], key('customer-'.$monthlie->id))
     <!-- End Edit modal -->
     @endisset
 </div>

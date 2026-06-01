@@ -11,6 +11,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Throwable;
 use App\Enums\Days;
+use Carbon\Carbon;
 
 class UpdateExpires extends Component
 {
@@ -55,11 +56,15 @@ class UpdateExpires extends Component
 
     public function updatedHour()
     {
-        for ($i = 1; $i <= 6; $i++){
-            $this->quantitySelectDays[$i] = $this->hour;
+
+        $days = Carbon::now()->diffInDays(Carbon::parse($this->hour), false);
+
+        for ($i = 1; $i <= 6; $i++) {
+            $this->quantitySelectDays[$i] = $days;
         }
 
         $this->desactivateMix();
+
     }
 
     public function getDaysProperty()
@@ -67,13 +72,32 @@ class UpdateExpires extends Component
         return Days::cases();
     }
 
+
     public function selectService()
     {
+
+        $newDate = Carbon::parse($this->hour);
+
+        // Fecha mínima permitida
+        $minDate = Carbon::parse($this->monthlie->created_at)
+            ->addDays(30);
+
+        // Validación
+        if ($newDate->lt($minDate)) {
+
+            $this->alert(
+                'error',
+                'La fecha debe ser mayor o igual a ' . $minDate->format('d-m-Y')
+            );
+
+            return;
+        }
+
         $this->monthlie->update([
-            'expires_at' => $this->monthlie->expires_at->addDays($this->hour),
+            'expires_at' => $newDate,
         ]);
 
-        $this->alert('success','Fecha de expiración actualizada');
+        $this->alert('success', 'Fecha de expiración actualizada');
 
         $this->emit('refreshIndex');
         // $this->resetSchedule();
