@@ -133,13 +133,10 @@ class Customer extends Model
     // Relación directa con sale_details_services (opcional, si tienes customer_id en esa tabla)
     public function saleDetailsServices()
     {
-        return $this->hasManyThrough(
+        return $this->hasMany(
             SaleDetailsService::class,
-            Sale::class,
-            'customer_id', // FK en sales
-            'sale_id',     // FK en sale_details_services
-            'id',          // PK en customers
-            'id'           // PK en sales
+            'customer_id',
+            'id'
         );
     }
 

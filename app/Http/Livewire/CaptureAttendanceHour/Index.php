@@ -95,69 +95,134 @@ $serv = SaleDetailsService::where('customer_id', $customerId)
         }
     }
 
-    public function render()
-    {
-        // Convertir AM/PM
-        $period = $this->settinghour->is_am ? 'AM' : 'PM';
+public function render()
+{
+    // Convertir AM/PM
+    $period = $this->settinghour->is_am ? 'AM' : 'PM';
+    $day = strtoupper(Carbon::now()->locale('es')->dayName);
+    $dayTime = $day . ' — ' . $this->settinghour->hour . ' ' . $period;
 
-        // Aquí puedes definir el día dinámicamente si quieres
-        $day = strtoupper(Carbon::now()->locale('es')->dayName);
+    // 1. Subconsulta para obtener el total GLOBAL por cliente sin verse afectado por los filtros
+    // Esto se ejecuta una sola vez y es súper rápido
+    $totalsQuery = \DB::table('sale_details_services')
+        ->select('customer_id', \DB::raw('SUM(available_attendances) as total_global_attendances'))
+        ->groupBy('customer_id');
 
-        // Construir el string dinámico
-        $dayTime = $day . ' — ' . $this->settinghour->hour . ' ' . $period;
+    // 2. Consulta principal
+    $query = SaleDetailsService::query()
+        ->join('customers', 'customers.id', '=', 'sale_details_services.customer_id')
+        // Unimos la subconsulta de totales globales mediante un LEFT JOIN
+        ->leftJoinSub($totalsQuery, 'totals', function ($join) {
+            $join->on('sale_details_services.customer_id', '=', 'totals.customer_id');
+        })
+        ->where('sale_details_services.expires_at', '>=', today())
+        ->where(function ($q) use ($dayTime) {
+            $q->where('sale_details_services.available_attendances', '>', 0)
+              ->orWhereExists(function ($sub) use ($dayTime) {
+                  $sub->select(\DB::raw(1))
+                      ->from('attendances')
+                      ->whereColumn('attendances.sale_details_service_id', 'sale_details_services.id')
+                      ->where('attendances.time_day', $dayTime)
+                      ->whereDate('attendances.created_at', now());
+              });
+        })
+        ->groupBy('sale_details_services.customer_id', 'customers.name', 'totals.total_global_attendances')
+        ->orderBy('customers.name', 'asc')
+        ->select([
+            'sale_details_services.customer_id',
+            'customers.name',
+            // Traemos el alias que no se ve afectado por el WHERE de la consulta principal
+            \DB::raw('COALESCE(totals.total_global_attendances, 0) as available_attendances')
+        ]);
 
-        // Obtenemos todos los registros que tienen este día/hora en 'with_days'
-        // $servicesToUpdate = SaleDetailsService::with('customer')->where('with_days', 'like', "%$dayTime%")->where('available_attendances', '>', 0)->get();
-
-        // $query = SaleDetailsService::query()
-        //     ->join('customers', 'customers.id', '=', 'sale_details_services.customer_id')
-        //     ->where('sale_details_services.available_attendances', '>', 0)
-        //     ->orderBy('customers.name', 'asc')
-        //     ->select('sale_details_services.*')
-        //     ->with('customer');
-
-$query = SaleDetailsService::query()
-    ->join('customers', 'customers.id', '=', 'sale_details_services.customer_id')
-    ->where('sale_details_services.expires_at', '>=', today())
-    ->where(function ($q) use ($dayTime) {
-        $q->where('sale_details_services.available_attendances', '>', 0)
-          ->orWhereExists(function ($sub) use ($dayTime) {
-              $sub->select(\DB::raw(1))
-                  ->from('attendances')
-                  ->whereColumn('attendances.sale_details_service_id', 'sale_details_services.id')
-                  ->where('attendances.time_day', $dayTime)
-                  ->whereDate('attendances.created_at', now());
-          });
-    })
-    ->groupBy('sale_details_services.customer_id', 'customers.name')
-    ->orderBy('customers.name', 'asc')
-    ->select([
-        'sale_details_services.customer_id',
-        'customers.name',
-        \DB::raw('SUM(sale_details_services.available_attendances) as available_attendances')
-    ]);
-
-        if ($this->filterType === 'horario') {
-            $query->where('sale_details_services.with_days', 'like', "%$dayTime%");
-        }
-        elseif($this->filterType === 'buscar'){
-
-            $query->where(function ($q) {
-                $q->where('customers.name', 'like', '%' . $this->search . '%')
-                  ->orWhere('sale_details_services.with_days', 'like', '%' . $this->search . '%');
-            });    
-        }
-        else{
-            $query->where('sale_details_services.with_days', '>> HORARIO MIXTO');
-        }
-
-        $attendances = \App\Models\Attendance::where('time_day', $dayTime)
-            ->whereDate('created_at', Carbon::today())
-            ->pluck('customer_id')
-            ->toArray();
-
-        $servicesToUpdate = $query->get();
-
-        return view('livewire.capture-attendance-hour.index', compact('servicesToUpdate', 'attendances'));
+    // --- Tus filtros se quedan exactamente igual ---
+    if ($this->filterType === 'horario') {
+        $query->where('sale_details_services.with_days', 'like', "%$dayTime%");
     }
+    elseif($this->filterType === 'buscar'){
+        $query->where(function ($q) {
+            $q->where('customers.name', 'like', '%' . $this->search . '%')
+              ->orWhere('sale_details_services.with_days', 'like', '%' . $this->search . '%');
+        });    
+    }
+    else{
+        $query->where('sale_details_services.with_days', '>> HORARIO MIXTO');
+    }
+
+    $attendances = \App\Models\Attendance::where('time_day', $dayTime)
+        ->whereDate('created_at', Carbon::today())
+        ->pluck('customer_id')
+        ->toArray();
+
+    $servicesToUpdate = $query->get();
+
+    return view('livewire.capture-attendance-hour.index', compact('servicesToUpdate', 'attendances'));
+}
+
+
+//     public function render()
+//     {
+//         // Convertir AM/PM
+//         $period = $this->settinghour->is_am ? 'AM' : 'PM';
+
+//         // Aquí puedes definir el día dinámicamente si quieres
+//         $day = strtoupper(Carbon::now()->locale('es')->dayName);
+
+//         // Construir el string dinámico
+//         $dayTime = $day . ' — ' . $this->settinghour->hour . ' ' . $period;
+
+//         // Obtenemos todos los registros que tienen este día/hora en 'with_days'
+//         // $servicesToUpdate = SaleDetailsService::with('customer')->where('with_days', 'like', "%$dayTime%")->where('available_attendances', '>', 0)->get();
+
+//         // $query = SaleDetailsService::query()
+//         //     ->join('customers', 'customers.id', '=', 'sale_details_services.customer_id')
+//         //     ->where('sale_details_services.available_attendances', '>', 0)
+//         //     ->orderBy('customers.name', 'asc')
+//         //     ->select('sale_details_services.*')
+//         //     ->with('customer');
+
+// $query = SaleDetailsService::query()
+//     ->join('customers', 'customers.id', '=', 'sale_details_services.customer_id')
+//     ->where('sale_details_services.expires_at', '>=', today())
+//     ->where(function ($q) use ($dayTime) {
+//         $q->where('sale_details_services.available_attendances', '>', 0)
+//           ->orWhereExists(function ($sub) use ($dayTime) {
+//               $sub->select(\DB::raw(1))
+//                   ->from('attendances')
+//                   ->whereColumn('attendances.sale_details_service_id', 'sale_details_services.id')
+//                   ->where('attendances.time_day', $dayTime)
+//                   ->whereDate('attendances.created_at', now());
+//           });
+//     })
+//     ->groupBy('sale_details_services.customer_id', 'customers.name')
+//     ->orderBy('customers.name', 'asc')
+//     ->select([
+//         'sale_details_services.customer_id',
+//         'customers.name',
+//         \DB::raw('SUM(sale_details_services.available_attendances) as available_attendances')
+//     ]);
+
+//         if ($this->filterType === 'horario') {
+//             $query->where('sale_details_services.with_days', 'like', "%$dayTime%");
+//         }
+//         elseif($this->filterType === 'buscar'){
+
+//             $query->where(function ($q) {
+//                 $q->where('customers.name', 'like', '%' . $this->search . '%')
+//                   ->orWhere('sale_details_services.with_days', 'like', '%' . $this->search . '%');
+//             });    
+//         }
+//         else{
+//             $query->where('sale_details_services.with_days', '>> HORARIO MIXTO');
+//         }
+
+//         $attendances = \App\Models\Attendance::where('time_day', $dayTime)
+//             ->whereDate('created_at', Carbon::today())
+//             ->pluck('customer_id')
+//             ->toArray();
+
+//         $servicesToUpdate = $query->get();
+
+//         return view('livewire.capture-attendance-hour.index', compact('servicesToUpdate', 'attendances'));
+//     }
 }
