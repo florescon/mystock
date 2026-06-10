@@ -36,12 +36,25 @@ class Index extends Component
             ->whereDate('created_at', now())
             ->first();
 
-        $serv = SaleDetailsService::where('available_attendances', '>', 0)
-                                  ->where('customer_id', $customerId)
-                                  ->whereBetween('created_at', [
-                                      now()->subDays(30)->startOfDay(),
-                                      now()->endOfDay()
-                                  ])->oldest('id')->first();
+
+$serv = SaleDetailsService::where('customer_id', $customerId)
+    ->where('expires_at', '>=', today())
+    ->where(function ($q) use ($dayTime) {
+        $q->where('available_attendances', '>', 0)
+          ->orWhereExists(function ($sub) use ($dayTime) {
+              $sub->select(\DB::raw(1))
+                  ->from('attendances')
+                  ->whereColumn(
+                      'attendances.sale_details_service_id',
+                      'sale_details_services.id'
+                  )
+                  ->where('attendances.time_day', $dayTime)
+                  ->whereDate('attendances.created_at', now());
+          });
+    })
+    ->oldest('id')
+    ->first();
+
 
 
         if (!$attendance) {
