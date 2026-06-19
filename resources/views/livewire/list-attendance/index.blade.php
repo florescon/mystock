@@ -39,7 +39,8 @@
                     @enderror
                 </div>
             </div>
- --}}            <div class="gap-2 inline-flex items-center mx-0 px-2 mb-2">
+ --}}                        
+            <div class="flex flex-col md:flex-row gap-2 px-2">
                 {{-- <x-button type="button" primary wire:click="filterByType('day')">{{ __('Today') }}</x-button> --}}
                 {{-- <x-button type="button" info wire:click="filterByType('month')">{{ __('This Month') }}</x-button> --}}
                 <x-button type="button" info wire:click="filterByType('month')">Mostrar todo, incluyendo expirados</x-button>

@@ -24,8 +24,8 @@
 
     </div>
 
-      <div class="container mt-9 mx-auto">
-            <table class="table">
+        <div class="mt-9 overflow-x-auto">
+            <table class="table w-full min-w-max">
                 <thead>
                     <th>
                     </th>

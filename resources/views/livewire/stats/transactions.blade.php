@@ -74,13 +74,18 @@
             </div>
         @endcan
     </div>
-    <div class="grid grid-cols-2 gap-4">
-        <div class="w-full mx-4 pb-2 mb-2 bg-white relative">
-            <div class="w-full px-4 justify-between items-center">
-                <h3>{{ __('Daily Sales and Purchases') }}</h3>
-            </div>
-            <div id="daily-chart"></div>
-        </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+<div class="w-full px-2 sm:px-4 pb-2 mb-2 bg-white relative rounded-lg shadow">
+    <div class="w-full flex justify-between items-center mb-3">
+        <h3 class="text-sm sm:text-lg font-semibold">
+            {{ __('Daily Sales and Purchases') }}
+        </h3>
+    </div>
+
+    <div class="w-full overflow-x-auto">
+        <div id="daily-chart" class="min-w-[320px]"></div>
+    </div>
+</div>
         <div class="w-full mx-4 pb-2 bg-white relative">
             <div class="w-full px-4 justify-between items-center">
                 <h3>{{ __('Monthly Cash Flow (Payment Sent & Received)') }}</h3>
@@ -95,11 +100,11 @@
         </div>
     </div>
     <div class="p-2 w-full">
-        <div class="bg-white rounded-lg border border-gray-200 pb-2">
+        <div class="bg-white rounded-lg border border-gray-200 pb-2 overflow-x-auto">
             <div class="py-3 px-5 mb-3 w-full inline-flex itees-center justify-between">
                 <span class="text-md font-semibold text-gray-700">{{ __('Recent Sales') }}</span>
             </div>
-            <table class="table">
+            <table class="table w-full min-w-max">
                 <thead>
                     <tr>
                         <th class="text-left px-4">{{ __('Customer') }}</th>
@@ -132,11 +137,11 @@
     </div>
 
     <div class="p-2 w-full">
-        <div class="bg-white rounded-lg border border-gray-200 pb-2">
+        <div class="bg-white rounded-lg border border-gray-200 pb-2 overflow-x-auto">
             <div class="py-3 px-5 mb-3 w-full inline-flex items-center justify-between">
                 <span class="text-md font-semibold text-gray-700">{{ __('Recent Purchases') }}</span>
             </div>
-            <table class="table">
+            <table class="table w-full min-w-max">
                 <thead>
                     <tr>
                         <th class="text-left px-4">{{ __('Supplier') }}</th>
@@ -178,11 +183,11 @@
 
     <div class="flex flex-wrap">
         <div class="sm:w-1/2 w-full p-2">
-            <div class="bg-white rounded-lg border border-gray-200 pb-2">
+            <div class="bg-white rounded-lg border border-gray-200 pb-2 overflow-x-auto">
                 <div class="py-3 px-5 w-full inline-flex items-center justify-between text-gray-700">
                     <span class="text-md font-semibold">{{ __('Top 5 Sellers in') }} {{ now()->format('F') }}</span>
                 </div>
-                <table class="table">
+                <table class="table w-full min-w-max">
                     <thead>
                         <tr>
                             <th>{{ __('Seller') }}</th>
@@ -206,11 +211,11 @@
         </div>
 
         <div class="sm:w-1/2 w-full p-2">
-            <div class="bg-white rounded-lg border border-gray-200 pb-2">
+            <div class="bg-white rounded-lg border border-gray-200 pb-2 overflow-x-auto">
                 <div class="py-3 px-5 w-full inline-flex items-center justify-between text-gray-700">
                     <span class="text-md font-semibold">{{ __('Top Products in') }} {{ now()->format('F') }}</span>
                 </div>
-                <table class="table">
+                <table class="table w-full min-w-max">
                     <thead>
                         <tr>
                             <th>{{ __('Product Name') }}</th>

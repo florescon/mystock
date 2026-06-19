@@ -34,7 +34,7 @@
                 <x-input wire:model.debounce.500ms="search" placeholder="{{ __('Search') }}" autofocus />
             </div>
         </div>
-        <div class="grid gap-4 grid-cols-2 justify-center mb-2">
+        <div class="grid gap-4 grid-cols-2 items-center justify-center">
             <div class="w-full flex flex-wrap">
                 <div class="w-full md:w-1/2 px-2">
                     <label>{{ __('Start Date') }} <span class="text-red-500">*</span></label>
@@ -51,7 +51,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="gap-2 inline-flex items-center mx-0 px-2">
+            <div class="flex flex-col md:flex-row gap-2 px-2">
                 <x-button type="button" primary wire:click="filterByType('day')">{{ __('Today') }}</x-button>
                 <x-button type="button" info wire:click="filterByType('month')">{{ __('This Month') }}</x-button>
                 <x-button type="button" warning wire:click="filterByType('year')">{{ __('This Year') }}</x-button>

@@ -131,15 +131,11 @@
             </div>
         @endif
     </div>
-    <div class="flex flex-wrap my-2 gap-2">
+    <div class="flex flex-wrap gap-2 my-2 justify-center md:justify-start">
         <x-chips label="{{ __('Products') }}" shade="dark" color="red" />
-
         <x-chips label="{{ __('Customers') }}" shade="dark" color="yellow" />
-
         <x-chips label="{{ __('Suppliers') }}" shade="dark" color="green" />
-
         <x-chips label="{{ __('Sales') }}" shade="dark" color="blue" />
-
         <x-chips label="{{ __('Purchases') }}" shade="dark" color="cyan" />
     </div>
 </div>

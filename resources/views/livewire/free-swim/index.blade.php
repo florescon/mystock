@@ -39,11 +39,21 @@
                     @enderror
                 </div>
             </div>
-            <div class="gap-2 inline-flex items-center mx-0 px-2 mb-2">
-                <x-button type="button" primary wire:click="filterByType('day')">{{ __('Today') }}</x-button>
-                <x-button type="button" info wire:click="filterByType('month')">{{ __('This Month') }}</x-button>
-                <x-button type="button" warning wire:click="filterByType('year')">{{ __('This Year') }}</x-button>
+
+            <div class="flex flex-col md:flex-row gap-2 px-2">
+                <x-button class="w-full md:w-auto" type="button" primary wire:click="filterByType('day')">
+                    {{ __('Today') }}
+                </x-button>
+
+                <x-button class="w-full md:w-auto" type="button" info wire:click="filterByType('month')">
+                    {{ __('This Month') }}
+                </x-button>
+
+                <x-button class="w-full md:w-auto" type="button" warning wire:click="filterByType('year')">
+                    {{ __('This Year') }}
+                </x-button>
             </div>
+            
         </div>
     </div>
 
