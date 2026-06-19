@@ -109,18 +109,22 @@ class Index extends Component
     {
         abort_if(Gate::denies('customer_access'), 403);
 
-        $query = Customer::advancedFilter([
+    $query = Customer::advancedFilter([
             's'               => $this->search ?: null,
             'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ])
-        ->withSum('saleDetailsServices as total_attendances', 'available_attendances')
+        ->withSum([
+            'saleDetailsServices as total_attendances' => function ($query) {
+                $query->whereDate('expires_at', '>=', today());
+            }
+        ], 'available_attendances')
         ->withMax('saleDetailsServices as last_attendance', 'created_at')
         ->withMax('saleDetailsServices as last_expires', 'expires_at')
         ->addSelect([
             'last_time_day' => Attendance::select('created_at')
                 ->whereColumn('customer_id', 'customers.id')
-                ->latest('id') // o 'time_day' si ese define el orden real
+                ->latest('id')
                 ->limit(1)
         ]);
 

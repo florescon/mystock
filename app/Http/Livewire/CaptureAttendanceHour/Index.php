@@ -104,8 +104,14 @@ public function render()
 
     // 1. Subconsulta para obtener el total GLOBAL por cliente sin verse afectado por los filtros
     // Esto se ejecuta una sola vez y es súper rápido
+
     $totalsQuery = \DB::table('sale_details_services')
-        ->select('customer_id', \DB::raw('SUM(available_attendances) as total_global_attendances'))
+        ->select(
+            'customer_id',
+            \DB::raw('SUM(available_attendances) as total_global_attendances')
+        )
+        ->where('expires_at', '>=', today())
+        ->where('available_attendances', '>', 0)
         ->groupBy('customer_id');
 
     // 2. Consulta principal
